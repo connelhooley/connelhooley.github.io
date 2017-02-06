@@ -3076,7 +3076,7 @@ pre {
   overflow-y: scroll; }
 
 .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-.post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+.post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -3084,42 +3084,42 @@ pre {
   padding-left: 15px; }
   @media (min-width: 576px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       padding-right: 15px;
       padding-left: 15px; } }
   @media (min-width: 768px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       padding-right: 15px;
       padding-left: 15px; } }
   @media (min-width: 992px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       padding-right: 15px;
       padding-left: 15px; } }
   @media (min-width: 1200px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       padding-right: 15px;
       padding-left: 15px; } }
   @media (min-width: 576px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       width: 540px;
       max-width: 100%; } }
   @media (min-width: 768px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       width: 720px;
       max-width: 100%; } }
   @media (min-width: 992px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       width: 960px;
       max-width: 100%; } }
   @media (min-width: 1200px) {
     .container, .site-header .site-header-content, .header .header-content, .home .content .description-wrapper, .home .actions .buttons-wrapper, .blog-list, .subscribe, .post .post-body,
-    .post .post-comments, .projects .project-list, .experiences .experience-list, .tag-wrapper {
+    .post .post-comments, .page .page-content, .projects .project-list, .experiences .experience-list, .tag-wrapper {
       width: 1140px;
       max-width: 100%; } }
 
@@ -5322,7 +5322,7 @@ tbody.collapse.show {
     position: static;
     float: none; }
   .navbar-toggleable > .container, .site-header .navbar-toggleable > .site-header-content, .header .navbar-toggleable > .header-content, .home .content .navbar-toggleable > .description-wrapper, .home .actions .navbar-toggleable > .buttons-wrapper, .navbar-toggleable > .blog-list, .navbar-toggleable > .subscribe, .post .navbar-toggleable > .post-body,
-  .post .navbar-toggleable > .post-comments, .projects .navbar-toggleable > .project-list, .experiences .navbar-toggleable > .experience-list, .navbar-toggleable > .tag-wrapper {
+  .post .navbar-toggleable > .post-comments, .page .navbar-toggleable > .page-content, .projects .navbar-toggleable > .project-list, .experiences .navbar-toggleable > .experience-list, .navbar-toggleable > .tag-wrapper {
     padding-right: 0;
     padding-left: 0; } }
 @media (min-width: 576px) {
@@ -5336,7 +5336,7 @@ tbody.collapse.show {
         padding-right: .5rem;
         padding-left: .5rem; }
     .navbar-toggleable > .container, .site-header .navbar-toggleable > .site-header-content, .header .navbar-toggleable > .header-content, .home .content .navbar-toggleable > .description-wrapper, .home .actions .navbar-toggleable > .buttons-wrapper, .navbar-toggleable > .blog-list, .navbar-toggleable > .subscribe, .post .navbar-toggleable > .post-body,
-    .post .navbar-toggleable > .post-comments, .projects .navbar-toggleable > .project-list, .experiences .navbar-toggleable > .experience-list, .navbar-toggleable > .tag-wrapper {
+    .post .navbar-toggleable > .post-comments, .page .navbar-toggleable > .page-content, .projects .navbar-toggleable > .project-list, .experiences .navbar-toggleable > .experience-list, .navbar-toggleable > .tag-wrapper {
       display: flex;
       flex-wrap: nowrap;
       align-items: center; }
@@ -5350,7 +5350,7 @@ tbody.collapse.show {
     position: static;
     float: none; }
   .navbar-toggleable-sm > .container, .site-header .navbar-toggleable-sm > .site-header-content, .header .navbar-toggleable-sm > .header-content, .home .content .navbar-toggleable-sm > .description-wrapper, .home .actions .navbar-toggleable-sm > .buttons-wrapper, .navbar-toggleable-sm > .blog-list, .navbar-toggleable-sm > .subscribe, .post .navbar-toggleable-sm > .post-body,
-  .post .navbar-toggleable-sm > .post-comments, .projects .navbar-toggleable-sm > .project-list, .experiences .navbar-toggleable-sm > .experience-list, .navbar-toggleable-sm > .tag-wrapper {
+  .post .navbar-toggleable-sm > .post-comments, .page .navbar-toggleable-sm > .page-content, .projects .navbar-toggleable-sm > .project-list, .experiences .navbar-toggleable-sm > .experience-list, .navbar-toggleable-sm > .tag-wrapper {
     padding-right: 0;
     padding-left: 0; } }
 @media (min-width: 768px) {
@@ -5364,7 +5364,7 @@ tbody.collapse.show {
         padding-right: .5rem;
         padding-left: .5rem; }
     .navbar-toggleable-sm > .container, .site-header .navbar-toggleable-sm > .site-header-content, .header .navbar-toggleable-sm > .header-content, .home .content .navbar-toggleable-sm > .description-wrapper, .home .actions .navbar-toggleable-sm > .buttons-wrapper, .navbar-toggleable-sm > .blog-list, .navbar-toggleable-sm > .subscribe, .post .navbar-toggleable-sm > .post-body,
-    .post .navbar-toggleable-sm > .post-comments, .projects .navbar-toggleable-sm > .project-list, .experiences .navbar-toggleable-sm > .experience-list, .navbar-toggleable-sm > .tag-wrapper {
+    .post .navbar-toggleable-sm > .post-comments, .page .navbar-toggleable-sm > .page-content, .projects .navbar-toggleable-sm > .project-list, .experiences .navbar-toggleable-sm > .experience-list, .navbar-toggleable-sm > .tag-wrapper {
       display: flex;
       flex-wrap: nowrap;
       align-items: center; }
@@ -5378,7 +5378,7 @@ tbody.collapse.show {
     position: static;
     float: none; }
   .navbar-toggleable-md > .container, .site-header .navbar-toggleable-md > .site-header-content, .header .navbar-toggleable-md > .header-content, .home .content .navbar-toggleable-md > .description-wrapper, .home .actions .navbar-toggleable-md > .buttons-wrapper, .navbar-toggleable-md > .blog-list, .navbar-toggleable-md > .subscribe, .post .navbar-toggleable-md > .post-body,
-  .post .navbar-toggleable-md > .post-comments, .projects .navbar-toggleable-md > .project-list, .experiences .navbar-toggleable-md > .experience-list, .navbar-toggleable-md > .tag-wrapper {
+  .post .navbar-toggleable-md > .post-comments, .page .navbar-toggleable-md > .page-content, .projects .navbar-toggleable-md > .project-list, .experiences .navbar-toggleable-md > .experience-list, .navbar-toggleable-md > .tag-wrapper {
     padding-right: 0;
     padding-left: 0; } }
 @media (min-width: 992px) {
@@ -5392,7 +5392,7 @@ tbody.collapse.show {
         padding-right: .5rem;
         padding-left: .5rem; }
     .navbar-toggleable-md > .container, .site-header .navbar-toggleable-md > .site-header-content, .header .navbar-toggleable-md > .header-content, .home .content .navbar-toggleable-md > .description-wrapper, .home .actions .navbar-toggleable-md > .buttons-wrapper, .navbar-toggleable-md > .blog-list, .navbar-toggleable-md > .subscribe, .post .navbar-toggleable-md > .post-body,
-    .post .navbar-toggleable-md > .post-comments, .projects .navbar-toggleable-md > .project-list, .experiences .navbar-toggleable-md > .experience-list, .navbar-toggleable-md > .tag-wrapper {
+    .post .navbar-toggleable-md > .post-comments, .page .navbar-toggleable-md > .page-content, .projects .navbar-toggleable-md > .project-list, .experiences .navbar-toggleable-md > .experience-list, .navbar-toggleable-md > .tag-wrapper {
       display: flex;
       flex-wrap: nowrap;
       align-items: center; }
@@ -5406,7 +5406,7 @@ tbody.collapse.show {
     position: static;
     float: none; }
   .navbar-toggleable-lg > .container, .site-header .navbar-toggleable-lg > .site-header-content, .header .navbar-toggleable-lg > .header-content, .home .content .navbar-toggleable-lg > .description-wrapper, .home .actions .navbar-toggleable-lg > .buttons-wrapper, .navbar-toggleable-lg > .blog-list, .navbar-toggleable-lg > .subscribe, .post .navbar-toggleable-lg > .post-body,
-  .post .navbar-toggleable-lg > .post-comments, .projects .navbar-toggleable-lg > .project-list, .experiences .navbar-toggleable-lg > .experience-list, .navbar-toggleable-lg > .tag-wrapper {
+  .post .navbar-toggleable-lg > .post-comments, .page .navbar-toggleable-lg > .page-content, .projects .navbar-toggleable-lg > .project-list, .experiences .navbar-toggleable-lg > .experience-list, .navbar-toggleable-lg > .tag-wrapper {
     padding-right: 0;
     padding-left: 0; } }
 @media (min-width: 1200px) {
@@ -5420,7 +5420,7 @@ tbody.collapse.show {
         padding-right: .5rem;
         padding-left: .5rem; }
     .navbar-toggleable-lg > .container, .site-header .navbar-toggleable-lg > .site-header-content, .header .navbar-toggleable-lg > .header-content, .home .content .navbar-toggleable-lg > .description-wrapper, .home .actions .navbar-toggleable-lg > .buttons-wrapper, .navbar-toggleable-lg > .blog-list, .navbar-toggleable-lg > .subscribe, .post .navbar-toggleable-lg > .post-body,
-    .post .navbar-toggleable-lg > .post-comments, .projects .navbar-toggleable-lg > .project-list, .experiences .navbar-toggleable-lg > .experience-list, .navbar-toggleable-lg > .tag-wrapper {
+    .post .navbar-toggleable-lg > .post-comments, .page .navbar-toggleable-lg > .page-content, .projects .navbar-toggleable-lg > .project-list, .experiences .navbar-toggleable-lg > .experience-list, .navbar-toggleable-lg > .tag-wrapper {
       display: flex;
       flex-wrap: nowrap;
       align-items: center; }
@@ -5437,7 +5437,7 @@ tbody.collapse.show {
     position: static;
     float: none; }
   .navbar-toggleable-xl > .container, .site-header .navbar-toggleable-xl > .site-header-content, .header .navbar-toggleable-xl > .header-content, .home .content .navbar-toggleable-xl > .description-wrapper, .home .actions .navbar-toggleable-xl > .buttons-wrapper, .navbar-toggleable-xl > .blog-list, .navbar-toggleable-xl > .subscribe, .post .navbar-toggleable-xl > .post-body,
-  .post .navbar-toggleable-xl > .post-comments, .projects .navbar-toggleable-xl > .project-list, .experiences .navbar-toggleable-xl > .experience-list, .navbar-toggleable-xl > .tag-wrapper {
+  .post .navbar-toggleable-xl > .post-comments, .page .navbar-toggleable-xl > .page-content, .projects .navbar-toggleable-xl > .project-list, .experiences .navbar-toggleable-xl > .experience-list, .navbar-toggleable-xl > .tag-wrapper {
     padding-right: 0;
     padding-left: 0; }
   .navbar-toggleable-xl .navbar-nav {
@@ -5446,7 +5446,7 @@ tbody.collapse.show {
       padding-right: .5rem;
       padding-left: .5rem; }
   .navbar-toggleable-xl > .container, .site-header .navbar-toggleable-xl > .site-header-content, .header .navbar-toggleable-xl > .header-content, .home .content .navbar-toggleable-xl > .description-wrapper, .home .actions .navbar-toggleable-xl > .buttons-wrapper, .navbar-toggleable-xl > .blog-list, .navbar-toggleable-xl > .subscribe, .post .navbar-toggleable-xl > .post-body,
-  .post .navbar-toggleable-xl > .post-comments, .projects .navbar-toggleable-xl > .project-list, .experiences .navbar-toggleable-xl > .experience-list, .navbar-toggleable-xl > .tag-wrapper {
+  .post .navbar-toggleable-xl > .post-comments, .page .navbar-toggleable-xl > .page-content, .projects .navbar-toggleable-xl > .project-list, .experiences .navbar-toggleable-xl > .experience-list, .navbar-toggleable-xl > .tag-wrapper {
     display: flex;
     flex-wrap: nowrap;
     align-items: center; }
@@ -9172,6 +9172,9 @@ body {
     .technology .header .content {
       font-size: 2.5rem; } }
 
+.layout-header-only .header {
+  margin-bottom: 0; }
+
 .site-footer {
   padding: 1rem 0;
   margin: 0;
@@ -9398,6 +9401,16 @@ body {
     .post .post-body,
     .post .post-comments {
       padding-bottom: 2rem; } }
+
+.page .page-content {
+  padding-bottom: 3rem;
+  margin-bottom: 3rem; }
+  @media (max-width: 991px) {
+    .page .page-content {
+      padding-bottom: 2rem; } }
+  @media (max-width: 991px) {
+    .page .page-content {
+      margin-bottom: 2rem; } }
 
 .projects .project-list .project-list-content {
   display: flex;
