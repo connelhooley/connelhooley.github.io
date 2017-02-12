@@ -7,7 +7,7 @@ $(function() {
     });
     $('.highlight').each(function(i, e) {
         $e = $(e);
-        $button = $('<button class="button copy">');
+        $button = $('<button class="copy-button copy">');
         $button.html('<i class="fa fa-clipboard"></i>')
         $e.append($button);
     });
