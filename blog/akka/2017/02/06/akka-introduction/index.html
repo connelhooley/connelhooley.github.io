@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Connel Hooley - Akka Introduction</title>
+  <meta name="description" content="This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you ...">
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="canonical" href="/blog/akka/2017/02/06/akka-introduction/">
+  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+  <meta name="theme-color" content="#f8bb15">
+
+  <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@connel_dev">
+<meta name="twitter:creator" content="@connel_dev">
+
+<meta name="twitter:title" content="Akka Introduction">
+<meta property="og:title" content="Akka Introduction" />
+
+
+<meta name="twitter:url" content="/blog/akka/2017/02/06/akka-introduction/">
+<meta property="og:url" content="/blog/akka/2017/02/06/akka-introduction/" />
+
+
+<meta name="twitter:description" content="This post will briefly introduce you to the Akka framework.">
+<meta name="og:description" content="This post will briefly introduce you to the Akka framework.">
+
+
+<meta property="og:type" content="website" />
+  
+</head>
+
+  <body class="layout-post">
+    <header class="site-header" role="banner">
+  <div class="site-header-content">
+    <div class="site-nav-wrapper">
+      <nav class="site-nav navbar navbar-toggleable-md" role="navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <a class="navbar-brand" href="/"><span class="logo">{C.H}</span></a>
+        
+        <div class="collapse navbar-collapse" id="collapseNavbar">
+          <div class="nav navbar-nav ml-auto">
+            <a id="blog-link" class="nav-item nav-link" href="/blog/">Blog</a>
+            
+            
+              
+                
+                
+                
+                  <a id="projects-link" class="nav-item nav-link" href="/projects/">Projects</a>
+                
+              
+            
+              
+                
+                
+                
+                  <a id="experiences-link" class="nav-item nav-link" href="/experience/">Experience</a>
+                
+              
+            
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <main class="site-content" aria-label="Content">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="header">
+    <div class="header-content">
+        <h1 class="title" itemprop="name headline">Akka Introduction</h1>
+        
+            <div class="content description">
+                This post will briefly introduce you to the Akka framework.
+            </div>
+        
+        
+        
+            <div class="content">
+                <time datetime="2017-02-06T20:00:00+00:00" itemprop="datePublished">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">06/02/2017</span>
+                </time>
+            </div>
+            <div class="content">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 2  minutes
+            </div>
+        
+        
+        
+            <div class="content">
+                
+<a href="/language/c-sharp"><span class="tag"><i class="fa fa-code" aria-hidden="true"></i>&nbsp;C#</span></a>
+
+
+<a href="/technology/akka-dot-net"><span class="tag"><i class="fa fa-tag" aria-hidden="true"></i>&nbsp;Akka.NET</span></a>
+
+            </div>
+        
+    </div>
+</header>
+  <div class="post-body">
+    <div class="post-toc">
+      <h3 class="toc-title">Contents</h3>
+      <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction-h1">Introduction H1</a></li>
+<li class="toc-entry toc-h2"><a href="#h2">H2</a></li>
+<li class="toc-entry toc-h3"><a href="#h3">H3</a></li>
+<li class="toc-entry toc-h1"><a href="#example-h1">Example H1</a></li>
+</ul>
+    </div>
+    <div class="post-content" itemprop="articleBody">
+      <p>This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework.</p>
+
+<h1 id="introduction-h1">Introduction H1</h1>
+<p><a href="#h2">Link to next section</a></p>
+
+<p>This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework. This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Modality.Node.Shared.Models</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DialPlanInstruction</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">DialPlanStep</span> <span class="n">Step</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Destination</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">TimeSpan</span> <span class="n">Duration</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DialPlanInstructionType</span> <span class="n">DialPlanInstructionType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">DialPlanInstruction</span><span class="p">(</span><span class="n">DialPlanStep</span> <span class="n">step</span><span class="p">,</span> <span class="kt">string</span> <span class="n">destination</span><span class="p">,</span> <span class="n">TimeSpan</span> <span class="n">duration</span><span class="p">,</span> <span class="n">DialPlanInstructionType</span> <span class="n">dialPlanInstructionType</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Step</span> <span class="p">=</span> <span class="n">step</span><span class="p">;</span>
+            <span class="n">Destination</span> <span class="p">=</span> <span class="n">destination</span><span class="p">;</span>
+            <span class="n">Duration</span> <span class="p">=</span> <span class="n">duration</span><span class="p">;</span>
+            <span class="n">DialPlanInstructionType</span> <span class="p">=</span> <span class="n">dialPlanInstructionType</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<h2 id="h2">H2</h2>
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.
+This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.
+This post will briefly introduce you to the Akka framework.</p>
+
+<h3 id="h3">H3</h3>
+<p>This post will briefly introduce you to the Akka framework.
+This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.
+This post will briefly introduce you to the Akka framework.</p>
+
+<p>This post will briefly introduce you to the Akka framework.</p>
+
+<h1 id="example-h1">Example H1</h1>
+<p>I need to figure out: code snippets, slideshows and maybe images.</p>
+
+    </div>
+    <div class="post-comments">
+      
+    </div>
+  </div>
+</article>
+
+    </main>
+    <footer class="site-footer">
+    <div class="copy">
+        Connel Hooley <i class="fa fa-copyright" aria-hidden="true"></i> 2017
+    </div>
+    <div class="built-with">
+        <a href="http://jekyllrb.com/" target="_blank">Built with Jekyll</a>
+    </div>
+</footer>
+<script src="/assets/js/jquery-3.1.1.min.js"></script>
+<script src="/assets/js/tether.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/clipboard.min.js"></script>
+<script src="/assets/js/main.js"></script>
+  </body>
+</html>
