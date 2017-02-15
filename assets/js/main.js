@@ -18,7 +18,7 @@ $(function() {
     });
     clipboard.on('success', function(e) {
         e.clearSelection();
-        $notification = $('<div class="notification">Copied to clipboard</div>');
+        $notification = $('<div class="notification">Copied</div>');
         $('body').append($notification);
         $notification.slideDown(500).delay(2000).slideUp(500);
     });
