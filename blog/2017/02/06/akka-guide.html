@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connel Hooley - Akka Guide</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+  <meta name="theme-color" content="#f8bb15">
+
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<meta property="og:title" content="Akka Guide" />
+<meta name="description" content="Full introductory guide to Akka.NET" />
+<meta property="og:description" content="Full introductory guide to Akka.NET" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2017/02/06/akka-guide" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2017/02/06/akka-guide" />
+<meta property="og:site_name" content="Connel Hooley" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-06T20:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@connel_dev" />
+<meta name="twitter:creator" content="@connel_dev" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Akka Guide",
+"datePublished": "2017-02-06T20:00:00+00:00",
+"description": "Full introductory guide to Akka.NET",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://connelhooley.uk/assets/images/logo.png"}},
+"url": "http://connelhooley.uk/blog/2017/02/06/akka-guide"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+</head>
+
+  <body class="layout-post">
+    <header class="site-header" role="banner">
+  <div class="site-header-content">
+    <div class="site-nav-wrapper">
+      <nav class="site-nav navbar navbar-toggleable-md" role="navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <a class="navbar-brand" href="/"><span class="logo">{C.H}</span></a>
+        
+        <div class="collapse navbar-collapse" id="collapseNavbar">
+          <div class="nav navbar-nav ml-auto">
+            <a id="blog-link" class="nav-item nav-link" href="/blog/">Blog</a>
+            
+            
+              
+                
+                
+                
+                  <a id="projects-link" class="nav-item nav-link" href="/projects/">Projects</a>
+                
+              
+            
+              
+                
+                
+                
+                  <a id="experiences-link" class="nav-item nav-link" href="/experience/">Experience</a>
+                
+              
+            
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <main class="site-content" aria-label="Content">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="header">
+    <div class="header-content">
+        <h1 class="title" itemprop="name headline">Akka Guide</h1>
+        
+            <div class="content description">
+                Full introductory guide to Akka.NET
+            </div>
+        
+        
+        
+            <div class="content">
+                <time datetime="2017-02-06T20:00:00+00:00" itemprop="datePublished">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">06/02/2017</span>
+                </time>
+            </div>
+            <div class="content">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 9  minutes
+            </div>
+        
+        
+        
+            <div class="content">
+                
+<a href="/language/c-sharp"><span class="tag"><i class="fa fa-code" aria-hidden="true"></i>&nbsp;C#</span></a>
+
+
+<a href="/technology/akka-dot-net"><span class="tag"><i class="fa fa-tag" aria-hidden="true"></i>&nbsp;Akka.NET</span></a>
+
+            </div>
+        
+    </div>
+</header>
+  <div class="post-body">
+    <div class="post-toc">
+      <h3 class="toc-title">Contents</h3>
+      <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#background">Background</a></li>
+<li class="toc-entry toc-h2"><a href="#actor-model">Actor Model</a></li>
+<li class="toc-entry toc-h2"><a href="#actor-hierarchy">Actor Hierarchy</a></li>
+<li class="toc-entry toc-h2"><a href="#documentation">Documentation</a></li>
+<li class="toc-entry toc-h1"><a href="#akkanet">Akka.NET</a></li>
+<li class="toc-entry toc-h2"><a href="#actor-system">Actor System</a></li>
+<li class="toc-entry toc-h2"><a href="#instantiating-actors">Instantiating Actors</a></li>
+<li class="toc-entry toc-h2"><a href="#sending-messages-to-actors">Sending Messages to Actors</a></li>
+</ul>
+    </div>
+    <div class="post-content" itemprop="articleBody">
+      <h1 id="background">Background</h1>
+<p>Akka is an actor framework. We’ll cover what that means <a href="#actor-model">shortly</a>. <a target="_BLANK" href="http://getakka.net/">Akka.NET</a> is a .NET port of the Scala <a target="_BLANK" href="http://akka.io/">Akka</a> framework. Akka.NET is an open source project that is actively maintained by the community. <a target="_BLANK" href="https://petabridge.com/">Petabridge</a> is one of the main contributors. This guide starts off by talking about the actor model in general, and the then goes onto to give some examples of how to use some of those concepts work in Akka.NET.</p>
+
+<p>This guide covers the basics of Akka.NET. Basic knoweldge of C# is assumed.</p>
+
+<h2 id="actor-model">Actor Model</h2>
+<p>The actor model is a way of structuring an application.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Things you can do with actors</th>
+      <th>How this relates to traditional C#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Actors talk to each other by sending messages to each other.</td>
+      <td>Think of an actor as a function and the message as its parameters. When an actor sends a message to another actor, think of this as one function calling another.</td>
+    </tr>
+    <tr>
+      <td>An actor can also send its self a message.</td>
+      <td>Think of this as a function calling itself recursively.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Actors only ever process one message at a time. They have a message inbox/queue that they store messages in until they are ready to proccess their next message. Actors can only talk to other actors via the sending of messages. When proccessing a message an actor can modify its own internal private state, but not the state of other actors.</p>
+
+<h2 id="actor-hierarchy">Actor Hierarchy</h2>
+<p>One of the best features of the Actor model is the actor hierarchy. An actor can create other actors. When an actor creates another actor the newly created actor is the <em>child</em> actor and the actor that created it is the <em>parent</em> actor. When an actor throws an unhandled exception the parent actor must decide what to do. It has three options:</p>
+<ul>
+  <li>Restart all its child actors</li>
+  <li>Just restart the failing child actor</li>
+  <li>Escalate the error to its parent actor, who in turn has to the same three options.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Things you can do with actors</th>
+      <th>How this relates to traditional C#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Actors restart their child actors when an unhandled exceptions occurs</td>
+      <td>This is used instead of traditional try-catch blocks.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="documentation">Documentation</h2>
+<p>The main sources of documentation/information for Akka.NET are:</p>
+<ul>
+  <li><a target="_BLANK" href="http://getakka.net/docs/">The offical docs</a></li>
+  <li><a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5590F8C9.htm">The offical API reference</a></li>
+  <li><a target="_BLANK" href="https://petabridge.com/blog/">Petabridge blog</a></li>
+</ul>
+
+<p>When searching online for Akka stuff, ensure you always add “net” onto your searches otherwise you’ll most probably getting results that refer to the Scala version.</p>
+
+<h1 id="akkanet">Akka.NET</h1>
+<p>Now its time to see how Akka.NET allows us to use the Actor Model in C#.</p>
+
+<h2 id="actor-system">Actor System</h2>
+<p>If actors are created by other actors how do you create your first actor? Akka.NET has an object called the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B0425D96.htm">ActorSystem</a>. The system is an object you only create one of per application. It is your entry point into Akka. The system can create actors. Since these actors do not have a parent actor that are referred to as <em>root</em> actors.</p>
+
+<p>When creating a system you must give it a name. It is possible to have actors on two different systems talk to each other over a network. The name is then used for routing purposes. Until you require such functionality don’t worry about what name you give to your system.</p>
+
+<p>Below is an example of a console application that starts an actor system and shuts it down when <code class="highlighter-rouge">CTRL + C</code> is pressed. You will need install the Akka NuGet package. Run the following command in the Package Manager Console  <code class="highlighter-rouge">Install-Package Akka</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="n">ActorSystem</span> <span class="n">_system</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_system</span> <span class="p">=</span> <span class="n">ActorSystem</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">"example-name"</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">CancelKeyPress</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">eventArgs</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">eventArgs</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span> <span class="c1">// Canceling the event prevents the proccess terminating too early
+</span>                <span class="n">_system</span><span class="p">.</span><span class="nf">Terminate</span><span class="p">();</span>
+            <span class="p">};</span>
+            <span class="n">_system</span><span class="p">.</span><span class="n">WhenTerminated</span><span class="p">.</span><span class="nf">Wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Notice we don’t use the system’s contructor. This is a running theme throughout the Akka framework. Most Akka objects have a “Create” instantiation method.</p>
+
+<p>If you run this code you will see a warning stating “NewtonSoftJsonSerializer has been detected as a default serializer”. This warning is nothing to worry about.</p>
+
+<p>You’re now ready to create you first actor!</p>
+
+<h2 id="instantiating-actors">Instantiating Actors</h2>
+<p>Instantiating an actor in Akka can be done in one of two places:</p>
+<ul>
+  <li>In the ActorSystem (for creating <em>root</em> actors)</li>
+  <li>Inside Actors (for creating <em>child</em> actors)</li>
+</ul>
+
+<p>To create an actor you need to use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/C622B6E1.htm">ActorOf</a> method. This method is available in both the ActorSystem and inside actors themselves. The ActorOf method takes a <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/CA4B795B.htm">Props</a> object and a name for the actor.</p>
+
+<p>The actor name is used for routing as mentioned <a href="#actor-system">previously</a>. Unlike the System however the name is optional for Actors. If you do not provide one, Akka will assign it a GUID as a name at runtime. It is recommended to give your actors a meaningful and descriptive name.</p>
+
+<p>The Props object takes a C# Expression in its create method. Akka uses this expression when it starts an Actor. It also uses to it to create new instances when restarting failed actors, hence why it takes an expression and not just an instance of the actor you’re instantiating.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Things you can do with actors</th>
+      <th>How this relates to traditional C#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Actors create other actors by creating Prop objects</td>
+      <td>This used instead of classes “newing” up other classes.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Below is an example that instantiates a root actor of a type we haven’t created yet called “ExampleRootActor”.</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="n">ActorSystem</span> <span class="n">_system</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_system</span> <span class="p">=</span> <span class="n">ActorSystem</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">"example-name"</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">CancelKeyPress</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">eventArgs</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">eventArgs</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                <span class="n">_system</span><span class="p">.</span><span class="nf">Terminate</span><span class="p">();</span>
+            <span class="p">};</span>
+
+            <span class="c1">//Create root actor
+</span>            <span class="n">IActorRef</span> <span class="n">rootActor</span> <span class="p">=</span> <span class="n">_system</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ExampleRootActor</span><span class="p">()),</span> <span class="s">"example-root-actor-name"</span><span class="p">);</span>
+
+            <span class="n">_system</span><span class="p">.</span><span class="n">WhenTerminated</span><span class="p">.</span><span class="nf">Wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Note how the result of the ActorOf method is not the actor Type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actors internal state, regardless as to whether or not the state was made public or not. This forces us to follow the Actor Model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages shortly.</p>
+
+<p>Holding a reference to an actor rather than the actor object itself also means that when a failing an actor restarts, our reference will still work, as Akka will forward on messages sent to our actor ref to the new instance.</p>
+
+<h2 id="sending-messages-to-actors">Sending Messages to Actors</h2>
+<p>Firstly we need to create a message object. Messages are:</p>
+<ul>
+  <li>Simple <a target="_BLANK" href="https://en.wikipedia.org/wiki/Plain_old_CLR_object">POCO</a> classes</li>
+  <li>Immutable</li>
+  <li>Serializable</li>
+  <li>Small (if you need to send a large object between two actors, send a unique identifier such as the object’s database ID instead of the large object itself)</li>
+</ul>
+
+<p>Below is an example of a simple message called “ExampleMessage”.</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessage</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">exampleData</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">ExampleData</span> <span class="p">=</span> <span class="n">exampleData</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">ExampleData</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Using contructor injection and public getters is the standard way of creating an immutable message.</p>
+
+<p>Now we can use our actor ref to send the message to our root actor. We do this using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/D0008D9.htm">tell</a> method:</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="n">ActorSystem</span> <span class="n">_system</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_system</span> <span class="p">=</span> <span class="n">ActorSystem</span><span class="p">.</span><span class="nf">Create</span><span class="p">(</span><span class="s">"example-name"</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">CancelKeyPress</span> <span class="p">+=</span> <span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">eventArgs</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">eventArgs</span><span class="p">.</span><span class="n">Cancel</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+                <span class="n">_system</span><span class="p">.</span><span class="nf">Terminate</span><span class="p">();</span>
+            <span class="p">};</span>
+
+            <span class="n">IActorRef</span> <span class="n">rootActor</span> <span class="p">=</span> <span class="n">_system</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ExampleRootActor</span><span class="p">()),</span> <span class="s">"example-root-actor-name"</span><span class="p">);</span>
+            
+            <span class="c1">// Send message to root actor
+</span>            <span class="n">rootActor</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="s">"Example message information"</span><span class="p">));</span>
+            
+            <span class="n">_system</span><span class="p">.</span><span class="n">WhenTerminated</span><span class="p">.</span><span class="nf">Wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<!--## Different Types of Akka Actors
+
+## Creating Child Actors
+
+## Sending Messges to the Parent Actor
+
+## Replying to Messges 
+
+## Behaviours-->
+
+
+    </div>
+  </div>
+  
+  <div class="post-comments">
+    <div class="post-comments-content">
+      
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://connelhooley.uk/blog/2017/02/06/akka-guide';
+      this.page.identifier = 'http://connelhooley.uk/blog/2017/02/06/akka-guide';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://connelhooley.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+    </div>
+  </div>
+  
+</article>
+
+    </main>
+    <footer class="site-footer">
+    <div class="copy">
+        Connel Hooley <i class="fa fa-copyright" aria-hidden="true"></i> 2017
+    </div>
+    <div class="built-with">
+        <a href="http://jekyllrb.com/" target="_blank">Built with Jekyll</a>
+    </div>
+</footer>
+<script src="/assets/js/jquery-3.1.1.min.js"></script>
+<script src="/assets/js/tether.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/clipboard.min.js"></script>
+<script src="/assets/js/main.js"></script>
+  </body>
+</html>
