@@ -9457,7 +9457,44 @@ h1, h2, h3, h4, h5, h6 {
       width: 1140px;
       max-width: 100%; } }
 .blog .subscribe {
-  border-bottom: 1rem solid #f7f7f9; }
+  border-bottom: 1rem solid #f7f7f9;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px; }
+  @media (min-width: 576px) {
+    .blog .subscribe {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 768px) {
+    .blog .subscribe {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) {
+    .blog .subscribe {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 1200px) {
+    .blog .subscribe {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 576px) {
+    .blog .subscribe {
+      width: 540px;
+      max-width: 100%; } }
+  @media (min-width: 768px) {
+    .blog .subscribe {
+      width: 720px;
+      max-width: 100%; } }
+  @media (min-width: 992px) {
+    .blog .subscribe {
+      width: 960px;
+      max-width: 100%; } }
+  @media (min-width: 1200px) {
+    .blog .subscribe {
+      width: 1140px;
+      max-width: 100%; } }
   .blog .subscribe .subscribe-content::after {
     display: block;
     content: "";
