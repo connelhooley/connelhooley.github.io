@@ -9738,6 +9738,11 @@ h1, h2, h3, h4, h5, h6 {
     .post .post-body,
     .post .post-comments {
       padding-bottom: 2rem; } }
+.post .post-content {
+  font-size: 1.2rem; }
+  @media (max-width: 991px) {
+    .post .post-content {
+      font-size: 1rem; } }
 @media (max-width: 575px) {
   .post .highlighter-rouge {
     margin-left: -15px;

@@ -18,11 +18,11 @@
 <meta property="og:title" content="Akka Guide" />
 <meta name="description" content="Full introductory guide to Akka.NET" />
 <meta property="og:description" content="Full introductory guide to Akka.NET" />
-<link rel="canonical" href="http://connelhooley.uk/blog/2017/02/06/akka-guide" />
-<meta property="og:url" content="http://connelhooley.uk/blog/2017/02/06/akka-guide" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2017/02/21/akka-guide" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2017/02/21/akka-guide" />
 <meta property="og:site_name" content="Connel Hooley" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-02-06T20:00:00+00:00" />
+<meta property="article:published_time" content="2017-02-21T21:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@connel_dev" />
 <meta name="twitter:creator" content="@connel_dev" />
@@ -30,12 +30,12 @@
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Akka Guide",
-"datePublished": "2017-02-06T20:00:00+00:00",
+"datePublished": "2017-02-21T21:00:00+00:00",
 "description": "Full introductory guide to Akka.NET",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://connelhooley.uk/assets/images/logo.png"}},
-"url": "http://connelhooley.uk/blog/2017/02/06/akka-guide"}</script>
+"url": "http://connelhooley.uk/blog/2017/02/21/akka-guide"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -93,12 +93,12 @@
         
         
             <div class="content">
-                <time datetime="2017-02-06T20:00:00+00:00" itemprop="datePublished">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">06/02/2017</span>
+                <time datetime="2017-02-21T21:00:00+00:00" itemprop="datePublished">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">21/02/2017</span>
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 19  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 23  minutes
             </div>
         
         
@@ -132,6 +132,8 @@
 <li class="toc-entry toc-h2"><a href="#sending-messges-to-the-current-actor">Sending Messges to the Current Actor</a></li>
 <li class="toc-entry toc-h2"><a href="#replying-to-messges">Replying to Messges</a></li>
 <li class="toc-entry toc-h2"><a href="#receiving-replied-messages">Receiving Replied Messages</a></li>
+<li class="toc-entry toc-h2"><a href="#behaviors">Behaviors</a></li>
+<li class="toc-entry toc-h2"><a href="#stashing-messages">Stashing Messages</a></li>
 </ul>
     </div>
     <div class="post-content" itemprop="articleBody">
@@ -293,7 +295,7 @@
 </code></pre>
 </div>
 
-<p>Note how the result of the ActorOf method is not the actor Type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actors internal state, regardless as to whether or not the state was made public or not. This forces us to follow the Actor Model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">next</a>.</p>
+<p>Note how the result of the ActorOf method is not the actor type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actors internal state, regardless as to whether or not the state was made public or not. This forces us to follow the Actor Model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">next</a>.</p>
 
 <p>Holding a reference to an actor rather than the actor object itself also means that when a failing an actor restarts, our reference will still work, as Akka will forward on messages sent to our actor ref to the new instance.</p>
 
@@ -388,16 +390,16 @@
 </code></pre>
 </div>
 
-<p>You use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5C8C7532.htm">Receive</a> method inherited from the ReceiveActor base class to assign a lambda that is to be ran whenever a message of a particular type is received by the actor. I personally always create a private function for each message type I can Receive called Receive<em>MessageType</em>. Unfortunately you cannot use C# method groups in the Receive function call due to some of the other overloads available on the function.</p>
+<p>You use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5C8C7532.htm">Receive</a> method inherited from the ReceiveActor base class to assign a lambda that is to be ran whenever a message of a particular type is received by the actor. I personally always create a private method for each message type I can receive called Receive<em>MessageType</em>. Unfortunately you cannot use C# method groups in the Receive method call due to some of the overloads available on the method.</p>
 
-<p>If an actor is sent a message that the actor does not have a receive method set up for, it will simply ignore the message.</p>
+<p>If an actor is sent a message that it does not have a receive callback set up for, it will simply ignore the message.</p>
 
-<p>If a class matches the type of two receive callbacks (e.g. if there are two receive callbacks for the same type or for if a type matches two callbacks through inhertance) than the one that is registered first wins.</p>
+<p>If a class matches the type of two receive callbacks (e.g. if there are two receive callbacks for the same type or for if a type matches two callbacks through inhertance) then only the callback that is registered first is called.</p>
 
 <h2 id="creating-child-actors">Creating Child Actors</h2>
 <p>To create a child actor from inside a child actor you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/CD4308E5.htm">Actor Context</a> object. When an actor is created inside the actor system, Akka initialises certain properties on the actor. This is another reason why we create Props objects to create actors that than just newing them up. The context is one of those properties that is populated for us by the framework.</p>
 
-<p>The Context exposes the same ActorOf function from the ActorSystem discussed <a href="#instantiating-actors">previously</a>. Below is an example of creating a child actor we haven’t written yet called “ExampleChildActor” and sending it a message.</p>
+<p>The Context exposes the same ActorOf method from the ActorSystem discussed <a href="#instantiating-actors">previously</a>. Below is an example of creating a child actor we haven’t written yet called “ExampleChildActor” and sending it a message.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 
@@ -606,12 +608,107 @@
   <li>Parent actor processes the response</li>
 </ul>
 
-<p>Notice that is is possible to have async receive callbacks using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/6A92E9E6.htm">ReceiveAsync</a> function. This is required to await the Task returned from the Ask function. Due to having different overloads compared to the synchronous Receive function, you can use method groups with the ReceiveAsync function.</p>
+<p>Notice that is is possible to have async receive callbacks using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/6A92E9E6.htm">ReceiveAsync</a> method. This is required to await the Task returned from the Ask method. Due to having different overloads compared to the synchronous Receive method, you can use method groups with the ReceiveAsync method.</p>
 
 <p>Also note that you don’t have to use the Ask method to receive messages that are a reply. You can also treat them just like any other message and simply receive them as normal, as described <a href="#writing-your-own-akka-actors">previously</a>.</p>
 
-<!--## Behaviours
-TODO-->
+<h2 id="behaviors">Behaviors</h2>
+<p>An actor can modify its receive callbacks at run time. When an actor changes the callbacks it is currently using, it is said to be <em>switching behaviors</em>. To switch behaviors you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/2F03E8DE.htm">Become</a> method Below is an example.</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleBehaviorActor</span> <span class="p">:</span> <span class="n">ReceiveActor</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="nf">ExampleBehaviorActor</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nf">Become</span><span class="p">(</span><span class="n">Starting</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Starting</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessageType1</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="nf">ReceiveExampleMessageType1</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Started</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessageType2</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="nf">ReceiveExampleMessageType2</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+        <span class="p">}</span>
+        
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">ReceiveExampleMessageType1</span><span class="p">(</span><span class="n">ExampleMessageType1</span> <span class="n">exampleMessage</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//TODO: do something with first message type that would make actor ready for second message type
+</span>            <span class="nf">Become</span><span class="p">(</span><span class="n">Started</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">ReceiveExampleMessageType2</span><span class="p">(</span><span class="n">ExampleMessageType2</span> <span class="n">exampleMessage</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//TODO: do something with second message type
+</span>        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessageType1</span> <span class="p">{</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessageType2</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The above example has two states: Starting and Started. The actor becomes <em>Starting</em> when it is constructed. In this behavior the actor only processes messages of the type “ExampleMessageType1”. When the actor receives an “ExampleMessageType1” message it becomes <em>Started</em>. In this behavior the actor only processes messages of the type “ExampleMessageType2”.</p>
+
+<p>This results in an actor that must receive a message of type “ExampleMessageType1” before it will process messages of type “ExampleMessageType2”.</p>
+
+<p>It is important to note that receive callbacks from previous behaviors are not carried over to new behaviors.</p>
+
+<h2 id="stashing-messages">Stashing Messages</h2>
+<p>Stashing is often used in conjuction with <a href="#behaviors">behaviors</a>. It allows you to store messages temporarily in memory until you’re ready to process them. To implement stashing your actor you must implement the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B13D7126.htm">IWithUnboundedStash</a> interface. The interface itself is simply a public property for an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/83B3E7F5.htm">IStash</a> object. Akka then watches for actors that implement this interface when it creates them in the ActorOf method. If it sees an Actor that implements the interface it populates the IStash property for you.</p>
+
+<p>To achieve <em>stashing</em> we use two methods on the Stash property. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5227A101.htm">Stash</a> method places the current message that is being processed in the Stash. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/804DA779.htm">UnstashAll</a> method places all the messages currently in the stash at the beginning of the actor’s message inbox/queue. Below is an example.</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">AkkaExamples</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleStashActor</span> <span class="p">:</span> <span class="n">ReceiveActor</span><span class="p">,</span> <span class="n">IWithUnboundedStash</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">IStash</span> <span class="n">Stash</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Property to implement IWithUnboundedStash
+</span>
+        <span class="k">public</span> <span class="nf">ExampleStashActor</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="nf">Become</span><span class="p">(</span><span class="n">Starting</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Starting</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessageType1</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="nf">ReceiveExampleMessageType1</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessageType2</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="n">Stash</span><span class="p">.</span><span class="nf">Stash</span><span class="p">());</span> <span class="c1">// Stash ExampleMessageType2 when starting
+</span>        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">Started</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessageType2</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="nf">ReceiveExampleMessageType2</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
+            <span class="n">Stash</span><span class="p">.</span><span class="nf">UnstashAll</span><span class="p">();</span> <span class="c1">// Unstash stashed messages when started
+</span>        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">ReceiveExampleMessageType1</span><span class="p">(</span><span class="n">ExampleMessageType1</span> <span class="n">exampleMessage</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//TODO: do something with first message type that would make actor ready for second message type
+</span>            <span class="nf">Become</span><span class="p">(</span><span class="n">Started</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">ReceiveExampleMessageType2</span><span class="p">(</span><span class="n">ExampleMessageType2</span> <span class="n">exampleMessage</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//TODO: do something with second message type
+</span>        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessageType1</span> <span class="p">{</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessageType2</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The above example results in an actor that stores all messages of type “ExampleMessageType2” in its stash until it receives a message of type “ExampleMessageType1” when it unstashes all of the previously stashed messages of type “ExampleMessageType2”. The messages are then proccessed in the same order as to which they were sent.</p>
 
 
     </div>
@@ -624,8 +721,8 @@ TODO-->
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://connelhooley.uk/blog/2017/02/06/akka-guide';
-      this.page.identifier = 'http://connelhooley.uk/blog/2017/02/06/akka-guide';
+      this.page.url = 'http://connelhooley.uk/blog/2017/02/21/akka-guide';
+      this.page.identifier = 'http://connelhooley.uk/blog/2017/02/21/akka-guide';
     };
 
     (function() {
