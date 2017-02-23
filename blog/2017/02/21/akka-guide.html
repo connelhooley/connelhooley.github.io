@@ -111,7 +111,7 @@
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 23  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 24  minutes
             </div>
         
         
@@ -151,9 +151,9 @@
     </div>
     <div class="post-content" itemprop="articleBody">
       <h1 id="background">Background</h1>
-<p>Akka is an actor framework. We’ll cover what that means <a href="#actor-model">shortly</a>. <a target="_BLANK" href="http://getakka.net/">Akka.NET</a> is a .NET port of the Scala <a target="_BLANK" href="http://akka.io/">Akka</a> framework. Akka.NET is an open source project that is actively maintained by the community. <a target="_BLANK" href="https://petabridge.com/">Petabridge</a> is one of the main contributors. This guide starts off by talking about the actor model in general, and the then goes onto to give some examples of how to use some of those concepts work in Akka.NET.</p>
+<p>Akka is an actor framework. We’ll cover what that means <a href="#actor-model">in the next section</a>. <a target="_BLANK" href="http://getakka.net/">Akka.NET</a> is a .NET port of the Scala <a target="_BLANK" href="http://akka.io/">Akka</a> framework. Akka.NET is an open source project that is actively maintained by the community. <a target="_BLANK" href="https://petabridge.com/">Petabridge</a> is one of the main contributors. This guide starts off by describing the actor model, and then goes onto to give some examples of how Akka.NET implements the actor model.</p>
 
-<p>This guide covers the basics of Akka.NET. Basic knowledge of C# is assumed.</p>
+<p>This guide only covers the basics of the actor model and Akka.NET. Basic knowledge of C# is assumed.</p>
 
 <h2 id="actor-model">Actor Model</h2>
 <p>The actor model is a way of structuring an application.</p>
@@ -180,7 +180,7 @@
 <p>Actors only ever process one message at a time. They have a message inbox/queue that they store messages in until they are ready to process their next message. Actors can only talk to other actors via the sending of messages. When processing a message an actor can modify its own internal private state, but not the state of other actors.</p>
 
 <h2 id="actor-hierarchy">Actor Hierarchy</h2>
-<p>One of the best features of the Actor model is the actor hierarchy. An actor can create other actors. When an actor creates another actor the newly created actor is the <em>child</em> actor and the actor that created it is the <em>parent</em> actor. When an actor throws an unhandled exception the parent actor must decide what to do. It has three options:</p>
+<p>One of the best features of the actor model is the actor hierarchy. An actor can create other actors. When an actor creates another actor the newly created actor is the <em>child</em> actor and the actor that created it is the <em>parent</em> actor. When an actor throws an unhandled exception the parent actor must decide what to do. It has three options:</p>
 <ul>
   <li>Restart all its child actors</li>
   <li>Just restart the failing child actor</li>
@@ -203,24 +203,24 @@
 </table>
 
 <h2 id="documentation">Documentation</h2>
-<p>The main sources of documentation/information for Akka.NET are:</p>
+<p>The main sources of documentation and information for Akka.NET are:</p>
 <ul>
   <li><a target="_BLANK" href="http://getakka.net/docs/">The official docs</a></li>
   <li><a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5590F8C9.htm">The official API reference</a></li>
   <li><a target="_BLANK" href="https://petabridge.com/blog/">Petabridge blog</a></li>
 </ul>
 
-<p>When searching online for Akka stuff, ensure you always add “net” onto your searches otherwise you’ll most probably getting results that refer to the Scala version.</p>
+<p>When searching online for Akka information online, ensure you always add “net” onto your searches otherwise you’ll most probably get results that refer to the Scala version.</p>
 
 <h1 id="akkanet">Akka.NET</h1>
-<p>Now it’s time to see how Akka.NET allows us to use the Actor Model in C#.</p>
+<p>Now it’s time to see how Akka.NET allows us to use the actor model in C#.</p>
 
 <h2 id="actor-system">Actor System</h2>
-<p>If actors are created by other actors how do you create your first actor? Akka.NET has an object called the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B0425D96.htm">ActorSystem</a>. The system is an object you only create one of per application. It is your entry point into Akka. The system can create actors. Since these actors do not have a parent actor that are referred to as <em>root</em> actors.</p>
+<p>If actors are created by other actors how do you create your first actor? Akka.NET has an object called the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B0425D96.htm">ActorSystem</a>. The system is an object you only create one of per application. It is your entry point into Akka. The system can create actors. Since these actors do not have a parent actor they are referred to as <em>root</em> actors.</p>
 
 <p>When creating a system, you must give it a name. It is possible to have actors on two different systems talk to each other over a network. The name is then used for routing purposes. Until you require such functionality don’t worry about what name you give to your system.</p>
 
-<p>Below is an example of a console application that starts an actor system and shuts it down when <code class="highlighter-rouge">CTRL + C</code> is pressed. You will need install the Akka NuGet package. Run the following command in the Package Manager Console <code class="highlighter-rouge">Install-Package Akka</code>.</p>
+<p>Below is an example of a console application that starts an actor system and then shuts it down when <code class="highlighter-rouge">CTRL + C</code> is pressed. You will need install the Akka NuGet package. Run the following command in the Package Manager Console <code class="highlighter-rouge">Install-Package Akka</code>.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
@@ -246,9 +246,9 @@
 </code></pre>
 </div>
 
-<p>Notice we don’t use the system’s constructor. This is a running theme throughout the Akka framework. Most Akka objects have a “Create” instantiation method.</p>
+<p>Notice we don’t use the system’s constructor. This is a running theme throughout the Akka framework. Most Akka classes have a “Create” instantiation method.</p>
 
-<p>If you run this code you will see a warning stating “NewtonSoftJsonSerializer has been detected as a default serializer”. This warning is nothing to worry about.</p>
+<p>If you run this code you will see a warning stating the “NewtonSoftJsonSerializer has been detected as a default serializer”. This warning is nothing to worry about.</p>
 
 <h2 id="instantiating-actors">Instantiating Actors</h2>
 <p>Instantiating an actor in Akka can be done in one of two places:</p>
@@ -261,7 +261,7 @@
 
 <p>The actor name is used for routing as mentioned <a href="#actor-system">previously</a>. Unlike the System however the name is optional for Actors. If you do not provide one, Akka will assign it a GUID as a name at runtime. It is recommended to give your actors a meaningful and descriptive name.</p>
 
-<p>The Props object takes a C# Expression in its create method. Akka uses this expression when it starts an Actor. It also uses to it to create new instances when restarting failed actors, hence why it takes an expression and not just an instance of the actor you’re instantiating.</p>
+<p>The Props object takes a C# expression in its create method. Akka uses this expression when it starts an Actor. It also uses to it to create new instances when restarting failed actors, hence why it takes an expression and not just an instance of the actor you’re instantiating.</p>
 
 <table>
   <thead>
@@ -278,7 +278,7 @@
   </tbody>
 </table>
 
-<p>Below is an example that instantiates a root actor of a type we haven’t created yet called “ExampleRootActor”.</p>
+<p>The below example instantiates a root actor of a type we haven’t created yet called “ExampleRootActor”.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
@@ -308,9 +308,9 @@
 </code></pre>
 </div>
 
-<p>Note how the result of the ActorOf method is not the actor type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actor’s internal state, regardless as to whether or not the state was made public or not. This forces us to follow the Actor Model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">next</a>.</p>
+<p>Note how the result of the ActorOf method is not the actor type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actor’s internal state, regardless as to whether or not the state was made public or not. This forces us to follow the mctor model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">in the next section</a>.</p>
 
-<p>Holding a reference to an actor rather than the actor object itself also means that when a failing an actor restarts, our reference will still work, as Akka will forward on messages sent to our actor ref to the new instance.</p>
+<p>Holding a reference to an actor rather than the actor object itself also means that when a failed actor restarts, our reference will still work, as Akka will forward on messages sent to our actor ref to the new instance.</p>
 
 <h2 id="sending-messages-to-actors">Sending Messages to Actors</h2>
 <p>Firstly we need to create a message object. Messages are:</p>
@@ -318,7 +318,7 @@
   <li>Simple <a target="_BLANK" href="https://en.wikipedia.org/wiki/Plain_old_CLR_object">POCO</a> classes</li>
   <li>Immutable</li>
   <li>Serializable</li>
-  <li>Small (if you need to send a large object between two actors, send a unique identifier such as the object’s database ID instead of the large object itself)</li>
+  <li>Small (if you need to send a very large object between two actors, send a unique identifier such as the object’s database ID instead of the large object itself)</li>
 </ul>
 
 <p>Below is an example of a simple message called “ExampleMessage”.</p>
@@ -338,7 +338,7 @@
 </code></pre>
 </div>
 
-<p>Using constructor injection and public getters is the standard way of creating an immutable message.</p>
+<p>Using constructor injection with public getters is the standard way of creating an immutable message.</p>
 
 <p>Now we can use our actor ref to send the message to our root actor. We do this using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/D0008D9.htm">tell</a> method.</p>
 
@@ -362,7 +362,7 @@
 
             <span class="n">IActorRef</span> <span class="n">rootActor</span> <span class="p">=</span> <span class="n">_system</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ExampleRootActor</span><span class="p">()),</span> <span class="s">"example-root-actor-name"</span><span class="p">);</span>
             
-            <span class="c1">// Send message to root actor
+            <span class="c1">// Send message to root actor via actor ref
 </span>            <span class="n">rootActor</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="s">"Example message information"</span><span class="p">));</span>
             
             <span class="n">_system</span><span class="p">.</span><span class="n">WhenTerminated</span><span class="p">.</span><span class="nf">Wait</span><span class="p">();</span>
@@ -375,9 +375,9 @@
 <p>The Tell method is “fire and forget”. It does not block the thread or wait for a response.</p>
 
 <h2 id="writing-your-own-akka-actors">Writing your own Akka Actors</h2>
-<p>To create your own actor you need to create a C# class and inherit from one of the Akka <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/DD956C95.htm">actor base</a> classes. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B124B2AF.htm">ReceiveActor</a> class is the best general purpose base actor that should fulfil your needs most of the time.</p>
+<p>To create your own actor you need to create a C# class and inherit from one of the Akka <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/DD956C95.htm">actor base</a> classes. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B124B2AF.htm">ReceiveActor</a> class is the best general purpose base actor that should fulfil your needs the majority of the time.</p>
 
-<p>There are extensions to the Akka framework whereby you have to inherit from different base classes when you want to use them. For example if you want your actors to persist their state in a database, you can use the <a target="_BLANK" href="http://getakka.net/docs/persistence/persistent-actors">Akka.Persistence</a> extension. To use this extension, you need to inherit from the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B124B2AF.htm">PersistentActor</a>. This guide will focus on creating standard actors with the before mentioned ReceiveActor base class.</p>
+<p>There are extensions to the Akka framework whereby you must inherit from different base classes when you want to use them. For example if you want your actors to persist their state in a database, you can use the <a target="_BLANK" href="http://getakka.net/docs/persistence/persistent-actors">Akka.Persistence</a> extension. To use this extension, you must inherit from the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B124B2AF.htm">PersistentActor</a> base class in the actors where you want such functionality. This guide will only focus on creating standard actors with the before mentioned ReceiveActor base class.</p>
 
 <p>When creating a receive actor you must configure the actor inside its constructor by telling it what function to call when it receives a certain type of object as a message. Below is an example.</p>
 
@@ -398,21 +398,31 @@
         <span class="p">{</span>
             <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">exampleMessage</span><span class="p">.</span><span class="n">ExampleData</span><span class="p">);</span>
         <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessage</span>
+        <span class="p">{</span>
+            <span class="k">public</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">exampleData</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">ExampleData</span> <span class="p">=</span> <span class="n">exampleData</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">public</span> <span class="kt">string</span> <span class="n">ExampleData</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
-<p>You use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5C8C7532.htm">Receive</a> method inherited from the ReceiveActor base class to assign a lambda that is to be ran whenever a message of a particular type is received by the actor. I personally always create a private method for each message type I can receive called Receive<em>MessageType</em>. Unfortunately, you cannot use C# method groups in the Receive method call due to some of the overloads available on the method.</p>
+<p>You use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5C8C7532.htm">Receive</a> method inherited from the ReceiveActor base class to assign a lambda that is to be ran whenever a message of a particular type is received by the actor. For the remainder of this guide we will refer to these lamdas as receive callbacks. I personally always create a private method for each message type I can receive called Receive<em>MessageType</em>. Unfortunately, you cannot use C# method groups in the Receive method call due to some of the overloads on the Receive method.</p>
 
-<p>If an actor is sent a message that it does not have a receive callback set up for, it will simply ignore the message.</p>
+<p>Actors simply ignore messages that they do not have a receive callback registered for.</p>
 
 <p>If a class matches the type of two receive callbacks (e.g. if there are two receive callbacks for the same type or for if a type matches two callbacks through inheritance) then only the callback that is registered first is called.</p>
 
 <h2 id="creating-child-actors">Creating Child Actors</h2>
-<p>To create a child actor from inside a child actor you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/CD4308E5.htm">Actor Context</a> object. When an actor is created inside the actor system, Akka initialises certain properties on the actor. This is another reason why we create Props objects to create actors that than just newing them up. The context is one of those properties that is populated for us by the framework.</p>
+<p>To create a child actor from inside an actor you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/CD4308E5.htm">Actor Context</a> object. When an actor is created inside the actor system, Akka initialises certain properties on the actor. This is another reason why we create Props objects to create actors that than just newing them up. The context is one of those properties that is populated for us by the framework.</p>
 
-<p>The Context exposes the same ActorOf method from the ActorSystem discussed <a href="#instantiating-actors">previously</a>. Below is an example of creating a child actor we haven’t written yet called “ExampleChildActor” and sending it a message.</p>
+<p>The Context exposes the same ActorOf method we saw in the ActorSystem <a href="#instantiating-actors">previously</a>. Below is an example of creating a child actor we haven’t written yet called “ExampleChildActor” and sending it a message.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 
@@ -424,16 +434,10 @@
 
         <span class="k">public</span> <span class="nf">ExampleRootActor</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="n">Receive</span><span class="p">&lt;</span><span class="n">ExampleMessage</span><span class="p">&gt;(</span><span class="n">m</span> <span class="p">=&gt;</span> <span class="nf">ReceiveExampleMessage</span><span class="p">(</span><span class="n">m</span><span class="p">));</span>
-
             <span class="c1">// Create child actor
 </span>            <span class="n">_exampleActorRef</span> <span class="p">=</span> <span class="n">Context</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ExampleChildActor</span><span class="p">()),</span> <span class="s">"example-child-actor"</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">private</span> <span class="k">void</span> <span class="nf">ReceiveExampleMessage</span><span class="p">(</span><span class="n">ExampleMessage</span> <span class="n">exampleMessage</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">// Send message to child actor
-</span>            <span class="n">_exampleActorRef</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="n">exampleMessage</span><span class="p">);</span>
+            <span class="c1">// send child actor a message
+</span>            <span class="n">_exampleActorRef</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="s">"Example message information"</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -441,7 +445,7 @@
 </div>
 
 <h2 id="sending-messages-to-the-parent-actor">Sending Messages to the Parent Actor</h2>
-<p>The Context has an actor reference to the actor that created the current actor inside its <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/88D6E91E.htm">Parent</a> property. You can use this to send messages to the parent actor. Below is an example where we send a message (a type we haven’t created yet) called “ExampleSuccessMessage” to the parent actor.</p>
+<p>You can use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/88D6E91E.htm">Parent</a> property on an actor’s context object to obtain an actor ref to its parent (the actor that created it). You can then use this to send messages to the parent actor. Below is an example where we send a message called “ExampleSuccessMessage” to the actor’s parent.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
@@ -463,13 +467,15 @@
             <span class="c1">// Send a new message to parent actor
 </span>            <span class="n">Context</span><span class="p">.</span><span class="n">Parent</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">ExampleSuccessMessage</span><span class="p">());</span>
         <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleSuccessMessage</span> <span class="p">{</span> <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
 <h2 id="sending-messages-to-the-current-actor">Sending Messages to the Current Actor</h2>
-<p>Just as you can send messages to the parent, you can also send messages to the current actor that is processing the message. This is called sending messages to <em>Self</em>. Below is an example where we send a message (a type we haven’t created yet) called “ExampleSelfMessage” to the current actor when we receive an “ExampleMessage”.</p>
+<p>Just as you can send messages to the parent, you can also send messages to the current actor that is processing the message. This is called sending messages to <em>Self</em>. Below is an example where we send a message of the type “ExampleSelfMessage” to the current actor when we receive an message of the type “ExampleMessage”.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
@@ -497,15 +503,29 @@
         <span class="p">{</span>
             <span class="c1">// TODO Process message sent to self here
 </span>        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessage</span>
+        <span class="p">{</span>
+            <span class="k">public</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">exampleData</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">ExampleData</span> <span class="p">=</span> <span class="n">exampleData</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">public</span> <span class="kt">string</span> <span class="n">ExampleData</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleSelfMessage</span> <span class="p">{</span> <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
-<p>The main reason for doing this is the message queue/inbox for each actor. When you do a Self.Tell the message is put at the back of the message queue meaning the actor can get through some of the other messages before dealing with the message you just sent to the current actor. Actors do not differentiate between messages sent from other actors or themselves.</p>
+<p>One of the more common reasons for doing this is that doing so uses the actor’s message queue/inbox. When you do a send a message to yourself the message is put at the back of the message queue meaning the actor can get through some of the other messages in the queue before dealing with the message you just sent to yourself. Actors do not differentiate between messages sent from other actors or themselves.</p>
+
+<p>I tend to nest message classes inside the actor class that predominantly uses them. This makes it clear where the message is used. This also allows you to make the message class private when the message type is only sent to and from the actor itself, therefore preventing it from being used in other actors. If a message is used by multiple actors then I place them in their own namespace.</p>
 
 <h2 id="replying-to-messages">Replying to Messages</h2>
-<p>Just as you can send messages to the parent actor and yourself, you can also send messages to the actor that sent you the message you’re currently processing. This is called <em>Replying</em> to the message. Below is an example where we send a message (a type we haven’t created yet) called “ExampleReplyMessage” back to the actor that sent us the “ExampleMessage” message we are currently processing.</p>
+<p>Just as you can send messages to the parent actor and yourself, you can also send messages to the actor that sent you the message you’re currently processing. This is called <em>Replying</em> to a message. In the example below we send a message of the type “ExampleReplyMessage” back to any actors that send us a message of the type “ExampleMessage”.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
@@ -527,13 +547,25 @@
             <span class="c1">// Send a new message to actor that sent message to this actor
 </span>            <span class="n">Context</span><span class="p">.</span><span class="n">Sender</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">ExampleReplyMessage</span><span class="p">());</span>
         <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleMessage</span>
+        <span class="p">{</span>
+            <span class="k">public</span> <span class="nf">ExampleMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">exampleData</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">ExampleData</span> <span class="p">=</span> <span class="n">exampleData</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">public</span> <span class="kt">string</span> <span class="n">ExampleData</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">ExampleReplyMessage</span> <span class="p">{</span> <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
 
 <h2 id="receiving-replied-messages">Receiving Replied Messages</h2>
-<p>If when sending a message to an actor, you expect a reply back, you can use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/88D6E91E.htm">Ask</a> method. This simply returns a task that resolves when the target actor replies with a message of the desired type. It essentially allows you to request a message from the target actor using a request-response style mechanism. Below is an example. This example is more complex than previous examples and contains two actors.</p>
+<p>If when sending a message to an actor, you expect a reply back, you can use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/88D6E91E.htm">Ask</a> method. This simply returns a C# Task that resolves when the target actor replies with a message of the desired type. It essentially allows you to request a message from the target actor and await a response, a bit like a HTTP request/response. The below example is more complex than previous examples and contains two actors.</p>
 
 <p>The parent actor that asks its child for a message:</p>
 
@@ -621,12 +653,12 @@
   <li>Parent actor processes the response</li>
 </ul>
 
-<p>Notice that it is possible to have async receive callbacks using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/6A92E9E6.htm">ReceiveAsync</a> method. This is required to await the Task returned from the Ask method. Due to having different overloads compared to the synchronous Receive method, you can use method groups with the ReceiveAsync method.</p>
+<p>Notice it is possible to use async receive callbacks using the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/6A92E9E6.htm">ReceiveAsync</a> method. This is required to await the Task returned from the Ask method. Due to having different overloads compared to the synchronous Receive method, you can use method groups with the ReceiveAsync method.</p>
 
 <p>Also note that you don’t have to use the Ask method to receive messages that are a reply. You can also treat them just like any other message and simply receive them as normal, as described <a href="#writing-your-own-akka-actors">previously</a>.</p>
 
 <h2 id="behaviors">Behaviors</h2>
-<p>An actor can modify its receive callbacks at run time. When an actor changes the callbacks it is currently using, it is said to be <em>switching behaviors</em>. To switch behaviors you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/2F03E8DE.htm">Become</a> method Below is an example.</p>
+<p>An actor can modify its receive callbacks at run time. When an actor changes the callbacks it is currently using, it is said to be <em>switching behaviors</em>. To switch behaviors you use the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/2F03E8DE.htm">Become</a> method. Below is an example.</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 
@@ -667,16 +699,20 @@
 </code></pre>
 </div>
 
-<p>The above example has two states: Starting and Started. The actor becomes <em>Starting</em> when it is constructed. In this behavior the actor only processes messages of the type “ExampleMessageType1”. When the actor receives an “ExampleMessageType1” message it becomes <em>Started</em>. In this behavior the actor only processes messages of the type “ExampleMessageType2”.</p>
+<p>The above example has two states: Starting and Started. The actor becomes <em>Starting</em> when it is constructed. In this behavior the actor only processes messages of the type “ExampleMessageType1”. When the actor receives a message of the type “ExampleMessageType1” it becomes <em>Started</em>. In this behavior the actor only processes messages of the type “ExampleMessageType2”.</p>
 
-<p>This results in an actor that must receive a message of type “ExampleMessageType1” before it will process messages of type “ExampleMessageType2”.</p>
+<p>This results in an actor that must receive a message of the type “ExampleMessageType1” before it will process messages of the type “ExampleMessageType2”.</p>
 
 <p>It is important to note that receive callbacks from previous behaviors are not carried over to new behaviors.</p>
 
 <h2 id="stashing-messages">Stashing Messages</h2>
-<p>Stashing is often used in conjunction with <a href="#behaviors">behaviors</a>. It allows you to store messages temporarily in memory until you’re ready to process them. To implement stashing your actor you must implement the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B13D7126.htm">IWithUnboundedStash</a> interface. The interface itself is simply a public property for an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/83B3E7F5.htm">IStash</a> object. Akka then watches for actors that implement this interface when it creates them in the ActorOf method. If it sees an Actor that implements the interface it populates the IStash property for you.</p>
+<p>Stashing is often used in conjunction with <a href="#behaviors">behaviors</a>. It allows you to store messages temporarily in memory until you’re ready to process them. To implement stashing in your actor you must implement the <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/B13D7126.htm">IWithUnboundedStash</a> interface. The interface itself simply contains a public property for an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/83B3E7F5.htm">IStash</a> object. Akka then watches for actors that implement this interface when it creates them in the ActorOf method. If it sees an Actor that implements the interface it populates the IStash property for you.</p>
 
-<p>To achieve <em>stashing</em> we use two methods on the Stash property. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5227A101.htm">Stash</a> method places the current message that is being processed in the Stash. The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/804DA779.htm">UnstashAll</a> method places all the messages currently in the stash at the beginning of the actor’s message inbox/queue. Below is an example.</p>
+<p>To achieve <em>stashing</em> we use two methods on the Stash property:</p>
+<ul>
+  <li>The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/5227A101.htm">Stash</a> method places the current message that is being processed in the Stash.</li>
+  <li>The <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/804DA779.htm">UnstashAll</a> method places all the messages currently in the stash at the beginning of the actor’s message inbox/queue. Below is an example.</li>
+</ul>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 
@@ -721,7 +757,7 @@
 </code></pre>
 </div>
 
-<p>The above example results in an actor that stores all messages of type “ExampleMessageType2” in its stash until it receives a message of type “ExampleMessageType1” when it unstashes all of the previously stashed messages of type “ExampleMessageType2”. The messages are then processed in the same order as to which they were sent.</p>
+<p>The above example results in an actor that stores all messages of the type “ExampleMessageType2” in its stash until it receives a message of the type “ExampleMessageType1” whereby it unstashes all of the previously stashed messages. The messages are then processed in the same order as to which they were sent. It is important to note that unstashed messages get put at the front of the queue. The Petabridge explain this really well in their bootcamp <a target="_BLANK" href="https://github.com/petabridge/akka-bootcamp/blob/master/src/Unit-2/lesson5/README.md#unstashing-the-entire-stash-at-once">here</a>.</p>
 
 
     </div>
