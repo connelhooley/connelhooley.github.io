@@ -1,0 +1,134 @@
+<html lang=" en ">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connel Hooley - Prezo M8</title>
+  
+  <link rel="stylesheet" href="/assets/css/reveal/reveal.css">
+  <link rel="stylesheet" href="/assets/css/reveal/reveal-theme.css">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+  <meta name="theme-color" content="#f8bb15">
+  
+  <script src="/%20/assets/js/reveal/lib/head.min.js"></script>
+  
+
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<meta property="og:title" content="Prezo M8" />
+<meta name="description" content="Hello" />
+<meta property="og:description" content="Hello" />
+<link rel="canonical" href="http://connelhooley.uk/presentations/akka-guide" />
+<meta property="og:url" content="http://connelhooley.uk/presentations/akka-guide" />
+<meta property="og:site_name" content="Connel Hooley" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-23T23:53:04+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@connel_dev" />
+<meta name="twitter:creator" content="@connel_dev" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Prezo M8",
+"datePublished": "2017-02-23T23:53:04+00:00",
+"description": "Hello",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://connelhooley.uk/assets/images/logo.png"}},
+"url": "http://connelhooley.uk/presentations/akka-guide"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57397582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+  
+</head>
+
+
+<body class="layout-presentation">
+    <div class="reveal">
+        <div class="slides" aria-label="Slides">
+            <section>
+    <h1>Hello</h1>
+
+    <p>paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs  paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs paragraphs.</p>
+</section>
+<section>
+    <pre><code data-trim>
+(def lazy-fib
+  (concat
+   [0 1]
+    ((fn rfib [a b]
+        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+    </code></pre>
+</section>
+        </div>
+    </div>
+    <script src="/%20/assets/js/reveal/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            dependencies: [
+                {
+                    src: '/assets/js/reveal/lib/classList.js',
+                    condition: function () {
+                        return !document.body.classList;
+                    }
+                },
+                {
+                    src: '/assets/js/reveal/plugin/markdown/marked.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                },
+                {
+                    src: '/assets/js/reveal/plugin/markdown/markdown.js',
+                    condition: function () {
+                        return !!document.querySelector('[data-markdown]');
+                    }
+                },
+                { 
+                    src: '/assets/js/reveal/plugin/highlight/highlight.js', 
+                    async: true, 
+                    callback: function () { 
+                        hljs.initHighlightingOnLoad(); 
+                    } 
+                },
+                { 
+                    src: '/assets/js/reveal/plugin/highlight/highlight.js', 
+                    async: true, 
+                    condition: function () { 
+                        return !!document.querySelector('pre code'); 
+                    }, 
+                    callback: function () { 
+                        hljs.initHighlightingOnLoad(); 
+                    } 
+                },
+                { 
+                    src: '/assets/js/reveal/plugin/zoom-js/zoom.js', 
+                    async: true 
+                },
+                { 
+                    src: '/assets/js/reveal/plugin/notes/notes.js', 
+                    async: true 
+                }
+            ]
+        });
+    </script>
+</body>
+</html>
