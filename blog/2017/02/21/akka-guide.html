@@ -159,6 +159,8 @@
 
 <p>This guide only covers the basics of the actor model and Akka.NET. Basic knowledge of C# is assumed.</p>
 
+<p><a class="button" href="/presentations/akka-guide" target="_BLANK"><i class="fa fa-external-link" aria-hidden="true"></i> Presentation also available</a></p>
+
 <h2 id="actor-model">Actor Model</h2>
 <p>The actor model is a way of structuring an application.</p>
 
@@ -312,7 +314,7 @@
 </code></pre>
 </div>
 
-<p>Note how the result of the ActorOf method is not the actor type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actor’s internal state, regardless as to whether or not the state was made public or not. This forces us to follow the mctor model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">in the next section</a>.</p>
+<p>Note how the result of the ActorOf method is not the actor type we created. It is an <a target="_BLANK" href="http://api.getakka.net/docs/stable/html/56C46846.htm">IActorRef</a>. An actor ref is what it says on the tin, it is a <em>reference</em> to the actor we created. This means we have no access to any of the actor’s internal state, regardless as to whether or not the state was made public or not. This forces us to follow the actor model correctly, whereby the only way one actor can access or modify the state of another actor is by sending messages. We’ll cover sending messages <a href="#sending-messages-to-actors">in the next section</a>.</p>
 
 <p>Holding a reference to an actor rather than the actor object itself also means that when a failed actor restarts, our reference will still work, as Akka will forward on messages sent to our actor ref to the new instance.</p>
 

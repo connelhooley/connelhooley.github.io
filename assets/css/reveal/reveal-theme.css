@@ -6,14 +6,15 @@
  * GLOBAL STYLES
  *********************************************/
 body {
-  background: #000;
-  background-color: #000; }
+  background: #1a1a1a;
+  background-color: #1a1a1a; }
 
 .reveal {
   font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 40px;
+  font-size: 2.2em;
   font-weight: normal;
-  color: #fff; }
+  color: #fff;
+  margin-bottom: 20px; }
 
 ::selection {
   color: #000;
@@ -50,13 +51,13 @@ body {
   word-wrap: break-word; }
 
 .reveal h1 {
-  font-size: 3.77em; }
+  font-size: 1.9em; }
 
 .reveal h2 {
-  font-size: 2.11em; }
+  font-size: 1.5em; }
 
 .reveal h3 {
-  font-size: 1.55em; }
+  font-size: 1.25em; }
 
 .reveal h4 {
   font-size: 1em; }
@@ -80,7 +81,8 @@ body {
 
 .reveal strong,
 .reveal b {
-  font-weight: bold; }
+  font-weight: bold;
+  color: #f8bb15; }
 
 .reveal em {
   font-style: italic; }
@@ -144,14 +146,13 @@ body {
   width: 90%;
   margin: 20px auto;
   text-align: left;
-  font-size: 0.55em;
-  font-family: monospace;
+  font-size: 0.4em;
+  font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   line-height: 1.2em;
-  word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+  word-wrap: break-word; }
 
 .reveal code {
-  font-family: monospace; }
+  font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 .reveal pre code {
   display: block;
@@ -163,7 +164,8 @@ body {
 .reveal table {
   margin: auto;
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+  color: #fff; }
 
 .reveal table th {
   font-weight: bold; }
@@ -295,9 +297,9 @@ based on dark.css by Ivan Sagalaev
 .hljs {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
-  background: #3f3f3f;
-  color: #dcdcdc; }
+  padding: 1em;
+  background: #464a4c;
+  color: #fff; }
 
 .hljs-keyword,
 .hljs-selector-tag,
