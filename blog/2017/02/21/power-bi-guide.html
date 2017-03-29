@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connel Hooley - Power BI Guide</title>
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+  <meta name="theme-color" content="#f8bb15">
+  
+
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<meta property="og:title" content="Power BI Guide" />
+<meta name="description" content="Full introductory guide to Power BI" />
+<meta property="og:description" content="Full introductory guide to Power BI" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" />
+<meta property="og:site_name" content="Connel Hooley" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-21T21:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@connel_dev" />
+<meta name="twitter:creator" content="@connel_dev" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Power BI Guide",
+"datePublished": "2017-02-21T21:00:00+00:00",
+"description": "Full introductory guide to Power BI",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://connelhooley.uk/assets/images/logo.png"}},
+"url": "http://connelhooley.uk/blog/2017/02/21/power-bi-guide"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57397582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  
+
+  
+</head>
+
+  <body class="layout-post">
+    <header class="site-header" role="banner">
+  <div class="site-header-content">
+    <div class="site-nav-wrapper">
+      <nav class="site-nav navbar navbar-toggleable-md" role="navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <a class="navbar-brand" href="/"><span class="logo">{C.H}</span></a>
+        
+        <div class="collapse navbar-collapse" id="collapseNavbar">
+          <div class="nav navbar-nav ml-auto">
+            <a id="blog-link" class="nav-item nav-link" href="/blog/">Blog</a>
+            
+            
+              
+                
+                
+                
+                  <a id="projects-link" class="nav-item nav-link" href="/projects/">Projects</a>
+                
+              
+            
+              
+                
+                
+                
+                  <a id="experiences-link" class="nav-item nav-link" href="/experience/">Experience</a>
+                
+              
+            
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <main class="site-content" aria-label="Content">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="header">
+    <div class="header-content">
+        <h1 class="title" itemprop="name headline">Power BI Guide</h1>
+        
+            <div class="content description">
+                Full introductory guide to Power BI
+            </div>
+        
+        
+        
+            <div class="content">
+                <time datetime="2017-02-21T21:00:00+00:00" itemprop="datePublished">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">21/02/2017</span>
+                </time>
+            </div>
+            <div class="content">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 4  minutes
+            </div>
+        
+        
+        
+        
+    </div>
+</header>
+  <div class="post-body">
+    <div class="post-toc">
+      <h3 class="toc-title">Contents</h3>
+      <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#data-sources">Data Sources</a></li>
+<li class="toc-entry toc-h2"><a href="#load-data">Load Data</a></li>
+<li class="toc-entry toc-h3"><a href="#import">Import</a></li>
+<li class="toc-entry toc-h3"><a href="#directquery">DirectQuery</a></li>
+<li class="toc-entry toc-h3"><a href="#manual">Manual</a></li>
+<li class="toc-entry toc-h1"><a href="#model">Model</a></li>
+<li class="toc-entry toc-h2"><a href="#queries">Queries</a></li>
+<li class="toc-entry toc-h2"><a href="#model-1">Model</a></li>
+<li class="toc-entry toc-h1"><a href="#report">Report</a></li>
+<li class="toc-entry toc-h2"><a href="#visuals">Visuals</a></li>
+<li class="toc-entry toc-h2"><a href="#filters">Filters</a></li>
+<li class="toc-entry toc-h2"><a href="#highlighting">Highlighting</a></li>
+<li class="toc-entry toc-h2"><a href="#appearance">Appearance</a></li>
+<li class="toc-entry toc-h2"><a href="#dashboards">Dashboards</a></li>
+<li class="toc-entry toc-h1"><a href="#publishing">Publishing</a></li>
+<li class="toc-entry toc-h1"><a href="#power-bi-online">Power BI Online</a></li>
+</ul>
+    </div>
+    <div class="post-content" itemprop="articleBody">
+      <h1 id="introduction">Introduction</h1>
+<p>Don’t need to be a Dev to use it.
+Tagreted at business users who know a bit about data.
+Data sources -&gt; dataset/model -&gt; reports -&gt; dashboard
+Need to upload a PBIX file.
+This is called a PowerBI desktop document.
+It contains a ready made model/dataset.
+Can also upload spreadsheets and CSVs.
+If you need to combine multiple sources you have to create a dataset that combines them.
+If not you can just upload the singular file.</p>
+
+<h1 id="data-sources">Data Sources</h1>
+<p>Used to mash data from various sources</p>
+
+<h2 id="load-data">Load Data</h2>
+<p>Databases, files and web services.</p>
+
+<h3 id="import">Import</h3>
+<p>Copies data into Power BI dataset in the cloud.
+Data needs to be updated when it changes.</p>
+
+<h3 id="directquery">DirectQuery</h3>
+<p>Power BI queries data on prem when a report is viewed.
+Requires Enterprise Gatway (?) for on prem.
+Does not allow you to mash multiple data sources, all data must come from a single database.
+No calculated columns or tables
+No data type changes
+Azure Datawarehouse does not require enterprise gateway</p>
+
+<h3 id="manual">Manual</h3>
+<p>You can also manually enter data via a grid GUI inside Power BI.</p>
+
+<h1 id="model">Model</h1>
+<p>Contains meta data like the relationships and formatting of data.
+Contains multiple a queries.</p>
+
+<h2 id="queries">Queries</h2>
+<p>A query is a table or file/source.
+Queries can be grouped.
+Can make top row headers.
+Can remove rows.
+Power BI desktop tries to figure out data types in columns, you can set it manually.
+Can filter rows by column, numeric or string based comparison.
+Can chose columns to keep or columns to remove.
+Can add data from one query into another by using joins.
+Can split a column by a delimeter or number of characters.
+Queries can be shared around an organisation for people to create their models from.</p>
+
+<h2 id="model-1">Model</h2>
+<p>Queries become tables in the model.
+Can link tables together using relationships.
+Power BI desktop attempts to create relationships for you.
+Relationships must be on a single column on two tables.</p>
+
+<p>Computed columns are made using DAX: Data Analysis eXpressions.
+Similar to Excel formulas.
+Computed columns take up additonal memory in model.
+Computed values can be inside queries or models.</p>
+
+<p>Numerical columns are configured to be summerized by default.
+You can turn this off per column.
+It prevents relationships being set up on the column.
+It enables visuals that do counts, averages etc. on the column.</p>
+
+<p>Can use the related function to refer to values in another releated table
+Can use hierachies to allow drill downs.
+Can set another column to be the sort column, then hide the column that is used - useful for string values.
+Can give a column a category. E.g. tell Power BI that it is a city or postcode, required for some visuals I think.</p>
+
+<p>Measures are an aggregation against a table. E.g. total unique rows.</p>
+
+<h1 id="report">Report</h1>
+<p>Reports are a collection of visuals. They can be created in PowerBI online or inside the PBIX or Excel file.
+Reports can have multiple pages (like spreadsheet tabs). All pages must share the same single dataset.</p>
+
+<h2 id="visuals">Visuals</h2>
+<p>Visuals are graphical representations of data.
+Select columns from tables in model.
+Power BI then uses the visual it thinks is best.
+You can then change it.
+They can be tables or charts or cards.
+PowerBI autogenerates some visuals for you called quick insights.
+Can get developers to write custom visuals.</p>
+
+<p>Card is a single value, can be used with measures.</p>
+
+<h2 id="filters">Filters</h2>
+<p>Filters can filter entire report, entire page or a single visual.
+Slicer is a filter visual for the page(?).</p>
+
+<h2 id="highlighting">Highlighting</h2>
+<p>Highlighting is similar to filtering.
+It highlights the matching data, but does not hide unmatching.
+Visuals that do not support highlighting just filter.</p>
+
+<h2 id="appearance">Appearance</h2>
+<p>Can adjust properties on a visual to change how it looks.
+Power BI desktop gives you more options here.
+Can also add shapes to report.</p>
+
+<h2 id="dashboards">Dashboards</h2>
+<p>Dashboards are groups of tiles. A tile can be an entire report, or a single visual.
+You can also create tiles that point to a wide variety of media such as a web page, video or image.
+The reports and visuals inside a dashboard do not have to come from the same dataset.
+Can “pin live page” this means any changes to report are also shown in dashboard.
+Can also ask natural language questions inside dashboard.</p>
+
+<h1 id="publishing">Publishing</h1>
+<p>You publish a PBIX file.
+This uploads model, data and reports to the cloud.</p>
+
+<p>Can upload a file on your machine or you can upload from one drive.</p>
+
+<p>If using OneDrive you can configure Power BI Online to automatically reset model, data and reports when the file changes.
+Requires Power BI Pro.</p>
+
+<p>Excel files do not require a gateway for auto-refresh.</p>
+
+<h1 id="power-bi-online">Power BI Online</h1>
+<p>Cannot change queries or model.
+Can change reports.</p>
+
+<p>Gateway is required for any form of on prem database.
+It is a bridge into the local network from Power BI online.
+~ once an hour</p>
+
+<p>Manual entry requires model to be re-uploaded.</p>
+
+<p>SQL server 2016 allows you to pin reporting services report to dashboard.
+Azure Power BI embedded? What is it?</p>
+
+    </div>
+  </div>
+  
+  <div class="post-comments">
+    <div class="post-comments-content">
+      
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://connelhooley.uk/blog/2017/02/21/power-bi-guide';
+      this.page.identifier = 'http://connelhooley.uk/blog/2017/02/21/power-bi-guide';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://connelhooley.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+    </div>
+  </div>
+  
+</article>
+
+    </main>
+    <footer class="site-footer">
+    <div class="copy">
+        Connel Hooley <i class="fa fa-copyright" aria-hidden="true"></i> 2017
+    </div>
+    <div class="built-with">
+        <a href="http://jekyllrb.com/" target="_blank">Built with Jekyll</a>
+    </div>
+</footer>
+<script src="/assets/js/jquery-3.1.1.min.js"></script>
+<script src="/assets/js/tether.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/clipboard.min.js"></script>
+<script src="/assets/js/main.js"></script>
+  </body>
+</html>

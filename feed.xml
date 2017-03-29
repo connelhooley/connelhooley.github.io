@@ -1,4 +1,142 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-02-25T14:06:47+00:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Akka Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/akka-guide" rel="alternate" type="text/html" title="Akka Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/akka-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/akka-guide">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-03-29T21:54:01+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Power BI Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" rel="alternate" type="text/html" title="Power BI Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/power-bi-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/power-bi-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Don’t need to be a Dev to use it.
+Tagreted at business users who know a bit about data.
+Data sources -&amp;gt; dataset/model -&amp;gt; reports -&amp;gt; dashboard
+Need to upload a PBIX file.
+This is called a PowerBI desktop document.
+It contains a ready made model/dataset.
+Can also upload spreadsheets and CSVs.
+If you need to combine multiple sources you have to create a dataset that combines them.
+If not you can just upload the singular file.&lt;/p&gt;
+
+&lt;h1 id=&quot;data-sources&quot;&gt;Data Sources&lt;/h1&gt;
+&lt;p&gt;Used to mash data from various sources&lt;/p&gt;
+
+&lt;h2 id=&quot;load-data&quot;&gt;Load Data&lt;/h2&gt;
+&lt;p&gt;Databases, files and web services.&lt;/p&gt;
+
+&lt;h3 id=&quot;import&quot;&gt;Import&lt;/h3&gt;
+&lt;p&gt;Copies data into Power BI dataset in the cloud.
+Data needs to be updated when it changes.&lt;/p&gt;
+
+&lt;h3 id=&quot;directquery&quot;&gt;DirectQuery&lt;/h3&gt;
+&lt;p&gt;Power BI queries data on prem when a report is viewed.
+Requires Enterprise Gatway (?) for on prem.
+Does not allow you to mash multiple data sources, all data must come from a single database.
+No calculated columns or tables
+No data type changes
+Azure Datawarehouse does not require enterprise gateway&lt;/p&gt;
+
+&lt;h3 id=&quot;manual&quot;&gt;Manual&lt;/h3&gt;
+&lt;p&gt;You can also manually enter data via a grid GUI inside Power BI.&lt;/p&gt;
+
+&lt;h1 id=&quot;model&quot;&gt;Model&lt;/h1&gt;
+&lt;p&gt;Contains meta data like the relationships and formatting of data.
+Contains multiple a queries.&lt;/p&gt;
+
+&lt;h2 id=&quot;queries&quot;&gt;Queries&lt;/h2&gt;
+&lt;p&gt;A query is a table or file/source.
+Queries can be grouped.
+Can make top row headers.
+Can remove rows.
+Power BI desktop tries to figure out data types in columns, you can set it manually.
+Can filter rows by column, numeric or string based comparison.
+Can chose columns to keep or columns to remove.
+Can add data from one query into another by using joins.
+Can split a column by a delimeter or number of characters.
+Queries can be shared around an organisation for people to create their models from.&lt;/p&gt;
+
+&lt;h2 id=&quot;model-1&quot;&gt;Model&lt;/h2&gt;
+&lt;p&gt;Queries become tables in the model.
+Can link tables together using relationships.
+Power BI desktop attempts to create relationships for you.
+Relationships must be on a single column on two tables.&lt;/p&gt;
+
+&lt;p&gt;Computed columns are made using DAX: Data Analysis eXpressions.
+Similar to Excel formulas.
+Computed columns take up additonal memory in model.
+Computed values can be inside queries or models.&lt;/p&gt;
+
+&lt;p&gt;Numerical columns are configured to be summerized by default.
+You can turn this off per column.
+It prevents relationships being set up on the column.
+It enables visuals that do counts, averages etc. on the column.&lt;/p&gt;
+
+&lt;p&gt;Can use the related function to refer to values in another releated table
+Can use hierachies to allow drill downs.
+Can set another column to be the sort column, then hide the column that is used - useful for string values.
+Can give a column a category. E.g. tell Power BI that it is a city or postcode, required for some visuals I think.&lt;/p&gt;
+
+&lt;p&gt;Measures are an aggregation against a table. E.g. total unique rows.&lt;/p&gt;
+
+&lt;h1 id=&quot;report&quot;&gt;Report&lt;/h1&gt;
+&lt;p&gt;Reports are a collection of visuals. They can be created in PowerBI online or inside the PBIX or Excel file.
+Reports can have multiple pages (like spreadsheet tabs). All pages must share the same single dataset.&lt;/p&gt;
+
+&lt;h2 id=&quot;visuals&quot;&gt;Visuals&lt;/h2&gt;
+&lt;p&gt;Visuals are graphical representations of data.
+Select columns from tables in model.
+Power BI then uses the visual it thinks is best.
+You can then change it.
+They can be tables or charts or cards.
+PowerBI autogenerates some visuals for you called quick insights.
+Can get developers to write custom visuals.&lt;/p&gt;
+
+&lt;p&gt;Card is a single value, can be used with measures.&lt;/p&gt;
+
+&lt;h2 id=&quot;filters&quot;&gt;Filters&lt;/h2&gt;
+&lt;p&gt;Filters can filter entire report, entire page or a single visual.
+Slicer is a filter visual for the page(?).&lt;/p&gt;
+
+&lt;h2 id=&quot;highlighting&quot;&gt;Highlighting&lt;/h2&gt;
+&lt;p&gt;Highlighting is similar to filtering.
+It highlights the matching data, but does not hide unmatching.
+Visuals that do not support highlighting just filter.&lt;/p&gt;
+
+&lt;h2 id=&quot;appearance&quot;&gt;Appearance&lt;/h2&gt;
+&lt;p&gt;Can adjust properties on a visual to change how it looks.
+Power BI desktop gives you more options here.
+Can also add shapes to report.&lt;/p&gt;
+
+&lt;h2 id=&quot;dashboards&quot;&gt;Dashboards&lt;/h2&gt;
+&lt;p&gt;Dashboards are groups of tiles. A tile can be an entire report, or a single visual.
+You can also create tiles that point to a wide variety of media such as a web page, video or image.
+The reports and visuals inside a dashboard do not have to come from the same dataset.
+Can “pin live page” this means any changes to report are also shown in dashboard.
+Can also ask natural language questions inside dashboard.&lt;/p&gt;
+
+&lt;h1 id=&quot;publishing&quot;&gt;Publishing&lt;/h1&gt;
+&lt;p&gt;You publish a PBIX file.
+This uploads model, data and reports to the cloud.&lt;/p&gt;
+
+&lt;p&gt;Can upload a file on your machine or you can upload from one drive.&lt;/p&gt;
+
+&lt;p&gt;If using OneDrive you can configure Power BI Online to automatically reset model, data and reports when the file changes.
+Requires Power BI Pro.&lt;/p&gt;
+
+&lt;p&gt;Excel files do not require a gateway for auto-refresh.&lt;/p&gt;
+
+&lt;h1 id=&quot;power-bi-online&quot;&gt;Power BI Online&lt;/h1&gt;
+&lt;p&gt;Cannot change queries or model.
+Can change reports.&lt;/p&gt;
+
+&lt;p&gt;Gateway is required for any form of on prem database.
+It is a bridge into the local network from Power BI online.
+~ once an hour&lt;/p&gt;
+
+&lt;p&gt;Manual entry requires model to be re-uploaded.&lt;/p&gt;
+
+&lt;p&gt;SQL server 2016 allows you to pin reporting services report to dashboard.
+Azure Power BI embedded? What is it?&lt;/p&gt;</content><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><summary type="html">Introduction
+Don’t need to be a Dev to use it.
+Tagreted at business users who know a bit about data.
+Data sources -&amp;gt; dataset/model -&amp;gt; reports -&amp;gt; dashboard
+Need to upload a PBIX file.
+This is called a PowerBI desktop document.
+It contains a ready made model/dataset.
+Can also upload spreadsheets and CSVs.
+If you need to combine multiple sources you have to create a dataset that combines them.
+If not you can just upload the singular file.</summary></entry><entry><title type="html">Akka Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/akka-guide" rel="alternate" type="text/html" title="Akka Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/akka-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/akka-guide">&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
 &lt;p&gt;Akka is an actor framework. We’ll cover what that means &lt;a href=&quot;#actor-model&quot;&gt;in the next section&lt;/a&gt;. &lt;a target=&quot;_BLANK&quot; href=&quot;http://getakka.net/&quot;&gt;Akka.NET&lt;/a&gt; is a .NET port of the Scala &lt;a target=&quot;_BLANK&quot; href=&quot;http://akka.io/&quot;&gt;Akka&lt;/a&gt; framework. Akka.NET is an open source project that is actively maintained by the community. &lt;a target=&quot;_BLANK&quot; href=&quot;https://petabridge.com/&quot;&gt;Petabridge&lt;/a&gt; is one of the main contributors. This guide starts off by describing the actor model, and then goes onto to give some examples of how Akka.NET implements the actor model.&lt;/p&gt;
 
 &lt;p&gt;This guide only covers the basics of the actor model and Akka.NET. Basic knowledge of C# is assumed.&lt;/p&gt;
