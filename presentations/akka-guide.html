@@ -22,13 +22,13 @@
 
   <!-- Begin Jekyll SEO tag v2.1.0 -->
 <meta property="og:title" content="Akka Guide" />
-<meta name="description" content="You can do it Put your Akka into it Akka is an implemenation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechinisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;" />
-<meta property="og:description" content="You can do it Put your Akka into it Akka is an implemenation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechinisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;" />
+<meta name="description" content="You can do it Put your Akka into it Akka is an implementation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechanisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors are workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;" />
+<meta property="og:description" content="You can do it Put your Akka into it Akka is an implementation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechanisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors are workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;" />
 <link rel="canonical" href="http://connelhooley.uk/presentations/akka-guide" />
 <meta property="og:url" content="http://connelhooley.uk/presentations/akka-guide" />
 <meta property="og:site_name" content="Connel Hooley" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-03-29T22:19:28+01:00" />
+<meta property="article:published_time" content="2017-04-09T19:42:56+01:00" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@connel_dev" />
 <meta name="twitter:creator" content="@connel_dev" />
@@ -36,8 +36,8 @@
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Akka Guide",
-"datePublished": "2017-03-29T22:19:28+01:00",
-"description": "You can do it Put your Akka into it Akka is an implemenation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechinisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;",
+"datePublished": "2017-04-09T19:42:56+01:00",
+"description": "You can do it Put your Akka into it Akka is an implementation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechanisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors are workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://connelhooley.uk/assets/images/logo.png"}},
@@ -71,7 +71,7 @@
 </section>
 <section>
     <section>
-        <h1>Akka is an implemenation of the "actor model" on .NET</h1>
+        <h1>Akka is an implementation of the "actor model" on .NET</h1>
         <aside class="notes">
             <ul>
                 <li>Port of the Scala Akka framework</li>
@@ -98,7 +98,7 @@
         <ul>
             <li>Actors are <b>thread safe</b></li>
             <li>Actors are <b>asynchronous</b></li>
-            <li>Actor frameworks tend to have great mechinisms for <b>error handling</b></li>
+            <li>Actor frameworks tend to have great mechanisms for <b>error handling</b></li>
             <li>Actors promote <b>scalable</b> and more loosely coupled systems</li>
         </ul>
         <aside class="notes">
@@ -117,7 +117,7 @@
         <aside class="notes">
             <ul>
                 <li>The application is a factory</li>
-                <li>Actors workers inside factory</li>
+                <li>Actors are workers inside factory</li>
                 <li>Messages are jobs that need doing inside the factory</li>
              </ul>
         </aside>
@@ -199,7 +199,7 @@
                         _system = ActorSystem.Create("example-name");
                         Console.CancelKeyPress += (sender, eventArgs) =>
                         {
-                            eventArgs.Cancel = true; // Canceling the event prevents the process terminating too early
+                            eventArgs.Cancel = true; // Cancelling the event prevents the process terminating too early
                             _system.Terminate();
                         };
                         _system.WhenTerminated.Wait();
@@ -240,7 +240,7 @@
                     <li>Inside Actors (for creating <i>child</i> actors)</li>
                 </ul>
             </li>
-            <li>Both places expose the same function to acheive this</li>
+            <li>Both places expose the same function to achieve this</li>
         </ul>
     </section>
     <section>
@@ -332,7 +332,7 @@
                     <ul>
                         <li>Simple POCO classes</li>
                         <li>Immutable</li>
-                        <li>Serializable</li>
+                        <li>Serialisable</li>
                         <li>Small (if large pass a handle)</li>
                     </ul>
                 </li>
@@ -377,7 +377,7 @@
                 <li>Private methods for each message type</li>
                 <li>Ignore messages that have no callbacks</li>
                 <li>First matching receive callback wins by default</li>
-                <li>The receive actor is like akka's method of pattern matching</li>
+                <li>The receive actor is like Akka's method of pattern matching</li>
             </ul>
         </aside>
     </section>
@@ -435,9 +435,9 @@
     <section>
         <h1>Sending messages to self</h1>
         <pre><code class="language-csharp" data-trim>
-            public class ExampleChildActor : ReceiveActor
+            public class ExampleSelfTellActor : ReceiveActor
             {
-                public ExampleChildActor()
+                public ExampleSelfTellActor()
                 {
                     Receive&lt;ExampleMessage&gt;(m => ReceiveExampleMessage(m));
                     Receive&lt;ExampleSelfMessage&gt;(m => ReceiveExampleSelfMessage(m));
@@ -474,7 +474,7 @@
             <ul>
                 <li>Puts message at back of queue</li>
                 <li>Allows actor to process other messages in the mean time</li>
-                <li>Actors don't differenciate between messages sent from other actors or themselves</li>
+                <li>Actors don't differentiate between messages sent from other actors or themselves</li>
                 <li>Nesting classes inside actors allows them to be private</li>
             </ul>
         </aside>
@@ -598,7 +598,7 @@
             <ul>
                 <li>Change receive callbacks at run time</li>
                 <li>Use Become method</li>
-                <li>Note that receive callbacks are not carried over to new behaviors</li>
+                <li>Note that receive callbacks are not carried over to new behaviours</li>
             </ul>
         </aside>
     </section>
@@ -643,7 +643,7 @@
         </code></pre>
         <aside class="notes">
             <ul>
-                <li>Often used with behaviors</li>
+                <li>Often used with behaviours</li>
                 <li>In memory list of messages</li>
                 <li>Implement IWithUnboundedStash</li>
                 <li>Stash is populated by ActorOf</li>
@@ -704,13 +704,13 @@
         </code></pre>
         <aside class="notes">
             <ul>
-                <li>PipeTo is good because awating a task blocks an actor which is awful for performance</li>
+                <li>PipeTo is good because awaiting a task blocks an actor which is awful for performance</li>
                 <li>Note the private class that allows you to scope messages to one actor only</li>
             </ul>
         </aside>
     </section>
     <section>
-        <h1>Bells &amp; WHistles</h1>
+        <h1>Bells &amp; Whistles</h1>
         <pre><code class="language-csharp" data-trim>
             public class DownloadActor : ReceiveActor, IWithUnboundedStash
             {
