@@ -22,4 +22,13 @@ $(function() {
         $('body').append($notification);
         $notification.slideDown(500).delay(2000).slideUp(500);
     });
+    $('.post-content :header').each(function(i, e) {
+        $e = $(e);
+        var link = $('<a>');
+        link.addClass('heading-link');
+        link.html('<i class="fa fa-anchor"></i>');
+        link.attr('href', '#' + e.id);
+        $e.append('&nbsp;');
+        $e.append(link);
+    });
 });

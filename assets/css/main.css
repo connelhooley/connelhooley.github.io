@@ -2901,8 +2901,8 @@ samp {
 
 code {
   padding: 0.2rem 0.4rem;
-  font-size: 90%;
-  color: #bd4147;
+  font-size: 100%;
+  color: #d49c06;
   background-color: #f7f7f9; }
   a > code {
     padding: 0;
@@ -2911,7 +2911,7 @@ code {
 
 kbd {
   padding: 0.2rem 0.4rem;
-  font-size: 90%;
+  font-size: 100%;
   color: #fff;
   background-color: #292b2c; }
   kbd kbd {
@@ -2923,7 +2923,7 @@ pre {
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: 90%;
+  font-size: 100%;
   color: #292b2c; }
   pre code {
     padding: 0;
@@ -9198,43 +9198,41 @@ h1, h2, h3, h4, h5, h6 {
 /**
  * Syntax highlighting styles
  */
-.highlighter-rouge,
-.highlighter {
-  position: relative; }
-  .highlighter-rouge .copy,
-  .highlighter .copy {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer; }
-  .highlighter-rouge pre,
-  .highlighter pre {
-    margin-bottom: 1rem;
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 1rem;
-    background: #000;
-    color: #fff; }
-  .highlighter-rouge .c, .highlighter-rouge .cm, .highlighter-rouge .cp, .highlighter-rouge .c1, .highlighter-rouge .cs,
-  .highlighter .c,
-  .highlighter .cm,
-  .highlighter .cp,
-  .highlighter .c1,
-  .highlighter .cs {
-    color: #5cb85c;
-    font-style: italic; }
-  .highlighter-rouge .nf, .highlighter-rouge .nc,
-  .highlighter .nf,
-  .highlighter .nc {
-    color: #f8bb15; }
-  .highlighter-rouge .k,
-  .highlighter .k {
-    color: #636c72;
-    font-weight: bold; }
-  .highlighter-rouge .kt,
-  .highlighter .kt {
-    color: #0275d8; }
+.highlighter-rouge pre,
+.highlighter pre {
+  position: relative;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 1rem;
+  background: #000;
+  color: #fff; }
+.highlighter-rouge .copy,
+.highlighter .copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer; }
+.highlighter-rouge .c, .highlighter-rouge .cm, .highlighter-rouge .cp, .highlighter-rouge .c1, .highlighter-rouge .cs,
+.highlighter .c,
+.highlighter .cm,
+.highlighter .cp,
+.highlighter .c1,
+.highlighter .cs {
+  color: #5cb85c;
+  font-style: italic; }
+.highlighter-rouge .nf, .highlighter-rouge .nc,
+.highlighter .nf,
+.highlighter .nc {
+  color: #f8bb15; }
+.highlighter-rouge .k,
+.highlighter .k {
+  color: #636c72;
+  font-weight: bold; }
+.highlighter-rouge .kt,
+.highlighter .kt {
+  color: #0275d8; }
 
 .home .banner {
   padding: 2rem 0;
@@ -9746,10 +9744,23 @@ h1, h2, h3, h4, h5, h6 {
   .post .post-content img {
     max-width: 100%;
     height: auto; }
-@media (max-width: 575px) {
-  .post .highlighter-rouge {
-    margin-left: -15px;
-    margin-right: -15px; } }
+  @media (max-width: 575px) {
+    .post .post-content blockquote,
+    .post .post-content .highlight {
+      margin-left: -15px;
+      margin-right: -15px; } }
+  .post .post-content blockquote {
+    background-color: #f7f7f9;
+    border: 1px solid #eceeef;
+    padding: 1rem;
+    font-family: "Slabo 27px", "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .post .post-content blockquote p:last-child {
+      margin-bottom: 0; }
+  .post .post-content .heading-link {
+    font-size: 50%;
+    display: none; }
+  .post .post-content h1:hover .heading-link {
+    display: initial; }
 @media (max-width: 575px) {
   .post table {
     display: block;

@@ -1,4 +1,502 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-09T19:42:56+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Power BI Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" rel="alternate" type="text/html" title="Power BI Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/power-bi-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/power-bi-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-11T20:14:02+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">A C# Developer’s Intro to F#</title><link href="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro" rel="alternate" type="text/html" title="A C# Developer's Intro to F#" /><published>2017-04-10T14:00:00+01:00</published><updated>2017-04-10T14:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/10/f-sharp-intro</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;There are a lot of guides out there that explain functional programming and F# but I think very few are aimed at “modern” C# developers that use &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0&quot;&gt;Linq&lt;/a&gt; everyday and that are familiar with the &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx&quot;&gt;Action&lt;/a&gt; and &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx&quot;&gt;Func&lt;/a&gt; types.&lt;/p&gt;
+
+&lt;p&gt;In this guide we will walk through some of the basic aspects of writing code in F# from the point of view of a C# developer who is already familiar with some aspects of functional programming.&lt;/p&gt;
+
+&lt;p&gt;This guide also assumes you have Visual Studio 2017 installed.&lt;/p&gt;
+
+&lt;h1 id=&quot;why-f&quot;&gt;Why F#?&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;This section is purely my opinion so feel free to &lt;a href=&quot;#projects&quot;&gt;skip&lt;/a&gt; it to get stuck straight into F#.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Functional programming is gaining more and more traction in recent years. The chances are if you’re reading this article you’re already well aware of this. You only have to look at the features that have been dropping in C# in recent years to see that almost all of them were available in F# first.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Feature&lt;/th&gt;
+      &lt;th&gt;Year in F#&lt;/th&gt;
+      &lt;th&gt;Year in C#&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;C# is becoming more and more functional with every release, but to me it feels like its being built upon a foundation that was never designed to be this functional. There are numerous features baked into in the C# language that simply makes functional programming more difficult (e.g. lack of true type inference, lak of immutability, void return type, statements instead of expressions, reliance on interfaces, inheritance and polymorphism).&lt;/p&gt;
+
+&lt;p&gt;In my opinion, the rapid evolving state of C# to become more functional will eventually lead fragmentation in the C# world. It is quite foreseeable to imagine a scenario where a project is written in functional C# using new C# features and a new developer who is not accustomed to this way of working could come onto the project and start writing traditional OO code. There is absolutely nothing wrong with OOP, but if all the code is written in one way and then other parts are written in another quite different way, then the reasonably and consistency of the code is affected.&lt;/p&gt;
+
+&lt;p&gt;F# offers a clean line in the sand between OO and functional. If you’re working on an F# project you know the project you are working on is going to be written in a mostly functional manner. It is perfectly fine to write OO code in F# too, but its not the default way of doing things, so you’re less likely to revert back to that way of thinking unless it suites the problem you’re trying solve.&lt;/p&gt;
+
+&lt;h1 id=&quot;projects&quot;&gt;Projects&lt;/h1&gt;
+&lt;p&gt;Let’s start off by looking at how to create an F# project in Visual Studio:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-new-solution.png&quot; alt=&quot;Screenshot of Visual Studio when creating an F# solution&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Setting the .NET framework version is done in the exact same way as you would a C# project. This article assumes it is set to 4.6.2.&lt;/p&gt;
+
+&lt;p&gt;There is one important difference between F# projects and C# projects. The order of the files in the solution explorer is not alphabetical in F# projects, it is actually in the order in which they are compiled. If file B uses a function in file A, then file B must be below file A.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-solution-explorer.png&quot; alt=&quot;Screenshot of Visual Studio solution explorer for an F# solution&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Notice that because A was created after B it is in-fact under A (not in alphabetical order). If B wants to use anything in A then you have to move it up the list, this is done via the context menu or by pressing &lt;code class=&quot;highlighter-rouge&quot;&gt;ALT + Up/Down&lt;/code&gt; when it is selected in the explorer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-solution-explorer-context-menu.png&quot; alt=&quot;Screenshot of Visual Studio project item context menu for an F# solution&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This caught me out for quite a long time when I created my first F# project, as Visual Studio just tells you that the thing you are trying to use is not declared yet. This may sound really horrible but in my experience it has never caused me an issue once a realised what was going on.&lt;/p&gt;
+
+&lt;p&gt;Another important thing to note is that there are no folders in F# projects, when needed, code is segregated using projects in a solution.&lt;/p&gt;
+
+&lt;h1 id=&quot;modules&quot;&gt;Modules&lt;/h1&gt;
+&lt;p&gt;Before we write our first function we need a container to put them in. In F# functions are put into &lt;em&gt;modules&lt;/em&gt;. Think of modules as static classes. The only difference between modules and static classes is that you can import a module into your current file just like you would a namespace.&lt;/p&gt;
+
+&lt;p&gt;This leaves you with a two tier mechanism for organising code in F#: namespaces and modules.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Container&lt;/th&gt;
+      &lt;th&gt;What can go in there&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Module&lt;/td&gt;
+      &lt;td&gt;Functions, Values (value type or complex type), Modules, Classes, Interfaces&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Namespace&lt;/td&gt;
+      &lt;td&gt;Modules, Classes, Interfaces&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Namespaces are the top level tier and modules are the lower level tier.&lt;/p&gt;
+
+&lt;p&gt;As mentioned previously, modules can be imported into a file in the exact same way a namespace can in F#. So, for example if you have:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A function called parse in a module called Maths.&lt;/li&gt;
+  &lt;li&gt;And Maths was in a namespace called Helpers.&lt;/li&gt;
+  &lt;li&gt;Then to use the function you can import “Helpers.Maths” into your file and use the parse function.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To add a module to a project you use the “New Item…” context menu option, just as you would in a C# project. Somewhat confusingly there are two F# identical options in the dialogue box that appears:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-add-new-file.png&quot; alt=&quot;Screenshot of Visual Studio dialogue for adding a new F# file&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use the first one (the second one is a Xamarin Android file strangely enough).&lt;/p&gt;
+
+&lt;p&gt;Unfortunately if you’re a ReSharper user you’ll notice that they haven’t included any F# templates in the “New from Template” menu yet.&lt;/p&gt;
+
+&lt;h1 id=&quot;functions&quot;&gt;Functions&lt;/h1&gt;
+&lt;p&gt;Now we know what to put our function in, we are now ready to write our own function. Below is a simple add function in a module and namespace:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Helpers&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Maths&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Lets go through this one line at a time:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;namespace Helpers&lt;/code&gt; puts everything that is in this file into a namespace called &lt;em&gt;Helpers&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;module Maths =&lt;/code&gt; creates a module called &lt;em&gt;Maths&lt;/em&gt;. Here we see one of the biggest differences between C# and F#. F# is &lt;strong&gt;whitespace sensitive&lt;/strong&gt;. Notice everything inside the module must be indented. Due to this there is no need for semi-colons.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let add num1 num2 =&lt;/code&gt; declares a function. To declare any variable in F# the &lt;strong&gt;let&lt;/strong&gt; keyword is used. F# values are &lt;strong&gt;immutable&lt;/strong&gt; so using var (short for variable of course) does not make much sense. The next strange thing you will have noticed with this line is that there appears to be three values to the left of the equals sign. It is in-fact a single function. The first value is the name of the function (called &lt;em&gt;add&lt;/em&gt;) and the second value is the first parameter to the function ( called &lt;em&gt;num1&lt;/em&gt;) and the third value is the second parameter to the function (called &lt;em&gt;num2&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;num1 + num2&lt;/code&gt; is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no &lt;strong&gt;return&lt;/strong&gt; keyword in the function body. This is because all functions in F# are single statement &lt;strong&gt;expressions&lt;/strong&gt;. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this is C# you do not have to use the return keyword and it is the same here in F#.&lt;/p&gt;
+
+&lt;p&gt;Now we know our way around a function in F# we can take a look at the program file that is created for us by default in every F# Console project by Visual Studio.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;EntryPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;printfn&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;%A&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;[&amp;lt;EntryPoint&amp;gt;]&lt;/code&gt; is an F# attribute. The syntax is slightly different to C# where you only have the square brackets. This attribute is required for the main method in F#. The entry point in F# is important for two reasons:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Firstly it is the only file that does not need to be in a module or namespace&lt;/li&gt;
+  &lt;li&gt;Secondly it must be the last file to be compiled. This means it has to be at the bottom of the project in the solution explorer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let main argv =&lt;/code&gt; is a function declaration that takes in the command line arguments as its only parameter.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;printfn &quot;%A&quot; argv&lt;/code&gt; writes the command line arguments to the console. &lt;code class=&quot;highlighter-rouge&quot;&gt;printfn&lt;/code&gt; is much like Console.WriteLine combined with String.Format. Don’t worry too much what &lt;em&gt;%A&lt;/em&gt; means for now, just know that it prints out a type’s values. You can find more about the formatting tokens available in the printfn function &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/core.printf-module-%5Bfsharp%5D#remarks&quot;&gt;here&lt;/a&gt;. We can also see the syntax for calling a function in F# on this line. Much like function declarations, parameters are separated by spaces with no need for commas and parenthesis. This line is almost equivalent to &lt;code class=&quot;highlighter-rouge&quot;&gt;Console.WriteLine(String.Format(&quot;{0}&quot;, argv))&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; - the last line looks kind of strange but what is does is it returns 0 to the operating system to indicate the system terminated without an error. Much like you do when using the Environment.Exit method.&lt;/p&gt;
+
+&lt;h1 id=&quot;type-inference&quot;&gt;Type Inference&lt;/h1&gt;
+&lt;p&gt;The add function in the previous example takes in two integers, adds them together and then returns the result. Not once in the file however, do we mention the int primitive type (or any other type for that matter). This is due to a powerful feature of F# called type inference. C# of course has its own type inference (for example the var keyword in C# infers the type being assigned to it). F#’s type inference on the other hand, is much more advanced.&lt;/p&gt;
+
+&lt;p&gt;The compiler will take a look at how the values are used in the function and then determine what the parameters and return type of the function should be.&lt;/p&gt;
+
+&lt;p&gt;Sometimes the compiler won’t be able to infer the types. When this happens you must use &lt;strong&gt;type annotations&lt;/strong&gt;. For example if a function takes in a list and calls the Linq extension method called Any on it, the compiler will not be able to deduce the type. Take the following example:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;anyItems&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The example above will not compile and will result in the following error:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Lookup on object of indeterminate type based on information prior to this program point. &lt;strong&gt;A type annotation may be needed&lt;/strong&gt; prior to this program point to constrain the type of the object. This may allow the lookup to be resolved.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Type annotations are when you tell the compiler what the type of a parameter or return value is, just like you do in C# already. The following example uses a type annotation:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Linq&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;anyItems&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Note that we have &lt;em&gt;imported&lt;/em&gt; the System.Linq namespace (in F# the keyword to import a namespace is &lt;strong&gt;open&lt;/strong&gt; instead of &lt;em&gt;using&lt;/em&gt; like in C#).&lt;/p&gt;
+
+&lt;p&gt;Type annotations have two parts to their syntax:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Firstly wrap the parameter in parenthesis&lt;/li&gt;
+  &lt;li&gt;Then place a colon inside the parenthesis
+    &lt;ul&gt;
+      &lt;li&gt;To the left of the colon is the name of the parameter&lt;/li&gt;
+      &lt;li&gt;To the right of the colon is the type of the parameter&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is the other way round to C# where the type comes before the name.&lt;/p&gt;
+
+&lt;p&gt;You’re also probably wondering what the &lt;code class=&quot;highlighter-rouge&quot;&gt;seq&lt;/code&gt; type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! I’ll cover the most common F# types later.&lt;/p&gt;
+
+&lt;p&gt;Member methods (especially generic extension methods) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later.&lt;/p&gt;
+
+&lt;h1 id=&quot;generics&quot;&gt;Generics&lt;/h1&gt;
+&lt;p&gt;Sometimes it doesn’t actually matter what the types of a function’s parameters or return value is. For example take the following F# code:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnSecondParameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, I know this function is pretty useless but it demonstrates a particularly important aspect of F#. Since the compiler infers the types of the function’s parameters and return type do not matter, this function is compiled as a generic function. The equivalent C# code would be:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TParam2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReturnSecondParameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TParam1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TParam2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TParam1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TParam2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The big difference here being, in C# you have to go out of your way to &lt;em&gt;opt in&lt;/em&gt; to making a function generic. In F# however, you have to &lt;em&gt;opt out&lt;/em&gt; to make the function non-generic by using type annotations. Leaving it generic is usually for the best, as if the function doesn’t need to be non-generic, why not open it up so it can be used with any type?&lt;/p&gt;
+
+&lt;h1 id=&quot;tuples&quot;&gt;Tuples&lt;/h1&gt;
+&lt;p&gt;If you’re keeping up to date with C# 7, then you will be aware of what tuples are. If you haven’t though, tuples are ordered groups of values. If you have a list of integers you can have 0 to N integers. Tuples allow you to create an object that contains a finite amount of different types. For example you could create a tuple that contains an integer then a string and then another integer.&lt;/p&gt;
+
+&lt;p&gt;One of the main uses for tuples is that they allow you to return multiple values from a function without having to create a small POCO class to contain them.&lt;/p&gt;
+
+&lt;p&gt;In F# tuples are written using parenthesis with the items inside separated by commas. Below is an example of a function that returns a tuple that contains an integer and then a string:&lt;/p&gt;
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The original value was &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above example returns the value with ten added to it in the tuple’s first item, and a string containing the value in the tuple’s second item.&lt;/p&gt;
+
+&lt;p&gt;Tuples can also be “unpacked” when they are assigned to. Below is an example of how tuples are assigned to:&lt;/p&gt;
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Unpacking tuples is optional. You can always unpack the tuple later. As demonstrated in this example:&lt;/p&gt;
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultAndMessage&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultAndMessage&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the above examples, &lt;em&gt;result&lt;/em&gt; contains the integer in the first item of the tuple and &lt;em&gt;message&lt;/em&gt; contains the string in the second item of the tuple.&lt;/p&gt;
+
+&lt;p&gt;As you can see, using tuples is a very convenient way of returning multiple values from a function without having to create a small type and then extracting the values out of it. They also have another purpose in F# which we will cover later.&lt;/p&gt;
+
+&lt;h1 id=&quot;records&quot;&gt;Records&lt;/h1&gt;
+&lt;p&gt;Records are immutable POCO classes that offer value based equality for free (as opposed to the reference based equality you get by default in C#). Below is an example of a record declaration:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To instantiate a record the following syntax is used:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The F# compiler infers the type for us. It looks through all the available types for any types that have both “name” and “age” properties. Since there is only one, the compiler can successfully infer the type of this object to that of a &lt;em&gt;Person&lt;/em&gt; type. This is just one example of how F# type inference is head and shoulders above C#’s.&lt;/p&gt;
+
+&lt;p&gt;If you have two records with the same properties then you can use type annotations to tell the compiler which one to use, although this is very rare. If you have two records with the exact same properties you should probably merge them.&lt;/p&gt;
+
+&lt;p&gt;Since a record is a class it can be placed inside a namespace or module. One of the best features of records is how they are compared.&lt;/p&gt;
+
+&lt;p&gt;For example take the following F# code:&lt;/p&gt;
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;[&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;EntryPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hooley&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPerson1Person2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPerson1Person3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person3&lt;/span&gt;
+    &lt;span class=&quot;nn&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isPerson1Person2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prints&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;nn&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isPerson1Person3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prints&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;nn&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Press enter to exit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ReadLine&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Here we have a main method that creates 3 Person objects. The first and second Person objects have a different name, whereas the first and third objects have the same properties. Notice how comparing person1 and person3 results in “True” being printed. This is because records check for equality on &lt;strong&gt;all&lt;/strong&gt; of its properties. It does not perform a reference comparison like C# does. This is really useful for &lt;strong&gt;unit testing&lt;/strong&gt;. It means we do not have to waste our time writing equals overloads to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.&lt;/p&gt;
+
+&lt;p&gt;It is important to note that if a record contains another record as one of its properties then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.&lt;/p&gt;
+
+&lt;p&gt;Also note how the semi-colon is used the previous example to create a record on one line.&lt;/p&gt;
+
+&lt;h1 id=&quot;equality&quot;&gt;Equality&lt;/h1&gt;
+&lt;p&gt;You may also may have noticed in the previous example that in F# you only use a single equals for a comparison (as opposed to the double equals you will find in C#).&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;When the equals symbol is used&lt;/th&gt;
+      &lt;th&gt;What is does&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Immediately after the let keyword and an identifier&lt;/td&gt;
+      &lt;td&gt;Assigns the following expression to the identifier&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Immediately after the module keyword and an identifier&lt;/td&gt;
+      &lt;td&gt;Assigns the any indented code below to the module&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;In an expression&lt;/td&gt;
+      &lt;td&gt;Compares two values&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;unit&quot;&gt;Unit&lt;/h1&gt;
+&lt;p&gt;As mentioned previously everything in F# is an expression. Functions that return void cannot be used in expressions. For example you cannot use functions that return void in ternary expressions in C#. For example, this C# code will not compile:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Program&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Length&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is because expressions must have a return type. F# has a special type called &lt;strong&gt;Unit&lt;/strong&gt;. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as Thread.Sleep and Console.WriteLine, return Unit when used in F#.&lt;/p&gt;
+
+&lt;p&gt;Unit is expressed in F# by using two brackets next to each other like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit returns unit.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnUnit&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;If you ever want to disregard the returned value of a function and return unit instead, F# has a function called ignore that does this for you. For example Console.ReadLine returns a string but we want our function to return void, so we use the ignore function to &lt;em&gt;ignore&lt;/em&gt; the string returned from the ReadLine method and return &lt;em&gt;Unit&lt;/em&gt; instead.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;waitUntilEnter&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;ignore&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ReadLine&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The waitUntilEnter function above returns the empty Unit type rather than the string returned by the ReadLine method.&lt;/p&gt;
+
+&lt;h1 id=&quot;if-expression&quot;&gt;If Expression&lt;/h1&gt;
+
+&lt;p&gt;F# does not have a ternary operator, since everything is already an expression in F#. The F# equivalent to the C# ternary operator is the if expression.&lt;/p&gt;
+
+&lt;p&gt;When using an if expression, all the branches of the expression must return the same type.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Helpers&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isConnel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;The value is Connel&quot;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;The value is not Connel&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Like everything in F#, the if expression is whitespace sensitive so there is no need for curly braces. The other main difference compared to C# is that there is no need to parenthesis around the condition and there is an additional &lt;em&gt;then&lt;/em&gt; keyword required.&lt;/p&gt;
+
+&lt;p&gt;Both parts of the expression above returns a string. If the else branch returned a boolean for example, the code would not compile.&lt;/p&gt;
+
+&lt;h1 id=&quot;function-signatures&quot;&gt;Function Signatures&lt;/h1&gt;
+&lt;p&gt;In C# method signatures look this (see &lt;a target=&quot;_BLANK&quot; href=&quot;http://stackoverflow.com/a/8808773/310098&quot;&gt;here&lt;/a&gt; for why I’ve included the return type if you’re curious):&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;int Add(int, int)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Or, if you wanted to take in a method that followed this notation as a parameter, you would need to take in an object of the type:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Func&amp;lt;int, int, int&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;F# has its own notation for a method’s signature. The add function above has the following signature in F#:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;int -&amp;gt; int -&amp;gt; int&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This F# signature appears to closely resemble the corresponding Func type in C#. The item on the far right is the return type, and the items to its left are the values you need to put in to get that return type out.&lt;/p&gt;
+
+&lt;p&gt;One of the nice things about F# is that a function’s signature is also its type, it isn’t two different things like in C#.&lt;/p&gt;
+
+&lt;p&gt;Asterisks are used to denote tuples. The following example is the signature of a function that takes in an integer and returns a tuple with an integer as its first item and a string as its second item.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;int -&amp;gt; int * string&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Take the following following F# function:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doubleWhenTrue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The example above is a function that takes in another function as a parameter. The notion/type for this function is:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;int -&amp;gt; (int -&amp;gt; bool) -&amp;gt; int&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Parenthesis are used to indicate the nested function that is a parameter. Parenthesis are also used to indicate a function that is returned. Take the following F# function:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnFunction&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;returnFunction&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The example above is a function takes in two integers, adds them together and then returns another function that takes in another int and adds it to the sum of the previous two integers and returns the result. The notion/type for this function is:&lt;/p&gt;
+
+&lt;p&gt;int -&amp;gt; int -&amp;gt; (int -&amp;gt; int)&lt;/p&gt;
+
+&lt;h1 id=&quot;currying&quot;&gt;Currying&lt;/h1&gt;
+&lt;p&gt;One of the powerful features of F# that differentiates it from C# is its built currying. Currying is when you split a function of N parameters into N separate functions. For example, if you take the following C# function type:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Func&amp;lt;int, int, int, int&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Calling a function of this type would look like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;int sum = addThreeNumbers(1,2,3);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If you were to &lt;strong&gt;curry&lt;/strong&gt; it, you would end up with a function of the following function type:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Func&amp;lt;int, Func&amp;lt;int, Func&amp;lt;int, int&amp;gt;&amp;gt;&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Calling this function would look like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;int sum addThreeNumbersCurried(1)(2)(3);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This generic function type is pretty confusing and long, and this is a major reason why F# (and functional programming in general) leans heavily on type inference.&lt;/p&gt;
+
+&lt;p&gt;In F# all functions are curried by default. For example take the following F# function:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTwoNumbers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above function takes in two parameters and adds them together. In F# can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and a returns an integer.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTwoNumbers&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;twelve&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fifteen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Calling a function without all of its parameters is called a &lt;strong&gt;partial function application&lt;/strong&gt;. Due to F#’s built in currying, it is not possible to overload a function in F#. For example the following interface is perfectly valid in C#:&lt;/p&gt;
+
+&lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IMathsHelpers&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;In C#, the compiler knows if you only provide one integer that it should call the first method and if you provide two then it should call the second method. In F# however, the compiler would not know whether you wanted to call the first method or &lt;strong&gt;partial apply&lt;/strong&gt; the second method.&lt;/p&gt;
+
+&lt;p&gt;If you want to prevent a function from being partially applied, you can group together the inputs via a tuple. Since a tuple is a single value you must give all of the items inside the tuple at the same time. For example take the following F# method:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTwoNumbersTuple&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This function takes a single tuple as its only parameter, instead of taking two separate integer values. The signature of this function is:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;int * int -&amp;gt; int&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As you can see there is only one arrow in the function type signature. An arrow indicates where a function type can be partially applied. The following would not compile as you need to provide the entire tuple: &lt;code class=&quot;highlighter-rouge&quot;&gt;let addFive = addTwoNumbersTuple 5&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Method overloads from C# types are still available in F#. Any function created outside of F# in .NET is exposed to an F# project as a function that has a single tuple as its input type. This means you cannot partially apply a function created outside of F# as this would break the existing overloaded functions. For example String.Format has the following overloaded signatures:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png&quot; alt=&quot;Screenshot of String.Format overloads in an F# project&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;lists&quot;&gt;Lists&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&quot;discriminated-unions&quot;&gt;Discriminated Unions&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&quot;pattern-matching&quot;&gt;Pattern Matching&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&quot;option-type&quot;&gt;Option Type&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&quot;result-type&quot;&gt;Result Type&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;p&gt;#Lambdas
+TODO&lt;/p&gt;</content><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><summary type="html">Introduction
+There are a lot of guides out there that explain functional programming and F# but I think very few are aimed at “modern” C# developers that use Linq everyday and that are familiar with the Action and Func types.</summary></entry><entry><title type="html">Power BI Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" rel="alternate" type="text/html" title="Power BI Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/power-bi-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/power-bi-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Don’t need to be a Dev to use it.
 Tagreted at business users who know a bit about data.
 Data sources -&amp;gt; dataset/model -&amp;gt; reports -&amp;gt; dashboard
