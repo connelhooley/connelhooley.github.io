@@ -9616,6 +9616,23 @@ h1, h2, h3, h4, h5, h6 {
   @media (max-width: 991px) {
     .post .header .header-content .title h1 {
       font-size: 2.5rem; } }
+.post .preview-message {
+  margin-top: -3rem;
+  margin-bottom: 3rem;
+  font-style: "Bree Serif", Georgia, "Times New Roman", Times, serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  text-transform: uppercase; }
+  @media (max-width: 991px) {
+    .post .preview-message {
+      margin-top: -2rem; } }
+  @media (max-width: 991px) {
+    .post .preview-message {
+      margin-bottom: 2rem; } }
+  .post .preview-message .warning-icon {
+    color: #f8bb15; }
 .post .post-toc {
   background-color: #000;
   color: #fff;
@@ -9756,11 +9773,11 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Slabo 27px", "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
     .post .post-content blockquote p:last-child {
       margin-bottom: 0; }
+  .post .post-content h1:hover .heading-link {
+    display: initial; }
   .post .post-content .heading-link {
     font-size: 50%;
     display: none; }
-  .post .post-content h1:hover .heading-link {
-    display: initial; }
 @media (max-width: 575px) {
   .post table {
     display: block;
