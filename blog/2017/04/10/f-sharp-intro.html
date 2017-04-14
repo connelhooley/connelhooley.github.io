@@ -115,7 +115,7 @@
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 31  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 45  minutes
             </div>
         
         
@@ -148,20 +148,22 @@
 <li class="toc-entry toc-h1"><a href="#functions">Functions</a></li>
 <li class="toc-entry toc-h1"><a href="#type-inference">Type Inference</a></li>
 <li class="toc-entry toc-h1"><a href="#generics">Generics</a></li>
+<li class="toc-entry toc-h1"><a href="#equality">Equality</a></li>
+<li class="toc-entry toc-h1"><a href="#mutability">Mutability</a></li>
 <li class="toc-entry toc-h1"><a href="#tuples">Tuples</a></li>
 <li class="toc-entry toc-h1"><a href="#unit">Unit</a></li>
 <li class="toc-entry toc-h1"><a href="#records">Records</a></li>
-<li class="toc-entry toc-h1"><a href="#discriminated-unions">Discriminated Unions</a></li>
-<li class="toc-entry toc-h1"><a href="#equality">Equality</a></li>
 <li class="toc-entry toc-h1"><a href="#if-expression">If Expression</a></li>
 <li class="toc-entry toc-h1"><a href="#let-expression">Let Expression</a></li>
 <li class="toc-entry toc-h1"><a href="#function-signatures">Function Signatures</a></li>
 <li class="toc-entry toc-h1"><a href="#currying">Currying</a></li>
-<li class="toc-entry toc-h1"><a href="#collection-types">Collection Types</a></li>
-<li class="toc-entry toc-h1"><a href="#pattern-matching">Pattern Matching</a></li>
-<li class="toc-entry toc-h1"><a href="#option-type">Option Type</a></li>
-<li class="toc-entry toc-h1"><a href="#result-type">Result Type</a></li>
 <li class="toc-entry toc-h1"><a href="#lambdas">Lambdas</a></li>
+<li class="toc-entry toc-h1"><a href="#discriminated-unions">Discriminated Unions</a></li>
+<li class="toc-entry toc-h1"><a href="#match-expression-pattern-matching">Match Expression (Pattern Matching)</a></li>
+<li class="toc-entry toc-h1"><a href="#try-expression">Try Expression</a></li>
+<li class="toc-entry toc-h1"><a href="#collection-types">Collection Types</a></li>
+<li class="toc-entry toc-h1"><a href="#option-type">Option Type</a></li>
+<li class="toc-entry toc-h1"><a href="#result-type-railway-programming">Result Type (Railway Programming)</a></li>
 </ul>
     </div>
     <div class="post-content" itemprop="articleBody">
@@ -170,7 +172,7 @@
 
 <p>In this guide we will walk through some of the basic aspects of writing code in F# from the point of view of a C# developer who is already familiar with some aspects of functional programming.</p>
 
-<p>This guide also assumes you have Visual Studio 2017 installed.</p>
+<p>This guide also assumes that you have Visual Studio 2017 installed.</p>
 
 <h1 id="why-f">Why F#?</h1>
 <p><em>This section is purely my opinion so feel free to <a href="#projects">skip it</a> and get stuck straight into F#.</em></p>
@@ -362,6 +364,67 @@
 
 <p>The big difference here being, in C# you have to go out of your way to <em>opt in</em> to making a function generic. In F# however, you have to <em>opt out</em> to make the function non-generic by using type annotations. Leaving it generic is usually for the best, as if the function doesn’t need to be non-generic, why not open it up so it can be used with any type?</p>
 
+<h1 id="equality">Equality</h1>
+<p>In F# you only use a single equals sign for a comparison (as opposed to the double equals you will find in C#). Since values are immutable by default in F#, it is much more common to compare two values than to assign a new value to an existing value.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">isSumEven</span> <span class="n">num1</span> <span class="n">num2</span> <span class="p">=</span>
+    <span class="k">let</span> <span class="n">sum</span> <span class="p">=</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
+    <span class="n">sum</span> <span class="o">%</span> <span class="mi">2</span> <span class="p">=</span> <span class="mi">0</span>
+</code></pre>
+</div>
+
+<p>In the above example:</p>
+<ul>
+  <li><code class="highlighter-rouge">let isSumEven num1 num2 = </code> assigns the following function to the add identifier</li>
+  <li><code class="highlighter-rouge">let sum = num1 + num2</code> assigns num1 + num1 to the sum identifier</li>
+  <li><code class="highlighter-rouge">sum % 2 = 0</code> compares if sum is equal</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>When the equals symbol is used</th>
+      <th>What is does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Immediately after the let keyword and an identifier</td>
+      <td>Assigns the following expression to the identifier</td>
+    </tr>
+    <tr>
+      <td>Immediately after the module keyword and an identifier</td>
+      <td>Assigns the indented code below to the module</td>
+    </tr>
+    <tr>
+      <td>In an expression</td>
+      <td>Compares two values</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="mutability">Mutability</h1>
+<p>F# values are immutable by default. Once you assign a value to an identifier in F#, you cannot modify it. In functional programming this is usually the desired behaviour for a number of reasons.</p>
+
+<ul>
+  <li>Makes concurrency easier. It prevents a thread from changing another thread’s objects and removes the need for locking objects to make changes.</li>
+  <li>Makes code more reasonable. If values cannot be modified code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects.</li>
+  <li>It becomes easier to make fluent APIs that read really well.</li>
+</ul>
+
+<p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object immutable in F# using the mutable keyword:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">mutableValue</span> <span class="bp">()</span> <span class="p">=</span>
+    <span class="k">let</span> <span class="k">mutable</span> <span class="n">x</span> <span class="p">=</span> <span class="mi">5</span>
+    <span class="n">x</span> <span class="p">&lt;-</span> <span class="mi">10</span>
+    <span class="n">x</span>
+</code></pre>
+</div>
+
+<p>The above example creates a mutable value called x. It then uses the <code class="highlighter-rouge">&lt;-</code> operator to assign a new value to it. It then returns the new value (10). The left arrow is used because a single equals sign is used for comparisons whenever you are not using the let or module keywords.</p>
+
+<p>You should only make an object mutable when you have a really good reason for doing so, as immutability is one the corner stones of functional programming.</p>
+
 <h1 id="tuples">Tuples</h1>
 <p>If you’re keeping up to date with C# 7, then you will be aware of what tuples are. If you haven’t though, tuples are ordered groups of values. If you have a list of integers you can have 0 to N integers. Tuples allow you to create an object that contains a finite amount of different types. For example you could create a tuple that contains an integer then a string and then another integer.</p>
 
@@ -471,57 +534,12 @@
 </div>
 <p>Here we have a main method that creates 3 Person objects. The first and second Person objects have a different name, whereas the first and third objects have the same properties. Notice how comparing person1 and person3 results in “True” being printed. This is because records check for equality on <strong>all</strong> of its properties. It does not perform a reference comparison like C# does. This is really useful for <strong>unit testing</strong>. It means we do not have to waste our time writing equals overloads to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.</p>
 
-<p>It is important to note that if a record contains another record as one of its properties then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.</p>
-
-<p>Also note how the semi-colon is used in the previous example to create a record on one line.</p>
-
-<h1 id="discriminated-unions">Discriminated Unions</h1>
-<p>In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. In F# discriminated unions are used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any one of the types in the enum. Below is an example of a simple discriminated union:</p>
-
-<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
- <span class="p">|</span> <span class="nc">Error</span>
- <span class="p">|</span> <span class="nc">Info</span>
- <span class="p">|</span> <span class="nc">Warning</span>
-</code></pre>
-</div>
-
-<p>Any instance of the State type above can be an Error, Info or Warning. Each type inside a discriminated union is called a <strong>union case</strong>. The following three functions all return the <code class="highlighter-rouge">State</code> type.</p>
-
-<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createError</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Error</span>
-<span class="k">let</span> <span class="n">createInfo</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Info</span>
-<span class="k">let</span> <span class="n">createWarning</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Warning</span>
-</code></pre>
-</div>
-
-<p>All of the functions in the example above return the type State.</p>
-
-<h1 id="equality">Equality</h1>
-<p>You may have noticed in some of the previous examples that in F# you only use a single equals sign for a comparison (as opposed to the double equals you will find in C#).</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>When the equals symbol is used</th>
-      <th>What is does</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Immediately after the let keyword and an identifier</td>
-      <td>Assigns the following expression to the identifier</td>
-    </tr>
-    <tr>
-      <td>Immediately after the module keyword and an identifier</td>
-      <td>Assigns the any indented code below to the module</td>
-    </tr>
-    <tr>
-      <td>In an expression</td>
-      <td>Compares two values</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Since values are immutable by default in F#, the equals symbol is not used to assign after it has been assigned value, so it is free to be used for comparisons.</p>
+<p>Other things to note:</p>
+<ul>
+  <li>If a record contains another record then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.</li>
+  <li>The new keyword is not required in F#.</li>
+  <li>The semi-colon is used in the previous example to create a record on one line.</li>
+</ul>
 
 <h1 id="if-expression">If Expression</h1>
 
@@ -707,6 +725,130 @@
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png" alt="Screenshot of String.Format overloads in an F# project" /></p>
 
+<h1 id="lambdas">Lambdas</h1>
+<p>Obviously F# has support for lambdas. If a function takes in another function as a parameter, then you can pass in a lambda, rather than using a let expression to create a function and then passing that in.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">doubleWhenTrue</span> <span class="n">num</span> <span class="n">predicate</span> <span class="p">=</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">predicate</span><span class="p">(</span><span class="n">num</span><span class="o">))</span> <span class="k">then</span>
+        <span class="n">num</span><span class="p">*</span><span class="mi">2</span>
+    <span class="k">else</span>
+        <span class="n">num</span>
+<span class="k">let</span> <span class="n">x</span> <span class="p">=</span> <span class="n">doubleWhenTrue</span> <span class="mi">5</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="p">-&gt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="p">=</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The lambda above is <code class="highlighter-rouge">(fun i -&gt; i % 2 = 0)</code>. Lambdas:</p>
+<ul>
+  <li>Are wrapped in parenthesis</li>
+  <li>Start with the <code class="highlighter-rouge">fun</code> keyword</li>
+  <li>Use a skinny arrow, rather than the fat arrow like in C#</li>
+</ul>
+
+<h1 id="discriminated-unions">Discriminated Unions</h1>
+<p>In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. As we have just covered, method overloads are not available to F# functions and records to not support inheritance. In F# discriminated unions are used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any <em>one</em> of the types in the enum. Below is an example of a discriminated union:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
+<span class="p">|</span> <span class="nc">Error</span> <span class="k">of</span> <span class="nc">Exception</span>
+<span class="p">|</span> <span class="nc">Info</span> <span class="k">of</span> <span class="kt">string</span>
+<span class="p">|</span> <span class="nc">Warning</span> <span class="k">of</span> <span class="kt">int</span> <span class="p">*</span> <span class="kt">string</span>
+</code></pre>
+</div>
+
+<p>An instance of the State type above can be an Error, Info or Warning. These identifiers are called a <strong>union cases</strong>. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same <code class="highlighter-rouge">State</code> type.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createError</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Error</span><span class="p">(</span><span class="nc">Exception</span><span class="p">(</span><span class="s2">""</span><span class="o">))</span>
+<span class="k">let</span> <span class="n">createInfo</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Info</span><span class="p">(</span><span class="s2">"Example info text here"</span><span class="p">)</span>
+<span class="k">let</span> <span class="n">createWarning</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Warning</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s2">"Example warning text here"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>As you can see each union case has its own constructor that you must put the values for that union case into. Union cases can also be empty. When used like this they are much like an enum:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
+ <span class="p">|</span> <span class="nc">Error</span>
+ <span class="p">|</span> <span class="nc">Info</span>
+ <span class="p">|</span> <span class="nc">Warning</span>
+</code></pre>
+</div>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createError</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Error</span>
+<span class="k">let</span> <span class="n">createInfo</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Info</span>
+<span class="k">let</span> <span class="n">createWarning</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Warning</span>
+</code></pre>
+</div>
+
+<p>Whereas inheritance in C# offers the flexibility of a tree like structure, where objects inherit properties from their parents, discriminated unions offer a more flat structure, where objects do not share properties from their parent or siblings.</p>
+
+<p>Discriminated unions are combined with <em>pattern matching</em> to form the most common way of managing flow control in F# applications.</p>
+
+<h1 id="match-expression-pattern-matching">Match Expression (Pattern Matching)</h1>
+<p>The match expression and pattern matching is a massive topic in its own right, and I will only be scratching the surface here. The match expression can be thought of as a more powerful switch statement. Below is an example of a match expression with a discriminated union:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
+    <span class="p">|</span> <span class="nc">Error</span> <span class="k">of</span> <span class="nc">Exception</span>
+    <span class="p">|</span> <span class="nc">Info</span> <span class="k">of</span> <span class="kt">string</span>
+    <span class="p">|</span> <span class="nc">Warning</span> <span class="k">of</span> <span class="kt">int</span> <span class="p">*</span> <span class="kt">string</span>
+
+<span class="k">let</span> <span class="n">getStateMessage</span> <span class="n">state</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">state</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="nc">Error</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="s2">"Error message: "</span> <span class="o">+</span> <span class="n">ex</span><span class="p">.</span><span class="nc">Message</span>
+    <span class="p">|</span> <span class="nc">Info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="s2">"Info message: "</span> <span class="o">+</span> <span class="n">message</span>
+    <span class="p">|</span> <span class="nc">Warning</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="s2">"Warning message: "</span> <span class="o">+</span> <span class="n">message</span>
+</code></pre>
+</div>
+
+<p>This function takes in the <code class="highlighter-rouge">State</code> discriminated union and then performs pattern matching on it.</p>
+
+<ul>
+  <li>If the state is an Error union case, it runs the following expression <code class="highlighter-rouge">"Error message: " + ex.Message</code></li>
+  <li>If the state is an Info union case, it runs the following expression <code class="highlighter-rouge">"Info message: " + message</code></li>
+  <li>If the state is a Warning union case, it runs the following expression <code class="highlighter-rouge">"Warning message: " + message</code></li>
+</ul>
+
+<p>Just like the if expression, the match expression must return the same type from all of its branches. For the example above, all three branches of the match expression must return a string. If one of them tried to return an integer it would not compile.</p>
+
+<p>A match expression unpacks or <em>deconstructs</em> the union cases it matches on. If you look at the error branch <code class="highlighter-rouge">Error(ex) -&gt; "Error message: " + ex.Message</code> you can see that the expression that is ran has access to the exception inside the Error union case.</p>
+
+<p>Match expressions should be <strong>exhaustive</strong>. This means that no matter what value of a particular type is given to the expression, there should always be a branch that matches that value. The match statement can perform pattern matching against any type, not just discriminated unions, so take the following example:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">matchNumbers</span> <span class="n">x</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="mi">9</span> <span class="p">-&gt;</span> <span class="s2">"I was given 9"</span>
+</code></pre>
+</div>
+
+<p>The above function takes in an integer and performs pattern matching on it. If x matches the value of 9 then a string is returned. If the integer is not 9 however a runtime exception will be thrown. This is because the match expression is not <strong>exhaustive</strong>. The above function actually generates a compile time warning:</p>
+
+<blockquote>
+  <p>Incomplete pattern matches on this expression. For example, the value ‘0’ may indicate a case not covered by the pattern(s).</p>
+</blockquote>
+
+<p>It even gives you an example of a value that does not match! Match expressions have a concept similar to the <code class="highlighter-rouge">default</code> statement found in C# <code class="highlighter-rouge">switch</code> statements. The underscore wild-card in F# matches against any object. The following example is exhaustive:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">matchNumbers</span> <span class="n">x</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="mi">9</span> <span class="p">-&gt;</span> <span class="s2">"I was given 9"</span>
+    <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="s2">"I was not given 9"</span>
+</code></pre>
+</div>
+
+<p>You can also use a conditional expression to match against a certain type when a certain condition is true. The following example demonstrates this:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">processAge</span> <span class="n">age</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">age</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="n">age</span> <span class="k">when</span> <span class="n">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="p">-&gt;</span> <span class="s2">"Child: "</span> <span class="o">+</span> <span class="n">age</span>
+    <span class="p">|</span> <span class="n">age</span> <span class="k">when</span> <span class="n">age</span> <span class="p">&gt;</span> <span class="mi">65</span> <span class="p">-&gt;</span> <span class="s2">"OAP:"</span> <span class="o">+</span> <span class="n">age</span>
+    <span class="p">|</span> <span class="n">age</span> <span class="p">-&gt;</span> <span class="s2">"Adult: "</span> <span class="o">+</span> <span class="n">age</span>
+</code></pre>
+</div>
+
+<p>As you can see, the <code class="highlighter-rouge">when</code> keyword can be used to add a condition to a branch. For example <code class="highlighter-rouge">age when age &lt; 18</code> only matches when age is below 18. This example also demonstrates how to have a branch that matches any value, whilst still using that value in the branch’s expression. When you match with the underscore wild-card, you cannot access the value that is matched against in the expression to the right of the arrow. To match against any value simply give the value a name. This branch <code class="highlighter-rouge">age -&gt; "Adult: " + age</code> matches against any integer and gives it the name <em>age</em>. Age is then available in the expression to the right of the arrow.</p>
+
+<p>Since match is an expression and therefore returns a value, it would not make sense for match expression branches to <em>fall through</em> to other matched expressions. The only expression that is ran is the first one that matches, therefore the order of the branches is important. This is why it does not need an equivalent of the <code class="highlighter-rouge">break</code> keyword found in C#’s switch statements.</p>
+
+<h1 id="try-expression">Try Expression</h1>
+<p>TODO</p>
+
 <h1 id="collection-types">Collection Types</h1>
 <p>F# has three main types of collections.</p>
 
@@ -777,16 +919,76 @@
   </tbody>
 </table>
 
-<h1 id="pattern-matching">Pattern Matching</h1>
-<p>TODO</p>
-
 <h1 id="option-type">Option Type</h1>
-<p>TODO</p>
+<p>F# types cannot be null. The following example will not compile:</p>
 
-<h1 id="result-type">Result Type</h1>
-<p>TODO</p>
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">Person</span> <span class="p">=</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="kt">string</span>
+    <span class="n">age</span><span class="p">:</span> <span class="kt">int</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="n">person1</span><span class="p">:</span> <span class="nc">Person</span> <span class="p">=</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="p">=</span> <span class="s2">"Connel"</span>
+    <span class="n">age</span> <span class="p">=</span> <span class="mi">26</span>
+<span class="p">}</span>
+<span class="k">let</span> <span class="n">person2</span><span class="p">:</span> <span class="nc">Person</span> <span class="p">=</span> <span class="n">null</span>
+</code></pre>
+</div>
 
-<h1 id="lambdas">Lambdas</h1>
+<p>The above example uses type annotations in a let expression. This means that we provide the type and it is not inferred by the compiler. I used type annotations as when assigning null to a value, the compiler will obviously not be able to infer the type. Much like how you cannot do <code class="highlighter-rouge">var x = null</code> in C#. The bottom line in the above example results in the following compiler error:</p>
+
+<blockquote>
+  <p>The type ‘Person’ does not have ‘null’ as a proper value</p>
+</blockquote>
+
+<p>This gives you peace of mind when using F# values, no more null checks!! But what about when you want to represent the lack of a value? For example imagine we had a PersonRepository that has a find function. It will search through a database for a Person record that matches a particular name. In C# you would have 3 options:</p>
+
+<p>Return a person object if a matching one is found. If one isn’t found then throw an exception. This is how Linq’s First method works. Exceptions should only be thrown when something <em>Exceptional</em> happens, that prevents the application carrying on. in this example, if you query a database for a name that isn’t there, this isn’t exactly an <em>exceptional circumstance</em>. There could be any number of perfectly good reasons why there are no matches.</p>
+
+<p>You could return null if there is no matching name in the database. This is how Linq’s FirstOrDefault method works. Functions that sometimes return null are deemed <em>dishonest</em>. Their signature does not fully describe their behaviour. Unless you look up the documentation of FirstOrDefault it is not clear that it returns null on a no match. Add this to the fact that nulls are also obviously evil as they litter you code with null checks and dreaded <em>object is not set to the reference of an object</em> runtime errors.</p>
+
+<p>Another way to handle this type of function would be to return a complex type that contains a success boolean property and a property for the the actual result. This is how Regex.Match function works. This requires additional overhead of creating wrapper object and instead of lots of null checks, you have lots of <strong>is success</strong> checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you still get null reference exceptions.</p>
+
+<p>F# has a different mechanism for representing an object that may or may not have a value and that is the <strong>Option</strong> type. It is simply a discriminated union that represents either <strong>Some</strong> value or the <strong>None</strong> value. The following example matches a regex expression.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">RegexHelpers</span>
+    <span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
+    
+    <span class="k">let</span> <span class="n">regexMatch</span> <span class="n">pattern</span> <span class="n">input</span> <span class="p">=</span>
+        <span class="k">match</span> <span class="nn">Regex</span><span class="p">.</span><span class="nc">Match</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="k">with</span>
+        <span class="p">|</span> <span class="n">regexMatch</span> <span class="k">when</span> <span class="n">regexMatch</span><span class="p">.</span><span class="nc">Success</span> <span class="p">-&gt;</span> <span class="nc">Some</span><span class="p">(</span><span class="n">regexMatch</span><span class="p">.</span><span class="nc">Value</span><span class="p">)</span>
+        <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="nc">None</span>
+</code></pre>
+</div>
+
+<p>The signature of the function above is:</p>
+
+<blockquote>
+  <p>string -&gt; string -&gt; string option</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option\&lt;string\&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either of those results. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
+<span class="k">open</span> <span class="nc">System</span>
+    
+<span class="k">let</span> <span class="n">regexMatch</span> <span class="n">pattern</span> <span class="n">input</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="nn">Regex</span><span class="p">.</span><span class="nc">Match</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="n">regexMatch</span> <span class="k">when</span> <span class="n">regexMatch</span><span class="p">.</span><span class="nc">Success</span> <span class="p">-&gt;</span> <span class="nc">Some</span><span class="p">(</span><span class="n">regexMatch</span><span class="p">.</span><span class="nc">Value</span><span class="p">)</span>
+    <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="nc">None</span>
+
+<span class="k">let</span> <span class="n">getAge</span> <span class="n">input</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">regexMatch</span> <span class="o">@</span><span class="s2">"</span><span class="err">\</span><span class="s2">d+"</span> <span class="n">input</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="nc">Some</span><span class="p">(</span><span class="k">value</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="k">value</span>
+    <span class="p">|</span> <span class="nc">None</span> <span class="p">-&gt;</span> <span class="s2">"Age is unknown"</span>
+    
+<span class="k">let</span> <span class="n">connelAge</span> <span class="p">=</span> <span class="n">getAge</span> <span class="s2">"Connel 26"</span>
+<span class="k">let</span> <span class="n">bobAge</span> <span class="p">=</span> <span class="n">getAge</span> <span class="s2">"Bob N/A"</span>
+</code></pre>
+</div>
+
+<p>In the above example connelAge equals “26” and bob equals “Age is unknown”. Consuming the option type forces us to cater for both a successful match and an unsuccessful match. The only way to get the inner value of a discriminated union is to pattern match and if we don’t have an exhaustive match expression, the compiler tells us off. It is impossible to access the value inside the option type when it is not there so it is impossible to get a runtime exception by accessing it accidentally.</p>
+
+<h1 id="result-type-railway-programming">Result Type (Railway Programming)</h1>
 <p>TODO</p>
 
 

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-13T23:40:06+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">A C# Developer’s Intro to F#</title><link href="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro" rel="alternate" type="text/html" title="A C# Developer's Intro to F#" /><published>2017-04-10T14:00:00+01:00</published><updated>2017-04-10T14:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/10/f-sharp-intro</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-14T17:19:41+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">A C# Developer’s Intro to F#</title><link href="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro" rel="alternate" type="text/html" title="A C# Developer's Intro to F#" /><published>2017-04-10T14:00:00+01:00</published><updated>2017-04-10T14:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/10/f-sharp-intro</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;There are a lot of guides out there that explain functional programming and F# but I think very few are aimed at “modern” C# developers that use &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0&quot;&gt;Linq&lt;/a&gt; everyday and that are familiar with the &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx&quot;&gt;Action&lt;/a&gt; and &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx&quot;&gt;Func&lt;/a&gt; types.&lt;/p&gt;
 
 &lt;p&gt;In this guide we will walk through some of the basic aspects of writing code in F# from the point of view of a C# developer who is already familiar with some aspects of functional programming.&lt;/p&gt;
 
-&lt;p&gt;This guide also assumes you have Visual Studio 2017 installed.&lt;/p&gt;
+&lt;p&gt;This guide also assumes that you have Visual Studio 2017 installed.&lt;/p&gt;
 
 &lt;h1 id=&quot;why-f&quot;&gt;Why F#?&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;This section is purely my opinion so feel free to &lt;a href=&quot;#projects&quot;&gt;skip it&lt;/a&gt; and get stuck straight into F#.&lt;/em&gt;&lt;/p&gt;
@@ -195,6 +195,67 @@
 
 &lt;p&gt;The big difference here being, in C# you have to go out of your way to &lt;em&gt;opt in&lt;/em&gt; to making a function generic. In F# however, you have to &lt;em&gt;opt out&lt;/em&gt; to make the function non-generic by using type annotations. Leaving it generic is usually for the best, as if the function doesn’t need to be non-generic, why not open it up so it can be used with any type?&lt;/p&gt;
 
+&lt;h1 id=&quot;equality&quot;&gt;Equality&lt;/h1&gt;
+&lt;p&gt;In F# you only use a single equals sign for a comparison (as opposed to the double equals you will find in C#). Since values are immutable by default in F#, it is much more common to compare two values than to assign a new value to an existing value.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isSumEven&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the above example:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let isSumEven num1 num2 = &lt;/code&gt; assigns the following function to the add identifier&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let sum = num1 + num2&lt;/code&gt; assigns num1 + num1 to the sum identifier&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sum % 2 = 0&lt;/code&gt; compares if sum is equal&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;When the equals symbol is used&lt;/th&gt;
+      &lt;th&gt;What is does&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Immediately after the let keyword and an identifier&lt;/td&gt;
+      &lt;td&gt;Assigns the following expression to the identifier&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Immediately after the module keyword and an identifier&lt;/td&gt;
+      &lt;td&gt;Assigns the indented code below to the module&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;In an expression&lt;/td&gt;
+      &lt;td&gt;Compares two values&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;mutability&quot;&gt;Mutability&lt;/h1&gt;
+&lt;p&gt;F# values are immutable by default. Once you assign a value to an identifier in F#, you cannot modify it. In functional programming this is usually the desired behaviour for a number of reasons.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Makes concurrency easier. It prevents a thread from changing another thread’s objects and removes the need for locking objects to make changes.&lt;/li&gt;
+  &lt;li&gt;Makes code more reasonable. If values cannot be modified code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects.&lt;/li&gt;
+  &lt;li&gt;It becomes easier to make fluent APIs that read really well.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object immutable in F# using the mutable keyword:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mutableValue&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mutable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above example creates a mutable value called x. It then uses the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;-&lt;/code&gt; operator to assign a new value to it. It then returns the new value (10). The left arrow is used because a single equals sign is used for comparisons whenever you are not using the let or module keywords.&lt;/p&gt;
+
+&lt;p&gt;You should only make an object mutable when you have a really good reason for doing so, as immutability is one the corner stones of functional programming.&lt;/p&gt;
+
 &lt;h1 id=&quot;tuples&quot;&gt;Tuples&lt;/h1&gt;
 &lt;p&gt;If you’re keeping up to date with C# 7, then you will be aware of what tuples are. If you haven’t though, tuples are ordered groups of values. If you have a list of integers you can have 0 to N integers. Tuples allow you to create an object that contains a finite amount of different types. For example you could create a tuple that contains an integer then a string and then another integer.&lt;/p&gt;
 
@@ -304,57 +365,12 @@
 &lt;/div&gt;
 &lt;p&gt;Here we have a main method that creates 3 Person objects. The first and second Person objects have a different name, whereas the first and third objects have the same properties. Notice how comparing person1 and person3 results in “True” being printed. This is because records check for equality on &lt;strong&gt;all&lt;/strong&gt; of its properties. It does not perform a reference comparison like C# does. This is really useful for &lt;strong&gt;unit testing&lt;/strong&gt;. It means we do not have to waste our time writing equals overloads to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.&lt;/p&gt;
 
-&lt;p&gt;It is important to note that if a record contains another record as one of its properties then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.&lt;/p&gt;
-
-&lt;p&gt;Also note how the semi-colon is used in the previous example to create a record on one line.&lt;/p&gt;
-
-&lt;h1 id=&quot;discriminated-unions&quot;&gt;Discriminated Unions&lt;/h1&gt;
-&lt;p&gt;In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. In F# discriminated unions are used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any one of the types in the enum. Below is an example of a simple discriminated union:&lt;/p&gt;
-
-&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;State&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;
- &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Any instance of the State type above can be an Error, Info or Warning. Each type inside a discriminated union is called a &lt;strong&gt;union case&lt;/strong&gt;. The following three functions all return the &lt;code class=&quot;highlighter-rouge&quot;&gt;State&lt;/code&gt; type.&lt;/p&gt;
-
-&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createError&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createInfo&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createWarning&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;All of the functions in the example above return the type State.&lt;/p&gt;
-
-&lt;h1 id=&quot;equality&quot;&gt;Equality&lt;/h1&gt;
-&lt;p&gt;You may have noticed in some of the previous examples that in F# you only use a single equals sign for a comparison (as opposed to the double equals you will find in C#).&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;When the equals symbol is used&lt;/th&gt;
-      &lt;th&gt;What is does&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Immediately after the let keyword and an identifier&lt;/td&gt;
-      &lt;td&gt;Assigns the following expression to the identifier&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Immediately after the module keyword and an identifier&lt;/td&gt;
-      &lt;td&gt;Assigns the any indented code below to the module&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;In an expression&lt;/td&gt;
-      &lt;td&gt;Compares two values&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Since values are immutable by default in F#, the equals symbol is not used to assign after it has been assigned value, so it is free to be used for comparisons.&lt;/p&gt;
+&lt;p&gt;Other things to note:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If a record contains another record then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.&lt;/li&gt;
+  &lt;li&gt;The new keyword is not required in F#.&lt;/li&gt;
+  &lt;li&gt;The semi-colon is used in the previous example to create a record on one line.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;if-expression&quot;&gt;If Expression&lt;/h1&gt;
 
@@ -540,6 +556,130 @@
 
 &lt;p&gt;&lt;img src=&quot;http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png&quot; alt=&quot;Screenshot of String.Format overloads in an F# project&quot; /&gt;&lt;/p&gt;
 
+&lt;h1 id=&quot;lambdas&quot;&gt;Lambdas&lt;/h1&gt;
+&lt;p&gt;Obviously F# has support for lambdas. If a function takes in another function as a parameter, then you can pass in a lambda, rather than using a let expression to create a function and then passing that in.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doubleWhenTrue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doubleWhenTrue&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The lambda above is &lt;code class=&quot;highlighter-rouge&quot;&gt;(fun i -&amp;gt; i % 2 = 0)&lt;/code&gt;. Lambdas:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Are wrapped in parenthesis&lt;/li&gt;
+  &lt;li&gt;Start with the &lt;code class=&quot;highlighter-rouge&quot;&gt;fun&lt;/code&gt; keyword&lt;/li&gt;
+  &lt;li&gt;Use a skinny arrow, rather than the fat arrow like in C#&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;discriminated-unions&quot;&gt;Discriminated Unions&lt;/h1&gt;
+&lt;p&gt;In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. As we have just covered, method overloads are not available to F# functions and records to not support inheritance. In F# discriminated unions are used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any &lt;em&gt;one&lt;/em&gt; of the types in the enum. Below is an example of a discriminated union:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;State&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;An instance of the State type above can be an Error, Info or Warning. These identifiers are called a &lt;strong&gt;union cases&lt;/strong&gt;. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same &lt;code class=&quot;highlighter-rouge&quot;&gt;State&lt;/code&gt; type.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createError&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createInfo&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Example info text here&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createWarning&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Example warning text here&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see each union case has its own constructor that you must put the values for that union case into. Union cases can also be empty. When used like this they are much like an enum:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;State&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createError&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createInfo&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createWarning&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Whereas inheritance in C# offers the flexibility of a tree like structure, where objects inherit properties from their parents, discriminated unions offer a more flat structure, where objects do not share properties from their parent or siblings.&lt;/p&gt;
+
+&lt;p&gt;Discriminated unions are combined with &lt;em&gt;pattern matching&lt;/em&gt; to form the most common way of managing flow control in F# applications.&lt;/p&gt;
+
+&lt;h1 id=&quot;match-expression-pattern-matching&quot;&gt;Match Expression (Pattern Matching)&lt;/h1&gt;
+&lt;p&gt;The match expression and pattern matching is a massive topic in its own right, and I will only be scratching the surface here. The match expression can be thought of as a more powerful switch statement. Below is an example of a match expression with a discriminated union:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;State&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getStateMessage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Error message: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Message&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Info message: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Warning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Warning message: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This function takes in the &lt;code class=&quot;highlighter-rouge&quot;&gt;State&lt;/code&gt; discriminated union and then performs pattern matching on it.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If the state is an Error union case, it runs the following expression &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Error message: &quot; + ex.Message&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;If the state is an Info union case, it runs the following expression &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Info message: &quot; + message&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;If the state is a Warning union case, it runs the following expression &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;Warning message: &quot; + message&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Just like the if expression, the match expression must return the same type from all of its branches. For the example above, all three branches of the match expression must return a string. If one of them tried to return an integer it would not compile.&lt;/p&gt;
+
+&lt;p&gt;A match expression unpacks or &lt;em&gt;deconstructs&lt;/em&gt; the union cases it matches on. If you look at the error branch &lt;code class=&quot;highlighter-rouge&quot;&gt;Error(ex) -&amp;gt; &quot;Error message: &quot; + ex.Message&lt;/code&gt; you can see that the expression that is ran has access to the exception inside the Error union case.&lt;/p&gt;
+
+&lt;p&gt;Match expressions should be &lt;strong&gt;exhaustive&lt;/strong&gt;. This means that no matter what value of a particular type is given to the expression, there should always be a branch that matches that value. The match statement can perform pattern matching against any type, not just discriminated unions, so take the following example:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matchNumbers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I was given 9&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above function takes in an integer and performs pattern matching on it. If x matches the value of 9 then a string is returned. If the integer is not 9 however a runtime exception will be thrown. This is because the match expression is not &lt;strong&gt;exhaustive&lt;/strong&gt;. The above function actually generates a compile time warning:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Incomplete pattern matches on this expression. For example, the value ‘0’ may indicate a case not covered by the pattern(s).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It even gives you an example of a value that does not match! Match expressions have a concept similar to the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; statement found in C# &lt;code class=&quot;highlighter-rouge&quot;&gt;switch&lt;/code&gt; statements. The underscore wild-card in F# matches against any object. The following example is exhaustive:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matchNumbers&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I was given 9&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I was not given 9&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can also use a conditional expression to match against a certain type when a certain condition is true. The following example demonstrates this:&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;processAge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Child: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;OAP:&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Adult: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see, the &lt;code class=&quot;highlighter-rouge&quot;&gt;when&lt;/code&gt; keyword can be used to add a condition to a branch. For example &lt;code class=&quot;highlighter-rouge&quot;&gt;age when age &amp;lt; 18&lt;/code&gt; only matches when age is below 18. This example also demonstrates how to have a branch that matches any value, whilst still using that value in the branch’s expression. When you match with the underscore wild-card, you cannot access the value that is matched against in the expression to the right of the arrow. To match against any value simply give the value a name. This branch &lt;code class=&quot;highlighter-rouge&quot;&gt;age -&amp;gt; &quot;Adult: &quot; + age&lt;/code&gt; matches against any integer and gives it the name &lt;em&gt;age&lt;/em&gt;. Age is then available in the expression to the right of the arrow.&lt;/p&gt;
+
+&lt;p&gt;Since match is an expression and therefore returns a value, it would not make sense for match expression branches to &lt;em&gt;fall through&lt;/em&gt; to other matched expressions. The only expression that is ran is the first one that matches, therefore the order of the branches is important. This is why it does not need an equivalent of the &lt;code class=&quot;highlighter-rouge&quot;&gt;break&lt;/code&gt; keyword found in C#’s switch statements.&lt;/p&gt;
+
+&lt;h1 id=&quot;try-expression&quot;&gt;Try Expression&lt;/h1&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+
 &lt;h1 id=&quot;collection-types&quot;&gt;Collection Types&lt;/h1&gt;
 &lt;p&gt;F# has three main types of collections.&lt;/p&gt;
 
@@ -610,16 +750,76 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h1 id=&quot;pattern-matching&quot;&gt;Pattern Matching&lt;/h1&gt;
-&lt;p&gt;TODO&lt;/p&gt;
-
 &lt;h1 id=&quot;option-type&quot;&gt;Option Type&lt;/h1&gt;
-&lt;p&gt;TODO&lt;/p&gt;
+&lt;p&gt;F# types cannot be null. The following example will not compile:&lt;/p&gt;
 
-&lt;h1 id=&quot;result-type&quot;&gt;Result Type&lt;/h1&gt;
-&lt;p&gt;TODO&lt;/p&gt;
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h1 id=&quot;lambdas&quot;&gt;Lambdas&lt;/h1&gt;
+&lt;p&gt;The above example uses type annotations in a let expression. This means that we provide the type and it is not inferred by the compiler. I used type annotations as when assigning null to a value, the compiler will obviously not be able to infer the type. Much like how you cannot do &lt;code class=&quot;highlighter-rouge&quot;&gt;var x = null&lt;/code&gt; in C#. The bottom line in the above example results in the following compiler error:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The type ‘Person’ does not have ‘null’ as a proper value&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This gives you peace of mind when using F# values, no more null checks!! But what about when you want to represent the lack of a value? For example imagine we had a PersonRepository that has a find function. It will search through a database for a Person record that matches a particular name. In C# you would have 3 options:&lt;/p&gt;
+
+&lt;p&gt;Return a person object if a matching one is found. If one isn’t found then throw an exception. This is how Linq’s First method works. Exceptions should only be thrown when something &lt;em&gt;Exceptional&lt;/em&gt; happens, that prevents the application carrying on. in this example, if you query a database for a name that isn’t there, this isn’t exactly an &lt;em&gt;exceptional circumstance&lt;/em&gt;. There could be any number of perfectly good reasons why there are no matches.&lt;/p&gt;
+
+&lt;p&gt;You could return null if there is no matching name in the database. This is how Linq’s FirstOrDefault method works. Functions that sometimes return null are deemed &lt;em&gt;dishonest&lt;/em&gt;. Their signature does not fully describe their behaviour. Unless you look up the documentation of FirstOrDefault it is not clear that it returns null on a no match. Add this to the fact that nulls are also obviously evil as they litter you code with null checks and dreaded &lt;em&gt;object is not set to the reference of an object&lt;/em&gt; runtime errors.&lt;/p&gt;
+
+&lt;p&gt;Another way to handle this type of function would be to return a complex type that contains a success boolean property and a property for the the actual result. This is how Regex.Match function works. This requires additional overhead of creating wrapper object and instead of lots of null checks, you have lots of &lt;strong&gt;is success&lt;/strong&gt; checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you still get null reference exceptions.&lt;/p&gt;
+
+&lt;p&gt;F# has a different mechanism for representing an object that may or may not have a value and that is the &lt;strong&gt;Option&lt;/strong&gt; type. It is simply a discriminated union that represents either &lt;strong&gt;Some&lt;/strong&gt; value or the &lt;strong&gt;None&lt;/strong&gt; value. The following example matches a regex expression.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RegexHelpers&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RegularExpressions&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The signature of the function above is:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;string -&amp;gt; string -&amp;gt; string option&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;string option&lt;/code&gt; is just another way writing &lt;code class=&quot;highlighter-rouge&quot;&gt;option\&amp;lt;string\&amp;gt;&lt;/code&gt;. Instead of throwing an exception or null, we return a discriminated union that could be either of those results. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.&lt;/p&gt;
+
+&lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RegularExpressions&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;
+    
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Success&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getAge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;regexMatch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;d+&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Age is unknown&quot;&lt;/span&gt;
+    
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connelAge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getAge&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Connel 26&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bobAge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getAge&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Bob N/A&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the above example connelAge equals “26” and bob equals “Age is unknown”. Consuming the option type forces us to cater for both a successful match and an unsuccessful match. The only way to get the inner value of a discriminated union is to pattern match and if we don’t have an exhaustive match expression, the compiler tells us off. It is impossible to access the value inside the option type when it is not there so it is impossible to get a runtime exception by accessing it accidentally.&lt;/p&gt;
+
+&lt;h1 id=&quot;result-type-railway-programming&quot;&gt;Result Type (Railway Programming)&lt;/h1&gt;
 &lt;p&gt;TODO&lt;/p&gt;</content><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><summary type="html">Introduction
 There are a lot of guides out there that explain functional programming and F# but I think very few are aimed at “modern” C# developers that use Linq everyday and that are familiar with the Action and Func types.</summary></entry><entry><title type="html">Power BI Guide</title><link href="http://connelhooley.uk/blog/2017/02/21/power-bi-guide" rel="alternate" type="text/html" title="Power BI Guide" /><published>2017-02-21T21:00:00+00:00</published><updated>2017-02-21T21:00:00+00:00</updated><id>http://connelhooley.uk/blog/2017/02/21/power-bi-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/02/21/power-bi-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;Don’t need to be a Dev to use it.
