@@ -966,7 +966,7 @@
   <p>string -&gt; string -&gt; string option</p>
 </blockquote>
 
-<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option\&lt;string\&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either of those results. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
+<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option&lt;string&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either of those results. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
 <span class="k">open</span> <span class="nc">System</span>
