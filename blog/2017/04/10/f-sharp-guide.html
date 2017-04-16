@@ -165,16 +165,14 @@
     </div>
     <div class="post-content" itemprop="articleBody">
       <h1 id="introduction">Introduction</h1>
-<p>There are a lot of guides out there that explain functional programming and F# but I think very few are aimed at “modern” C# developers that use <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0">Linq</a> everyday and that are familiar with the <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx">Action</a> and <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx">Func</a> types.</p>
+<p>There is a lot of information on the web regarding functional programming and F#, but I think very few articles are aimed at “modern” C# developers that use <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0">Linq</a> everyday and that are familiar with the <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx">Action</a> and <a target="_BLANK" href="https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx">Func</a> types.</p>
 
 <p>In this guide we will walk through some of the basic aspects of writing code in F# from the point of view of a C# developer who is already familiar with some aspects of functional programming.</p>
-
-<p>This guide also assumes that you have Visual Studio 2017 installed.</p>
 
 <h1 id="why-f">Why F#?</h1>
 <p><em>This section is purely my opinion so feel free to <a href="#projects">skip it</a> and get stuck straight into F#.</em></p>
 
-<p>Functional programming has been gaining more and more traction in recent years. The chances are if you’re reading this article you’re already well aware of this. You only have to look at the features that have been arriving in C# in recent years to see that almost all of them were available in F# first.</p>
+<p>Functional programming has been gaining more and more traction in recent years. The chances are if you’re reading this article you’re already well aware of this. You only have to look at the features that have been arriving in C# in recent years to see that almost all of them were available (or had alternatives) in F# first.</p>
 
 <p>C# 7:</p>
 <ul>
@@ -190,22 +188,26 @@
   <li>Exception filters</li>
 </ul>
 
-<p>All of these features (or similar alternatives) were already implemented in F# before C#.</p>
+<p>C# is becoming more and more functional with every release, but to me it feels like its being built upon a foundation that was never designed to be this functional. There are numerous features baked into the C# language that simply makes functional programming more difficult:</p>
 
-<p>C# is becoming more and more functional with every release, but to me it feels like its being built upon a foundation that was never designed to be this functional. There are numerous features baked into in the C# language that simply makes functional programming more difficult (e.g. lack of true type inference, lack of immutability, the void return type, statements instead of expressions, reliance on interfaces, inheritance and polymorphism).</p>
+<ul>
+  <li>Lack of true type inference</li>
+  <li>Lack of immutability</li>
+  <li>The void return type</li>
+  <li>Statements instead of expressions</li>
+  <li>Reliance on interfaces, inheritance and polymorphism</li>
+</ul>
 
-<p>In my opinion, the rapid evolving state of C# to become more functional will eventually lead fragmentation in the C# world. It’s quite foreseeable to imagine a scenario where a project is written in functional C# (using new future C# features) and then for a new developer (who is not accustomed to this way of working) to then come onto the project and start writing traditional OO code. There is absolutely nothing wrong with OOP, but if all the code is written in one way and then other parts are written in another quite different way, then the reasonability and consistency of the code is affected.</p>
+<p>In my opinion, C#’s rapid evolution to become more functional will eventually lead fragmentation in the C# world. It’s quite foreseeable to imagine a scenario where a project is written in an entirely functional manner C# (using new future C# features). When a new developer (who is not accustomed to this way of working) joins the team, then that developer could find the code base difficult to understand and then and start writing traditional OO code. There is absolutely nothing wrong with OOP, but if all the code is written in one way and then other parts are written in another quite different way, then the reasonability and consistency of the code is affected.</p>
 
-<p>F# offers a clean line in the sand between OO and functional. If you’re working on an F# project you know the project you are working on is going to be written in a mostly functional manner. It is perfectly fine to write OO code in F# too, but its not the default way of doing things, so you’re less likely to revert back to that way of thinking unless it suites the problem you’re trying solve.</p>
+<p>F# offers a clean line in the sand between OO and functional. When working on an F# codebase you know the project you are working on is going to be written in a mostly functional manner. It is perfectly fine to write OO code in F# too, but its not the default way of doing things, so you’re less likely to revert back to that way of thinking unless it suites the problem you’re trying solve.</p>
 
 <h1 id="projects">Projects</h1>
 <p>Let’s start off by looking at how to create an F# project in Visual Studio:</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-new-solution.png" alt="Screenshot of Visual Studio when creating an F# solution" /></p>
 
-<p>Setting the .NET framework version is done in the exact same way as you would a C# project. This article assumes it is set to 4.6.2.</p>
-
-<p>There is one important difference between F# projects and C# projects. The order of the files in the solution explorer is not alphabetical in F# projects, it is actually in the order in which they are compiled. If file B uses a function in file A, then file B must be below file A.</p>
+<p>There is one important difference between F# and C# projects you should know about. The order of the files in the solution explorer is not alphabetical in F# projects, it is actually in the order in which they are compiled. If file B uses a function in file A, then file B must be below file A.</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-solution-explorer.png" alt="Screenshot of Visual Studio solution explorer for an F# solution" /></p>
 
@@ -218,7 +220,7 @@
 <p>Another important thing to note is that there are no folders in F# projects, when needed, code is segregated using projects in a solution.</p>
 
 <h1 id="modules">Modules</h1>
-<p>Before we write our first function we need a container to put them in. In F# functions are put into <em>modules</em>. Think of modules as static classes. The only difference between modules and static classes is that you can import a module into your current file just like you would a namespace.</p>
+<p>Before you can write your first function you need a container to put them in. In F# functions are put into <em>modules</em>. Think of modules as static classes. The only difference between modules and static classes is that you can import a module into your current file just like you would a namespace.</p>
 
 <p>This leaves you with a two tier mechanism for organising code in F#: namespaces and modules.</p>
 
@@ -250,16 +252,16 @@
   <li>Then to use the function you can import “Helpers.Maths” into your file and use the parse function.</li>
 </ul>
 
-<p>To add a module to a project you use the “New Item…” context menu option, just as you would in a C# project. Somewhat confusingly there are two F# identical options in the dialogue box that appears:</p>
+<p>To add a module to an F# project use the “New Item…” context menu option, just as you would to add a class to a C# project. Somewhat confusingly there are two F# identical options in the dialogue box that appears:</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-add-new-file.png" alt="Screenshot of Visual Studio dialogue for adding a new F# file" /></p>
 
-<p>Use the first one (the second one is a Xamarin Android file strangely enough).</p>
+<p>Use the first one (the second one is a Xamarin Android file).</p>
 
 <p>Unfortunately if you’re a ReSharper user you’ll notice that they haven’t included any F# templates in the “New from Template” menu yet.</p>
 
 <h1 id="functions">Functions</h1>
-<p>Now we know what to put our function in, we are now ready to write our own function. Below is a simple add function in a module and namespace:</p>
+<p>Now we know what to put our function inside of, we are now ready to write our own function. Below is a simple add function put inside in a module and a namespace:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="n">namespace</span> <span class="nc">Helpers</span>
 
@@ -273,13 +275,13 @@
 
 <p><code class="highlighter-rouge">namespace Helpers</code> puts everything that is in this file into a namespace called <em>Helpers</em>.</p>
 
-<p><code class="highlighter-rouge">module Maths =</code> creates a module called <em>Maths</em>. Here we see one of the biggest differences between C# and F#. F# is <strong>whitespace sensitive</strong>. Notice everything inside the module must be indented. Due to this there is no need for semi-colons.</p>
+<p><code class="highlighter-rouge">module Maths =</code> creates a module called <em>Maths</em>. Here we see one of the biggest differences between C# and F#. F# is <strong>whitespace sensitive</strong>. Notice everything inside the module is indented. Due to this there is no need for semi-colons or curly braces.</p>
 
-<p><code class="highlighter-rouge">let add num1 num2 =</code> declares a function. To declare any variable in F# the <strong>let</strong> keyword is used. F# values are <strong>immutable</strong> so using var (short for variable of course) does not make much sense. The next strange thing you will have noticed with this line is that there appears to be three values to the left of the equals sign. It is in-fact a single function. The first value is the name of the function (called <em>add</em>) and the second value is the first parameter to the function ( called <em>num1</em>) and the third value is the second parameter to the function (called <em>num2</em>).</p>
+<p><code class="highlighter-rouge">let add num1 num2 =</code> declares a function. To declare any variable in F# the <strong>let</strong> keyword is used. F# values are <strong>immutable</strong> so using var (short for variable of course) does not make much sense. The next strange thing you will have noticed with this line is that there appears to be three values to the left of the equals sign. It is in-fact a single function. The first value is the name of the function (called <em>add</em>), the second value is the first parameter to the function ( called <em>num1</em>) and the third value is the second parameter to the function (called <em>num2</em>).</p>
 
 <p><code class="highlighter-rouge">num1 + num2</code> is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no <strong>return</strong> keyword in the function body. This is because all functions in F# are single statement <strong>expressions</strong>. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this is C# you do not have to use the return keyword and it is the same here in F#.</p>
 
-<p>Now we know our way around a function in F# we can take a look at the program file that is created for us by default in every F# Console project by Visual Studio.</p>
+<p>Now we know our way around a function in F# we can take a look at the program file that is created for us by default in F# console projects.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="p">[&lt;</span><span class="nc">EntryPoint</span><span class="p">&gt;]</span>
 <span class="k">let</span> <span class="n">main</span> <span class="n">argv</span> <span class="p">=</span> 
@@ -298,9 +300,9 @@
 
 <p><code class="highlighter-rouge">printfn "%A" argv</code> writes the command line arguments to the console. <code class="highlighter-rouge">printfn</code> is much like Console.WriteLine combined with String.Format. Don’t worry too much what <em>%A</em> means for now, just know that it prints out a type’s values. You can find more about the formatting tokens available in the printfn function <a target="_BLANK" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/core.printf-module-%5Bfsharp%5D#remarks">here</a>. We can also see the syntax for calling a function in F# on this line. Much like function declarations, parameters are separated by spaces with no need for commas and parenthesis. This line is almost equivalent to <code class="highlighter-rouge">Console.WriteLine(String.Format("{0}", argv))</code>.</p>
 
-<p><code class="highlighter-rouge">0</code> - the last line looks kind of strange but what is does is it returns 0 to the operating system to indicate the system terminated without an error. Much like you do when using the Environment.Exit method.</p>
+<p><code class="highlighter-rouge">0</code> - the last line looks kind of strange but what is does is it returns 0 to the operating system to indicate the system terminated without an error. Much like you do when using the <code class="highlighter-rouge">Environment.Exit</code> method.</p>
 
-<p>Functions can contain their own functions. This tends to be how you scope functions in F#, as opposed to making methods public, private or protected like in C#.</p>
+<p>Functions can contain their own nested functions. This tends to be how you scope functions in F#, as opposed to making methods public, private or protected like in C#.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">printSignedIn</span> <span class="n">username</span>  <span class="p">=</span>
     <span class="k">let</span> <span class="n">print</span> <span class="n">m</span> <span class="p">=</span>
@@ -310,12 +312,12 @@
 </code></pre>
 </div>
 
-<p>In the example above, the inner <code class="highlighter-rouge">print</code> function is only available inside the <code class="highlighter-rouge">printSignedIn</code> function. Indentation is used to denote the contents of the inner function.</p>
+<p>In the example above, the inner <code class="highlighter-rouge">print</code> function is only available inside the <code class="highlighter-rouge">printSignedIn</code> function. Indentation is again used to denote the contents of the inner function.</p>
 
 <h1 id="type-inference">Type Inference</h1>
-<p>The add function in the previous example takes in two integers, adds them together and then returns the result. Not once in the file however, do we mention the int primitive type (or any other type for that matter). This is due to a powerful feature of F# called type inference. C# of course has its own type inference (for example the var keyword in C# infers the type being assigned to it). F#’s type inference on the other hand, is much more advanced.</p>
+<p>The add function in the previous section takes in two integers, adds them together and then returns the result. Not once in that function however, do we mention the int primitive type (or any other type for that matter). This is due to a powerful feature in F# called type inference. C# of course has its own type inference. For example the <code class="highlighter-rouge">var</code> keyword in C# <em>infers</em> the type being assigned to a variable. F#’s type inference on the other hand, is much more advanced.</p>
 
-<p>The compiler will take a look at how the values are used in the function and then determine what the parameters and return type of the function should be.</p>
+<p>The compiler will take a look at how the values are used in a function and then determine what the parameters and return type of the function should be.</p>
 
 <p>Sometimes the compiler won’t be able to infer the types. When this happens you must use <strong>type annotations</strong>. For example if a function takes in a list and calls the Linq extension method called Any on it, the compiler will not be able to deduce the type. Take the following example:</p>
 
@@ -337,7 +339,7 @@
 </code></pre>
 </div>
 
-<p>Note that we have <em>imported</em> the System.Linq namespace (in F# the keyword to import a namespace is <strong>open</strong> instead of <em>using</em> like in C#).</p>
+<p>In the example above we have <em>imported</em> the System.Linq namespace. In F# the keyword to import a namespace or module is <code class="highlighter-rouge">open</code> instead of <code class="highlighter-rouge">using</code> like in C#.</p>
 
 <p>Type annotations have two parts to their syntax:</p>
 <ul>
@@ -352,9 +354,9 @@
 
 <p>This is the other way round to C# where the type comes before the name.</p>
 
-<p>You’re also probably wondering what the <code class="highlighter-rouge">seq</code> type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! I’ll cover the most common F# types later.</p>
+<p>You’re also probably wondering what the <code class="highlighter-rouge">seq</code> type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! We briefly cover collections <a href="#collection-types">later</a>.</p>
 
-<p>Member methods (especially generic extension methods) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later.</p>
+<p>Member methods (especially extension methods on generic types) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later when we cover <a href="#piping">piping</a>.</p>
 
 <h1 id="generics">Generics</h1>
 <p>Sometimes it doesn’t actually matter what the types of a function’s parameters or return value is. For example take the following F# code:</p>
@@ -406,7 +408,7 @@
       <td>Assigns the indented code below to the module</td>
     </tr>
     <tr>
-      <td>In an expression</td>
+      <td>In any other expression</td>
       <td>Compares two values</td>
     </tr>
   </tbody>
@@ -418,12 +420,12 @@
 <p>F# values are immutable by default. Once you assign a value to an identifier in F#, you cannot modify it. In functional programming this is usually the desired behaviour for a number of reasons.</p>
 
 <ul>
-  <li>Makes concurrency easier. It prevents a thread from changing another thread’s objects and removes the need for locking objects to make changes.</li>
-  <li>Makes code more reasonable. If values cannot be modified code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects.</li>
-  <li>It becomes easier to make fluent APIs that read really well.</li>
+  <li>It makes <strong>concurrency</strong> easier. It prevents a thread from changing another thread’s objects and removes the need for locking objects to make changes.</li>
+  <li>Makes code more <strong>reasonable</strong>. If values cannot be modified, code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects. If a function takes in an object you know that function doesn’t modify the it.</li>
+  <li>It becomes easier to make <strong>fluent APIs</strong> that read really well.</li>
 </ul>
 
-<p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object immutable in F# using the mutable keyword:</p>
+<p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object immutable in F# by using the <code class="highlighter-rouge">mutable</code> keyword:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">mutableValue</span> <span class="bp">()</span> <span class="p">=</span>
     <span class="k">let</span> <span class="k">mutable</span> <span class="n">x</span> <span class="p">=</span> <span class="mi">5</span>
@@ -442,27 +444,28 @@
 <p>One of the main uses for tuples is that they allow you to return multiple values from a function without having to create a small POCO class to contain them.</p>
 
 <p>In F# tuples are written using parenthesis with the items inside separated by commas. Below is an example of a function that returns a tuple that contains an integer and then a string:</p>
+
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">addTen</span> <span class="n">num</span> <span class="p">=</span>
     <span class="p">(</span><span class="n">num</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="s2">"The original value was "</span> <span class="o">+</span> <span class="n">num</span><span class="p">)</span>
 </code></pre>
 </div>
 
-<p>The above example returns the value with ten added to it in the tuple’s first item, and a string containing the value in the tuple’s second item.</p>
+<p>The example above returns the value with ten added to it in the tuple’s first item, and a string containing the value in the tuple’s second item.</p>
 
-<p>Tuples can also be “unpacked” when they are assigned to. Below is an example of how tuples are assigned to:</p>
+<p>Tuples can also be unpacked or <em>deconstructed</em> when they are assigned to. Below is an example of how tuples are assigned to:</p>
+
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">result</span><span class="p">,</span> <span class="n">message</span> <span class="p">=</span> <span class="n">addTen</span> <span class="mi">20</span>
 </code></pre>
 </div>
 
-<p>Unpacking tuples is optional. You can always unpack the tuple later. As demonstrated in this example:</p>
+<p>In the above example, <em>result</em> contains the integer in the first item of the tuple and <em>message</em> contains the string in the second item of the tuple. Unpacking tuples is optional. You can always unpack the tuple later. This is demonstrated in the following example:</p>
+
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">resultAndMessage</span> <span class="p">=</span> <span class="n">addTen</span> <span class="mi">20</span>
 <span class="k">let</span> <span class="n">result</span><span class="p">,</span> <span class="n">message</span> <span class="p">=</span> <span class="n">resultAndMessage</span>
 </code></pre>
 </div>
 
-<p>In the above examples, <em>result</em> contains the integer in the first item of the tuple and <em>message</em> contains the string in the second item of the tuple.</p>
-
-<p>As you can see, using tuples is a very convenient way of returning multiple values from a function without having to create a small type and then extracting the values out of it. They also have another purpose in F# which we will cover later.</p>
+<p>As you can see, using tuples is a very convenient way of returning multiple values from a function without having to create a small type and then extracting the values out of it. They also have another purpose in F# which we will cover <a href="#currying">later</a>.</p>
 
 <h1 id="unit">Unit</h1>
 <p>As mentioned previously, all functions in F# are expressions. Functions that return void cannot be used in expressions. As an example, you cannot use functions that return void in ternary expressions in C#. To demonstrate this point, the following C# code will not compile:</p>
@@ -479,7 +482,7 @@
 </code></pre>
 </div>
 
-<p>This is because expressions must have a return type. F# has a special type called <strong>Unit</strong>. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as Thread.Sleep and Console.WriteLine, return Unit when used in F#.</p>
+<p>This is because expressions must have a return type. F# has a special type called <strong>unit</strong>. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as <code class="highlighter-rouge">Thread.Sleep</code> and <code class="highlighter-rouge">Console.WriteLine</code>, return unit when used in F#.</p>
 
 <p>Unit is expressed in F# by using two brackets next to each other like this: <code class="highlighter-rouge">()</code>. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit returns unit.</p>
 
@@ -487,14 +490,14 @@
     <span class="bp">()</span>
 </code></pre>
 </div>
-<p>If you ever want to disregard the returned value of a function and return unit instead, F# has a function called ignore that does this for you. For example Console.ReadLine returns a string but we want our function to return void, so we use the ignore function to <em>ignore</em> the string returned from the ReadLine method and return <em>Unit</em> instead.</p>
+<p>If you want to disregard the returned value of a function and return unit instead, F# has a function called <code class="highlighter-rouge">ignore</code> that does this for you. For example <code class="highlighter-rouge">Console.ReadLine</code> returns a string but if we want our function to return unit, we can use the ignore function to <em>ignore</em> the string returned from the ReadLine method and return unit instead.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">waitUntilEnter</span> <span class="bp">()</span> <span class="p">=</span> 
     <span class="n">ignore</span> <span class="p">(</span><span class="nn">Console</span><span class="p">.</span><span class="nc">ReadLine</span><span class="bp">()</span><span class="p">)</span>
 </code></pre>
 </div>
 
-<p>The waitUntilEnter function above returns the empty Unit type rather than the string returned by the ReadLine method.</p>
+<p>The waitUntilEnter function above returns the empty unit type rather than the string returned by the ReadLine method.</p>
 
 <h1 id="records">Records</h1>
 <p>Records are immutable POCO classes that offer value based equality for free (as opposed to the reference based equality you get by default in C#). Below is an example of a record declaration:</p>
@@ -515,13 +518,12 @@
 </code></pre>
 </div>
 
-<p>The F# compiler infers the type for us. It looks through all the available types for any types that have both “name” and “age” properties. Since there is only one, the compiler can successfully infer the type of this object to that of a <em>Person</em> type. This is just one example of how F# type inference is head and shoulders above C#’s.</p>
+<p>The F# compiler infers the type for us. It looks through all the available types for any types that have both the “name” and “age” properties. Since there is only one, the compiler can successfully infer the type of this object to that of a <em>Person</em> type. This is an example of how F# type inference is head and shoulders above C#’s.</p>
 
-<p>If you have two records with the same properties then you can use type annotations to tell the compiler which one to use, although this is very rare. If you have two records with the exact same properties you should probably merge them.</p>
+<p>If you have two records with the same properties then you can use type annotations to tell the compiler which one to use, although this is very rare. If you have two records with the exact same properties you should probably merge them. Since a record is a class it can be placed inside a namespace or module.</p>
 
-<p>Since a record is a class it can be placed inside a namespace or module. One of the best features of records is how they are compared.</p>
+<p>One of the best features of records is how they are compared. For example take the following F# code:</p>
 
-<p>For example take the following F# code:</p>
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nc">System</span>
 
 <span class="k">type</span> <span class="nc">Person</span> <span class="p">=</span> <span class="p">{</span>
@@ -543,22 +545,18 @@
     <span class="mi">0</span> <span class="o">//</span> <span class="n">return</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">exit</span> <span class="n">code</span>
 </code></pre>
 </div>
-<p>Here we have a main method that creates 3 Person objects. The first and second Person objects have a different name, whereas the first and third objects have the same properties. Notice how comparing person1 and person3 results in “True” being printed. This is because records check for equality on <strong>all</strong> of its properties. It does not perform a reference comparison like C# does. This is really useful for <strong>unit testing</strong>. It means we do not have to waste our time writing equals overloads to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.</p>
+
+<p>In the example above we have a main method that creates 3 Person records. The first and second Person records have a different name, whereas the first and third records have the same properties. Notice how comparing person1 and person3 results in “True” being printed. This is because records check for equality by comparing <strong>all</strong> of their properties. It does not perform a reference comparison like C# does. This is really useful for <strong>unit testing</strong>. It means we do not have to waste our time writing <code class="highlighter-rouge">Equals</code> implementations to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.</p>
 
 <p>Other things to note:</p>
 <ul>
-  <li>If a record contains another record then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure the lists contain the same items. This can result in a performance drop so be mindful about this when you check if two complex records are equal.</li>
-  <li>The new keyword is not required in F#.</li>
-  <li>The semi-colon is used in the previous example to create a record on one line.</li>
+  <li>If a record contains another record then the comparison “crawls” down the object, it is not a shallow comparison. If a record contains a list, then every item in the list is compared to ensure that the lists contain the same items. This can result in a performance drop so be mindful of this when checking if two complex records are equal.</li>
+  <li>The new keyword is never required in F#.</li>
+  <li>A semi-colon is used in the previous example to create a record on one line.</li>
 </ul>
 
 <h1 id="if-expression">If Expression</h1>
-
-<p>F# does not have a ternary operator, since everything is already an expression in F#. The F# equivalent to the C# ternary operator is the if expression.</p>
-
-<p>When using an if expression, all the branches of the expression must return the same type.</p>
-
-<p>For example:</p>
+<p>F# does not have a ternary operator, since everything is already an expression in F#. The F# equivalent to the C# ternary operator is the if expression. When using an if expression, all the branches of the expression must return the same type. For example:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">Helpers</span> <span class="p">=</span>
     <span class="k">let</span> <span class="n">isConnel</span> <span class="n">x</span> <span class="p">=</span>
@@ -569,12 +567,12 @@
 </code></pre>
 </div>
 
-<p>Like everything in F#, the if expression is whitespace sensitive so there is no need for curly braces. The other main difference compared to C# is that there is no need to parenthesis around the condition and there is an additional <em>then</em> keyword required.</p>
+<p>Like everything in F#, the if expression is whitespace sensitive so there is no need for curly braces or semi colons. The other main difference compared to C# is that there is no need to parenthesis around the condition and there is an additional <em>then</em> keyword required.</p>
 
 <p>Both parts of the expression above returns a string. If the else branch returned a boolean for example, the code would not compile.</p>
 
 <h1 id="let-expression">Let Expression</h1>
-<p>In C# it is not possible to declare variables in expressions. To combat this, F# has the the let expression. We’ve seen the let expression in action quite a few times already but it is worth exploring how it works. The let expression works by binding the result of an expression to an identifier that can be used in the next expression.</p>
+<p>In C# it is not possible to declare variables in expressions. To combat this, F# has the let expression. We’ve seen the let expression in action quite a few times already but it is worth exploring how it works. The let expression works by binding the result of an expression to an identifier that can be used in the next expression.</p>
 
 <blockquote>
   <p>let [identifier] = [binding_expression] [usage_expression]</p>
@@ -632,9 +630,9 @@
   <p>int -&gt; int -&gt; int</p>
 </blockquote>
 
-<p>This F# signature appears to closely resemble the corresponding Func type in C#. The item on the far right is the return type, and the items to its left are the values you need to put in to get that return type out.</p>
+<p>This F# signature appears to closely resemble the corresponding <code class="highlighter-rouge">Func</code> type in C#. The item on the far right is the return type, and the items to its left are the values you need to put in to get that return type out.</p>
 
-<p>One of the nice things about F# is that a function’s signature is also its type, it isn’t two different things like in C#.</p>
+<p>One F#’s nice features is that a function’s signature is also its type, it isn’t two different things like in C#.</p>
 
 <p>Asterisks are used to denote tuples. The following example is the signature of a function that takes in an integer and returns a tuple with an integer as its first item and a string as its second item.</p>
 
@@ -642,7 +640,7 @@
   <p>int -&gt; int * string</p>
 </blockquote>
 
-<p>Take the following following F# function:</p>
+<p>Take the following F# function:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">doubleWhenTrue</span> <span class="n">num</span> <span class="n">predicate</span> <span class="p">=</span>
     <span class="k">if</span><span class="p">(</span><span class="n">predicate</span><span class="p">(</span><span class="n">num</span><span class="o">))</span> <span class="k">then</span>
@@ -672,8 +670,10 @@
 
 <p>int -&gt; int -&gt; (int -&gt; int)</p>
 
+<p>Please note that you would never usually write a function like that and would instead use <a href="#currying">currying</a>.</p>
+
 <h1 id="currying">Currying</h1>
-<p>One of the powerful features of F# that differentiates it from C# is its built currying. Currying is when you split a function of N parameters into N separate functions. For example, if you take the following C# function type:</p>
+<p>One of the powerful features of F# that differentiates it from C# is its built currying. Currying is when you split a single function of N parameters into N separate functions. For example, if you take the following C# function type:</p>
 
 <blockquote>
   <p>Func&lt;int, int, int, int&gt;</p>
@@ -715,9 +715,10 @@
 <span class="p">}</span>
 </code></pre>
 </div>
-<p>In C#, the compiler knows if you only provide one integer that it should call the first method and if you provide two then it should call the second method. In F# however, the compiler would not know whether you wanted to call the first method or <strong>partial apply</strong> the second method.</p>
 
-<p>If you want to prevent a function from being partially applied, you can group together the inputs via a tuple. Since a tuple is a single value you must give all of the items inside the tuple at the same time. For example take the following F# method:</p>
+<p>In C#, the compiler knows that if you only provide one integer then it should call the first method and if you provide two then it should call the second method. In F# however, the compiler would not know whether you wanted to call the first method or <strong>partially apply</strong> the second method.</p>
+
+<p>If you want to prevent a function from being partially applied, you can group together the inputs in a tuple. Since a tuple is a single value you must give all of the items inside the tuple at the same time. For example take the following F# method:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">addTwoNumbersTuple</span> <span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="o">)=</span>
     <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
@@ -732,7 +733,7 @@
 
 <p>As you can see there is only one arrow in the function type signature. An arrow indicates where a function type can be partially applied. The following would not compile as you need to provide the entire tuple: <code class="highlighter-rouge">let addFive = addTwoNumbersTuple 5</code></p>
 
-<p>Method overloads from C# types are still available in F#. Any function created outside of F# in .NET is exposed to an F# project as a function that has a single tuple as its input type. This means you cannot partially apply a function created outside of F# as this would break the existing overloaded functions. For example String.Format has the following overloaded signatures:</p>
+<p>Method overloads from C# types are still available in F#. Any function created outside of F# in .NET is exposed to an F# project as a function that has a single tuple as its input. This means you cannot partially apply a function created outside of F#. For example String.Format has the following overloaded signatures:</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png" alt="Screenshot of String.Format overloads in an F# project" /></p>
 
@@ -801,25 +802,25 @@
 </code></pre>
 </div>
 
-<p>I’ve added type annotations to the function’s parameters so you can see their types, although they aren’t necessary and could be removed to make it easier to read. Instead of injecting interfaces into a class’s constructor, you pass in any dependant functions as the function’s first parameters. This means you can partial apply the function like so:</p>
+<p>I’ve added type annotations to the function’s parameters so you can see their types, although they aren’t necessary and could be removed to make it easier to read. Instead of injecting interfaces into a class’s constructor, you pass in any dependant functions as the function’s first parameters. This means you can partially apply the function like so:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createBooking</span> <span class="p">=</span> <span class="nn">Hotel</span><span class="p">.</span><span class="n">bookRoom</span> <span class="nn">BookingSystem</span><span class="p">.</span><span class="n">isRoomAvailable</span> <span class="nn">BookingSystem</span><span class="p">.</span><span class="n">getBooking</span> <span class="nn">Email</span><span class="p">.</span><span class="n">emailBooking</span> <span class="mi">5</span>
 </code></pre>
 </div>
 
-<p>In the line above, we call the <code class="highlighter-rouge">Hotel.bookRoom</code> function and only provide 4 out of the 6 parameters. This leaves us with a function with the following signature:</p>
+<p>In the line above, we call the <code class="highlighter-rouge">Hotel.bookRoom</code> function and only provide 4 out of its 6 parameters. This leaves us with a function with the following signature:</p>
 
 <blockquote>
   <p>string -&gt; DateTime -&gt; bool</p>
 </blockquote>
 
-<p>This is the same signature from the <code class="highlighter-rouge">BookRoom</code> method on the <code class="highlighter-rouge">Hotel</code> class from the C# code. Partially applying functions results in code that is still perfectly testable. When testing the <code class="highlighter-rouge">Hotel.bookRoom</code> function, we can pass in any fake implementation for any of its dependencies. For example if we want to test what happens in our <code class="highlighter-rouge">Hotel.bookRoom</code> function when <code class="highlighter-rouge">isRoomAvailable</code> returns false, we can just pass in a function that always returns false.</p>
+<p>The <code class="highlighter-rouge">BookRoom</code> method on the <code class="highlighter-rouge">Hotel</code> class in the C# code has the same signature. Partially applying functions results in code that is still perfectly testable. When testing the <code class="highlighter-rouge">Hotel.bookRoom</code> function, we can pass in any fake implementation for any of its dependencies. For example if we want to test what happens in our <code class="highlighter-rouge">Hotel.bookRoom</code> function when <code class="highlighter-rouge">isRoomAvailable</code> returns false, we can just pass in a function that always returns false.</p>
 
 <p>This means we get fully unit testable code without the following overheads:</p>
 <ul>
   <li>Creating an interface for every class, just so it can be mocked</li>
   <li>No need for mocking frameworks at all</li>
-  <li>No need for IOC frameworks to bind interfaces to their concrete implementation</li>
+  <li>No need for IOC frameworks to bind interfaces to their concrete implementations</li>
 </ul>
 
 <h1 id="lambdas">Lambdas</h1>
@@ -842,7 +843,7 @@
 </ul>
 
 <h1 id="discriminated-unions">Discriminated Unions</h1>
-<p>In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. As we have just covered, method overloads are not available to F# functions and records to not support inheritance. In F# discriminated unions are used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any <em>one</em> of the types in the enum. Below is an example of a discriminated union:</p>
+<p>In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. As we have just covered, method overloads are not available to F# functions and records and tuples do not support inheritance. In F# discriminated unions tend to be used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any <em>one</em> of the types in the enum. Below is an example of a discriminated union:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
 <span class="p">|</span> <span class="nc">Error</span> <span class="k">of</span> <span class="nc">Exception</span>
@@ -859,7 +860,7 @@
 </code></pre>
 </div>
 
-<p>As you can see each union case has its own constructor that you must put the values for that union case into. Union cases can also be empty. When used like this they are much like an enum:</p>
+<p>As you can see each union case has its own constructor that you must put the values into for that union case. Union cases can also be empty. When used like this they are much like an enum:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
  <span class="p">|</span> <span class="nc">Error</span>
@@ -874,12 +875,12 @@
 </code></pre>
 </div>
 
-<p>Whereas inheritance in C# offers the flexibility of a tree like structure, where objects inherit properties from their parents, discriminated unions offer a more flat structure, where objects do not share properties from their parent or siblings.</p>
+<p>Whereas inheritance in C# offers the flexibility of a tree like structure, where objects inherit properties from their parents, discriminated unions offer a more flat structure, where objects do not share properties from their parent.</p>
 
-<p>Discriminated unions are combined with <em>pattern matching</em> to form the most common way of managing flow control in F# applications.</p>
+<p>Discriminated unions are combined with <a href="#match-expression-pattern-matching">pattern matching</a> to form the most common way of managing flow control in F# applications.</p>
 
 <h1 id="match-expression-pattern-matching">Match Expression (Pattern Matching)</h1>
-<p>The match expression and pattern matching is a massive topic in its own right, and I will only be scratching the surface here. The match expression can be thought of as a more powerful switch statement. Below is an example of a match expression with a discriminated union:</p>
+<p>The match expression and pattern matching are massive topics in their own right, and I will only be scratching the surface here. The match expression can be thought of as a more powerful switch statement. Below is an example of a match expression:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="nc">State</span> <span class="p">=</span>
     <span class="p">|</span> <span class="nc">Error</span> <span class="k">of</span> <span class="nc">Exception</span>
@@ -894,19 +895,18 @@
 </code></pre>
 </div>
 
-<p>This function takes in the <code class="highlighter-rouge">State</code> discriminated union and then performs pattern matching on it.</p>
-
+<p>The function above takes in a <code class="highlighter-rouge">State</code> discriminated union and then performs pattern matching on it:</p>
 <ul>
   <li>If the state is an Error union case, it runs the following expression <code class="highlighter-rouge">"Error message: " + ex.Message</code></li>
   <li>If the state is an Info union case, it runs the following expression <code class="highlighter-rouge">"Info message: " + message</code></li>
   <li>If the state is a Warning union case, it runs the following expression <code class="highlighter-rouge">"Warning message: " + message</code></li>
 </ul>
 
-<p>Just like the if expression, the match expression must return the same type from all of its branches. For the example above, all three branches of the match expression must return a string. If one of them tried to return an integer it would not compile.</p>
+<p>Just like the if expression, the match expression must return the same type from all of its branches. For the example above, all three branches in the match expression must return a string. If one of them tried to return an integer the code would not compile.</p>
 
 <p>A match expression unpacks or <em>deconstructs</em> the union cases it matches on. If you look at the error branch <code class="highlighter-rouge">Error(ex) -&gt; "Error message: " + ex.Message</code> you can see that the expression that is ran has access to the exception inside the Error union case.</p>
 
-<p>Match expressions should be <strong>exhaustive</strong>. This means that no matter what value of a particular type is given to the expression, there should always be a branch that matches that value. The match statement can perform pattern matching against any type, not just discriminated unions, so take the following example:</p>
+<p>Match expressions should be <strong>exhaustive</strong>. This means that no matter what value of a particular type is given to the expression, there should always be a branch that matches on that value. The match statement can perform pattern matching against any type, not just discriminated unions, as shown in the following example:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">matchNumbers</span> <span class="n">x</span> <span class="p">=</span>
     <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
@@ -914,13 +914,13 @@
 </code></pre>
 </div>
 
-<p>The above function takes in an integer and performs pattern matching on it. If x matches the value of 9 then a string is returned. If the integer is not 9 however a runtime exception will be thrown. This is because the match expression is not <strong>exhaustive</strong>. The above function actually generates a compile time warning:</p>
+<p>The function above takes in an integer and performs pattern matching on it. If x matches the value of 9 then a string is returned. If the integer is not 9 however, a runtime exception will be thrown. This is because the match expression is not <strong>exhaustive</strong>. The above function actually generates a compile time warning:</p>
 
 <blockquote>
   <p>Incomplete pattern matches on this expression. For example, the value ‘0’ may indicate a case not covered by the pattern(s).</p>
 </blockquote>
 
-<p>It even gives you an example of a value that does not match! Match expressions have a concept similar to the <code class="highlighter-rouge">default</code> statement found in C# <code class="highlighter-rouge">switch</code> statements. The underscore wild-card in F# matches against any object. The following example is exhaustive:</p>
+<p>The compiler even gives you an example of a value that does not match! Match expressions have a concept similar to the <code class="highlighter-rouge">default</code> statement found in C# <code class="highlighter-rouge">switch</code> statements. The underscore wild-card in F# matches against any object. The following example is exhaustive:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">matchNumbers</span> <span class="n">x</span> <span class="p">=</span>
     <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
@@ -941,7 +941,7 @@
 
 <p>As you can see, the <code class="highlighter-rouge">when</code> keyword can be used to add a condition to a branch. For example <code class="highlighter-rouge">age when age &lt; 18</code> only matches when age is below 18. This example also demonstrates how to have a branch that matches any value, whilst still using that value in the branch’s expression. When you match with the underscore wild-card, you cannot access the value that is matched against in the expression to the right of the arrow. To match against any value simply give the value a name. This branch <code class="highlighter-rouge">age -&gt; "Adult: " + age</code> matches against any integer and gives it the name <em>age</em>. Age is then available in the expression to the right of the arrow.</p>
 
-<p>Since match is an expression and therefore returns a value, it would not make sense for match expression branches to <em>fall through</em> to other matched expressions. The only expression that is ran is the first one that matches, therefore the order of the branches is important. This is why it does not need an equivalent of the <code class="highlighter-rouge">break</code> keyword found in C#’s switch statements.</p>
+<p>Since match is an expression and therefore returns a value, it would not make sense for match expression branches to <em>fall through</em> to other matched expressions. The only expression that is ran is the first one that matches, therefore the order of the branches is important. This is why F# does not have an equivalent of the <code class="highlighter-rouge">break</code> keyword found in C#’s <code class="highlighter-rouge">switch</code> statements.</p>
 
 <h1 id="exceptions">Exceptions</h1>
 <p>Exceptions in F# are like discriminated unions with a single union case. Below is an example of an F# exception type, whose contents is a tuple that contains a string in its first item, and a record in its second item.</p>
@@ -965,7 +965,7 @@
 </code></pre>
 </div>
 
-<p>The raise keyword can also throw standard .NET exceptions:</p>
+<p>The raise keyword can also throw .NET exceptions created outside of F#:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">validate</span> <span class="n">person</span> <span class="p">=</span>
     <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&gt;</span> <span class="s2">"Connel"</span> <span class="p">&amp;&amp;</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="k">then</span>
@@ -974,7 +974,7 @@
 </div>
 
 <h1 id="try-expression">Try Expression</h1>
-<p>The try expression is used in F# to catch thrown exceptions. It has a very similar syntax to the match expression.</p>
+<p>The try expression is used in F# to catch thrown exceptions. It has a very similar syntax to the match expression:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">exception</span> <span class="nc">InvalidName</span> <span class="k">of</span> <span class="kt">string</span>
 <span class="k">exception</span> <span class="nc">InvalidAge</span> <span class="k">of</span> <span class="kt">int</span>
@@ -1006,9 +1006,9 @@
 </div>
 
 <h1 id="collection-types">Collection Types</h1>
-<p>F# has three main types of collections.</p>
+<p>F# has three main collection types.</p>
 
-<p><code class="highlighter-rouge">Seq</code> is an alias of IEnumerable. Therefore they are lazy loaded. To create a seq you must use a syntax we haven’t seen before. You must type <em>seq</em> followed by curly braces then inside the curly braces write an expression that returns a sequence.</p>
+<p><code class="highlighter-rouge">Seq</code> is an alias of IEnumerable. Therefore they are lazy loaded. To create a seq you must use a syntax we haven’t seen before. You must type <em>seq</em>, followed by curly braces, then inside the curly braces write an expression that returns a sequence.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">numbersSeq</span> <span class="p">=</span> <span class="n">seq</span> <span class="p">{</span>
     <span class="n">yield</span> <span class="mi">1</span>
@@ -1020,7 +1020,7 @@
 </code></pre>
 </div>
 
-<p>You can only use the <em>yield</em> keyword when inside the curly braces of a seq expression. When using IEnumerables in C#, you very rarely create them yourselves and instead use helper functions like <code class="highlighter-rouge">IEnumerable.Range</code>. In F# this is no different.</p>
+<p>You can only use the <em>yield</em> keyword when inside the curly braces of a seq expression. When using IEnumerables in C#, you very rarely create them yourselves and instead use helper methods like <code class="highlighter-rouge">IEnumerable.Range</code>. In F# this is no different.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">doubleNumber</span> <span class="n">i</span> <span class="p">=</span> <span class="n">i</span><span class="p">*</span> <span class="mi">2</span>
 <span class="k">let</span> <span class="n">numbersSeq</span> <span class="p">=</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">init</span> <span class="mi">5</span> <span class="n">doubleNumber</span>
@@ -1028,21 +1028,21 @@
 </div>
 <p>The example above creates a sequence that is five numbers long and produces a sequence of numbers where the five numbers are doubled.</p>
 
-<p><code class="highlighter-rouge">List</code> is an eagerly loaded linked list. It is not the same as the C# List type. To create a list use squared brackets.</p>
+<p><code class="highlighter-rouge">List</code> is an eagerly loaded linked list. It is not the same as the C# List type. To create a list use squared brackets:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">numbersList</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">5</span><span class="p">]</span>
 </code></pre>
 </div>
 
-<p>If you want the list to be written over one line use semi-colons as a delimiter otherwise you can use a new line instead.</p>
+<p>If you want the list to be written over one line then use semi-colons as a delimiter (like above) otherwise you can use a new line instead.</p>
 
-<p><code class="highlighter-rouge">Array</code> is the same as a traditional C# array. It has the exact same syntax as an F# list just with an extra pipe (|) character.</p>
+<p><code class="highlighter-rouge">Array</code> is the same as a traditional C# array. It has the exact same syntax as an F# list, just with an extra pipe (|) character:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">numbersArray</span> <span class="p">=</span> <span class="p">[|</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">;</span> <span class="mi">5</span><span class="p">|]</span>
 </code></pre>
 </div>
 
-<p>All three of these types also have corresponding modules that expose functions that you can use on these types. A lot of these functions offer the same functionality as the Linq extension methods in C#, but some of them have different names. Below is a table of some of the functions:</p>
+<p>All three of these types also have corresponding modules that expose functions that you can use on these types. A lot of these functions offer the same functionality as the Linq extension methods in C#, but some of them have different names. Below is a table comparing some of the names:</p>
 
 <table>
   <thead>
@@ -1090,9 +1090,9 @@
 </div>
 
 <h1 id="piping">Piping</h1>
-<p>In C#, fluent APIs are becoming more and more popular. Fluent APIs read really well as you can chain method calls together without needing to declare several local variables. They are also appealing as they read left to right, so they read much more an actual language. In C# extension methods and the <a target="_BLANK" href="http://blogs.tedneward.com/patterns/Builder-CSharp">builder pattern</a> have become the way in which fluent APIs are implemented. The problem with this approach is that you have to spend the time to design and write a lot of additional code for the builder pattern. This additional code then needs to be tested. Extension methods (like those found in Linq) also require you to write your code in a particular way.</p>
+<p>In C#, fluent APIs are becoming more and more popular. Fluent APIs read really well as you can chain method calls together without needing to declare several local variables. They are also appealing as they read left to right, so they read much more like an actual language. In C# extension methods and the <a target="_BLANK" href="http://blogs.tedneward.com/patterns/Builder-CSharp">builder pattern</a> have become the ways in which fluent APIs tend to be implemented. The problem with the builder pattern approach is that you have to spend the time to design and write a lot of additional code. This additional code then needs to be tested. Extension methods (like those found in Linq) also require you to write your code in a particular way.</p>
 
-<p>F# however allows you write fluent APIs with almost no effort. All you have to do is make sure the subject of the function is the last parameter, you can then use the pipe operator to chain method calls together. The pipe operator is typed as <code class="highlighter-rouge">|&gt;</code>. It is very simple in what it does. The pipe operator is simply the following function:</p>
+<p>F# however allows you write fluent APIs with almost no effort at all. All you have to do is make sure the subject of the function is the last parameter, you can then use the pipe operator to chain method calls together. The pipe operator is typed as <code class="highlighter-rouge">|&gt;</code>. It is very simple in what it does. The pipe operator is simply the following function:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="o">(|&gt;)</span> <span class="n">x</span> <span class="n">f</span> <span class="p">=</span> <span class="n">f</span> <span class="n">x</span>
 </code></pre>
@@ -1107,7 +1107,7 @@
 </code></pre>
 </div>
 
-<p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code class="highlighter-rouge">Seq.map</code> is the F# equivalent of the <code class="highlighter-rouge">Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in a sequence, and the second is the list to loop through. When you call <code class="highlighter-rouge">Seq.map (fun i -&gt; i*2)</code> you do not supply the list as a final parameter. This results in a partially applied function, that only takes in a list, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as is seen in C#.</p>
+<p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code class="highlighter-rouge">Seq.map</code> is the F# equivalent of the <code class="highlighter-rouge">Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call <code class="highlighter-rouge">Seq.map (fun i -&gt; i*2)</code> we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as is seen in C#.</p>
 
 <h1 id="option-type">Option Type</h1>
 <p>F# types cannot be null. The following example will not compile:</p>
@@ -1124,19 +1124,19 @@
 </code></pre>
 </div>
 
-<p>The above example uses type annotations in a let expression. This means that we provide the type and it is not inferred by the compiler. I used type annotations as when assigning null to a value, the compiler will obviously not be able to infer the type. Much like how you cannot do <code class="highlighter-rouge">var x = null</code> in C#. The bottom line in the above example results in the following compiler error:</p>
+<p>The above example uses let expressions with type annotations. This means that we provide the type and it is not inferred by the compiler. I used type annotations, as when assigning null to a value, the compiler will obviously not be able to infer the type. Much like how you cannot do <code class="highlighter-rouge">var x = null</code> in C#. The bottom line in the above example results in the following compiler error:</p>
 
 <blockquote>
   <p>The type ‘Person’ does not have ‘null’ as a proper value</p>
 </blockquote>
 
-<p>This gives you peace of mind when using F# values, no more null checks!! But what about when you want to represent the lack of a value? For example imagine we had a PersonRepository that has a find function. It will search through a database for a Person record that matches a particular name. In C# you would have 3 options:</p>
+<p>This gives you peace of mind when using F# values, no more null checks!! But what about when you want to represent the lack of a value? Imagine we had a PersonRepository that has a find function. It will search through a database for a Person record that matches a particular name. But what do you do when a person matching that name cannot be found? In C# you would have 3 options:</p>
 
-<p>Return a person object if a matching one is found. If one isn’t found then throw an exception. This is how Linq’s First method works. Exceptions should only be thrown when something <em>exceptional</em> happens, that prevents the application carrying on. in this example, if you query a database for a name that isn’t there, this isn’t exactly an <em>exceptional circumstance</em>. There could be any number of perfectly good reasons why there are no matches.</p>
-
-<p>You could return null if there is no matching name in the database. This is how Linq’s FirstOrDefault method works. Functions that sometimes return null are deemed <em>dishonest</em>. Their signature does not fully describe their behaviour. Unless you look up the documentation of FirstOrDefault it is not clear that it returns null on a no match. Add this to the fact that nulls are also obviously evil as they litter you code with null checks and dreaded <em>object is not set to the reference of an object</em> runtime errors.</p>
-
-<p>Another way to handle this type of function would be to return a complex type that contains a success boolean property and a property for the the actual result. This is how Regex.Match function works. This requires additional overhead of creating wrapper object and instead of lots of null checks, you have lots of <em>is success</em> checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you still get null reference exceptions.</p>
+<ul>
+  <li><strong>Throw an exception</strong>. This is how Linq’s <code class="highlighter-rouge">First</code> method works. Exceptions should only be thrown when something <em>exceptional</em> happens, that prevents the application from carrying on. In this example, if you query a database for a name that isn’t there, this isn’t exactly an <em>exceptional circumstance</em>. There could be any number of perfectly good reasons why there are no matches.</li>
+  <li><strong>Return null</strong>. This is how Linq’s <code class="highlighter-rouge">FirstOrDefault</code> method works. Functions that sometimes return null are deemed <em>dishonest</em>. Their signature does not fully describe their behaviour. Unless you look up the documentation for FirstOrDefault, it is not clear that it returns null on a no match. It also goes without saying that nulls are evil as they litter you code with null checks and dreaded <em>object is not set to the reference of an object</em> runtime errors.</li>
+  <li><strong>Return a complex type that contains a success boolean</strong> property and a property for the the actual result. This is how the <code class="highlighter-rouge">Regex.Match</code> function works. This results in the additional overhead of creating wrapper object and instead of lots of null checks, you have lots of <em>is success</em> checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you could still get null reference exception.</li>
+</ul>
 
 <p>F# has a different mechanism for representing an object that may or may not have a value, called the <strong>Option</strong> type. It is simply a discriminated union that represents either <strong>Some</strong> value or the <strong>None</strong> value. The following example matches a regex expression.</p>
 
@@ -1156,7 +1156,7 @@
   <p>string -&gt; string -&gt; string option</p>
 </blockquote>
 
-<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option&lt;string&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either a value or an empty value. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
+<p><code class="highlighter-rouge">string option</code> is just another way of writing <code class="highlighter-rouge">option&lt;string&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either a value or an empty value. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nc">System</span>
 <span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
