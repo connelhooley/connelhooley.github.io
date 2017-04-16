@@ -31,4 +31,24 @@ $(function() {
         $e.append('&nbsp;');
         $e.append(link);
     });
+    $postContent = $('.post-content');
+    $postNav = $('.post-nav');
+    $(window).on('scroll', function(e) {
+        function isScrolledPassed($element) {
+            var scrollTop = $(window).scrollTop();
+            var elementOffset = $element.offset().top;
+            var distance = (elementOffset - scrollTop);
+            var scrolledPast = (distance <= 0);
+            return scrolledPast;
+        }
+        if (isScrolledPassed($postContent)) {
+            $postNav.slideDown(750);
+        } else {
+            $postNav.slideUp(750);
+        }
+    });
+    $('#back-to-top').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, 700);
+    });
 });

@@ -8901,7 +8901,8 @@ body {
   background-color: #f8bb15;
   border-color: #f8bb15;
   padding: 0.5rem 1rem;
-  font-size: 1rem; }
+  font-size: 1rem;
+  cursor: pointer; }
   .button:hover {
     color: #fff;
     background-color: #d49c06;
@@ -9753,6 +9754,14 @@ h1, h2, h3, h4, h5, h6 {
     .post .post-body,
     .post .post-comments {
       padding-bottom: 2rem; } }
+.post .post-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none; }
+  .post .post-nav .post-nav-content {
+    text-align: right; }
 .post .post-content {
   font-size: 1.2rem; }
   @media (max-width: 991px) {
