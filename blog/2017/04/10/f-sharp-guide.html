@@ -159,7 +159,7 @@
 <li class="toc-entry toc-h1"><a href="#exceptions">Exceptions</a></li>
 <li class="toc-entry toc-h1"><a href="#try-expression">Try Expression</a></li>
 <li class="toc-entry toc-h1"><a href="#collection-types">Collection Types</a></li>
-<li class="toc-entry toc-h1"><a href="#piping">Piping</a></li>
+<li class="toc-entry toc-h1"><a href="#pipe-operator">Pipe Operator</a></li>
 <li class="toc-entry toc-h1"><a href="#option-type">Option Type</a></li>
 </ul>
     </div>
@@ -356,7 +356,7 @@
 
 <p>You’re also probably wondering what the <code class="highlighter-rouge">seq</code> type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! We briefly cover collections <a href="#collection-types">later</a>.</p>
 
-<p>Member methods (especially extension methods on generic types) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later when we cover <a href="#piping">piping</a>.</p>
+<p>Member methods (especially extension methods on generic types) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later when we cover <a href="#pipe-operator">piping</a>.</p>
 
 <h1 id="generics">Generics</h1>
 <p>Sometimes it doesn’t actually matter what the types of a function’s parameters or return value is. For example take the following F# code:</p>
@@ -1089,7 +1089,7 @@
 </code></pre>
 </div>
 
-<h1 id="piping">Piping</h1>
+<h1 id="pipe-operator">Pipe Operator</h1>
 <p>In C#, fluent APIs are becoming more and more popular. Fluent APIs read really well as you can chain method calls together without needing to declare several local variables. They are also appealing as they read left to right, so they read much more like an actual language. In C# extension methods and the <a target="_BLANK" href="http://blogs.tedneward.com/patterns/Builder-CSharp">builder pattern</a> have become the ways in which fluent APIs tend to be implemented. The problem with the builder pattern approach is that you have to spend the time to design and write a lot of additional code. This additional code then needs to be tested. Extension methods (like those found in Linq) also require you to write your code in a particular way.</p>
 
 <p>F# however allows you write fluent APIs with almost no effort at all. All you have to do is make sure the subject of the function is the last parameter, you can then use the pipe operator to chain method calls together. The pipe operator is typed as <code class="highlighter-rouge">|&gt;</code>. It is very simple in what it does. The pipe operator is simply the following function:</p>
