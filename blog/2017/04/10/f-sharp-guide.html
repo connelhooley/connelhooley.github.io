@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Connel Hooley - A C# Developer&#39;s Intro to F#</title>
+  <title>Connel Hooley - A C# Developer&#39;s Guide to F#</title>
   
   <link rel="stylesheet" href="/assets/css/main.css">
   
@@ -19,11 +19,11 @@
   
 
   <!-- Begin Jekyll SEO tag v2.1.0 -->
-<meta property="og:title" content="A C# Developer’s Intro to F#" />
+<meta property="og:title" content="A C# Developer’s Guide to F#" />
 <meta name="description" content="A brief introduction to F# from the point of view of a C# developer. This guide aims to get stuck straight into F# without too much functional theory." />
 <meta property="og:description" content="A brief introduction to F# from the point of view of a C# developer. This guide aims to get stuck straight into F# without too much functional theory." />
-<link rel="canonical" href="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro" />
-<meta property="og:url" content="http://connelhooley.uk/blog/2017/04/10/f-sharp-intro" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide" />
 <meta property="og:site_name" content="Connel Hooley" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-04-10T14:00:00+01:00" />
@@ -33,13 +33,13 @@
 <script type="application/ld+json">
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
-"headline": "A C# Developer’s Intro to F#",
+"headline": "A C# Developer’s Guide to F#",
 "datePublished": "2017-04-10T14:00:00+01:00",
 "description": "A brief introduction to F# from the point of view of a C# developer. This guide aims to get stuck straight into F# without too much functional theory.",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",
 "url": "http://connelhooley.uk/assets/images/logo.png"}},
-"url": "http://connelhooley.uk/blog/2017/04/10/f-sharp-intro"}</script>
+"url": "http://connelhooley.uk/blog/2017/04/10/f-sharp-guide"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -101,7 +101,7 @@
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="header">
     <div class="header-content">
-        <h1 class="title" itemprop="name headline">A C# Developer's Intro to F#</h1>
+        <h1 class="title" itemprop="name headline">A C# Developer's Guide to F#</h1>
         
             <div class="content description">
                 A brief introduction to F# from the point of view of a C# developer. This guide aims to get stuck straight into F# without too much functional theory.
@@ -115,7 +115,7 @@
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 45  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 55  minutes
             </div>
         
         
@@ -132,10 +132,6 @@
         
     </div>
 </header>
-  
-    <div class="preview-message">
-      <span class="warning-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>&nbsp;Please note this article is not finished yet
-    </div>
   
   <div class="post-body">
     <div class="post-toc">
@@ -160,10 +156,11 @@
 <li class="toc-entry toc-h1"><a href="#lambdas">Lambdas</a></li>
 <li class="toc-entry toc-h1"><a href="#discriminated-unions">Discriminated Unions</a></li>
 <li class="toc-entry toc-h1"><a href="#match-expression-pattern-matching">Match Expression (Pattern Matching)</a></li>
+<li class="toc-entry toc-h1"><a href="#exceptions">Exceptions</a></li>
 <li class="toc-entry toc-h1"><a href="#try-expression">Try Expression</a></li>
 <li class="toc-entry toc-h1"><a href="#collection-types">Collection Types</a></li>
+<li class="toc-entry toc-h1"><a href="#piping">Piping</a></li>
 <li class="toc-entry toc-h1"><a href="#option-type">Option Type</a></li>
-<li class="toc-entry toc-h1"><a href="#result-type-railway-programming">Result Type (Railway Programming)</a></li>
 </ul>
     </div>
     <div class="post-content" itemprop="articleBody">
@@ -303,6 +300,18 @@
 
 <p><code class="highlighter-rouge">0</code> - the last line looks kind of strange but what is does is it returns 0 to the operating system to indicate the system terminated without an error. Much like you do when using the Environment.Exit method.</p>
 
+<p>Functions can contain their own functions. This tends to be how you scope functions in F#, as opposed to making methods public, private or protected like in C#.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">printSignedIn</span> <span class="n">username</span>  <span class="p">=</span>
+    <span class="k">let</span> <span class="n">print</span> <span class="n">m</span> <span class="p">=</span>
+        <span class="nn">Console</span><span class="p">.</span><span class="nc">WriteLine</span><span class="p">(</span><span class="nn">DateTime</span><span class="p">.</span><span class="nn">Now</span><span class="p">.</span><span class="nc">ToShortDateString</span><span class="bp">()</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">print</span> <span class="s2">"Welcome"</span>
+    <span class="n">print</span> <span class="p">(</span><span class="s2">"You have successfully as "</span> <span class="o">+</span> <span class="n">username</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>In the example above, the inner <code class="highlighter-rouge">print</code> function is only available inside the <code class="highlighter-rouge">printSignedIn</code> function. Indentation is used to denote the contents of the inner function.</p>
+
 <h1 id="type-inference">Type Inference</h1>
 <p>The add function in the previous example takes in two integers, adds them together and then returns the result. Not once in the file however, do we mention the int primitive type (or any other type for that matter). This is due to a powerful feature of F# called type inference. C# of course has its own type inference (for example the var keyword in C# infers the type being assigned to it). F#’s type inference on the other hand, is much more advanced.</p>
 
@@ -402,6 +411,8 @@
     </tr>
   </tbody>
 </table>
+
+<p>It is also worth noting that the <code class="highlighter-rouge">&lt;&gt;</code> operator is used to say not equal to, unlike C# where is is <code class="highlighter-rouge">!=</code>.</p>
 
 <h1 id="mutability">Mutability</h1>
 <p>F# values are immutable by default. Once you assign a value to an identifier in F#, you cannot modify it. In functional programming this is usually the desired behaviour for a number of reasons.</p>
@@ -725,6 +736,92 @@
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png" alt="Screenshot of String.Format overloads in an F# project" /></p>
 
+<p>Partially applying functions can also be used as a form of dependency management. Take the following C# example:</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="n">IBookingSystem</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">IsRoomAvailable</span><span class="p">(</span><span class="kt">int</span> <span class="n">hotelId</span><span class="p">,</span> <span class="n">DateTime</span> <span class="n">dateTime</span><span class="p">);</span>
+    <span class="kt">string</span> <span class="nf">GetBooking</span><span class="p">(</span><span class="kt">int</span> <span class="n">hotelId</span><span class="p">,</span> <span class="n">DateTime</span> <span class="n">dateTime</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">interface</span> <span class="n">IEmailer</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">EmailBooking</span><span class="p">(</span><span class="kt">string</span> <span class="n">emailAddress</span><span class="p">,</span> <span class="kt">string</span> <span class="n">bookingId</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Hotel</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IBookingSystem</span> <span class="n">_bookingSystem</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IEmailer</span> <span class="n">_emailer</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="kt">int</span> <span class="n">_hotelId</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">Hotel</span><span class="p">(</span><span class="n">IBookingSystem</span> <span class="n">bookingSystem</span><span class="p">,</span> <span class="n">IEmailer</span> <span class="n">emailer</span><span class="p">,</span> <span class="kt">int</span> <span class="n">hotelId</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_bookingSystem</span> <span class="p">=</span> <span class="n">bookingSystem</span><span class="p">;</span>
+        <span class="n">_emailer</span> <span class="p">=</span> <span class="n">emailer</span><span class="p">;</span>
+        <span class="n">_hotelId</span> <span class="p">=</span> <span class="n">hotelId</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">BookRoom</span><span class="p">(</span><span class="kt">string</span> <span class="n">emailAddress</span><span class="p">,</span> <span class="n">DateTime</span> <span class="n">dateTime</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_bookingSystem</span><span class="p">.</span><span class="nf">IsRoomAvailable</span><span class="p">(</span><span class="n">_hotelId</span><span class="p">,</span> <span class="n">dateTime</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="kt">string</span> <span class="n">bookingId</span> <span class="p">=</span> <span class="n">_bookingSystem</span><span class="p">.</span><span class="nf">GetBooking</span><span class="p">(</span><span class="n">_hotelId</span><span class="p">,</span> <span class="n">dateTime</span><span class="p">);</span>
+            <span class="n">_emailer</span><span class="p">.</span><span class="nf">EmailBooking</span><span class="p">(</span><span class="n">emailAddress</span><span class="p">,</span> <span class="n">bookingId</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The hotel class takes in three dependencies in its constructor. It then takes in another two items in the book room method. In F# this would become one function like this:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">Hotel</span>
+
+<span class="k">open</span> <span class="nc">System</span>
+
+<span class="k">let</span> <span class="n">bookRoom</span> 
+    <span class="p">(</span><span class="n">isRoomAvailable</span><span class="p">:</span> <span class="kt">int</span><span class="p">-&gt;</span><span class="nc">DateTime</span><span class="p">-&gt;</span><span class="kt">bool</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">getBooking</span><span class="p">:</span> <span class="kt">int</span><span class="p">-&gt;</span><span class="nc">DateTime</span><span class="p">-&gt;</span><span class="kt">string</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">emailBooking</span><span class="p">:</span><span class="kt">string</span><span class="p">-&gt;</span><span class="kt">string</span><span class="p">-&gt;</span><span class="kt">unit</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">hotelId</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">emailAddress</span><span class="p">:</span> <span class="kt">string</span><span class="p">)</span> 
+    <span class="p">(</span><span class="n">dateTime</span><span class="p">:</span> <span class="nc">DateTime</span><span class="p">)</span> <span class="p">=</span>
+        <span class="k">if</span> <span class="n">isRoomAvailable</span> <span class="n">hotelId</span> <span class="n">dateTime</span> <span class="k">then</span>
+            <span class="k">let</span> <span class="n">bookingId</span> <span class="p">=</span> <span class="n">getBooking</span> <span class="n">hotelId</span> <span class="n">dateTime</span>
+            <span class="n">emailBooking</span> <span class="n">emailAddress</span> <span class="n">bookingId</span>
+            <span class="bp">true</span>
+        <span class="k">else</span>
+            <span class="bp">false</span>
+</code></pre>
+</div>
+
+<p>I’ve added type annotations to the function’s parameters so you can see their types, although they aren’t necessary and could be removed to make it easier to read. Instead of injecting interfaces into a class’s constructor, you pass in any dependant functions as the function’s first parameters. This means you can partial apply the function like so:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createBooking</span> <span class="p">=</span> <span class="nn">Hotel</span><span class="p">.</span><span class="n">bookRoom</span> <span class="nn">BookingSystem</span><span class="p">.</span><span class="n">isRoomAvailable</span> <span class="nn">BookingSystem</span><span class="p">.</span><span class="n">getBooking</span> <span class="nn">Email</span><span class="p">.</span><span class="n">emailBooking</span> <span class="mi">5</span>
+</code></pre>
+</div>
+
+<p>In the line above, we call the <code class="highlighter-rouge">Hotel.bookRoom</code> function and only provide 4 out of the 6 parameters. This leaves us with a function with the following signature:</p>
+
+<blockquote>
+  <p>string -&gt; DateTime -&gt; bool</p>
+</blockquote>
+
+<p>This is the same signature from the <code class="highlighter-rouge">BookRoom</code> method on the <code class="highlighter-rouge">Hotel</code> class from the C# code. Partially applying functions results in code that is still perfectly testable. When testing the <code class="highlighter-rouge">Hotel.bookRoom</code> function, we can pass in any fake implementation for any of its dependencies. For example if we want to test what happens in our <code class="highlighter-rouge">Hotel.bookRoom</code> function when <code class="highlighter-rouge">isRoomAvailable</code> returns false, we can just pass in a function that always returns false.</p>
+
+<p>This means we get fully unit testable code without the following overheads:</p>
+<ul>
+  <li>Creating an interface for every class, just so it can be mocked</li>
+  <li>No need for mocking frameworks at all</li>
+  <li>No need for IOC frameworks to bind interfaces to their concrete implementation</li>
+</ul>
+
 <h1 id="lambdas">Lambdas</h1>
 <p>Obviously F# has support for lambdas. If a function takes in another function as a parameter, then you can pass in a lambda, rather than using a let expression to create a function and then passing that in.</p>
 
@@ -846,8 +943,67 @@
 
 <p>Since match is an expression and therefore returns a value, it would not make sense for match expression branches to <em>fall through</em> to other matched expressions. The only expression that is ran is the first one that matches, therefore the order of the branches is important. This is why it does not need an equivalent of the <code class="highlighter-rouge">break</code> keyword found in C#’s switch statements.</p>
 
+<h1 id="exceptions">Exceptions</h1>
+<p>Exceptions in F# are like discriminated unions with a single union case. Below is an example of an F# exception type, whose contents is a tuple that contains a string in its first item, and a record in its second item.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">exception</span> <span class="nc">InvalidPerson</span> <span class="k">of</span> <span class="kt">string</span> <span class="p">*</span> <span class="nc">Person</span>
+</code></pre>
+</div>
+
+<p>To throw an exception the <code class="highlighter-rouge">raise</code> keyword is used.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">exception</span> <span class="nc">InvalidName</span> <span class="k">of</span> <span class="kt">string</span>
+<span class="k">exception</span> <span class="nc">InvalidAge</span> <span class="k">of</span> <span class="kt">int</span>
+
+<span class="k">let</span> <span class="n">validate</span> <span class="n">person</span> <span class="p">=</span>
+    <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&gt;</span> <span class="s2">"Connel"</span> <span class="k">then</span>
+        <span class="k">raise</span><span class="p">(</span><span class="nc">InvalidName</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="o">))</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="k">then</span>
+        <span class="k">raise</span><span class="p">(</span><span class="nc">InvalidAge</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="o">))</span>
+    <span class="k">else</span>
+        <span class="n">person</span>
+</code></pre>
+</div>
+
+<p>The raise keyword can also throw standard .NET exceptions:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">validate</span> <span class="n">person</span> <span class="p">=</span>
+    <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&gt;</span> <span class="s2">"Connel"</span> <span class="p">&amp;&amp;</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="k">then</span>
+        <span class="k">raise</span><span class="p">(</span><span class="nc">InvalidOperationException</span><span class="bp">()</span><span class="p">)</span>
+</code></pre>
+</div>
+
 <h1 id="try-expression">Try Expression</h1>
-<p>TODO</p>
+<p>The try expression is used in F# to catch thrown exceptions. It has a very similar syntax to the match expression.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">exception</span> <span class="nc">InvalidName</span> <span class="k">of</span> <span class="kt">string</span>
+<span class="k">exception</span> <span class="nc">InvalidAge</span> <span class="k">of</span> <span class="kt">int</span>
+    
+<span class="k">let</span> <span class="n">validate</span> <span class="n">person</span> <span class="p">=</span>
+    <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&gt;</span> <span class="s2">"Connel"</span> <span class="k">then</span>
+        <span class="k">raise</span><span class="p">(</span><span class="nc">InvalidName</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="o">))</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">&lt;</span> <span class="mi">18</span> <span class="k">then</span>
+        <span class="k">raise</span><span class="p">(</span><span class="nc">InvalidAge</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">age</span><span class="o">))</span>
+
+<span class="k">let</span> <span class="n">print</span> <span class="n">person</span> <span class="p">=</span>
+    <span class="k">try</span>
+        <span class="n">validate</span> <span class="n">person</span>
+        <span class="nn">Console</span><span class="p">.</span><span class="nc">WriteLine</span><span class="p">(</span><span class="s2">"Person is valid"</span><span class="p">)</span>
+    <span class="k">with</span>
+    <span class="p">|</span> <span class="nc">InvalidName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nn">Console</span><span class="p">.</span><span class="nc">WriteLine</span><span class="p">(</span><span class="s2">"Person is not named connel, person is named"</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">|</span> <span class="nc">InvalidAge</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nn">Console</span><span class="p">.</span><span class="nc">WriteLine</span><span class="p">(</span><span class="s2">"Person is under 18, person is "</span> <span class="o">+</span> <span class="n">age</span><span class="p">.</span><span class="nc">ToString</span><span class="bp">()</span> <span class="o">+</span> <span class="s2">" years old"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the <code class="highlighter-rouge">:?</code> operator, which checks the type of an object, It is the F# equivalent of the <code class="highlighter-rouge">is</code> keyword in C#.</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">divide</span> <span class="n">num1</span> <span class="n">num2</span> <span class="p">=</span>
+    <span class="k">try</span>
+        <span class="p">(</span><span class="n">num1</span> <span class="o">/</span> <span class="n">num2</span><span class="p">)</span>
+    <span class="k">with</span> 
+    <span class="p">|</span> <span class="o">:?</span> <span class="nc">DivideByZeroException</span> <span class="p">-&gt;</span> <span class="mi">0</span>
+</code></pre>
+</div>
 
 <h1 id="collection-types">Collection Types</h1>
 <p>F# has three main types of collections.</p>
@@ -919,6 +1075,40 @@
   </tbody>
 </table>
 
+<p>The following F# code:</p>
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">items</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">let</span> <span class="n">doubledItems</span> <span class="p">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="p">-&gt;</span> <span class="n">i</span><span class="p">*</span><span class="mi">2</span><span class="p">)</span> <span class="n">items</span>
+<span class="k">let</span> <span class="n">evenItems</span> <span class="p">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">filter</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="p">-&gt;</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="p">=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">doubledItems</span>
+</code></pre>
+</div>
+
+<p>Equates to the following C# code:</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="kt">var</span> <span class="n">items</span> <span class="p">=</span> <span class="k">new</span> <span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">5</span><span class="p">};</span>
+<span class="kt">var</span> <span class="n">doubledItems</span> <span class="p">=</span> <span class="n">items</span><span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">i</span> <span class="p">=&gt;</span> <span class="n">i</span><span class="p">*</span><span class="m">2</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">evenItems</span> <span class="p">=</span> <span class="n">doubledItems</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">i</span> <span class="p">=&gt;</span> <span class="n">i</span><span class="p">%</span><span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<h1 id="piping">Piping</h1>
+<p>In C#, fluent APIs are becoming more and more popular. Fluent APIs read really well as you can chain method calls together without needing to declare several local variables. They are also appealing as they read left to right, so they read much more an actual language. In C# extension methods and the <a target="_BLANK" href="http://blogs.tedneward.com/patterns/Builder-CSharp">builder pattern</a> have become the way in which fluent APIs are implemented. The problem with this approach is that you have to spend the time to design and write a lot of additional code for the builder pattern. This additional code then needs to be tested. Extension methods (like those found in Linq) also require you to write your code in a particular way.</p>
+
+<p>F# however allows you write fluent APIs with almost no effort. All you have to do is make sure the subject of the function is the last parameter, you can then use the pipe operator to chain method calls together. The pipe operator is typed as <code class="highlighter-rouge">|&gt;</code>. It is very simple in what it does. The pipe operator is simply the following function:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="o">(|&gt;)</span> <span class="n">x</span> <span class="n">f</span> <span class="p">=</span> <span class="n">f</span> <span class="n">x</span>
+</code></pre>
+</div>
+
+<p>It takes an item and a function that takes in that item. All it does, is it puts the parameter before the function. So <code class="highlighter-rouge">String.IsNullOrEmpty "Connel"</code> becomes <code class="highlighter-rouge">"Connel" |&gt; String.IsNullOrEmpty</code>. Just swapping the order of the items immediately makes the function read left to right, more like and actual language. When you use the pipe operator with partially applied functions, the result is a fluent API:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">filterList</span> <span class="n">items</span> <span class="p">=</span>
+    <span class="n">items</span>
+    <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="p">-&gt;</span> <span class="n">i</span><span class="p">*</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">filter</span> <span class="p">(</span><span class="k">fun</span> <span class="n">i</span> <span class="p">-&gt;</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="p">=</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code class="highlighter-rouge">Seq.map</code> is the F# equivalent of the <code class="highlighter-rouge">Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in a sequence, and the second is the list to loop through. When you call <code class="highlighter-rouge">Seq.map (fun i -&gt; i*2)</code> you do not supply the list as a final parameter. This results in a partially applied function, that only takes in a list, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as is seen in C#.</p>
+
 <h1 id="option-type">Option Type</h1>
 <p>F# types cannot be null. The following example will not compile:</p>
 
@@ -942,13 +1132,13 @@
 
 <p>This gives you peace of mind when using F# values, no more null checks!! But what about when you want to represent the lack of a value? For example imagine we had a PersonRepository that has a find function. It will search through a database for a Person record that matches a particular name. In C# you would have 3 options:</p>
 
-<p>Return a person object if a matching one is found. If one isn’t found then throw an exception. This is how Linq’s First method works. Exceptions should only be thrown when something <em>Exceptional</em> happens, that prevents the application carrying on. in this example, if you query a database for a name that isn’t there, this isn’t exactly an <em>exceptional circumstance</em>. There could be any number of perfectly good reasons why there are no matches.</p>
+<p>Return a person object if a matching one is found. If one isn’t found then throw an exception. This is how Linq’s First method works. Exceptions should only be thrown when something <em>exceptional</em> happens, that prevents the application carrying on. in this example, if you query a database for a name that isn’t there, this isn’t exactly an <em>exceptional circumstance</em>. There could be any number of perfectly good reasons why there are no matches.</p>
 
 <p>You could return null if there is no matching name in the database. This is how Linq’s FirstOrDefault method works. Functions that sometimes return null are deemed <em>dishonest</em>. Their signature does not fully describe their behaviour. Unless you look up the documentation of FirstOrDefault it is not clear that it returns null on a no match. Add this to the fact that nulls are also obviously evil as they litter you code with null checks and dreaded <em>object is not set to the reference of an object</em> runtime errors.</p>
 
-<p>Another way to handle this type of function would be to return a complex type that contains a success boolean property and a property for the the actual result. This is how Regex.Match function works. This requires additional overhead of creating wrapper object and instead of lots of null checks, you have lots of <strong>is success</strong> checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you still get null reference exceptions.</p>
+<p>Another way to handle this type of function would be to return a complex type that contains a success boolean property and a property for the the actual result. This is how Regex.Match function works. This requires additional overhead of creating wrapper object and instead of lots of null checks, you have lots of <em>is success</em> checks. There is also something “hacky” about having a property that is only populated when the success boolean is true. If you forget to check the success boolean you still get null reference exceptions.</p>
 
-<p>F# has a different mechanism for representing an object that may or may not have a value and that is the <strong>Option</strong> type. It is simply a discriminated union that represents either <strong>Some</strong> value or the <strong>None</strong> value. The following example matches a regex expression.</p>
+<p>F# has a different mechanism for representing an object that may or may not have a value, called the <strong>Option</strong> type. It is simply a discriminated union that represents either <strong>Some</strong> value or the <strong>None</strong> value. The following example matches a regex expression.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">RegexHelpers</span>
     <span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
@@ -966,10 +1156,10 @@
   <p>string -&gt; string -&gt; string option</p>
 </blockquote>
 
-<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option&lt;string&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either of those results. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
+<p><code class="highlighter-rouge">string option</code> is just another way writing <code class="highlighter-rouge">option&lt;string&gt;</code>. Instead of throwing an exception or null, we return a discriminated union that could be either a value or an empty value. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
 
-<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
-<span class="k">open</span> <span class="nc">System</span>
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">open</span> <span class="nc">System</span>
+<span class="k">open</span> <span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nc">RegularExpressions</span>
     
 <span class="k">let</span> <span class="n">regexMatch</span> <span class="n">pattern</span> <span class="n">input</span> <span class="p">=</span>
     <span class="k">match</span> <span class="nn">Regex</span><span class="p">.</span><span class="nc">Match</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span> <span class="k">with</span>
@@ -986,10 +1176,7 @@
 </code></pre>
 </div>
 
-<p>In the above example connelAge equals “26” and bob equals “Age is unknown”. Consuming the option type forces us to cater for both a successful match and an unsuccessful match. The only way to get the inner value of a discriminated union is to pattern match and if we don’t have an exhaustive match expression, the compiler tells us off. It is impossible to access the value inside the option type when it is not there so it is impossible to get a runtime exception by accessing it accidentally.</p>
-
-<h1 id="result-type-railway-programming">Result Type (Railway Programming)</h1>
-<p>TODO</p>
+<p>In the above example connelAge equals “26” and bob equals “Age is unknown”. Consuming the option type forces us to cater for both a successful match and an unsuccessful match. The only way to get the inner value of a discriminated union is to pattern match and if we don’t have an exhaustive match expression, the compiler tells us off. It is impossible to access the value inside the option type when it is not there, so it is impossible to get a runtime exception by accessing it accidentally.</p>
 
 
     </div>
@@ -1002,8 +1189,8 @@
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://connelhooley.uk/blog/2017/04/10/f-sharp-intro';
-      this.page.identifier = 'http://connelhooley.uk/blog/2017/04/10/f-sharp-intro';
+      this.page.url = 'http://connelhooley.uk/blog/2017/04/10/f-sharp-guide';
+      this.page.identifier = 'http://connelhooley.uk/blog/2017/04/10/f-sharp-guide';
     };
 
     (function() {
