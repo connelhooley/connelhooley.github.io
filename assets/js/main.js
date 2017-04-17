@@ -48,6 +48,9 @@ function addScrollUpButton() {
         return scrolledPast;
     }
     $postContent = $('.post-content');
+    if($postContent.length < 1) {
+        return;
+    }
     $postNav = $('.post-nav');
     $(window).on('scroll', function() {
         if (isScrolledPassed($postContent)) {
@@ -62,9 +65,40 @@ function addScrollUpButton() {
     });
 }
 
+function cookies() {
+    function saveCookie() {
+        Cookies.set(cookieName, 'true');
+    }
+    function checkCookie() {
+        return !!Cookies.get(cookieName);
+    }
+    var cookieName = 'acknowledge-cookies';
+    if(!checkCookie()) {
+        $cookie = $('<div id="cookie">');
+        $message = $('<div class="message">');
+        $content = $('<div class="content">');
+        $textWrapper = $('<div class="text-wrapper">');
+        $textWrapper.text('This site uses cookies');
+        $buttonWrapper = $('<div class="button-wrapper">');
+        $button = $('<button class="cookie-button">');
+        $button.text('Ok');
+        $button.click(function () {
+            saveCookie();
+            $cookie.slideUp(750);
+        });
+        $buttonWrapper.append($button);
+        $content.append($textWrapper);
+        $content.append($buttonWrapper);
+        $message.append($content);
+        $cookie.append($message);
+        $('.site-content').prepend($cookie);
+    }
+}
+
 $(function() {
     formatDates();
     addCopyButtonToSnippets();
     addAnchorLinksToHeaders();
     addScrollUpButton();
+    cookies();
 });
