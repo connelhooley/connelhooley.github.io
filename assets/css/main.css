@@ -9185,7 +9185,10 @@ h1, h2, h3, h4, h5, h6 {
       font-size: 2.5rem; } }
 
 .layout-header-only .header {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  text-align: center; }
+.layout-header-only h1 {
+  font-size: 6rem; }
 
 .site-footer {
   padding: 1rem 0;
@@ -9233,8 +9236,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   color: #fff; }
   .home .banner .logo {
-    font-size: 6rem;
-    font-weight: 700;
+    font-size: 7.5rem;
+    font-weight: 900;
     letter-spacing: 25px; }
   @media (max-width: 991px) {
     .home .banner {
@@ -9397,7 +9400,15 @@ h1, h2, h3, h4, h5, h6 {
           .home .actions .buttons-wrapper .buttons .button {
             padding: 0.75rem 1.5rem;
             font-size: 1.5rem; } }
+@keyframes Pulse {
+  0% {
+    box-shadow: 0 0 0 2px #f8bb15; }
+  50% {
+    box-shadow: inherit; }
+  100% {
+    box-shadow: 0 0 0 2px #f8bb15; } }
         .home .actions .buttons-wrapper .buttons .button.primary {
+          animation: Pulse 2s infinite ease-in-out;
           font-weight: 700; }
       .home .actions .buttons-wrapper .buttons .dropdown {
         margin-top: 0.5rem; }
