@@ -67,7 +67,7 @@ function addScrollUpButton() {
 
 function cookies() {
     function saveCookie() {
-        Cookies.set(cookieName, 'true');
+        Cookies.set(cookieName, 'true', , { expires: 365 });
     }
     function checkCookie() {
         return !!Cookies.get(cookieName);
