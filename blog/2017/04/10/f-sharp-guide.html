@@ -211,7 +211,7 @@
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-solution-explorer.png" alt="Screenshot of Visual Studio solution explorer for an F# solution" /></p>
 
-<p>Notice that because A was created after B it is in-fact under A (not in alphabetical order). If B wants to use anything in A then you have to move it up the list, this is done via the context menu or by pressing <code class="highlighter-rouge">ALT + Up/Down</code> when it is selected in the explorer.</p>
+<p>Notice that because A was created after B, A is in-fact under B (not in alphabetical order). If B wants to use anything in A then you have to move it up the list, this is done via the context menu or by pressing <code class="highlighter-rouge">ALT + Up/Down</code> when it is selected in the explorer.</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-guide/f-sharp-solution-explorer-context-menu.png" alt="Screenshot of Visual Studio project item context menu for an F# solution" /></p>
 
@@ -425,7 +425,7 @@
   <li>It becomes easier to make <strong>fluent APIs</strong> that read really well.</li>
 </ul>
 
-<p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object immutable in F# by using the <code class="highlighter-rouge">mutable</code> keyword:</p>
+<p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object mutable in F# by using the <code class="highlighter-rouge">mutable</code> keyword:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">mutableValue</span> <span class="bp">()</span> <span class="p">=</span>
     <span class="k">let</span> <span class="k">mutable</span> <span class="n">x</span> <span class="p">=</span> <span class="mi">5</span>
