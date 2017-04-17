@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-17T23:40:27+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">A C# Developer’s Guide to F#</title><link href="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide" rel="alternate" type="text/html" title="A C# Developer's Guide to F#" /><published>2017-04-10T14:00:00+01:00</published><updated>2017-04-10T14:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/10/f-sharp-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-04-17T23:59:06+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">A C# Developer’s Guide to F#</title><link href="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide" rel="alternate" type="text/html" title="A C# Developer's Guide to F#" /><published>2017-04-10T14:00:00+01:00</published><updated>2017-04-10T14:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/10/f-sharp-guide</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/10/f-sharp-guide">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;There is a lot of information on the web regarding functional programming and F#, but I think very few articles are aimed at “modern” C# developers that use &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0&quot;&gt;Linq&lt;/a&gt; everyday and that are familiar with the &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx&quot;&gt;Action&lt;/a&gt; and &lt;a target=&quot;_BLANK&quot; href=&quot;https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx&quot;&gt;Func&lt;/a&gt; types.&lt;/p&gt;
 
 &lt;p&gt;In this guide we will walk through some of the basic aspects of writing code in F# from the point of view of a C# developer who is already familiar with some aspects of functional programming.&lt;/p&gt;
@@ -113,7 +113,7 @@
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;let add num1 num2 =&lt;/code&gt; declares a function. To declare any variable in F# the &lt;strong&gt;let&lt;/strong&gt; keyword is used. F# values are &lt;strong&gt;immutable&lt;/strong&gt; so using var (short for variable of course) does not make much sense. The next strange thing you will have noticed with this line is that there appears to be three values to the left of the equals sign. It is in-fact a single function. The first value is the name of the function (called &lt;em&gt;add&lt;/em&gt;), the second value is the first parameter to the function ( called &lt;em&gt;num1&lt;/em&gt;) and the third value is the second parameter to the function (called &lt;em&gt;num2&lt;/em&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;num1 + num2&lt;/code&gt; is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no &lt;strong&gt;return&lt;/strong&gt; keyword in the function body. This is because all functions in F# are single statement &lt;strong&gt;expressions&lt;/strong&gt;. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this is C# you do not have to use the return keyword and it is the same here in F#.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;num1 + num2&lt;/code&gt; is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no &lt;strong&gt;return&lt;/strong&gt; keyword in the function body. This is because all functions in F# are single statement &lt;strong&gt;expressions&lt;/strong&gt;. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this in C# you do not have to use the return keyword and it is the same here in F#.&lt;/p&gt;
 
 &lt;p&gt;Now we know our way around a function in F# we can take a look at the program file that is created for us by default in F# console projects.&lt;/p&gt;
 
@@ -188,7 +188,7 @@
 
 &lt;p&gt;This is the other way round to C# where the type comes before the name.&lt;/p&gt;
 
-&lt;p&gt;You’re also probably wondering what the &lt;code class=&quot;highlighter-rouge&quot;&gt;seq&lt;/code&gt; type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! We briefly cover collections &lt;a href=&quot;#collection-types&quot;&gt;later&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You’re also probably wondering what the &lt;code class=&quot;highlighter-rouge&quot;&gt;seq&lt;/code&gt; type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it sure is a lot easier to type than IEnumerable! We briefly cover collections &lt;a href=&quot;#collection-types&quot;&gt;later&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Member methods (especially extension methods on generic types) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later when we cover &lt;a href=&quot;#pipe-operator&quot;&gt;piping&lt;/a&gt;.&lt;/p&gt;
 
@@ -255,7 +255,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;It makes &lt;strong&gt;concurrency&lt;/strong&gt; easier. It prevents a thread from changing another thread’s objects.&lt;/li&gt;
-  &lt;li&gt;Makes code more &lt;strong&gt;reasonable&lt;/strong&gt;. If values cannot be modified, code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects. If a function takes in an object you know that function doesn’t modify the it.&lt;/li&gt;
+  &lt;li&gt;Makes code more &lt;strong&gt;reasonable&lt;/strong&gt;. If values cannot be modified, code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects. If a function takes in an object you know that the function doesn’t modify it.&lt;/li&gt;
   &lt;li&gt;It becomes easier to make &lt;strong&gt;fluent APIs&lt;/strong&gt; that read really well.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -318,7 +318,7 @@
 
 &lt;p&gt;This is because expressions must have a return type. F# has a special type called &lt;strong&gt;unit&lt;/strong&gt;. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as &lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.Sleep&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Console.WriteLine&lt;/code&gt;, return unit when used in F#.&lt;/p&gt;
 
-&lt;p&gt;Unit is expressed in F# by using two brackets next to each other like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit returns unit.&lt;/p&gt;
+&lt;p&gt;Unit is expressed in F# by using two brackets next to each other like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit and returns unit.&lt;/p&gt;
 
 &lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;returnUnit&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
     &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt;
@@ -446,7 +446,7 @@
 &lt;/div&gt;
 
 &lt;h1 id=&quot;function-signatures&quot;&gt;Function Signatures&lt;/h1&gt;
-&lt;p&gt;In C# method signatures look this (see &lt;a target=&quot;_BLANK&quot; href=&quot;http://stackoverflow.com/a/8808773/310098&quot;&gt;here&lt;/a&gt; for why I’ve included the return type if you’re curious):&lt;/p&gt;
+&lt;p&gt;In C# method signatures look like this (see &lt;a target=&quot;_BLANK&quot; href=&quot;http://stackoverflow.com/a/8808773/310098&quot;&gt;here&lt;/a&gt; for why I’ve included the return type if you’re curious):&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;int Add(int, int)&lt;/p&gt;
@@ -507,7 +507,7 @@
 &lt;p&gt;Please note that you would never usually write a function like that and would instead use &lt;a href=&quot;#currying&quot;&gt;currying&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&quot;currying&quot;&gt;Currying&lt;/h1&gt;
-&lt;p&gt;One of the powerful features of F# that differentiates it from C# is its built currying. Currying is when you split a single function of N parameters into N separate functions. For example, if you take the following C# function type:&lt;/p&gt;
+&lt;p&gt;One of the powerful features of F# that differentiates it from C# is its built-in currying. Currying is when you split a single function of N parameters into N separate functions. For example, if you take the following C# function type:&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Func&amp;lt;int, int, int, int&amp;gt;&lt;/p&gt;
@@ -532,7 +532,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The above function takes in two parameters and adds them together. In F# can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and a returns an integer.&lt;/p&gt;
+&lt;p&gt;The above function takes in two parameters and adds them together. In F# you can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and returns an integer.&lt;/p&gt;
 
 &lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTwoNumbers&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;twelve&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;addTen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
@@ -686,7 +686,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;An instance of the State type above can be an Error, Info or Warning. These identifiers are called a &lt;strong&gt;union cases&lt;/strong&gt;. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same &lt;code class=&quot;highlighter-rouge&quot;&gt;State&lt;/code&gt; type.&lt;/p&gt;
+&lt;p&gt;An instance of the State type above can be an Error, Info or Warning. These identifiers are called &lt;strong&gt;union cases&lt;/strong&gt;. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same &lt;code class=&quot;highlighter-rouge&quot;&gt;State&lt;/code&gt; type.&lt;/p&gt;
 
 &lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createError&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;createInfo&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Example info text here&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -829,7 +829,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;:?&lt;/code&gt; operator, which checks the type of an object, It is the F# equivalent of the &lt;code class=&quot;highlighter-rouge&quot;&gt;is&lt;/code&gt; keyword in C#.&lt;/p&gt;
+&lt;p&gt;Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the &lt;code class=&quot;highlighter-rouge&quot;&gt;:?&lt;/code&gt; operator, which checks the type of an object. It is the F# equivalent of the &lt;code class=&quot;highlighter-rouge&quot;&gt;is&lt;/code&gt; keyword in C#.&lt;/p&gt;
 
 &lt;div class=&quot;language-ocaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divide&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;
@@ -941,7 +941,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The example above takes in a sequence. It then pipes that sequence into the mapping function. &lt;code class=&quot;highlighter-rouge&quot;&gt;Seq.map&lt;/code&gt; is the F# equivalent of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Select&lt;/code&gt; extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call &lt;code class=&quot;highlighter-rouge&quot;&gt;Seq.map (fun i -&amp;gt; i*2)&lt;/code&gt; we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as is seen in C#.&lt;/p&gt;
+&lt;p&gt;The example above takes in a sequence. It then pipes that sequence into the mapping function. &lt;code class=&quot;highlighter-rouge&quot;&gt;Seq.map&lt;/code&gt; is the F# equivalent of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Select&lt;/code&gt; extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call &lt;code class=&quot;highlighter-rouge&quot;&gt;Seq.map (fun i -&amp;gt; i*2)&lt;/code&gt; we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as it is seen in C#.&lt;/p&gt;
 
 &lt;h1 id=&quot;option-type&quot;&gt;Option Type&lt;/h1&gt;
 &lt;p&gt;F# types cannot be null. The following example will not compile:&lt;/p&gt;

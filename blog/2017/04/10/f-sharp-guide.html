@@ -279,7 +279,7 @@
 
 <p><code class="highlighter-rouge">let add num1 num2 =</code> declares a function. To declare any variable in F# the <strong>let</strong> keyword is used. F# values are <strong>immutable</strong> so using var (short for variable of course) does not make much sense. The next strange thing you will have noticed with this line is that there appears to be three values to the left of the equals sign. It is in-fact a single function. The first value is the name of the function (called <em>add</em>), the second value is the first parameter to the function ( called <em>num1</em>) and the third value is the second parameter to the function (called <em>num2</em>).</p>
 
-<p><code class="highlighter-rouge">num1 + num2</code> is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no <strong>return</strong> keyword in the function body. This is because all functions in F# are single statement <strong>expressions</strong>. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this is C# you do not have to use the return keyword and it is the same here in F#.</p>
+<p><code class="highlighter-rouge">num1 + num2</code> is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no <strong>return</strong> keyword in the function body. This is because all functions in F# are single statement <strong>expressions</strong>. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this in C# you do not have to use the return keyword and it is the same here in F#.</p>
 
 <p>Now we know our way around a function in F# we can take a look at the program file that is created for us by default in F# console projects.</p>
 
@@ -354,7 +354,7 @@
 
 <p>This is the other way round to C# where the type comes before the name.</p>
 
-<p>You’re also probably wondering what the <code class="highlighter-rouge">seq</code> type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it is sure a lot easier to type than IEnumerable! We briefly cover collections <a href="#collection-types">later</a>.</p>
+<p>You’re also probably wondering what the <code class="highlighter-rouge">seq</code> type is. Seq is an alias for IEnumerable. It is short for sequence. I’m not quite sure why it is needed, but it sure is a lot easier to type than IEnumerable! We briefly cover collections <a href="#collection-types">later</a>.</p>
 
 <p>Member methods (especially extension methods on generic types) usually break type inference. In F# you tend to stick to having lots of static functions in modules that take in a type and then return a modified instance of it when it is finished. Following this pattern results in far fewer type annotations and cleaner code. We’ll see this in action later when we cover <a href="#pipe-operator">piping</a>.</p>
 
@@ -421,7 +421,7 @@
 
 <ul>
   <li>It makes <strong>concurrency</strong> easier. It prevents a thread from changing another thread’s objects.</li>
-  <li>Makes code more <strong>reasonable</strong>. If values cannot be modified, code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects. If a function takes in an object you know that function doesn’t modify the it.</li>
+  <li>Makes code more <strong>reasonable</strong>. If values cannot be modified, code becomes much easier to read and follow, since you don’t need to keep track of changes that are made to objects. If a function takes in an object you know that the function doesn’t modify it.</li>
   <li>It becomes easier to make <strong>fluent APIs</strong> that read really well.</li>
 </ul>
 
@@ -484,7 +484,7 @@
 
 <p>This is because expressions must have a return type. F# has a special type called <strong>unit</strong>. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as <code class="highlighter-rouge">Thread.Sleep</code> and <code class="highlighter-rouge">Console.WriteLine</code>, return unit when used in F#.</p>
 
-<p>Unit is expressed in F# by using two brackets next to each other like this: <code class="highlighter-rouge">()</code>. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit returns unit.</p>
+<p>Unit is expressed in F# by using two brackets next to each other like this: <code class="highlighter-rouge">()</code>. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit and returns unit.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">returnUnit</span> <span class="bp">()</span> <span class="p">=</span> 
     <span class="bp">()</span>
@@ -612,7 +612,7 @@
 </div>
 
 <h1 id="function-signatures">Function Signatures</h1>
-<p>In C# method signatures look this (see <a target="_BLANK" href="http://stackoverflow.com/a/8808773/310098">here</a> for why I’ve included the return type if you’re curious):</p>
+<p>In C# method signatures look like this (see <a target="_BLANK" href="http://stackoverflow.com/a/8808773/310098">here</a> for why I’ve included the return type if you’re curious):</p>
 
 <blockquote>
   <p>int Add(int, int)</p>
@@ -673,7 +673,7 @@
 <p>Please note that you would never usually write a function like that and would instead use <a href="#currying">currying</a>.</p>
 
 <h1 id="currying">Currying</h1>
-<p>One of the powerful features of F# that differentiates it from C# is its built currying. Currying is when you split a single function of N parameters into N separate functions. For example, if you take the following C# function type:</p>
+<p>One of the powerful features of F# that differentiates it from C# is its built-in currying. Currying is when you split a single function of N parameters into N separate functions. For example, if you take the following C# function type:</p>
 
 <blockquote>
   <p>Func&lt;int, int, int, int&gt;</p>
@@ -698,7 +698,7 @@
 </code></pre>
 </div>
 
-<p>The above function takes in two parameters and adds them together. In F# can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and a returns an integer.</p>
+<p>The above function takes in two parameters and adds them together. In F# you can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and returns an integer.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">addTen</span> <span class="p">=</span> <span class="n">addTwoNumbers</span> <span class="mi">10</span>
 <span class="k">let</span> <span class="n">twelve</span> <span class="p">=</span> <span class="n">addTen</span> <span class="mi">2</span>
@@ -852,7 +852,7 @@
 </code></pre>
 </div>
 
-<p>An instance of the State type above can be an Error, Info or Warning. These identifiers are called a <strong>union cases</strong>. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same <code class="highlighter-rouge">State</code> type.</p>
+<p>An instance of the State type above can be an Error, Info or Warning. These identifiers are called <strong>union cases</strong>. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same <code class="highlighter-rouge">State</code> type.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">createError</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Error</span><span class="p">(</span><span class="nc">Exception</span><span class="p">(</span><span class="s2">""</span><span class="o">))</span>
 <span class="k">let</span> <span class="n">createInfo</span> <span class="bp">()</span> <span class="p">=</span> <span class="nc">Info</span><span class="p">(</span><span class="s2">"Example info text here"</span><span class="p">)</span>
@@ -995,7 +995,7 @@
 </code></pre>
 </div>
 
-<p>Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the <code class="highlighter-rouge">:?</code> operator, which checks the type of an object, It is the F# equivalent of the <code class="highlighter-rouge">is</code> keyword in C#.</p>
+<p>Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the <code class="highlighter-rouge">:?</code> operator, which checks the type of an object. It is the F# equivalent of the <code class="highlighter-rouge">is</code> keyword in C#.</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">divide</span> <span class="n">num1</span> <span class="n">num2</span> <span class="p">=</span>
     <span class="k">try</span>
@@ -1107,7 +1107,7 @@
 </code></pre>
 </div>
 
-<p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code class="highlighter-rouge">Seq.map</code> is the F# equivalent of the <code class="highlighter-rouge">Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call <code class="highlighter-rouge">Seq.map (fun i -&gt; i*2)</code> we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as is seen in C#.</p>
+<p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code class="highlighter-rouge">Seq.map</code> is the F# equivalent of the <code class="highlighter-rouge">Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call <code class="highlighter-rouge">Seq.map (fun i -&gt; i*2)</code> we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their “main” parameter last, rather than first as it is seen in C#.</p>
 
 <h1 id="option-type">Option Type</h1>
 <p>F# types cannot be null. The following example will not compile:</p>
