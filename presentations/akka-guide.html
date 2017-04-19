@@ -28,7 +28,7 @@
 <meta property="og:url" content="http://connelhooley.uk/presentations/akka-guide" />
 <meta property="og:site_name" content="Connel Hooley" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-04-18T23:26:07+01:00" />
+<meta property="article:published_time" content="2017-04-19T19:46:35+01:00" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@connel_dev" />
 <meta name="twitter:creator" content="@connel_dev" />
@@ -36,7 +36,7 @@
 {"@context": "http://schema.org",
 "@type": "BlogPosting",
 "headline": "Akka Guide",
-"datePublished": "2017-04-18T23:26:07+01:00",
+"datePublished": "2017-04-19T19:46:35+01:00",
 "description": "You can do it Put your Akka into it Akka is an implementation of the &quot;actor model&quot; on .NET Port of the Scala Akka framework Open source project, Petabridge is one of the main contributors What is the actor model? It is a way of structuring your app Instead of classes calling each other directly, they communicate via messages via a framework Classes that communicate in this manner are called Actors Process one message at a time When processing a message an actor can directly modify its own internal private state, but not the state of other actors Why use an actor model? Actors are thread safe Actors are asynchronous Actor frameworks tend to have great mechanisms for error handling Actors promote scalable and more loosely coupled systems Actors allow for a very high through-put How the actor model relates to traditional code Think of an actor as a function and the message as its parameters What the function does depends on the type of message it receives When an actor sends a message to another actor, think of this as one function calling another The application is a factory Actors are workers inside factory Messages are jobs that need doing inside the factory Actor hierarchy An actor can create other actors The newly created actor is called the child actor The actor that created it is called the parent actor Actor hierarchy Actor hierarchy This tree structure is great for error handling Actors can talk to siblings having actor refs passed to them in messages Error handling in actor hierarchies When an actor&#39;s child throws an unhandled exception it must decide what to do. It has three options: Restart all its child actors Just restart the failing child actor Escalate the error to its parent actor, who in turn has to the same three options How are actors used? You never instantiate an actor directly, you only ever hold a reference to it Processing one message at a time makes actors thread safe. Since you only have a reference you cannot access or modify the internal state of an actor. Since you only have a reference the only way to interact with the actor is to send it a message. How are actors used? The actor reference is updated when an actor restarts due to an error Starting your first actor If actors create other actors, how do I crete my first actor? Actor System using System; using Akka.Actor;",
 "publisher": {"@type": "Organization",
 "logo": {"@type": "ImageObject",

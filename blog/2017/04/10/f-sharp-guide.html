@@ -115,7 +115,7 @@
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 55  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 57  minutes
             </div>
         
         
@@ -218,6 +218,12 @@
 <p>This caught me out for quite a long time when I created my first F# project, as Visual Studio just tells you that the thing you are trying to use is not declared yet. This may sound really horrible but in my experience it has never caused me an issue once a realised what was going on.</p>
 
 <p>Another important thing to note is that there are no folders in F# projects, when needed, code is segregated using projects in a solution.</p>
+
+<p><code class="highlighter-rouge">EDIT:</code> F# <em>does</em> have support for folders in the language itself, but adding folders is currently unavailable from Visual Studio. The latest preview version of VS2017 (version 26412.01, you can find it <a target="_BLANK" href="https://www.visualstudio.com/en-us/news/releasenotes/vs2017-preview-relnotes#fsharp">here</a>) claims that it includes the ability in F# to “Move Up/Move Down on Solution folder nodes”. I have tried this preview version and there is still no visible and obvious way to create folders in a project. I have also tried using the “add existing item” context menu option after creating a folder with an F# file inside it, but VS copies the file to the project folder. F# projects do not have a “show all files” button so that’s not an option either.</p>
+
+<p>There is also an extension for VS2015 that gives you extra F# features called <a target="_BLANK" href="https://marketplace.visualstudio.com/items?itemName=FSharpSoftwareFoundation.VisualFPowerTools">Visual F# Power Tools</a>. This extension does have support for folders as described <a target="_BLANK" href="https://fsprojects.github.io/VisualFSharpPowerTools/folderorganization.html">here</a>. It must be noted however that even the makers of this extension disable folder support by default and state: “Because there are known issues with F# Project System in Visual F# Tools, folder organization may not work 100% correctly in all cases”. The extension itself is also now deprecated, as stated on its <a target="_BLANK" href="https://github.com/fsprojects/VisualFSharpPowerTools">GitHub page</a>: “This project is deprecated. All the functionality is being ported to Visual F# Tools, Visual Studio 2017 only”.</p>
+
+<p>So, whilst it is true that the F# language does have support for folders, the F# tooling in Visual Studio does not - yet. It is probably possible to have folders in other development environments (like <a target="_BLANK" href="http://ionide.io">Ionide</a>) but since this article is aimed at existing C# developers, I won’t be covering that here. I would personally avoid them anyway, as it just adds another layer of complexity to the ordering of files.</p>
 
 <h1 id="modules">Modules</h1>
 <p>Before you can write your first function you need a container to put them in. In F# functions are put into <em>modules</em>. Think of modules as static classes. The only difference between modules and static classes is that you can import a module into your current file just like you would a namespace.</p>
