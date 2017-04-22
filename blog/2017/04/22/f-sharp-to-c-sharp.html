@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connel Hooley - Calling F# Code From a C# Project</title>
+  
+  <link rel="stylesheet" href="/assets/css/main.css">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+  <meta name="theme-color" content="#f8bb15">
+  
+  
+  <!-- Begin Jekyll SEO tag v2.1.0 -->
+<meta property="og:title" content="Calling F# Code From a C# Project" />
+<meta name="description" content="A brief overview of how F# code can be called from C# projects" />
+<meta property="og:description" content="A brief overview of how F# code can be called from C# projects" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2017/04/22/f-sharp-to-c-sharp" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2017/04/22/f-sharp-to-c-sharp" />
+<meta property="og:site_name" content="Connel Hooley" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-04-22T00:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@connel_dev" />
+<meta name="twitter:creator" content="@connel_dev" />
+<script type="application/ld+json">
+{"@context": "http://schema.org",
+"@type": "BlogPosting",
+"headline": "Calling F# Code From a C# Project",
+"datePublished": "2017-04-22T00:00:00+01:00",
+"description": "A brief overview of how F# code can be called from C# projects",
+"publisher": {"@type": "Organization",
+"logo": {"@type": "ImageObject",
+"url": "http://connelhooley.uk/assets/images/logo.png"}},
+"url": "http://connelhooley.uk/blog/2017/04/22/f-sharp-to-c-sharp"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57397582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+
+  <body class="layout-post">
+    <header class="site-header" role="banner">
+  <div class="site-header-content">
+    <div class="site-nav-wrapper">
+      <nav class="site-nav navbar navbar-toggleable-md" role="navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        
+        <a class="navbar-brand" href="/"><span class="logo">{C.H}</span></a>
+        
+        <div class="collapse navbar-collapse" id="collapseNavbar">
+          <div class="nav navbar-nav ml-auto">
+            <a id="blog-link" class="nav-item nav-link" href="/blog/">Blog</a>
+            
+            
+              
+                
+                
+                
+                  <a id="projects-link" class="nav-item nav-link" href="/projects/">Projects</a>
+                
+              
+            
+              
+                
+                
+                
+                  <a id="experiences-link" class="nav-item nav-link" href="/experience/">Experience</a>
+                
+              
+            
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <main class="site-content" aria-label="Content">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="header">
+    <div class="header-content">
+        <h1 class="title" itemprop="name headline">Calling F# Code From a C# Project</h1>
+        
+            <div class="content description">
+                A brief overview of how F# code can be called from C# projects
+            </div>
+        
+        
+        
+            <div class="content">
+                <time datetime="2017-04-22T00:00:00+01:00" itemprop="datePublished">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;<span class="date">22/04/2017</span>
+                </time>
+            </div>
+            <div class="content">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in about 2  minutes
+            </div>
+        
+        
+        
+            <div class="content">
+                
+<a href="/language/f-sharp"><span class="tag"><i class="fa fa-code" aria-hidden="true"></i>&nbsp;F#</span></a>
+
+<a href="/language/c-sharp"><span class="tag"><i class="fa fa-code" aria-hidden="true"></i>&nbsp;C#</span></a>
+
+
+            </div>
+        
+        
+    </div>
+</header>
+  
+    <div class="preview-message">
+      <span class="warning-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>&nbsp;Please note this article is not finished yet
+    </div>
+  
+  <div class="post-body">
+    <div class="post-toc">
+      <h3 class="toc-title">Contents</h3>
+      <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#namespaces">Namespaces</a></li>
+<li class="toc-entry toc-h1"><a href="#modules">Modules</a></li>
+<li class="toc-entry toc-h1"><a href="#values">Values</a></li>
+<li class="toc-entry toc-h1"><a href="#functions">Functions</a></li>
+</ul>
+    </div>
+    <div class="post-content" itemprop="articleBody">
+      <h1 id="introduction">Introduction</h1>
+<p>F# compiles down into the same IL code as VB and C#. This means that you can easily have a solution with both C# and F# projects inside. This overview will go over how F# code is exposed to C# projects.</p>
+
+<h1 id="namespaces">Namespaces</h1>
+<p>F# projects do not have a <em>default namespace</em> option in their project settings. If you do not put a module in a namespace then it becomes available globally in any C# projects that reference it.</p>
+
+<p>The following F#:</p>
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">Example</span>
+    <span class="k">let</span> <span class="n">add</span> <span class="n">num1</span> <span class="n">num2</span> <span class="p">=</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
+</code></pre>
+</div>
+
+<p>Is used in the following C#:</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Interoperability.CSharp</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Example</span><span class="p">.</span><span class="k">add</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//prints 3
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Note that the C# code does not require a using statement to use the F# <code class="highlighter-rouge">Example</code> module. If we add a namespace to the module like so:</p>
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="n">namespace</span> <span class="nn">Interoperability</span><span class="p">.</span><span class="nc">FSharp</span>
+
+<span class="k">module</span> <span class="nc">Example</span> <span class="p">=</span>
+    <span class="k">let</span> <span class="n">add</span> <span class="n">num1</span> <span class="n">num2</span> <span class="p">=</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
+</code></pre>
+</div>
+
+<p>Then a using statement is required in C#:</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Interoperability.FSharp</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Interoperability.CSharp</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">Example</span><span class="p">.</span><span class="k">add</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//prints 3
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="modules">Modules</h1>
+<p>As shown in the previous example above, modules are exposed to C# as static classes. If you want to replicate being able to <code class="highlighter-rouge">open</code> a module from C# you can use a <code class="highlighter-rouge">using static</code> statement like so:</p>
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">static</span> <span class="n">Interoperability</span><span class="p">.</span><span class="n">FSharp</span><span class="p">.</span><span class="n">Example</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Interoperability.CSharp</span>
+<span class="p">{</span>
+    <span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Program</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="k">add</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">));</span> <span class="c1">//prints 3
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<h1 id="values">Values</h1>
+<p>Modules can contain values like so:</p>
+
+<div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">Example</span>
+    <span class="k">let</span> <span class="n">message</span> <span class="p">=</span> <span class="s2">"This is an example getter"</span>
+</code></pre>
+</div>
+
+<p>These values are exposed to C# as properties with a getter:
+<img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/getter.png" alt="Screenshot of C# using an F# value" /></p>
+
+<h1 id="functions">Functions</h1>
+
+
+    </div>
+  </div>
+  
+  <div class="post-comments">
+    <div class="post-comments-content">
+      
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://connelhooley.uk/blog/2017/04/22/f-sharp-to-c-sharp';
+      this.page.identifier = 'http://connelhooley.uk/blog/2017/04/22/f-sharp-to-c-sharp';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://connelhooley.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+    </div>
+  </div>
+  
+  <nav class="post-nav">
+    <div class="post-nav-content">
+      <button id="back-to-top" class="button"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+    </div>
+  </nav>
+</article>
+
+    </main>
+    <footer class="site-footer">
+    <div class="copy">
+        Connel Hooley <i class="fa fa-copyright" aria-hidden="true"></i> 2017
+    </div>
+    <div class="built-with">
+        <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>&nbsp;|&nbsp;<a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
+    </div>
+</footer>
+<script src="/assets/js/jquery-3.1.1.min.js"></script>
+<script src="/assets/js/tether.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/clipboard.min.js"></script>
+<script src="/assets/js/js.cookie.js"></script>
+<script src="/assets/js/main.js"></script>
+  </body>
+</html>
