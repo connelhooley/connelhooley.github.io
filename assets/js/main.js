@@ -9,10 +9,9 @@ function formatDates() {
 
 function addCopyButtonToSnippets() {
     $('div.highlighter-rouge').each(function(i, e) {
-        $e = $(e);
         $button = $('<button class="copy-button copy">');
         $button.html('<i class="fa fa-clipboard"></i>')
-        $e.append($button);
+        $(e).append($button);
     });
     var clipboard = new Clipboard('.copy', {
         target: function(trigger) {

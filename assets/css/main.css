@@ -9323,7 +9323,8 @@ h1, h2, h3, h4, h5, h6 {
  * Syntax highlighting styles
  */
 .highlighter-rouge {
-  position: relative; }
+  position: relative;
+  clear: both; }
   .highlighter-rouge pre {
     margin-bottom: 1rem;
     margin-top: 0;
