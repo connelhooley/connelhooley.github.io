@@ -38,7 +38,11 @@ function addAnchorLinksToHeaders() {
     });
 }
 
-function addScrollUpButton() {
+function stickyPanels() {
+    $('.sticky').Stickyfill();
+}
+
+function scrollUpButton() {
     function isScrolledPassed($element) {
         var scrollTop = $(window).scrollTop();
         var elementOffset = $element.offset().top;
@@ -50,15 +54,15 @@ function addScrollUpButton() {
     if($postContent.length < 1) {
         return;
     }
-    $postNav = $('.post-nav');
+    $backToTop = $('#back-to-top');
     $(window).on('scroll', function() {
         if (isScrolledPassed($postContent)) {
-            $postNav.slideDown(750);
+            $backToTop.addClass('show');
         } else {
-            $postNav.slideUp(750);
+            $backToTop.removeClass('show');
         }
     });
-    $('#back-to-top').click(function(e) {
+    $backToTop.click(function(e) {
         e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, 700);
     });
@@ -95,9 +99,10 @@ function cookies() {
 }
 
 $(function() {
+    cookies();
     formatDates();
+    stickyPanels();
     addCopyButtonToSnippets();
     addAnchorLinksToHeaders();
-    addScrollUpButton();
-    cookies();
+    scrollUpButton();
 });
