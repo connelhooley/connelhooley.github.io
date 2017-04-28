@@ -9382,6 +9382,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #eceeef;
   font-size: 0.875rem;
   border-top: #f8bb15 2px solid; }
+  .site-footer .contact {
+    padding-top: 0.5rem; }
 
 /**
  * Syntax highlighting styles
