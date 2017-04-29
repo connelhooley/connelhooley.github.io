@@ -9655,7 +9655,14 @@ h1, h2, h3, h4, h5, h6 {
           cursor: pointer; }
 
 .layout-home .site-footer {
-  border-top: none; }
+  border-top: none;
+  text-align: center;
+  padding: 1rem 0; }
+  .layout-home .site-footer .copy,
+  .layout-home .site-footer .contact {
+    float: none;
+    padding: 0;
+    margin: 0; }
 
 .blog .blog-list {
   position: relative;
