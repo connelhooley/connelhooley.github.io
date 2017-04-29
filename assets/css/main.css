@@ -9375,15 +9375,67 @@ h1, h2, h3, h4, h5, h6 {
         letter-spacing: 10px; } }
 
 .site-footer {
-  padding: 1rem 0;
   margin: 0;
   background: #464a4c;
-  text-align: center;
   color: #eceeef;
   font-size: 0.875rem;
   border-top: #f8bb15 2px solid; }
-  .site-footer .contact {
-    padding-top: 0.5rem; }
+  @media (max-width: 991px) {
+    .site-footer {
+      text-align: center;
+      padding: 1rem 0; }
+      .site-footer .copy {
+        padding-bottom: 0.5rem; } }
+  @media (min-width: 992px) {
+    .site-footer .site-footer-content {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      padding-right: 15px;
+      padding-left: 15px; }
+      .site-footer .site-footer-content::after {
+        display: block;
+        content: "";
+        clear: both; } }
+  @media (min-width: 992px) and (min-width: 576px) {
+    .site-footer .site-footer-content {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) and (min-width: 768px) {
+    .site-footer .site-footer-content {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) and (min-width: 992px) {
+    .site-footer .site-footer-content {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) and (min-width: 1200px) {
+    .site-footer .site-footer-content {
+      padding-right: 15px;
+      padding-left: 15px; } }
+  @media (min-width: 992px) and (min-width: 576px) {
+    .site-footer .site-footer-content {
+      width: 540px;
+      max-width: 100%; } }
+  @media (min-width: 992px) and (min-width: 768px) {
+    .site-footer .site-footer-content {
+      width: 720px;
+      max-width: 100%; } }
+  @media (min-width: 992px) and (min-width: 992px) {
+    .site-footer .site-footer-content {
+      width: 960px;
+      max-width: 100%; } }
+  @media (min-width: 992px) and (min-width: 1200px) {
+    .site-footer .site-footer-content {
+      width: 1140px;
+      max-width: 100%; } }
+  @media (min-width: 992px) {
+      .site-footer .site-footer-content .copy {
+        padding: 1rem 0.5rem 1rem 0;
+        float: left; }
+      .site-footer .site-footer-content .contact {
+        padding: 1rem 0 1rem 0.5rem;
+        float: right; } }
 
 /**
  * Syntax highlighting styles
