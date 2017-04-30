@@ -1,9 +1,9 @@
 function formatDates() {
     $('.date').each(function(i, e) {
         var $e = $(e);
-        var date= $e.text();
-        var fromNow = moment(date, "DD/MM/YYYY").fromNow();
-        $e.append(" (" + fromNow + ")");
+        var datetime = $e.attr('datetime');
+        var fromNow = moment(datetime, 'YYYY-MM-DD HH:mm:ss Z').fromNow();
+        $e.append('&nbsp;(' + fromNow + ')');
     });
 }
 
@@ -50,22 +50,26 @@ function scrollUpButton() {
         var scrolledPast = (distance <= 0);
         return scrolledPast;
     }
-    $postContent = $('.post-content');
-    if($postContent.length < 1) {
-        return;
-    }
-    $backToTop = $('#back-to-top');
-    $(window).on('scroll', function() {
+    function toggleScrollButton() {
         if (isScrolledPassed($postContent)) {
             $backToTop.addClass('show');
         } else {
             $backToTop.removeClass('show');
         }
-    });
+    }
+    $postContent = $('.post-content');
+    if($postContent.length < 1) {
+        return;
+    }
+    $backToTop = $('#back-to-top');
+    $(window).on('scroll', toggleScrollButton);
     $backToTop.click(function(e) {
         e.preventDefault();
-        $('html, body').animate({ scrollTop: 0 }, 700);
+        $('html, body').animate({ scrollTop: 0 }, 700, function() {
+            if(location.hash) location.hash = '';
+        });
     });
+    toggleScrollButton();
 }
 
 function cookies() {
