@@ -1015,7 +1015,7 @@
 </code></pre>
 </div>
 
-<p>As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists. The actual implementation of the <code class="highlighter-rouge">FSharpList</code> type is the <code class="highlighter-rouge">ResizeArray</code><sup id="fnref:list"><a href="#fn:list" class="footnote">3</a></sup> type.</p>
+<p>As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists.</p>
 
 <p>To consume this function in C# we must reference FSharp.Core - just like we did for the unit and option types:</p>
 
@@ -1036,7 +1036,7 @@
 </code></pre>
 </div>
 
-<p>F# lists are easy to consume from C#, although it is always better practice to expose IEnumerables to your C# projects. It is also worth mentioning that as of F# 4.1, the <code class="highlighter-rouge">FSharpList</code> type also implements the <code class="highlighter-rouge">IReadOnlyCollection</code> interface, so that can be used instead, like so:</p>
+<p>F# lists are easy to consume from C#, although it is always better practice to expose <code class="highlighter-rouge">IEnumerable</code>s to your C# projects. It is also worth mentioning that, as of F# 4.1, the <code class="highlighter-rouge">FSharpList</code> type also implements the <code class="highlighter-rouge">IReadOnlyCollection</code> interface, so that can be used instead. The following example demonstrates this:</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
 <span class="p">{</span>
@@ -1052,6 +1052,8 @@
 </div>
 
 <p>The code above still requires a references to FSharp.Core. It would be much nicer to consume F# lists in C# if they were exposed using this more C# friendly interface. Just like how the <code class="highlighter-rouge">seq</code> type is exposed as the C# friendly <code class="highlighter-rouge">IEnumerable</code> interface.</p>
+
+<p>If you want to return a C# <code class="highlighter-rouge">List</code> from an F# function, then you must return the <code class="highlighter-rouge">ResizeArray</code><sup id="fnref:list"><a href="#fn:list" class="footnote">3</a></sup> type which acts as an alias to the C# list type.</p>
 
 <h2 id="array">Array</h2>
 <p>The following F# module contains a function that returns an F# <code class="highlighter-rouge">array</code>:</p>

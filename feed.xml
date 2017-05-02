@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-05-03T00:18:51+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Calling F# Code in a C# Project</title><link href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" rel="alternate" type="text/html" title="Calling F# Code in a C# Project" /><published>2017-04-30T18:00:00+01:00</published><updated>2017-04-30T18:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://connelhooley.uk/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="http://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2017-05-03T00:26:43+01:00</updated><id>http://connelhooley.uk//</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Calling F# Code in a C# Project</title><link href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" rel="alternate" type="text/html" title="Calling F# Code in a C# Project" /><published>2017-04-30T18:00:00+01:00</published><updated>2017-04-30T18:00:00+01:00</updated><id>http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp</id><content type="html" xml:base="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;F# compiles down into the same IL code as VB and C#. This means that you can have a solution that contains both C# and F# projects. There are lots of guidelines on how to write F# code that is compatible with C# projects. You can find the official ones &lt;a href=&quot;http://fsharp.org/specs/component-design-guidelines/#5-guidelines-for-libraries-for-use-from-other-net-languages&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;But why are there guidelines? Why do we have to write F# differently depending on what language is consuming it? What happens if you just write F# code without following the guidelines and then try and use it from C#?&lt;/p&gt;
@@ -837,7 +837,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists. The actual implementation of the &lt;code class=&quot;highlighter-rouge&quot;&gt;FSharpList&lt;/code&gt; type is the &lt;code class=&quot;highlighter-rouge&quot;&gt;ResizeArray&lt;/code&gt;&lt;sup id=&quot;fnref:list&quot;&gt;&lt;a href=&quot;#fn:list&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; type.&lt;/p&gt;
+&lt;p&gt;As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists.&lt;/p&gt;
 
 &lt;p&gt;To consume this function in C# we must reference FSharp.Core - just like we did for the unit and option types:&lt;/p&gt;
 
@@ -858,7 +858,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;F# lists are easy to consume from C#, although it is always better practice to expose IEnumerables to your C# projects. It is also worth mentioning that as of F# 4.1, the &lt;code class=&quot;highlighter-rouge&quot;&gt;FSharpList&lt;/code&gt; type also implements the &lt;code class=&quot;highlighter-rouge&quot;&gt;IReadOnlyCollection&lt;/code&gt; interface, so that can be used instead, like so:&lt;/p&gt;
+&lt;p&gt;F# lists are easy to consume from C#, although it is always better practice to expose &lt;code class=&quot;highlighter-rouge&quot;&gt;IEnumerable&lt;/code&gt;s to your C# projects. It is also worth mentioning that, as of F# 4.1, the &lt;code class=&quot;highlighter-rouge&quot;&gt;FSharpList&lt;/code&gt; type also implements the &lt;code class=&quot;highlighter-rouge&quot;&gt;IReadOnlyCollection&lt;/code&gt; interface, so that can be used instead. The following example demonstrates this:&lt;/p&gt;
 
 &lt;div class=&quot;language-csharp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -874,6 +874,8 @@
 &lt;/div&gt;
 
 &lt;p&gt;The code above still requires a references to FSharp.Core. It would be much nicer to consume F# lists in C# if they were exposed using this more C# friendly interface. Just like how the &lt;code class=&quot;highlighter-rouge&quot;&gt;seq&lt;/code&gt; type is exposed as the C# friendly &lt;code class=&quot;highlighter-rouge&quot;&gt;IEnumerable&lt;/code&gt; interface.&lt;/p&gt;
+
+&lt;p&gt;If you want to return a C# &lt;code class=&quot;highlighter-rouge&quot;&gt;List&lt;/code&gt; from an F# function, then you must return the &lt;code class=&quot;highlighter-rouge&quot;&gt;ResizeArray&lt;/code&gt;&lt;sup id=&quot;fnref:list&quot;&gt;&lt;a href=&quot;#fn:list&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; type which acts as an alias to the C# list type.&lt;/p&gt;
 
 &lt;h2 id=&quot;array&quot;&gt;Array&lt;/h2&gt;
 &lt;p&gt;The following F# module contains a function that returns an F# &lt;code class=&quot;highlighter-rouge&quot;&gt;array&lt;/code&gt;:&lt;/p&gt;
