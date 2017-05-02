@@ -10011,9 +10011,6 @@ a .fa {
       min-width: 400px;
       margin-left: 3rem; } }
   .post .post-toc .toc-title {
-    text-transform: uppercase;
-    font-size: 1.75rem;
-    font-family: "Bree Serif", Georgia, "Times New Roman", Times, serif;
     padding: 0.75rem;
     margin: 0; }
   .post .post-toc ul {
@@ -10228,6 +10225,13 @@ a .fa {
       border-top: 2px solid #fff; }
 .post .footnotes {
   font-size: 1rem; }
+.post .toc-title,
+.post .references-title {
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  font-family: "Bree Serif", Georgia, "Times New Roman", Times, serif; }
+.post .references-title {
+  margin-bottom: 0.5rem; }
 
 .page .page-content {
   position: relative;
