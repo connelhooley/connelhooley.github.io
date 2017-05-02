@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Connel Hooley - Calling F# Code in a C# Project</title>
   
@@ -114,7 +114,7 @@
                 </time>
             </div>
             <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in under 33  minutes
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in under 35  minutes
             </div>
         
         
@@ -150,9 +150,9 @@
 </div>
   
   <div class="post-body">
-    <div class="post-toc">
-      <h3 class="toc-title">Contents</h3>
-      <ul class="section-nav">
+    <nav class="post-toc">
+      <div class="toc-title">Contents</div>
+      <div class="toc-items"><ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#namespaces">Namespaces</a></li>
 <li class="toc-entry toc-h1"><a href="#modules">Modules</a></li>
@@ -173,8 +173,9 @@
 <li class="toc-entry toc-h2"><a href="#seq">Seq</a></li>
 <li class="toc-entry toc-h2"><a href="#list">List</a></li>
 <li class="toc-entry toc-h2"><a href="#array">Array</a></li>
-</ul>
-    </div>
+<li class="toc-entry toc-h3"><a href="#references">References</a></li>
+</ul></div>
+    </nav>
     <div class="post-content" itemprop="articleBody">
       <h1 id="introduction">Introduction</h1>
 <p>F# compiles down into the same IL code as VB and C#. This means that you can have a solution that contains both C# and F# projects. There are lots of guidelines on how to write F# code that is compatible with C# projects. You can find the official ones <a href="http://fsharp.org/specs/component-design-guidelines/#5-guidelines-for-libraries-for-use-from-other-net-languages">here</a>.</p>
@@ -354,14 +355,15 @@
 </code></pre>
 </div>
 
-<p>This record is exposed to C# as a class with the following signature:</p>
+<p>This record is exposed to C# as a class with the following signature<sup id="fnref:person-typo"><a href="#fn:person-typo" class="footnote">1</a></sup>:</p>
 
 <div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">Person</span> <span class="p">:</span> <span class="n">IEquatable</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;,</span> <span class="n">IStructuralEquatable</span><span class="p">,</span> <span class="n">IComparable</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;,</span> <span class="n">IComparable</span><span class="p">,</span> <span class="n">IStructuralComparable</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="nf">Person</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nf">Person</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">friends</span><span class="p">);</span>
 
     <span class="k">public</span> <span class="kt">int</span> <span class="n">id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
     <span class="k">public</span> <span class="kt">string</span> <span class="n">name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">friends</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
 
     <span class="k">public</span> <span class="k">sealed</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">CompareTo</span><span class="p">(</span><span class="n">Person</span> <span class="n">obj</span><span class="p">);</span>
     <span class="k">public</span> <span class="k">sealed</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">CompareTo</span><span class="p">(</span><span class="kt">object</span> <span class="n">obj</span><span class="p">);</span>
@@ -834,7 +836,7 @@
 <span class="p">}</span>
 </code></pre>
 </div>
-<p>So far so good. But what happens if we write a really (really) pointless function that: takes in a tuple (that contains a value and unit) and that then returns the same tuple flipped:</p>
+<p>So far so good. But what happens if we write a really (really) pointless function that takes in a tuple (that contains a value and unit) and then returns the same tuple flipped:</p>
 
 <div class="language-ocaml highlighter-rouge"><pre class="highlight"><code><span class="k">module</span> <span class="nc">Example</span>
     <span class="k">let</span> <span class="n">flipUnitTuple</span> <span class="p">(</span><span class="n">val1</span><span class="p">,</span> <span class="bp">()</span><span class="p">)</span> <span class="p">=</span> 
@@ -846,11 +848,20 @@
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the unit type" /></p>
 
-<p>Before finding out that you cannot instantiate unit anyway:</p>
+<p>Before finding out that we cannot instantiate unit anyway:</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-failing-to-construct.png" alt="Screenshot of Visual Studio error message when trying to construct a unit type" /></p>
 
-<p>I know you would never write this function, but maybe if the unit type was made available in C# then functions could return unit themselves.</p>
+<p>Instead of constructing the unit type however, we can simply pass in null like so<sup id="fnref:unit-null"><a href="#fn:unit-null" class="footnote">2</a></sup>:</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="p">(</span><span class="n">Unit</span> <span class="n">empty</span><span class="p">,</span> <span class="kt">int</span> <span class="n">result</span><span class="p">)</span> <span class="p">=</span> <span class="n">Example</span><span class="p">.</span><span class="nf">flipUnitTuple</span><span class="p">(</span><span class="m">42</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">);</span> <span class="c1">//prints 42
+</span>    <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
 <h1 id="higher-order-functions">Higher Order Functions</h1>
 <p>The following F# module contains a function that takes in another function as its second parameter:</p>
@@ -1005,7 +1016,9 @@
 </code></pre>
 </div>
 
-<p>As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists. To consume this function in C# we must reference FSharp.Core - just like we did for the unit and option types:</p>
+<p>As you can see, F# lists are not the same as C# lists. F# lists are immutable linked lists, so they differ in their implementation to C# lists. The actual implementation of the <code class="highlighter-rouge">FSharpList</code> type is the <code class="highlighter-rouge">ResizeArray</code><sup id="fnref:list"><a href="#fn:list" class="footnote">3</a></sup> type.</p>
+
+<p>To consume this function in C# we must reference FSharp.Core - just like we did for the unit and option types:</p>
 
 <p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/list-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the F# list type" /></p>
 
@@ -1024,7 +1037,22 @@
 </code></pre>
 </div>
 
-<p>F# lists are easy to consume from C#, although it is always better practice to expose IEnumerables to your C# projects.</p>
+<p>F# lists are easy to consume from C#, although it is always better practice to expose IEnumerables to your C# projects. It is also worth mentioning that as of F# 4.1, the <code class="highlighter-rouge">FSharpList</code> type also implements the <code class="highlighter-rouge">IReadOnlyCollection</code> interface, so that can be used instead, like so:</p>
+
+<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">IReadOnlyCollection</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Example</span><span class="p">.</span><span class="n">getList</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">string</span> <span class="n">s</span> <span class="k">in</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">//prints a
+</span>    <span class="p">}</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">ElementAt</span><span class="p">(</span><span class="m">0</span><span class="p">));</span> <span class="c1">//prints a
+</span>    <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>The code above still requires a references to FSharp.Core. It would be much nicer to consume F# lists in C# if they were exposed using this more C# friendly interface. Just like how the <code class="highlighter-rouge">seq</code> type is exposed as the C# friendly <code class="highlighter-rouge">IEnumerable</code> interface.</p>
 
 <h2 id="array">Array</h2>
 <p>The following F# module contains a function that returns an F# <code class="highlighter-rouge">array</code>:</p>
@@ -1045,6 +1073,20 @@
 
 <p>Arrays are the same in F# as in C# so they perfectly consumable from C#.</p>
 
+<h3 id="references">References</h3>
+<div class="footnotes">
+  <ol>
+    <li id="fn:person-typo">
+      <p>Thanks to Haumohio Ltd in the comments for spotting a typo here.&nbsp;<a href="#fnref:person-typo" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:unit-null">
+      <p>Thanks to vaskir (@kot_2010) on Twitter for pointing out that null can be used when a function takes in unit.&nbsp;<a href="#fnref:unit-null" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:list">
+      <p>Thanks to Stuart in the comments for pointing out the <a target="_BLANK" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B't%5D-type-abbreviation-%5Bfsharp%5D">ResizeArray</a> type.&nbsp;<a href="#fnref:list" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
     </div>
   </div>

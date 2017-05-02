@@ -8999,6 +8999,20 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   content: '';
   display: table; }
 
+::-moz-selection {
+  background: #ecaf07;
+  color: #fff; }
+
+::selection {
+  background: #f8bb15;
+  color: #fff; }
+
+.header .title::-moz-selection {
+  color: #000; }
+
+.header .title::selection {
+  color: #000; }
+
 body {
   background-color: #464a4c; }
 
@@ -9080,7 +9094,12 @@ body {
     .empty {
       font-size: 1.5rem; } }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-transform: uppercase; }
 
 #cookie {
@@ -9154,6 +9173,16 @@ h1, h2, h3, h4, h5, h6 {
             background-color: black;
             background-image: none;
             border-color: black; }
+
+h1 .fa,
+h2 .fa,
+h3 .fa,
+h4 .fa,
+h5 .fa,
+h6 .fa,
+p .fa,
+a .fa {
+  display: inline; }
 
 .site-header {
   background-color: #000; }
@@ -9982,6 +10011,9 @@ h1, h2, h3, h4, h5, h6 {
       min-width: 400px;
       margin-left: 3rem; } }
   .post .post-toc .toc-title {
+    text-transform: uppercase;
+    font-size: 1.75rem;
+    font-family: "Bree Serif", Georgia, "Times New Roman", Times, serif;
     padding: 0.75rem;
     margin: 0; }
   .post .post-toc ul {
@@ -10113,6 +10145,8 @@ h1, h2, h3, h4, h5, h6 {
   .post .post-content .heading-link {
     font-size: 50%;
     display: none; }
+    .post .post-content .heading-link:hover {
+      text-decoration: none; }
 @media (max-width: 575px) {
   .post table {
     display: block;
@@ -10192,6 +10226,8 @@ h1, h2, h3, h4, h5, h6 {
       border-bottom: 2px solid #fff; }
     .post .comparison .section .content + .content {
       border-top: 2px solid #fff; }
+.post .footnotes {
+  font-size: 1rem; }
 
 .page .page-content {
   position: relative;
