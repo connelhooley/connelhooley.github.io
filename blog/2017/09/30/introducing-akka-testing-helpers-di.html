@@ -415,7 +415,7 @@ If you do not want your actor’s children to reply to any messages then create 
 </span>            <span class="n">sut</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="n">ParentActor</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">));</span>
 
             <span class="c1">//assert
-</span>            <span class="n">repoMock</span><span class="p">.</span><span class="nf">Verify</span><span class="p">(</span><span class="n">repo</span> <span class="p">=&gt;</span> <span class="n">repo</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">),</span> <span class="n">Times</span><span class="p">.</span><span class="n">Once</span><span class="p">);</span>
+</span>            <span class="nf">AwaitAssert</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">repoMock</span><span class="p">.</span><span class="nf">Verify</span><span class="p">(</span><span class="n">repo</span> <span class="p">=&gt;</span> <span class="n">repo</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">),</span> <span class="n">Times</span><span class="p">.</span><span class="n">Once</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -484,9 +484,7 @@ If you do not want your actor’s children to reply to any messages then create 
 <p><a href="https://github.com/connelhooley/AkkaTestingHelpers" class="button-major" target="_BLANK"><i class="fa fa-github fa-fw" aria-hidden="true"></i> View the source code on GitHub</a></p>
 
 <h1 id="whats-next">What’s next</h1>
-<p>I wrote the code a few months back so I need to update it to use the latest version of Akka and hopefully target .NET Standard rather than .NET framework. I also need to finish a resolver for integration tests.</p>
-
-<p>I also plan on providing documentation on GitHub and in XML comments in the code.</p>
+<p>I wrote the code a few months back so I need to update it to use the latest version of Akka and hopefully target .NET Standard rather than .NET framework. I will provide documentation on GitHub. I have also started a resolver for integration tests so will update when that is finished.</p>
 
 
     </div>
