@@ -4093,6 +4093,7 @@ select.form-control:focus::-ms-value {
   .input-group-sm > .form-control-static.input-group-addon,
   .input-group-sm > .input-group-btn > .form-control-static.btn,
   .input-group-sm > .input-group-btn > .form-control-static.button,
+  .post .input-group-sm > .input-group-btn > .form-control-static.button-major,
   .input-group-sm > .input-group-btn > .form-control-static.copy-button,
   #cookie .message .content .button-wrapper .input-group-sm > .input-group-btn > .form-control-static.cookie-button,
   .home .actions .buttons-wrapper .buttons .input-group-sm > .input-group-btn > .form-control-static.button,
@@ -4100,6 +4101,7 @@ select.form-control:focus::-ms-value {
   .input-group-lg > .form-control-static.input-group-addon,
   .input-group-lg > .input-group-btn > .form-control-static.btn,
   .input-group-lg > .input-group-btn > .form-control-static.button,
+  .post .input-group-lg > .input-group-btn > .form-control-static.button-major,
   .input-group-lg > .input-group-btn > .form-control-static.copy-button,
   #cookie .message .content .button-wrapper .input-group-lg > .input-group-btn > .form-control-static.cookie-button,
   .home .actions .buttons-wrapper .buttons .input-group-lg > .input-group-btn > .form-control-static.button,
@@ -4111,9 +4113,12 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
 .input-group-sm > .input-group-btn > .button,
+.post .input-group-sm > .input-group-btn > .button-major,
 .input-group-sm > .input-group-btn > .copy-button,
 #cookie .message .content .button-wrapper .input-group-sm > .input-group-btn > .cookie-button,
 .home .actions .buttons-wrapper .buttons .input-group-sm > .input-group-btn > .button,
+.home .actions .buttons-wrapper .buttons .post .input-group-sm > .input-group-btn > .button-major,
+.post .home .actions .buttons-wrapper .buttons .input-group-sm > .input-group-btn > .button-major,
 .post .post-toolbar .input-group-sm > .input-group-btn > .toolbar-button {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem; }
@@ -4122,6 +4127,7 @@ select.form-control-sm:not([size]):not([multiple]), .input-group-sm > select.for
 .input-group-sm > select.input-group-addon:not([size]):not([multiple]),
 .input-group-sm > .input-group-btn > select.btn:not([size]):not([multiple]),
 .input-group-sm > .input-group-btn > select.button:not([size]):not([multiple]),
+.post .input-group-sm > .input-group-btn > select.button-major:not([size]):not([multiple]),
 .input-group-sm > .input-group-btn > select.copy-button:not([size]):not([multiple]),
 #cookie .message .content .button-wrapper .input-group-sm > .input-group-btn > select.cookie-button:not([size]):not([multiple]),
 .post .post-toolbar .input-group-sm > .input-group-btn > select.toolbar-button:not([size]):not([multiple]) {
@@ -4131,9 +4137,12 @@ select.form-control-sm:not([size]):not([multiple]), .input-group-sm > select.for
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
 .input-group-lg > .input-group-btn > .button,
+.post .input-group-lg > .input-group-btn > .button-major,
 .input-group-lg > .input-group-btn > .copy-button,
 #cookie .message .content .button-wrapper .input-group-lg > .input-group-btn > .cookie-button,
 .home .actions .buttons-wrapper .buttons .input-group-lg > .input-group-btn > .button,
+.home .actions .buttons-wrapper .buttons .post .input-group-lg > .input-group-btn > .button-major,
+.post .home .actions .buttons-wrapper .buttons .input-group-lg > .input-group-btn > .button-major,
 .post .post-toolbar .input-group-lg > .input-group-btn > .toolbar-button {
   padding: 0.75rem 1.5rem;
   font-size: 1.5rem; }
@@ -4142,6 +4151,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .input-group-lg > select.input-group-addon:not([size]):not([multiple]),
 .input-group-lg > .input-group-btn > select.btn:not([size]):not([multiple]),
 .input-group-lg > .input-group-btn > select.button:not([size]):not([multiple]),
+.post .input-group-lg > .input-group-btn > select.button-major:not([size]):not([multiple]),
 .input-group-lg > .input-group-btn > select.copy-button:not([size]):not([multiple]),
 #cookie .message .content .button-wrapper .input-group-lg > .input-group-btn > select.cookie-button:not([size]):not([multiple]),
 .post .post-toolbar .input-group-lg > .input-group-btn > select.toolbar-button:not([size]):not([multiple]) {
@@ -4293,7 +4303,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
     .form-inline .has-feedback .form-control-feedback {
       top: 0; } }
 
-.btn, .button, .copy-button, #cookie .message .content .button-wrapper .cookie-button, .home .actions .buttons-wrapper .buttons .button, .post .post-toolbar .toolbar-button {
+.btn, .button, .post .button-major, .copy-button, #cookie .message .content .button-wrapper .cookie-button, .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .post .button-major, .post .home .actions .buttons-wrapper .buttons .button-major, .post .post-toolbar .toolbar-button {
   display: inline-block;
   font-weight: normal;
   line-height: 1.25;
@@ -4305,25 +4315,31 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   padding: 0.5rem 1rem;
   font-size: 1rem;
   transition: all 0.2s ease-in-out; }
-  .btn:focus, .button:focus, .copy-button:focus, #cookie .message .content .button-wrapper .cookie-button:focus, .home .actions .buttons-wrapper .buttons .button:focus, .post .post-toolbar .toolbar-button:focus, .btn:hover, .button:hover, .copy-button:hover, #cookie .message .content .button-wrapper .cookie-button:hover, .home .actions .buttons-wrapper .buttons .button:hover, .post .post-toolbar .toolbar-button:hover {
+  .btn:focus, .button:focus, .post .button-major:focus, .copy-button:focus, #cookie .message .content .button-wrapper .cookie-button:focus, .home .actions .buttons-wrapper .buttons .button:focus, .home .actions .buttons-wrapper .buttons .post .button-major:focus, .post .home .actions .buttons-wrapper .buttons .button-major:focus, .post .post-toolbar .toolbar-button:focus, .btn:hover, .button:hover, .post .button-major:hover, .copy-button:hover, #cookie .message .content .button-wrapper .cookie-button:hover, .home .actions .buttons-wrapper .buttons .button:hover, .home .actions .buttons-wrapper .buttons .post .button-major:hover, .post .home .actions .buttons-wrapper .buttons .button-major:hover, .post .post-toolbar .toolbar-button:hover {
     text-decoration: none; }
-  .btn:focus, .button:focus, .copy-button:focus, #cookie .message .content .button-wrapper .cookie-button:focus, .home .actions .buttons-wrapper .buttons .button:focus, .post .post-toolbar .toolbar-button:focus, .btn.focus, .focus.button, .focus.copy-button, #cookie .message .content .button-wrapper .focus.cookie-button, .home .actions .buttons-wrapper .buttons .focus.button, .post .post-toolbar .focus.toolbar-button {
+  .btn:focus, .button:focus, .post .button-major:focus, .copy-button:focus, #cookie .message .content .button-wrapper .cookie-button:focus, .home .actions .buttons-wrapper .buttons .button:focus, .home .actions .buttons-wrapper .buttons .post .button-major:focus, .post .home .actions .buttons-wrapper .buttons .button-major:focus, .post .post-toolbar .toolbar-button:focus, .btn.focus, .focus.button, .post .focus.button-major, .focus.copy-button, #cookie .message .content .button-wrapper .focus.cookie-button, .home .actions .buttons-wrapper .buttons .focus.button, .home .actions .buttons-wrapper .buttons .post .focus.button-major, .post .home .actions .buttons-wrapper .buttons .focus.button-major, .post .post-toolbar .focus.toolbar-button {
     outline: 0;
     box-shadow: 0 0 0 2px rgba(248, 187, 21, 0.25); }
-  .btn.disabled, .disabled.button, .disabled.copy-button, #cookie .message .content .button-wrapper .disabled.cookie-button, .home .actions .buttons-wrapper .buttons .disabled.button, .post .post-toolbar .disabled.toolbar-button, .btn:disabled, .button:disabled, .copy-button:disabled, #cookie .message .content .button-wrapper .cookie-button:disabled, .home .actions .buttons-wrapper .buttons .button:disabled, .post .post-toolbar .toolbar-button:disabled {
+  .btn.disabled, .disabled.button, .post .disabled.button-major, .disabled.copy-button, #cookie .message .content .button-wrapper .disabled.cookie-button, .home .actions .buttons-wrapper .buttons .disabled.button, .home .actions .buttons-wrapper .buttons .post .disabled.button-major, .post .home .actions .buttons-wrapper .buttons .disabled.button-major, .post .post-toolbar .disabled.toolbar-button, .btn:disabled, .button:disabled, .post .button-major:disabled, .copy-button:disabled, #cookie .message .content .button-wrapper .cookie-button:disabled, .home .actions .buttons-wrapper .buttons .button:disabled, .home .actions .buttons-wrapper .buttons .post .button-major:disabled, .post .home .actions .buttons-wrapper .buttons .button-major:disabled, .post .post-toolbar .toolbar-button:disabled {
     cursor: not-allowed;
     opacity: .65; }
-  .btn:active, .button:active, .copy-button:active, #cookie .message .content .button-wrapper .cookie-button:active, .home .actions .buttons-wrapper .buttons .button:active, .post .post-toolbar .toolbar-button:active, .btn.active, .active.button, .active.copy-button, #cookie .message .content .button-wrapper .active.cookie-button, .home .actions .buttons-wrapper .buttons .active.button, .post .post-toolbar .active.toolbar-button {
+  .btn:active, .button:active, .post .button-major:active, .copy-button:active, #cookie .message .content .button-wrapper .cookie-button:active, .home .actions .buttons-wrapper .buttons .button:active, .home .actions .buttons-wrapper .buttons .post .button-major:active, .post .home .actions .buttons-wrapper .buttons .button-major:active, .post .post-toolbar .toolbar-button:active, .btn.active, .active.button, .post .active.button-major, .active.copy-button, #cookie .message .content .button-wrapper .active.cookie-button, .home .actions .buttons-wrapper .buttons .active.button, .home .actions .buttons-wrapper .buttons .post .active.button-major, .post .home .actions .buttons-wrapper .buttons .active.button-major, .post .post-toolbar .active.toolbar-button {
     background-image: none; }
 
-a.btn.disabled, a.disabled.button, a.disabled.copy-button, #cookie .message .content .button-wrapper a.disabled.cookie-button, .home .actions .buttons-wrapper .buttons a.disabled.button, .post .post-toolbar a.disabled.toolbar-button,
+a.btn.disabled, a.disabled.button, .post a.disabled.button-major, a.disabled.copy-button, #cookie .message .content .button-wrapper a.disabled.cookie-button, .home .actions .buttons-wrapper .buttons a.disabled.button, .home .actions .buttons-wrapper .buttons .post a.disabled.button-major, .post .home .actions .buttons-wrapper .buttons a.disabled.button-major, .post .post-toolbar a.disabled.toolbar-button,
 fieldset[disabled] a.btn,
 fieldset[disabled] a.button,
+fieldset[disabled] .post a.button-major,
+.post fieldset[disabled] a.button-major,
 fieldset[disabled] a.copy-button,
 fieldset[disabled] #cookie .message .content .button-wrapper a.cookie-button,
 #cookie .message .content .button-wrapper fieldset[disabled] a.cookie-button,
 fieldset[disabled] .home .actions .buttons-wrapper .buttons a.button,
 .home .actions .buttons-wrapper .buttons fieldset[disabled] a.button,
+fieldset[disabled] .home .actions .buttons-wrapper .buttons .post a.button-major,
+.home .actions .buttons-wrapper .buttons .post fieldset[disabled] a.button-major,
+fieldset[disabled] .post .home .actions .buttons-wrapper .buttons a.button-major,
+.post .home .actions .buttons-wrapper .buttons fieldset[disabled] a.button-major,
 fieldset[disabled] .post .post-toolbar a.toolbar-button,
 .post .post-toolbar fieldset[disabled] a.toolbar-button {
   pointer-events: none; }
@@ -4575,28 +4591,34 @@ fieldset[disabled] .post .post-toolbar a.toolbar-button,
     .btn-link:disabled:focus, .btn-link:disabled:hover {
       text-decoration: none; }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .button, .btn-group-lg > .copy-button, #cookie .message .content .button-wrapper .btn-group-lg > .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group-lg > .button, .post .post-toolbar .btn-group-lg > .toolbar-button {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .button, .post .btn-group-lg > .button-major, .btn-group-lg > .copy-button, #cookie .message .content .button-wrapper .btn-group-lg > .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group-lg > .button, .home .actions .buttons-wrapper .buttons .post .btn-group-lg > .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-lg > .button-major, .post .post-toolbar .btn-group-lg > .toolbar-button {
   padding: 0.75rem 1.5rem;
   font-size: 1.5rem; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .button, .btn-group-sm > .copy-button, .home .actions .buttons-wrapper .buttons .btn-group-sm > .button, .post .post-toolbar .btn-group-sm > .toolbar-button, #cookie .message .content .button-wrapper .cookie-button {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .button, .post .btn-group-sm > .button-major, .btn-group-sm > .copy-button, .home .actions .buttons-wrapper .buttons .btn-group-sm > .button, .home .actions .buttons-wrapper .buttons .post .btn-group-sm > .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-sm > .button-major, .post .post-toolbar .btn-group-sm > .toolbar-button, #cookie .message .content .button-wrapper .cookie-button {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem; }
 
-.btn-block, .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .dropdown {
+.btn-block, .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .post .button-major, .post .home .actions .buttons-wrapper .buttons .button-major, .home .actions .buttons-wrapper .buttons .dropdown, .post .button-major {
   display: block;
   width: 100%; }
 
-.btn-block + .btn-block, .home .actions .buttons-wrapper .buttons .button + .btn-block, .home .actions .buttons-wrapper .buttons .dropdown + .btn-block, .home .actions .buttons-wrapper .buttons .btn-block + .button, .home .actions .buttons-wrapper .buttons .button + .button, .home .actions .buttons-wrapper .buttons .dropdown + .button, .home .actions .buttons-wrapper .buttons .btn-block + .dropdown, .home .actions .buttons-wrapper .buttons .button + .dropdown, .home .actions .buttons-wrapper .buttons .dropdown + .dropdown {
+.btn-block + .btn-block, .home .actions .buttons-wrapper .buttons .button + .btn-block, .home .actions .buttons-wrapper .buttons .post .button-major + .btn-block, .post .home .actions .buttons-wrapper .buttons .button-major + .btn-block, .home .actions .buttons-wrapper .buttons .dropdown + .btn-block, .post .button-major + .btn-block, .home .actions .buttons-wrapper .buttons .btn-block + .button, .home .actions .buttons-wrapper .buttons .button + .button, .home .actions .buttons-wrapper .buttons .dropdown + .button, .post .home .actions .buttons-wrapper .buttons .button-major + .button, .home .actions .buttons-wrapper .buttons .post .button-major + .button, .home .actions .buttons-wrapper .buttons .post .btn-block + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-block + .button-major, .home .actions .buttons-wrapper .buttons .btn-block + .dropdown, .home .actions .buttons-wrapper .buttons .button + .dropdown, .home .actions .buttons-wrapper .buttons .dropdown + .dropdown, .post .home .actions .buttons-wrapper .buttons .button-major + .dropdown, .home .actions .buttons-wrapper .buttons .post .button-major + .dropdown, .post .btn-block + .button-major, .home .actions .buttons-wrapper .buttons .post .button + .button-major, .post .home .actions .buttons-wrapper .buttons .button + .button-major, .home .actions .buttons-wrapper .buttons .post .button-major + .button-major, .post .home .actions .buttons-wrapper .buttons .button-major + .button-major, .home .actions .buttons-wrapper .buttons .post .dropdown + .button-major, .post .home .actions .buttons-wrapper .buttons .dropdown + .button-major, .post .button-major + .button-major {
   margin-top: 0.5rem; }
 
-input[type="submit"].btn-block, .home .actions .buttons-wrapper .buttons input[type="submit"].button, .home .actions .buttons-wrapper .buttons input[type="submit"].dropdown,
+input[type="submit"].btn-block, .home .actions .buttons-wrapper .buttons input[type="submit"].button, .home .actions .buttons-wrapper .buttons .post input[type="submit"].button-major, .post .home .actions .buttons-wrapper .buttons input[type="submit"].button-major, .home .actions .buttons-wrapper .buttons input[type="submit"].dropdown, .post input[type="submit"].button-major,
 input[type="reset"].btn-block,
 .home .actions .buttons-wrapper .buttons input[type="reset"].button,
+.home .actions .buttons-wrapper .buttons .post input[type="reset"].button-major,
+.post .home .actions .buttons-wrapper .buttons input[type="reset"].button-major,
 .home .actions .buttons-wrapper .buttons input[type="reset"].dropdown,
+.post input[type="reset"].button-major,
 input[type="button"].btn-block,
 .home .actions .buttons-wrapper .buttons input[type="button"].button,
-.home .actions .buttons-wrapper .buttons input[type="button"].dropdown {
+.home .actions .buttons-wrapper .buttons .post input[type="button"].button-major,
+.post .home .actions .buttons-wrapper .buttons input[type="button"].button-major,
+.home .actions .buttons-wrapper .buttons input[type="button"].dropdown,
+.post input[type="button"].button-major {
   width: 100%; }
 
 .fade {
@@ -4730,115 +4752,208 @@ tbody.collapse.show {
   position: relative;
   display: inline-flex;
   vertical-align: middle; }
-  .btn-group > .btn, .btn-group > .button, .btn-group > .copy-button, #cookie .message .content .button-wrapper .btn-group > .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group > .button, .post .post-toolbar .btn-group > .toolbar-button,
+  .btn-group > .btn, .btn-group > .button, .post .btn-group > .button-major, .btn-group > .copy-button, #cookie .message .content .button-wrapper .btn-group > .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group > .button, .home .actions .buttons-wrapper .buttons .post .btn-group > .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major, .post .post-toolbar .btn-group > .toolbar-button,
   .btn-group-vertical > .btn,
   .btn-group-vertical > .button,
+  .post .btn-group-vertical > .button-major,
   .btn-group-vertical > .copy-button,
   #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major,
   .post .post-toolbar .btn-group-vertical > .toolbar-button {
     position: relative;
     flex: 0 1 auto; }
-    .btn-group > .btn:hover, .btn-group > .button:hover, .btn-group > .copy-button:hover, #cookie .message .content .button-wrapper .btn-group > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .btn-group > .button:hover, .post .post-toolbar .btn-group > .toolbar-button:hover,
+    .btn-group > .btn:hover, .btn-group > .button:hover, .post .btn-group > .button-major:hover, .btn-group > .copy-button:hover, #cookie .message .content .button-wrapper .btn-group > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .btn-group > .button:hover, .home .actions .buttons-wrapper .buttons .post .btn-group > .button-major:hover, .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major:hover, .post .post-toolbar .btn-group > .toolbar-button:hover,
     .btn-group-vertical > .btn:hover,
     .btn-group-vertical > .button:hover,
+    .post .btn-group-vertical > .button-major:hover,
     .btn-group-vertical > .copy-button:hover,
     #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button:hover,
     .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button:hover,
+    .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major:hover,
+    .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major:hover,
     .post .post-toolbar .btn-group-vertical > .toolbar-button:hover {
       z-index: 2; }
-    .btn-group > .btn:focus, .btn-group > .button:focus, .btn-group > .copy-button:focus, #cookie .message .content .button-wrapper .btn-group > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .btn-group > .button:focus, .post .post-toolbar .btn-group > .toolbar-button:focus, .btn-group > .btn:active, .btn-group > .button:active, .btn-group > .copy-button:active, #cookie .message .content .button-wrapper .btn-group > .cookie-button:active, .home .actions .buttons-wrapper .buttons .btn-group > .button:active, .post .post-toolbar .btn-group > .toolbar-button:active, .btn-group > .btn.active, .btn-group > .active.button, .btn-group > .active.copy-button, #cookie .message .content .button-wrapper .btn-group > .active.cookie-button, .home .actions .buttons-wrapper .buttons .btn-group > .active.button, .post .post-toolbar .btn-group > .active.toolbar-button,
+    .btn-group > .btn:focus, .btn-group > .button:focus, .post .btn-group > .button-major:focus, .btn-group > .copy-button:focus, #cookie .message .content .button-wrapper .btn-group > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .btn-group > .button:focus, .home .actions .buttons-wrapper .buttons .post .btn-group > .button-major:focus, .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major:focus, .post .post-toolbar .btn-group > .toolbar-button:focus, .btn-group > .btn:active, .btn-group > .button:active, .post .btn-group > .button-major:active, .btn-group > .copy-button:active, #cookie .message .content .button-wrapper .btn-group > .cookie-button:active, .home .actions .buttons-wrapper .buttons .btn-group > .button:active, .home .actions .buttons-wrapper .buttons .post .btn-group > .button-major:active, .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major:active, .post .post-toolbar .btn-group > .toolbar-button:active, .btn-group > .btn.active, .btn-group > .active.button, .post .btn-group > .active.button-major, .btn-group > .active.copy-button, #cookie .message .content .button-wrapper .btn-group > .active.cookie-button, .home .actions .buttons-wrapper .buttons .btn-group > .active.button, .home .actions .buttons-wrapper .buttons .post .btn-group > .active.button-major, .post .home .actions .buttons-wrapper .buttons .btn-group > .active.button-major, .post .post-toolbar .btn-group > .active.toolbar-button,
     .btn-group-vertical > .btn:focus,
     .btn-group-vertical > .button:focus,
+    .post .btn-group-vertical > .button-major:focus,
     .btn-group-vertical > .copy-button:focus,
     #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button:focus,
     .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button:focus,
+    .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major:focus,
+    .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major:focus,
     .post .post-toolbar .btn-group-vertical > .toolbar-button:focus,
     .btn-group-vertical > .btn:active,
     .btn-group-vertical > .button:active,
+    .post .btn-group-vertical > .button-major:active,
     .btn-group-vertical > .copy-button:active,
     #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button:active,
     .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button:active,
+    .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major:active,
+    .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major:active,
     .post .post-toolbar .btn-group-vertical > .toolbar-button:active,
     .btn-group-vertical > .btn.active,
     .btn-group-vertical > .active.button,
+    .post .btn-group-vertical > .active.button-major,
     .btn-group-vertical > .active.copy-button,
     #cookie .message .content .button-wrapper .btn-group-vertical > .active.cookie-button,
     .home .actions .buttons-wrapper .buttons .btn-group-vertical > .active.button,
+    .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .active.button-major,
+    .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .active.button-major,
     .post .post-toolbar .btn-group-vertical > .active.toolbar-button {
       z-index: 2; }
-  .btn-group .btn + .btn, .btn-group .button + .btn, .btn-group .copy-button + .btn, .btn-group #cookie .message .content .button-wrapper .cookie-button + .btn, #cookie .message .content .button-wrapper .btn-group .cookie-button + .btn, .btn-group .home .actions .buttons-wrapper .buttons .button + .btn, .home .actions .buttons-wrapper .buttons .btn-group .button + .btn, .btn-group .post .post-toolbar .toolbar-button + .btn, .post .post-toolbar .btn-group .toolbar-button + .btn, .btn-group .btn + .button, .btn-group .button + .button, .btn-group .copy-button + .button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .button, .btn-group .post .post-toolbar .toolbar-button + .button, .post .post-toolbar .btn-group .toolbar-button + .button, .btn-group .btn + .copy-button, .btn-group .button + .copy-button, .btn-group .copy-button + .copy-button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .copy-button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .copy-button, .btn-group .home .actions .buttons-wrapper .buttons .button + .copy-button, .home .actions .buttons-wrapper .buttons .btn-group .button + .copy-button, .btn-group .post .post-toolbar .toolbar-button + .copy-button, .post .post-toolbar .btn-group .toolbar-button + .copy-button, .btn-group #cookie .message .content .button-wrapper .btn + .cookie-button, #cookie .message .content .button-wrapper .btn-group .btn + .cookie-button, .btn-group #cookie .message .content .button-wrapper .button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .button + .cookie-button, .btn-group #cookie .message .content .button-wrapper .copy-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .copy-button + .cookie-button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .home .actions .buttons-wrapper .buttons .button + .cookie-button, .btn-group .post .post-toolbar #cookie .message .content .button-wrapper .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .post .post-toolbar .toolbar-button + .cookie-button, .post .post-toolbar .btn-group #cookie .message .content .button-wrapper .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group .toolbar-button + .cookie-button, .btn-group .home .actions .buttons-wrapper .buttons .btn + .button, .home .actions .buttons-wrapper .buttons .btn-group .btn + .button, .btn-group .home .actions .buttons-wrapper .buttons .copy-button + .button, .home .actions .buttons-wrapper .buttons .btn-group .copy-button + .button, .btn-group #cookie .message .content .button-wrapper .home .actions .buttons-wrapper .buttons .cookie-button + .button, #cookie .message .content .button-wrapper .btn-group .home .actions .buttons-wrapper .buttons .cookie-button + .button, .btn-group .home .actions .buttons-wrapper .buttons .button + .button, .home .actions .buttons-wrapper .buttons .btn-group .button + .button, .btn-group .post .post-toolbar .home .actions .buttons-wrapper .buttons .toolbar-button + .button, .post .post-toolbar .btn-group .home .actions .buttons-wrapper .buttons .toolbar-button + .button, .btn-group .post .post-toolbar .btn + .toolbar-button, .post .post-toolbar .btn-group .btn + .toolbar-button, .btn-group .post .post-toolbar .button + .toolbar-button, .post .post-toolbar .btn-group .button + .toolbar-button, .btn-group .post .post-toolbar .copy-button + .toolbar-button, .post .post-toolbar .btn-group .copy-button + .toolbar-button, .btn-group #cookie .message .content .button-wrapper .post .post-toolbar .cookie-button + .toolbar-button, .post .post-toolbar .btn-group #cookie .message .content .button-wrapper .cookie-button + .toolbar-button, #cookie .message .content .button-wrapper .btn-group .post .post-toolbar .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group .cookie-button + .toolbar-button, .post .post-toolbar .btn-group .home .actions .buttons-wrapper .buttons .button + .toolbar-button, .btn-group .post .post-toolbar .toolbar-button + .toolbar-button, .post .post-toolbar .btn-group .toolbar-button + .toolbar-button,
+  .btn-group .btn + .btn, .btn-group .button + .btn, .btn-group .post .button-major + .btn, .post .btn-group .button-major + .btn, .btn-group .copy-button + .btn, .btn-group #cookie .message .content .button-wrapper .cookie-button + .btn, #cookie .message .content .button-wrapper .btn-group .cookie-button + .btn, .btn-group .home .actions .buttons-wrapper .buttons .button + .btn, .home .actions .buttons-wrapper .buttons .btn-group .button + .btn, .btn-group .home .actions .buttons-wrapper .buttons .post .button-major + .btn, .home .actions .buttons-wrapper .buttons .post .btn-group .button-major + .btn, .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .btn, .post .home .actions .buttons-wrapper .buttons .btn-group .button-major + .btn, .btn-group .post .post-toolbar .toolbar-button + .btn, .post .post-toolbar .btn-group .toolbar-button + .btn, .btn-group .btn + .button, .btn-group .button + .button, .btn-group .post .button-major + .button, .post .btn-group .button-major + .button, .btn-group .copy-button + .button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .button, .btn-group .post .post-toolbar .toolbar-button + .button, .post .post-toolbar .btn-group .toolbar-button + .button, .btn-group .post .btn + .button-major, .post .btn-group .btn + .button-major, .btn-group .post .button + .button-major, .post .btn-group .button + .button-major, .btn-group .post .button-major + .button-major, .post .btn-group .button-major + .button-major, .btn-group .post .copy-button + .button-major, .post .btn-group .copy-button + .button-major, .btn-group #cookie .message .content .button-wrapper .post .cookie-button + .button-major, .post .btn-group #cookie .message .content .button-wrapper .cookie-button + .button-major, #cookie .message .content .button-wrapper .btn-group .post .cookie-button + .button-major, .post #cookie .message .content .button-wrapper .btn-group .cookie-button + .button-major, .btn-group .post .post-toolbar .toolbar-button + .button-major, .post .post-toolbar .btn-group .toolbar-button + .button-major, .btn-group .btn + .copy-button, .btn-group .button + .copy-button, .btn-group .post .button-major + .copy-button, .post .btn-group .button-major + .copy-button, .btn-group .copy-button + .copy-button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .copy-button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .copy-button, .btn-group .home .actions .buttons-wrapper .buttons .button + .copy-button, .home .actions .buttons-wrapper .buttons .btn-group .button + .copy-button, .btn-group .home .actions .buttons-wrapper .buttons .post .button-major + .copy-button, .home .actions .buttons-wrapper .buttons .post .btn-group .button-major + .copy-button, .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .copy-button, .post .home .actions .buttons-wrapper .buttons .btn-group .button-major + .copy-button, .btn-group .post .post-toolbar .toolbar-button + .copy-button, .post .post-toolbar .btn-group .toolbar-button + .copy-button, .btn-group #cookie .message .content .button-wrapper .btn + .cookie-button, #cookie .message .content .button-wrapper .btn-group .btn + .cookie-button, .btn-group #cookie .message .content .button-wrapper .button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .button + .cookie-button, .btn-group .post #cookie .message .content .button-wrapper .button-major + .cookie-button, #cookie .message .content .button-wrapper .btn-group .post .button-major + .cookie-button, .post .btn-group #cookie .message .content .button-wrapper .button-major + .cookie-button, #cookie .message .content .button-wrapper .post .btn-group .button-major + .cookie-button, .btn-group #cookie .message .content .button-wrapper .copy-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .copy-button + .cookie-button, .btn-group #cookie .message .content .button-wrapper .cookie-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .cookie-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .home .actions .buttons-wrapper .buttons .button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .cookie-button, .btn-group .post .post-toolbar #cookie .message .content .button-wrapper .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group .post .post-toolbar .toolbar-button + .cookie-button, .post .post-toolbar .btn-group #cookie .message .content .button-wrapper .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group .toolbar-button + .cookie-button, .btn-group .home .actions .buttons-wrapper .buttons .btn + .button, .home .actions .buttons-wrapper .buttons .btn-group .btn + .button, .home .actions .buttons-wrapper .buttons .btn-group .post .button-major + .button, .post .btn-group .home .actions .buttons-wrapper .buttons .button-major + .button, .btn-group .home .actions .buttons-wrapper .buttons .copy-button + .button, .home .actions .buttons-wrapper .buttons .btn-group .copy-button + .button, .btn-group #cookie .message .content .button-wrapper .home .actions .buttons-wrapper .buttons .cookie-button + .button, #cookie .message .content .button-wrapper .btn-group .home .actions .buttons-wrapper .buttons .cookie-button + .button, .btn-group .home .actions .buttons-wrapper .buttons .button + .button, .home .actions .buttons-wrapper .buttons .btn-group .button + .button, .btn-group .home .actions .buttons-wrapper .buttons .post .button-major + .button, .home .actions .buttons-wrapper .buttons .post .btn-group .button-major + .button, .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .button, .post .home .actions .buttons-wrapper .buttons .btn-group .button-major + .button, .btn-group .post .post-toolbar .home .actions .buttons-wrapper .buttons .toolbar-button + .button, .post .post-toolbar .btn-group .home .actions .buttons-wrapper .buttons .toolbar-button + .button, .btn-group .home .actions .buttons-wrapper .buttons .post .btn + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group .btn + .button-major, .home .actions .buttons-wrapper .buttons .btn-group .post .button-major + .button-major, .btn-group .home .actions .buttons-wrapper .buttons .post .copy-button + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group .copy-button + .button-major, .btn-group .home .actions .buttons-wrapper .buttons .post .button + .button-major, .home .actions .buttons-wrapper .buttons .btn-group .post .button + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group .button + .button-major, .btn-group .home .actions .buttons-wrapper .buttons .post .button-major + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group .button-major + .button-major, .btn-group .post .home .actions .buttons-wrapper .buttons .btn + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group .btn + .button-major, .post .btn-group .home .actions .buttons-wrapper .buttons .button-major + .button-major, .btn-group .post .home .actions .buttons-wrapper .buttons .copy-button + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group .copy-button + .button-major, .btn-group #cookie .message .content .button-wrapper .post .home .actions .buttons-wrapper .buttons .cookie-button + .button-major, #cookie .message .content .button-wrapper .btn-group .post .home .actions .buttons-wrapper .buttons .cookie-button + .button-major, .btn-group .post .home .actions .buttons-wrapper .buttons .button + .button-major, .post .btn-group .home .actions .buttons-wrapper .buttons .button + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group .button + .button-major, .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group .button-major + .button-major, .btn-group .post .post-toolbar .home .actions .buttons-wrapper .buttons .toolbar-button + .button-major, .post .post-toolbar .btn-group .home .actions .buttons-wrapper .buttons .toolbar-button + .button-major, .btn-group .post .post-toolbar .btn + .toolbar-button, .post .post-toolbar .btn-group .btn + .toolbar-button, .btn-group .post .post-toolbar .button + .toolbar-button, .post .post-toolbar .btn-group .button + .toolbar-button, .btn-group .post .post-toolbar .button-major + .toolbar-button, .post .btn-group .post-toolbar .button-major + .toolbar-button, .post .post-toolbar .btn-group .button-major + .toolbar-button, .btn-group .post .post-toolbar .copy-button + .toolbar-button, .post .post-toolbar .btn-group .copy-button + .toolbar-button, .btn-group #cookie .message .content .button-wrapper .post .post-toolbar .cookie-button + .toolbar-button, .post .post-toolbar .btn-group #cookie .message .content .button-wrapper .cookie-button + .toolbar-button, #cookie .message .content .button-wrapper .btn-group .post .post-toolbar .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group .cookie-button + .toolbar-button, .post .post-toolbar .btn-group .home .actions .buttons-wrapper .buttons .button + .toolbar-button, .btn-group .post .post-toolbar .home .actions .buttons-wrapper .buttons .button-major + .toolbar-button, .btn-group .post .post-toolbar .toolbar-button + .toolbar-button, .post .post-toolbar .btn-group .toolbar-button + .toolbar-button,
   .btn-group .btn + .btn-group,
   .btn-group .button + .btn-group,
+  .btn-group .post .button-major + .btn-group,
+  .post .btn-group .button-major + .btn-group,
   .btn-group .copy-button + .btn-group,
   .btn-group #cookie .message .content .button-wrapper .cookie-button + .btn-group,
   #cookie .message .content .button-wrapper .btn-group .cookie-button + .btn-group,
   .btn-group .home .actions .buttons-wrapper .buttons .button + .btn-group,
   .home .actions .buttons-wrapper .buttons .btn-group .button + .btn-group,
+  .btn-group .home .actions .buttons-wrapper .buttons .post .button-major + .btn-group,
+  .home .actions .buttons-wrapper .buttons .post .btn-group .button-major + .btn-group,
+  .btn-group .post .home .actions .buttons-wrapper .buttons .button-major + .btn-group,
+  .post .home .actions .buttons-wrapper .buttons .btn-group .button-major + .btn-group,
   .btn-group .post .post-toolbar .toolbar-button + .btn-group,
   .post .post-toolbar .btn-group .toolbar-button + .btn-group,
   .btn-group .btn-group + .btn,
   .btn-group .btn-group + .button,
+  .btn-group .post .btn-group + .button-major,
+  .post .btn-group .btn-group + .button-major,
   .btn-group .btn-group + .copy-button,
   .btn-group #cookie .message .content .button-wrapper .btn-group + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group .btn-group + .cookie-button,
   .btn-group .home .actions .buttons-wrapper .buttons .btn-group + .button,
   .home .actions .buttons-wrapper .buttons .btn-group .btn-group + .button,
+  .btn-group .home .actions .buttons-wrapper .buttons .post .btn-group + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group .btn-group + .button-major,
+  .btn-group .post .home .actions .buttons-wrapper .buttons .btn-group + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group .btn-group + .button-major,
   .btn-group .post .post-toolbar .btn-group + .toolbar-button,
   .post .post-toolbar .btn-group .btn-group + .toolbar-button,
   .btn-group .btn-group + .btn-group,
   .btn-group-vertical .btn + .btn,
   .btn-group-vertical .button + .btn,
+  .btn-group-vertical .post .button-major + .btn,
+  .post .btn-group-vertical .button-major + .btn,
   .btn-group-vertical .copy-button + .btn,
   .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .btn,
   #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .btn,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .btn,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .button + .btn,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major + .btn,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major + .btn,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .btn,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major + .btn,
   .btn-group-vertical .post .post-toolbar .toolbar-button + .btn,
   .post .post-toolbar .btn-group-vertical .toolbar-button + .btn,
   .btn-group-vertical .btn + .button,
   .btn-group-vertical .button + .button,
+  .btn-group-vertical .post .button-major + .button,
+  .post .btn-group-vertical .button-major + .button,
   .btn-group-vertical .copy-button + .button,
   .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .button,
   #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .button,
   .btn-group-vertical .post .post-toolbar .toolbar-button + .button,
   .post .post-toolbar .btn-group-vertical .toolbar-button + .button,
+  .btn-group-vertical .post .btn + .button-major,
+  .post .btn-group-vertical .btn + .button-major,
+  .btn-group-vertical .post .button + .button-major,
+  .post .btn-group-vertical .button + .button-major,
+  .btn-group-vertical .post .button-major + .button-major,
+  .post .btn-group-vertical .button-major + .button-major,
+  .btn-group-vertical .post .copy-button + .button-major,
+  .post .btn-group-vertical .copy-button + .button-major,
+  .btn-group-vertical #cookie .message .content .button-wrapper .post .cookie-button + .button-major,
+  .post .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .button-major,
+  #cookie .message .content .button-wrapper .btn-group-vertical .post .cookie-button + .button-major,
+  .post #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .button-major,
+  .btn-group-vertical .post .post-toolbar .toolbar-button + .button-major,
+  .post .post-toolbar .btn-group-vertical .toolbar-button + .button-major,
   .btn-group-vertical .btn + .copy-button,
   .btn-group-vertical .button + .copy-button,
+  .btn-group-vertical .post .button-major + .copy-button,
+  .post .btn-group-vertical .button-major + .copy-button,
   .btn-group-vertical .copy-button + .copy-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .copy-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .copy-button,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .copy-button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .button + .copy-button,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major + .copy-button,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major + .copy-button,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .copy-button,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major + .copy-button,
   .btn-group-vertical .post .post-toolbar .toolbar-button + .copy-button,
   .post .post-toolbar .btn-group-vertical .toolbar-button + .copy-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .btn + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .btn + .cookie-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .button + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .button + .cookie-button,
+  .btn-group-vertical .post #cookie .message .content .button-wrapper .button-major + .cookie-button,
+  #cookie .message .content .button-wrapper .btn-group-vertical .post .button-major + .cookie-button,
+  .post .btn-group-vertical #cookie .message .content .button-wrapper .button-major + .cookie-button,
+  #cookie .message .content .button-wrapper .post .btn-group-vertical .button-major + .cookie-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .copy-button + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .copy-button + .cookie-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .cookie-button,
+  #cookie .message .content .button-wrapper .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .cookie-button,
   .btn-group-vertical .post .post-toolbar #cookie .message .content .button-wrapper .toolbar-button + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .post .post-toolbar .toolbar-button + .cookie-button,
   .post .post-toolbar .btn-group-vertical #cookie .message .content .button-wrapper .toolbar-button + .cookie-button,
   #cookie .message .content .button-wrapper .post .post-toolbar .btn-group-vertical .toolbar-button + .cookie-button,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .btn + .button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .btn + .button,
+  .home .actions .buttons-wrapper .buttons .btn-group-vertical .post .button-major + .button,
+  .post .btn-group-vertical .home .actions .buttons-wrapper .buttons .button-major + .button,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .copy-button + .button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .copy-button + .button,
   .btn-group-vertical #cookie .message .content .button-wrapper .home .actions .buttons-wrapper .buttons .cookie-button + .button,
   #cookie .message .content .button-wrapper .btn-group-vertical .home .actions .buttons-wrapper .buttons .cookie-button + .button,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .button + .button,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major + .button,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major + .button,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .button,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major + .button,
   .btn-group-vertical .post .post-toolbar .home .actions .buttons-wrapper .buttons .toolbar-button + .button,
   .post .post-toolbar .btn-group-vertical .home .actions .buttons-wrapper .buttons .toolbar-button + .button,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .btn + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .btn + .button-major,
+  .home .actions .buttons-wrapper .buttons .btn-group-vertical .post .button-major + .button-major,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .copy-button + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .copy-button + .button-major,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button + .button-major,
+  .home .actions .buttons-wrapper .buttons .btn-group-vertical .post .button + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button + .button-major,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major + .button-major,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .btn + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .btn + .button-major,
+  .post .btn-group-vertical .home .actions .buttons-wrapper .buttons .button-major + .button-major,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .copy-button + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .copy-button + .button-major,
+  .btn-group-vertical #cookie .message .content .button-wrapper .post .home .actions .buttons-wrapper .buttons .cookie-button + .button-major,
+  #cookie .message .content .button-wrapper .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .cookie-button + .button-major,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button + .button-major,
+  .post .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button + .button-major,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major + .button-major,
+  .btn-group-vertical .post .post-toolbar .home .actions .buttons-wrapper .buttons .toolbar-button + .button-major,
+  .post .post-toolbar .btn-group-vertical .home .actions .buttons-wrapper .buttons .toolbar-button + .button-major,
   .btn-group-vertical .post .post-toolbar .btn + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .btn + .toolbar-button,
   .btn-group-vertical .post .post-toolbar .button + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .button + .toolbar-button,
+  .btn-group-vertical .post .post-toolbar .button-major + .toolbar-button,
+  .post .btn-group-vertical .post-toolbar .button-major + .toolbar-button,
+  .post .post-toolbar .btn-group-vertical .button-major + .toolbar-button,
   .btn-group-vertical .post .post-toolbar .copy-button + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .copy-button + .toolbar-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .post .post-toolbar .cookie-button + .toolbar-button,
@@ -4846,24 +4961,37 @@ tbody.collapse.show {
   #cookie .message .content .button-wrapper .btn-group-vertical .post .post-toolbar .cookie-button + .toolbar-button,
   .post .post-toolbar #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .toolbar-button,
+  .btn-group-vertical .post .post-toolbar .home .actions .buttons-wrapper .buttons .button-major + .toolbar-button,
   .btn-group-vertical .post .post-toolbar .toolbar-button + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .toolbar-button + .toolbar-button,
   .btn-group-vertical .btn + .btn-group,
   .btn-group-vertical .button + .btn-group,
+  .btn-group-vertical .post .button-major + .btn-group,
+  .post .btn-group-vertical .button-major + .btn-group,
   .btn-group-vertical .copy-button + .btn-group,
   .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button + .btn-group,
   #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button + .btn-group,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .button + .btn-group,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .button + .btn-group,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major + .btn-group,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major + .btn-group,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major + .btn-group,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major + .btn-group,
   .btn-group-vertical .post .post-toolbar .toolbar-button + .btn-group,
   .post .post-toolbar .btn-group-vertical .toolbar-button + .btn-group,
   .btn-group-vertical .btn-group + .btn,
   .btn-group-vertical .btn-group + .button,
+  .btn-group-vertical .post .btn-group + .button-major,
+  .post .btn-group-vertical .btn-group + .button-major,
   .btn-group-vertical .btn-group + .copy-button,
   .btn-group-vertical #cookie .message .content .button-wrapper .btn-group + .cookie-button,
   #cookie .message .content .button-wrapper .btn-group-vertical .btn-group + .cookie-button,
   .btn-group-vertical .home .actions .buttons-wrapper .buttons .btn-group + .button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical .btn-group + .button,
+  .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .btn-group + .button-major,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .btn-group + .button-major,
+  .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .btn-group + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .btn-group + .button-major,
   .btn-group-vertical .post .post-toolbar .btn-group + .toolbar-button,
   .post .post-toolbar .btn-group-vertical .btn-group + .toolbar-button,
   .btn-group-vertical .btn-group + .btn-group {
@@ -4875,33 +5003,33 @@ tbody.collapse.show {
   .btn-toolbar .input-group {
     width: auto; }
 
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .copy-button:not(:first-child):not(:last-child):not(.dropdown-toggle), #cookie .message .content .button-wrapper .btn-group > .cookie-button:not(:first-child):not(:last-child):not(.dropdown-toggle), .home .actions .buttons-wrapper .buttons .btn-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle), .post .post-toolbar .btn-group > .toolbar-button:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle), .post .btn-group > .button-major:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .copy-button:not(:first-child):not(:last-child):not(.dropdown-toggle), #cookie .message .content .button-wrapper .btn-group > .cookie-button:not(:first-child):not(:last-child):not(.dropdown-toggle), .home .actions .buttons-wrapper .buttons .btn-group > .button:not(:first-child):not(:last-child):not(.dropdown-toggle), .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major:not(:first-child):not(:last-child):not(.dropdown-toggle), .post .post-toolbar .btn-group > .toolbar-button:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0; }
 
-.btn-group > .btn:first-child, .btn-group > .button:first-child, .btn-group > .copy-button:first-child, #cookie .message .content .button-wrapper .btn-group > .cookie-button:first-child, .home .actions .buttons-wrapper .buttons .btn-group > .button:first-child, .post .post-toolbar .btn-group > .toolbar-button:first-child {
+.btn-group > .btn:first-child, .btn-group > .button:first-child, .post .btn-group > .button-major:first-child, .btn-group > .copy-button:first-child, #cookie .message .content .button-wrapper .btn-group > .cookie-button:first-child, .home .actions .buttons-wrapper .buttons .btn-group > .button:first-child, .home .actions .buttons-wrapper .buttons .post .btn-group > .button-major:first-child, .post .home .actions .buttons-wrapper .buttons .btn-group > .button-major:first-child, .post .post-toolbar .btn-group > .toolbar-button:first-child {
   margin-left: 0; }
 
 .btn-group > .btn-group {
   float: left; }
 
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .button, .btn-group > .btn-group:not(:first-child):not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .btn-group > .btn-group:not(:first-child):not(:last-child) > .cookie-button, .post .post-toolbar .btn-group > .btn-group:not(:first-child):not(:last-child) > .toolbar-button {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .button, .post .btn-group > .btn-group:not(:first-child):not(:last-child) > .button-major, .btn-group > .btn-group:not(:first-child):not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .btn-group > .btn-group:not(:first-child):not(:last-child) > .cookie-button, .post .post-toolbar .btn-group > .btn-group:not(:first-child):not(:last-child) > .toolbar-button {
   border-radius: 0; }
 
 .btn-group .dropdown-toggle:active,
 .btn-group.open .dropdown-toggle {
   outline: 0; }
 
-.btn + .dropdown-toggle-split, .button + .dropdown-toggle-split, .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .button + .dropdown-toggle-split, .post .post-toolbar .toolbar-button + .dropdown-toggle-split {
+.btn + .dropdown-toggle-split, .button + .dropdown-toggle-split, .post .button-major + .dropdown-toggle-split, .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .post .button-major + .dropdown-toggle-split, .post .home .actions .buttons-wrapper .buttons .button-major + .dropdown-toggle-split, .post .post-toolbar .toolbar-button + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem; }
-  .btn + .dropdown-toggle-split::after, .button + .dropdown-toggle-split::after, .copy-button + .dropdown-toggle-split::after, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split::after, .home .actions .buttons-wrapper .buttons .button + .dropdown-toggle-split::after, .post .post-toolbar .toolbar-button + .dropdown-toggle-split::after {
+  .btn + .dropdown-toggle-split::after, .button + .dropdown-toggle-split::after, .post .button-major + .dropdown-toggle-split::after, .copy-button + .dropdown-toggle-split::after, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split::after, .home .actions .buttons-wrapper .buttons .button + .dropdown-toggle-split::after, .home .actions .buttons-wrapper .buttons .post .button-major + .dropdown-toggle-split::after, .post .home .actions .buttons-wrapper .buttons .button-major + .dropdown-toggle-split::after, .post .post-toolbar .toolbar-button + .dropdown-toggle-split::after {
     margin-left: 0; }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .btn-group-sm > .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .btn-group-sm > .button + .dropdown-toggle-split, .post .post-toolbar .btn-group-sm > .toolbar-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .post .btn-group-sm > .button-major + .dropdown-toggle-split, .btn-group-sm > .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .btn-group-sm > .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .btn-group-sm > .button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .post .btn-group-sm > .button-major + .dropdown-toggle-split, .post .home .actions .buttons-wrapper .buttons .btn-group-sm > .button-major + .dropdown-toggle-split, .post .post-toolbar .btn-group-sm > .toolbar-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .cookie-button + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem; }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .btn-group-lg > .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .btn-group-lg > .button + .dropdown-toggle-split, .post .post-toolbar .btn-group-lg > .toolbar-button + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .post .btn-group-lg > .button-major + .dropdown-toggle-split, .btn-group-lg > .copy-button + .dropdown-toggle-split, #cookie .message .content .button-wrapper .btn-group-lg > .cookie-button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .btn-group-lg > .button + .dropdown-toggle-split, .home .actions .buttons-wrapper .buttons .post .btn-group-lg > .button-major + .dropdown-toggle-split, .post .home .actions .buttons-wrapper .buttons .btn-group-lg > .button-major + .dropdown-toggle-split, .post .post-toolbar .btn-group-lg > .toolbar-button + .dropdown-toggle-split {
   padding-right: 1.125rem;
   padding-left: 1.125rem; }
 
@@ -4910,47 +5038,58 @@ tbody.collapse.show {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  .btn-group-vertical .btn, .btn-group-vertical .button, .btn-group-vertical .copy-button, .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button, .btn-group-vertical .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical .button, .btn-group-vertical .post .post-toolbar .toolbar-button, .post .post-toolbar .btn-group-vertical .toolbar-button,
+  .btn-group-vertical .btn, .btn-group-vertical .button, .btn-group-vertical .post .button-major, .post .btn-group-vertical .button-major, .btn-group-vertical .copy-button, .btn-group-vertical #cookie .message .content .button-wrapper .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical .cookie-button, .btn-group-vertical .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical .button, .btn-group-vertical .home .actions .buttons-wrapper .buttons .post .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical .button-major, .btn-group-vertical .post .home .actions .buttons-wrapper .buttons .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical .button-major, .btn-group-vertical .post .post-toolbar .toolbar-button, .post .post-toolbar .btn-group-vertical .toolbar-button,
   .btn-group-vertical .btn-group {
     width: 100%; }
-  .btn-group-vertical > .btn + .btn, .btn-group-vertical > .button + .btn, .btn-group-vertical > .copy-button + .btn, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .btn, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .btn, .post .post-toolbar .btn-group-vertical > .toolbar-button + .btn, .btn-group-vertical > .btn + .button, .btn-group-vertical > .button + .button, .btn-group-vertical > .copy-button + .button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .button, .btn-group-vertical > .btn + .copy-button, .btn-group-vertical > .button + .copy-button, .btn-group-vertical > .copy-button + .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .copy-button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .copy-button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .btn + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .button + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .copy-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .cookie-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group-vertical > .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group-vertical > .toolbar-button + .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .btn + .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .copy-button + .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .button, .post .post-toolbar .btn-group-vertical > .btn + .toolbar-button, .post .post-toolbar .btn-group-vertical > .button + .toolbar-button, .post .post-toolbar .btn-group-vertical > .copy-button + .toolbar-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group-vertical > .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .toolbar-button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .toolbar-button,
+  .btn-group-vertical > .btn + .btn, .btn-group-vertical > .button + .btn, .post .btn-group-vertical > .button-major + .btn, .btn-group-vertical > .copy-button + .btn, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .btn, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .btn, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major + .btn, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major + .btn, .post .post-toolbar .btn-group-vertical > .toolbar-button + .btn, .btn-group-vertical > .btn + .button, .btn-group-vertical > .button + .button, .post .btn-group-vertical > .button-major + .button, .btn-group-vertical > .copy-button + .button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .button, .post .btn-group-vertical > .btn + .button-major, .post .btn-group-vertical > .button + .button-major, .post .btn-group-vertical > .button-major + .button-major, .post .btn-group-vertical > .copy-button + .button-major, #cookie .message .content .button-wrapper .post .btn-group-vertical > .cookie-button + .button-major, .post #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .button-major, .post .post-toolbar .btn-group-vertical > .toolbar-button + .button-major, .btn-group-vertical > .btn + .copy-button, .btn-group-vertical > .button + .copy-button, .post .btn-group-vertical > .button-major + .copy-button, .btn-group-vertical > .copy-button + .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .copy-button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .copy-button, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major + .copy-button, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major + .copy-button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .btn + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .button + .cookie-button, .post #cookie .message .content .button-wrapper .btn-group-vertical > .button-major + .cookie-button, #cookie .message .content .button-wrapper .post .btn-group-vertical > .button-major + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .copy-button + .cookie-button, #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .cookie-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group-vertical > .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group-vertical > .toolbar-button + .cookie-button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .btn + .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .copy-button + .button, .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .button, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major + .button, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major + .button, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .btn + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .copy-button + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button + .button-major, .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .btn + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .copy-button + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .button-major, .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major + .button-major, .post .post-toolbar .btn-group-vertical > .btn + .toolbar-button, .post .post-toolbar .btn-group-vertical > .button + .toolbar-button, .post .post-toolbar .btn-group-vertical > .button-major + .toolbar-button, .post .post-toolbar .btn-group-vertical > .copy-button + .toolbar-button, #cookie .message .content .button-wrapper .post .post-toolbar .btn-group-vertical > .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .toolbar-button, .post .post-toolbar .btn-group-vertical > .toolbar-button + .toolbar-button,
   .btn-group-vertical > .btn + .btn-group,
   .btn-group-vertical > .button + .btn-group,
+  .post .btn-group-vertical > .button-major + .btn-group,
   .btn-group-vertical > .copy-button + .btn-group,
   #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button + .btn-group,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button + .btn-group,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .button-major + .btn-group,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major + .btn-group,
   .post .post-toolbar .btn-group-vertical > .toolbar-button + .btn-group,
   .btn-group-vertical > .btn-group + .btn,
   .btn-group-vertical > .btn-group + .button,
+  .post .btn-group-vertical > .btn-group + .button-major,
   .btn-group-vertical > .btn-group + .copy-button,
   #cookie .message .content .button-wrapper .btn-group-vertical > .btn-group + .cookie-button,
   .home .actions .buttons-wrapper .buttons .btn-group-vertical > .btn-group + .button,
+  .home .actions .buttons-wrapper .buttons .post .btn-group-vertical > .btn-group + .button-major,
+  .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .btn-group + .button-major,
   .post .post-toolbar .btn-group-vertical > .btn-group + .toolbar-button,
   .btn-group-vertical > .btn-group + .btn-group {
     margin-top: -1px;
     margin-left: 0; }
 
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .button:not(:first-child):not(:last-child), .btn-group-vertical > .copy-button:not(:first-child):not(:last-child), #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button:not(:first-child):not(:last-child), .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button:not(:first-child):not(:last-child), .post .post-toolbar .btn-group-vertical > .toolbar-button:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .button:not(:first-child):not(:last-child), .post .btn-group-vertical > .button-major:not(:first-child):not(:last-child), .btn-group-vertical > .copy-button:not(:first-child):not(:last-child), #cookie .message .content .button-wrapper .btn-group-vertical > .cookie-button:not(:first-child):not(:last-child), .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button:not(:first-child):not(:last-child), .post .home .actions .buttons-wrapper .buttons .btn-group-vertical > .button-major:not(:first-child):not(:last-child), .post .post-toolbar .btn-group-vertical > .toolbar-button:not(:first-child):not(:last-child) {
   border-radius: 0; }
 
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .button, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cookie-button, .post .post-toolbar .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .toolbar-button {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .button, .post .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .button-major, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cookie-button, .post .post-toolbar .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .toolbar-button {
   border-radius: 0; }
 
-[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .button input[type="radio"], [data-toggle="buttons"] > .copy-button input[type="radio"], #cookie .message .content .button-wrapper [data-toggle="buttons"] > .cookie-button input[type="radio"], .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .button input[type="radio"], .post .post-toolbar [data-toggle="buttons"] > .toolbar-button input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .button input[type="radio"], .post [data-toggle="buttons"] > .button-major input[type="radio"], [data-toggle="buttons"] > .copy-button input[type="radio"], #cookie .message .content .button-wrapper [data-toggle="buttons"] > .cookie-button input[type="radio"], .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .button input[type="radio"], .home .actions .buttons-wrapper .buttons .post [data-toggle="buttons"] > .button-major input[type="radio"], .post .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .button-major input[type="radio"], .post .post-toolbar [data-toggle="buttons"] > .toolbar-button input[type="radio"],
 [data-toggle="buttons"] > .btn input[type="checkbox"],
 [data-toggle="buttons"] > .button input[type="checkbox"],
+.post [data-toggle="buttons"] > .button-major input[type="checkbox"],
 [data-toggle="buttons"] > .copy-button input[type="checkbox"],
 #cookie .message .content .button-wrapper [data-toggle="buttons"] > .cookie-button input[type="checkbox"],
 .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .button input[type="checkbox"],
+.home .actions .buttons-wrapper .buttons .post [data-toggle="buttons"] > .button-major input[type="checkbox"],
+.post .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .button-major input[type="checkbox"],
 .post .post-toolbar [data-toggle="buttons"] > .toolbar-button input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .button input[type="radio"],
+.post [data-toggle="buttons"] > .btn-group > .button-major input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .copy-button input[type="radio"],
 #cookie .message .content .button-wrapper [data-toggle="buttons"] > .btn-group > .cookie-button input[type="radio"],
 .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .btn-group > .button input[type="radio"],
 .post .post-toolbar [data-toggle="buttons"] > .btn-group > .toolbar-button input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .button input[type="checkbox"],
+.post [data-toggle="buttons"] > .btn-group > .button-major input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .copy-button input[type="checkbox"],
 #cookie .message .content .button-wrapper [data-toggle="buttons"] > .btn-group > .cookie-button input[type="checkbox"],
 .home .actions .buttons-wrapper .buttons [data-toggle="buttons"] > .btn-group > .button input[type="checkbox"],
@@ -4998,6 +5137,7 @@ tbody.collapse.show {
   .input-group-sm > .input-group-addon,
   .input-group-sm > .input-group-btn > .input-group-addon.btn,
   .input-group-sm > .input-group-btn > .input-group-addon.button,
+  .post .input-group-sm > .input-group-btn > .input-group-addon.button-major,
   .input-group-sm > .input-group-btn > .input-group-addon.copy-button,
   #cookie .message .content .button-wrapper .input-group-sm > .input-group-btn > .input-group-addon.cookie-button,
   .home .actions .buttons-wrapper .buttons .input-group-sm > .input-group-btn > .input-group-addon.button,
@@ -5008,6 +5148,7 @@ tbody.collapse.show {
   .input-group-lg > .input-group-addon,
   .input-group-lg > .input-group-btn > .input-group-addon.btn,
   .input-group-lg > .input-group-btn > .input-group-addon.button,
+  .post .input-group-lg > .input-group-btn > .input-group-addon.button-major,
   .input-group-lg > .input-group-btn > .input-group-addon.copy-button,
   #cookie .message .content .button-wrapper .input-group-lg > .input-group-btn > .input-group-addon.cookie-button,
   .home .actions .buttons-wrapper .buttons .input-group-lg > .input-group-btn > .input-group-addon.button,
@@ -5028,21 +5169,21 @@ tbody.collapse.show {
   position: relative;
   font-size: 0;
   white-space: nowrap; }
-  .input-group-btn > .btn, .input-group-btn > .button, .input-group-btn > .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button, .post .post-toolbar .input-group-btn > .toolbar-button {
+  .input-group-btn > .btn, .input-group-btn > .button, .post .input-group-btn > .button-major, .input-group-btn > .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major, .post .post-toolbar .input-group-btn > .toolbar-button {
     position: relative;
     flex: 1; }
-    .input-group-btn > .btn + .btn, .input-group-btn > .button + .btn, .input-group-btn > .copy-button + .btn, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .btn, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .btn, .post .post-toolbar .input-group-btn > .toolbar-button + .btn, .input-group-btn > .btn + .button, .input-group-btn > .button + .button, .input-group-btn > .copy-button + .button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .button, .post .post-toolbar .input-group-btn > .toolbar-button + .button, .input-group-btn > .btn + .copy-button, .input-group-btn > .button + .copy-button, .input-group-btn > .copy-button + .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .copy-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .copy-button, .post .post-toolbar .input-group-btn > .toolbar-button + .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .btn + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .button + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .copy-button + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .cookie-button, .post .post-toolbar #cookie .message .content .button-wrapper .input-group-btn > .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .input-group-btn > .toolbar-button + .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .btn + .button, .home .actions .buttons-wrapper .buttons .input-group-btn > .copy-button + .button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .button, .post .post-toolbar .input-group-btn > .btn + .toolbar-button, .post .post-toolbar .input-group-btn > .button + .toolbar-button, .post .post-toolbar .input-group-btn > .copy-button + .toolbar-button, #cookie .message .content .button-wrapper .post .post-toolbar .input-group-btn > .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .toolbar-button, .post .post-toolbar .input-group-btn > .toolbar-button + .toolbar-button {
+    .input-group-btn > .btn + .btn, .input-group-btn > .button + .btn, .post .input-group-btn > .button-major + .btn, .input-group-btn > .copy-button + .btn, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .btn, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .btn, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major + .btn, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major + .btn, .post .post-toolbar .input-group-btn > .toolbar-button + .btn, .input-group-btn > .btn + .button, .input-group-btn > .button + .button, .post .input-group-btn > .button-major + .button, .input-group-btn > .copy-button + .button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .button, .post .post-toolbar .input-group-btn > .toolbar-button + .button, .post .input-group-btn > .btn + .button-major, .post .input-group-btn > .button + .button-major, .post .input-group-btn > .button-major + .button-major, .post .input-group-btn > .copy-button + .button-major, #cookie .message .content .button-wrapper .post .input-group-btn > .cookie-button + .button-major, .post #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .button-major, .post .post-toolbar .input-group-btn > .toolbar-button + .button-major, .input-group-btn > .btn + .copy-button, .input-group-btn > .button + .copy-button, .post .input-group-btn > .button-major + .copy-button, .input-group-btn > .copy-button + .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .copy-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .copy-button, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major + .copy-button, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major + .copy-button, .post .post-toolbar .input-group-btn > .toolbar-button + .copy-button, #cookie .message .content .button-wrapper .input-group-btn > .btn + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .button + .cookie-button, .post #cookie .message .content .button-wrapper .input-group-btn > .button-major + .cookie-button, #cookie .message .content .button-wrapper .post .input-group-btn > .button-major + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .copy-button + .cookie-button, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .cookie-button, .post .post-toolbar #cookie .message .content .button-wrapper .input-group-btn > .toolbar-button + .cookie-button, #cookie .message .content .button-wrapper .post .post-toolbar .input-group-btn > .toolbar-button + .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn > .btn + .button, .home .actions .buttons-wrapper .buttons .input-group-btn > .copy-button + .button, .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .button, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major + .button, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major + .button, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .btn + .button-major, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .copy-button + .button-major, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button + .button-major, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major + .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .btn + .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .copy-button + .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button + .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major + .button-major, .post .post-toolbar .input-group-btn > .btn + .toolbar-button, .post .post-toolbar .input-group-btn > .button + .toolbar-button, .post .post-toolbar .input-group-btn > .button-major + .toolbar-button, .post .post-toolbar .input-group-btn > .copy-button + .toolbar-button, #cookie .message .content .button-wrapper .post .post-toolbar .input-group-btn > .cookie-button + .toolbar-button, .post .post-toolbar #cookie .message .content .button-wrapper .input-group-btn > .cookie-button + .toolbar-button, .post .post-toolbar .input-group-btn > .toolbar-button + .toolbar-button {
       margin-left: -1px; }
-    .input-group-btn > .btn:focus, .input-group-btn > .button:focus, .input-group-btn > .copy-button:focus, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:focus, .post .post-toolbar .input-group-btn > .toolbar-button:focus, .input-group-btn > .btn:active, .input-group-btn > .button:active, .input-group-btn > .copy-button:active, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:active, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:active, .post .post-toolbar .input-group-btn > .toolbar-button:active, .input-group-btn > .btn:hover, .input-group-btn > .button:hover, .input-group-btn > .copy-button:hover, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:hover, .post .post-toolbar .input-group-btn > .toolbar-button:hover {
+    .input-group-btn > .btn:focus, .input-group-btn > .button:focus, .post .input-group-btn > .button-major:focus, .input-group-btn > .copy-button:focus, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:focus, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major:focus, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major:focus, .post .post-toolbar .input-group-btn > .toolbar-button:focus, .input-group-btn > .btn:active, .input-group-btn > .button:active, .post .input-group-btn > .button-major:active, .input-group-btn > .copy-button:active, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:active, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:active, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major:active, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major:active, .post .post-toolbar .input-group-btn > .toolbar-button:active, .input-group-btn > .btn:hover, .input-group-btn > .button:hover, .post .input-group-btn > .button-major:hover, .input-group-btn > .copy-button:hover, #cookie .message .content .button-wrapper .input-group-btn > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .input-group-btn > .button:hover, .home .actions .buttons-wrapper .buttons .post .input-group-btn > .button-major:hover, .post .home .actions .buttons-wrapper .buttons .input-group-btn > .button-major:hover, .post .post-toolbar .input-group-btn > .toolbar-button:hover {
       z-index: 3; }
-  .input-group-btn:not(:last-child) > .btn, .input-group-btn:not(:last-child) > .button, .input-group-btn:not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .input-group-btn:not(:last-child) > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:last-child) > .button, .post .post-toolbar .input-group-btn:not(:last-child) > .toolbar-button,
+  .input-group-btn:not(:last-child) > .btn, .input-group-btn:not(:last-child) > .button, .post .input-group-btn:not(:last-child) > .button-major, .input-group-btn:not(:last-child) > .copy-button, #cookie .message .content .button-wrapper .input-group-btn:not(:last-child) > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:last-child) > .button, .home .actions .buttons-wrapper .buttons .post .input-group-btn:not(:last-child) > .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn:not(:last-child) > .button-major, .post .post-toolbar .input-group-btn:not(:last-child) > .toolbar-button,
   .input-group-btn:not(:last-child) > .btn-group {
     margin-right: -1px; }
-  .input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .button, .input-group-btn:not(:first-child) > .copy-button, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button,
+  .input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .button, .post .input-group-btn:not(:first-child) > .button-major, .input-group-btn:not(:first-child) > .copy-button, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button, .home .actions .buttons-wrapper .buttons .post .input-group-btn:not(:first-child) > .button-major, .post .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button-major, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button,
   .input-group-btn:not(:first-child) > .btn-group {
     z-index: 2;
     margin-left: -1px; }
-    .input-group-btn:not(:first-child) > .btn:focus, .input-group-btn:not(:first-child) > .button:focus, .input-group-btn:not(:first-child) > .copy-button:focus, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:focus, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:focus, .input-group-btn:not(:first-child) > .btn:active, .input-group-btn:not(:first-child) > .button:active, .input-group-btn:not(:first-child) > .copy-button:active, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:active, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:active, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:active, .input-group-btn:not(:first-child) > .btn:hover, .input-group-btn:not(:first-child) > .button:hover, .input-group-btn:not(:first-child) > .copy-button:hover, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:hover, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:hover,
+    .input-group-btn:not(:first-child) > .btn:focus, .input-group-btn:not(:first-child) > .button:focus, .post .input-group-btn:not(:first-child) > .button-major:focus, .input-group-btn:not(:first-child) > .copy-button:focus, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:focus, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:focus, .post .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button-major:focus, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:focus, .input-group-btn:not(:first-child) > .btn:active, .input-group-btn:not(:first-child) > .button:active, .post .input-group-btn:not(:first-child) > .button-major:active, .input-group-btn:not(:first-child) > .copy-button:active, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:active, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:active, .post .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button-major:active, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:active, .input-group-btn:not(:first-child) > .btn:hover, .input-group-btn:not(:first-child) > .button:hover, .post .input-group-btn:not(:first-child) > .button-major:hover, .input-group-btn:not(:first-child) > .copy-button:hover, #cookie .message .content .button-wrapper .input-group-btn:not(:first-child) > .cookie-button:hover, .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button:hover, .post .home .actions .buttons-wrapper .buttons .input-group-btn:not(:first-child) > .button-major:hover, .post .post-toolbar .input-group-btn:not(:first-child) > .toolbar-button:hover,
     .input-group-btn:not(:first-child) > .btn-group:focus,
     .input-group-btn:not(:first-child) > .btn-group:active,
     .input-group-btn:not(:first-child) > .btn-group:hover {
@@ -5726,7 +5867,7 @@ tbody.collapse.show {
   .badge:empty, .tag:empty {
     display: none; }
 
-.btn .badge, .button .badge, .copy-button .badge, #cookie .message .content .button-wrapper .cookie-button .badge, .home .actions .buttons-wrapper .buttons .button .badge, .post .post-toolbar .toolbar-button .badge, .btn .tag, .button .tag, .copy-button .tag, #cookie .message .content .button-wrapper .cookie-button .tag, .home .actions .buttons-wrapper .buttons .button .tag, .post .post-toolbar .toolbar-button .tag {
+.btn .badge, .button .badge, .post .button-major .badge, .copy-button .badge, #cookie .message .content .button-wrapper .cookie-button .badge, .home .actions .buttons-wrapper .buttons .button .badge, .home .actions .buttons-wrapper .buttons .post .button-major .badge, .post .home .actions .buttons-wrapper .buttons .button-major .badge, .post .post-toolbar .toolbar-button .badge, .btn .tag, .button .tag, .post .button-major .tag, .copy-button .tag, #cookie .message .content .button-wrapper .cookie-button .tag, .home .actions .buttons-wrapper .buttons .button .tag, .home .actions .buttons-wrapper .buttons .post .button-major .tag, .post .home .actions .buttons-wrapper .buttons .button-major .tag, .post .post-toolbar .toolbar-button .tag {
   position: relative;
   top: -1px; }
 
@@ -9019,29 +9160,29 @@ body {
 .site-content {
   background-color: #fff; }
 
-.button {
+.button, .post .button-major {
   color: #fff;
   background-color: #f8bb15;
   border-color: #f8bb15;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer; }
-  .button:hover {
+  .button:hover, .post .button-major:hover {
     color: #fff;
     background-color: #d49c06;
     border-color: #ca9506; }
-  .button:focus, .button.focus {
+  .button:focus, .post .button-major:focus, .button.focus, .post .focus.button-major {
     box-shadow: 0 0 0 2px rgba(248, 187, 21, 0.5); }
-  .button.disabled, .button:disabled {
+  .button.disabled, .post .disabled.button-major, .button:disabled, .post .button-major:disabled {
     background-color: #f8bb15;
     border-color: #f8bb15; }
-  .button:active, .button.active, .show > .button.dropdown-toggle {
+  .button:active, .post .button-major:active, .button.active, .post .active.button-major, .show > .button.dropdown-toggle, .post .show > .dropdown-toggle.button-major {
     color: #fff;
     background-color: #d49c06;
     background-image: none;
     border-color: #ca9506; }
   @media (max-width: 991px) {
-    .button {
+    .button, .post .button-major {
       padding: 0.25rem 0.5rem;
       font-size: 0.875rem; } }
 
@@ -9643,26 +9784,26 @@ a .fa {
           flex: 0 0 100%;
           max-width: 100%;
           left: auto; } }
-      .home .actions .buttons-wrapper .buttons .button {
+      .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .post .button-major, .post .home .actions .buttons-wrapper .buttons .button-major {
         color: #f8bb15;
         background-image: none;
         background-color: transparent;
         border-color: #f8bb15; }
-        .home .actions .buttons-wrapper .buttons .button:hover {
+        .home .actions .buttons-wrapper .buttons .button:hover, .home .actions .buttons-wrapper .buttons .post .button-major:hover, .post .home .actions .buttons-wrapper .buttons .button-major:hover {
           color: #fff;
           background-color: #f8bb15;
           border-color: #f8bb15; }
-        .home .actions .buttons-wrapper .buttons .button:focus, .home .actions .buttons-wrapper .buttons .button.focus {
+        .home .actions .buttons-wrapper .buttons .button:focus, .home .actions .buttons-wrapper .buttons .post .button-major:focus, .post .home .actions .buttons-wrapper .buttons .button-major:focus, .home .actions .buttons-wrapper .buttons .button.focus, .home .actions .buttons-wrapper .buttons .post .focus.button-major, .post .home .actions .buttons-wrapper .buttons .focus.button-major {
           box-shadow: 0 0 0 2px rgba(248, 187, 21, 0.5); }
-        .home .actions .buttons-wrapper .buttons .button.disabled, .home .actions .buttons-wrapper .buttons .button:disabled {
+        .home .actions .buttons-wrapper .buttons .button.disabled, .home .actions .buttons-wrapper .buttons .post .disabled.button-major, .post .home .actions .buttons-wrapper .buttons .disabled.button-major, .home .actions .buttons-wrapper .buttons .button:disabled, .home .actions .buttons-wrapper .buttons .post .button-major:disabled, .post .home .actions .buttons-wrapper .buttons .button-major:disabled {
           color: #f8bb15;
           background-color: transparent; }
-        .home .actions .buttons-wrapper .buttons .button:active, .home .actions .buttons-wrapper .buttons .button.active, .show > .home .actions .buttons-wrapper .buttons .button.dropdown-toggle {
+        .home .actions .buttons-wrapper .buttons .button:active, .home .actions .buttons-wrapper .buttons .post .button-major:active, .post .home .actions .buttons-wrapper .buttons .button-major:active, .home .actions .buttons-wrapper .buttons .button.active, .home .actions .buttons-wrapper .buttons .post .active.button-major, .post .home .actions .buttons-wrapper .buttons .active.button-major, .show > .home .actions .buttons-wrapper .buttons .button.dropdown-toggle, .show > .home .actions .buttons-wrapper .buttons .post .dropdown-toggle.button-major, .post .show > .home .actions .buttons-wrapper .buttons .dropdown-toggle.button-major {
           color: #fff;
           background-color: #f8bb15;
           border-color: #f8bb15; }
         @media (min-width: 992px) {
-          .home .actions .buttons-wrapper .buttons .button {
+          .home .actions .buttons-wrapper .buttons .button, .home .actions .buttons-wrapper .buttons .post .button-major, .post .home .actions .buttons-wrapper .buttons .button-major {
             padding: 0.75rem 1.5rem;
             font-size: 1.5rem; } }
 @keyframes Pulse {
@@ -9672,7 +9813,7 @@ a .fa {
     box-shadow: inherit; }
   100% {
     box-shadow: 0 0 0 2px #f8bb15; } }
-        .home .actions .buttons-wrapper .buttons .button.primary {
+        .home .actions .buttons-wrapper .buttons .button.primary, .home .actions .buttons-wrapper .buttons .post .primary.button-major, .post .home .actions .buttons-wrapper .buttons .primary.button-major {
           animation: Pulse 2s infinite ease-in-out;
           font-weight: 700; }
       .home .actions .buttons-wrapper .buttons .dropdown {
