@@ -18,8 +18,10 @@
   <meta name="theme-color" content="#f8bb15">
   
   
-  <!-- Begin Jekyll SEO tag v2.1.0 -->
+  <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.3.1" />
 <meta property="og:title" content="Calling F# Code in a C# Project" />
+<meta property="og:locale" content="en_US" />
 <meta name="description" content="A brief overview of how F# code is exposed to C# projects" />
 <meta property="og:description" content="A brief overview of how F# code is exposed to C# projects" />
 <link rel="canonical" href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" />
@@ -31,15 +33,7 @@
 <meta name="twitter:site" content="@connel_dev" />
 <meta name="twitter:creator" content="@connel_dev" />
 <script type="application/ld+json">
-{"@context": "http://schema.org",
-"@type": "BlogPosting",
-"headline": "Calling F# Code in a C# Project",
-"datePublished": "2017-04-30T18:00:00+01:00",
-"description": "A brief overview of how F# code is exposed to C# projects",
-"publisher": {"@type": "Organization",
-"logo": {"@type": "ImageObject",
-"url": "http://connelhooley.uk/assets/images/logo.png"}},
-"url": "http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"}</script>
+{"description":"A brief overview of how F# code is exposed to C# projects","@type":"BlogPosting","url":"http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://connelhooley.uk/assets/images/logo.png"}},"headline":"Calling F# Code in a C# Project","dateModified":"2017-04-30T18:00:00+01:00","datePublished":"2017-04-30T18:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -110,7 +104,7 @@
         
             <div class="content">
                 <time datetime="2017-04-30T18:00:00+01:00" itemprop="datePublished">
-                    <date class="date" datetime="2017-04-30 18:00:00 +0100"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;30/04/2017</date>
+                    <date class="date" datetime="2017-04-30 17:00:00 +0000"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;30/04/2017</date>
                 </time>
             </div>
             <div class="content">
@@ -155,24 +149,36 @@
       <div class="toc-items"><ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#namespaces">Namespaces</a></li>
-<li class="toc-entry toc-h1"><a href="#modules">Modules</a></li>
+<li class="toc-entry toc-h1"><a href="#modules">Modules</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#values">Values</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#functions">Functions</a></li>
 <li class="toc-entry toc-h1"><a href="#records">Records</a></li>
-<li class="toc-entry toc-h1"><a href="#tuples">Tuples</a></li>
+<li class="toc-entry toc-h1"><a href="#tuples">Tuples</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#background">Background</a></li>
 <li class="toc-entry toc-h2"><a href="#f-tuple">F# Tuple</a></li>
 <li class="toc-entry toc-h2"><a href="#c-tuple">C# Tuple</a></li>
-<li class="toc-entry toc-h1"><a href="#discriminated-unions">Discriminated Unions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#discriminated-unions">Discriminated Unions</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#cases-with-values">Cases With Values</a></li>
 <li class="toc-entry toc-h2"><a href="#cases-with-types">Cases With Types</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#unit">Unit</a></li>
 <li class="toc-entry toc-h1"><a href="#higher-order-functions">Higher Order Functions</a></li>
 <li class="toc-entry toc-h1"><a href="#option">Option</a></li>
-<li class="toc-entry toc-h1"><a href="#collections">Collections</a></li>
+<li class="toc-entry toc-h1"><a href="#collections">Collections</a>
+<ul>
 <li class="toc-entry toc-h2"><a href="#seq">Seq</a></li>
 <li class="toc-entry toc-h2"><a href="#list">List</a></li>
 <li class="toc-entry toc-h2"><a href="#array">Array</a></li>
+</ul>
+</li>
 </ul></div>
     </nav>
     <div class="post-content" itemprop="articleBody">
@@ -1078,13 +1084,13 @@
 <div class="footnotes">
   <ol>
     <li id="fn:person-typo">
-      <p>Thanks to Haumohio Ltd in the comments for spotting a typo here.&nbsp;<a href="#fnref:person-typo" class="reversefootnote">&#8617;</a></p>
+      <p>Thanks to Haumohio Ltd in the comments for spotting a typo here. <a href="#fnref:person-typo" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:unit-null">
-      <p>Thanks to vaskir (@kot_2010) on Twitter for pointing out that null can be used when a function takes in unit.&nbsp;<a href="#fnref:unit-null" class="reversefootnote">&#8617;</a></p>
+      <p>Thanks to vaskir (@kot_2010) on Twitter for pointing out that null can be used when a function takes in unit. <a href="#fnref:unit-null" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:list">
-      <p>Thanks to Stuart in the comments for pointing out the <a target="_BLANK" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B't%5D-type-abbreviation-%5Bfsharp%5D">ResizeArray</a> type.&nbsp;<a href="#fnref:list" class="reversefootnote">&#8617;</a></p>
+      <p>Thanks to Stuart in the comments for pointing out the <a target="_BLANK" href="https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B't%5D-type-abbreviation-%5Bfsharp%5D">ResizeArray</a> type. <a href="#fnref:list" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
