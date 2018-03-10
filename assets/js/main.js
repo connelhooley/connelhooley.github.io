@@ -9,8 +9,8 @@ function formatDates() {
 
 function addCopyButtonToSnippets() {
     $('div.highlighter-rouge').each(function(i, e) {
-        $button = $('<button class="copy-button copy">');
-        $button.html('<i class="fa fa-clipboard"></i>')
+        var $button = $('<button class="copy-button copy">');
+        $button.html('<i class="far fa-copy"></i>')
         $(e).append($button);
     });
     var clipboard = new Clipboard('.copy', {
@@ -20,18 +20,24 @@ function addCopyButtonToSnippets() {
     });
     clipboard.on('success', function(e) {
         e.clearSelection();
-        $notification = $('<div class="notification">Copied</div>');
+        var $notification = $('<div class="site-notification">');
+        $notification.text("Copied")
         $('body').append($notification);
-        $notification.slideDown(500).delay(2000).slideUp(500);
+        $notification
+            .slideDown(500)
+            .delay(2000)
+            .slideUp(500, function() { 
+                $notification.remove(); 
+            });
     });
 }
 
 function addAnchorLinksToHeaders() {
-    $('.post-content :header').each(function(i, e) {
-        $e = $(e);
+    $('#post-content :header').each(function(i, e) {
+        var $e = $(e);
         var link = $('<a>');
         link.addClass('heading-link');
-        link.html('<i class="fa fa-anchor"></i>');
+        link.html('<i class="fas fa-anchor"></i>');
         link.attr('href', '#' + e.id);
         $e.append('&nbsp;');
         $e.append(link);
@@ -43,6 +49,16 @@ function stickyPanels() {
 }
 
 function scrollUpButton() {
+    var $backToTop = $('#post-toolbar-button-back-to-top');
+    $backToTop.click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, 700, function() {
+            if(location.hash) location.hash = '';
+        });
+    });
+}
+
+function postToolbar() {
     function isScrolledPassed($element) {
         var scrollTop = $(window).scrollTop();
         var elementOffset = $element.offset().top;
@@ -50,26 +66,20 @@ function scrollUpButton() {
         var scrolledPast = (distance <= 0);
         return scrolledPast;
     }
-    function toggleScrollButton() {
-        if (isScrolledPassed($postContent)) {
-            $backToTop.addClass('show');
+    function toggleScrolledPassed() {
+        if (isScrolledPassed($content)) {
+            $toolbar.addClass('post-toolbar-scrolled-passed');
         } else {
-            $backToTop.removeClass('show');
+            $toolbar.removeClass('post-toolbar-scrolled-passed');
         }
     }
-    $postContent = $('.post-content');
-    if($postContent.length < 1) {
+    var $content = $('#post-content');
+    var $toolbar = $('#post-toolbar');
+    if($toolbar.length < 1) {
         return;
     }
-    $backToTop = $('#back-to-top');
-    $(window).on('scroll', toggleScrollButton);
-    $backToTop.click(function(e) {
-        e.preventDefault();
-        $('html, body').animate({ scrollTop: 0 }, 700, function() {
-            if(location.hash) location.hash = '';
-        });
-    });
-    toggleScrollButton();
+    $(window).on('scroll', toggleScrolledPassed);
+    toggleScrolledPassed();
 }
 
 function cookies() {
@@ -81,25 +91,49 @@ function cookies() {
     }
     var cookieName = 'acknowledge-cookies';
     if(!checkCookie()) {
-        $cookie = $('<div id="cookie">');
-        $message = $('<div class="message">');
-        $content = $('<div class="content">');
-        $textWrapper = $('<div class="text-wrapper">');
-        $textWrapper.text('This site uses cookies');
-        $buttonWrapper = $('<div class="button-wrapper">');
-        $button = $('<button class="cookie-button">');
+        var $cookie = $('<div id="site-cookie">');
+        var $inner = $('<div id="site-cookie-inner">');
+        var $text = $('<div id="site-cookie-text">');
+        $text.text('This site uses cookies');
+        var $button = $('<button id="site-cookie-button">');
         $button.text('Ok');
         $button.click(function () {
             saveCookie();
-            $cookie.slideUp(750);
+            $cookie.slideUp(500);
         });
-        $buttonWrapper.append($button);
-        $content.append($textWrapper);
-        $content.append($buttonWrapper);
-        $message.append($content);
-        $cookie.append($message);
-        $('.site-content').prepend($cookie);
+        $inner.append($text);
+        $inner.append($button);
+        $cookie.append($inner);
+        $('#site-main').prepend($cookie);
     }
+}
+
+function dropdowns() {
+    $('.dropdown .menu-toggler').click(function() {
+        var $this = $(this);
+        var $parent = $this.parent();
+        var $items = $parent.find(".dropdown-items");
+        var $backdrop = $("<div class='dropdown-backdrop'>");
+        $backdrop.click(function() {
+            $parent.attr("aria-expanded", "false");
+            $items.removeClass("show");
+            $backdrop.remove();
+        });
+        $parent.attr("aria-expanded", "true");
+        $parent.prepend($backdrop);
+        $items.addClass("show");
+    });
+}
+
+function menuToggle() {
+    var $toggler = $("#site-nav-mobile-toggler");
+    var $links = $("#site-nav-links");
+    $toggler.click(function() {
+        $links.slideToggle(300);
+    });
+    $(window).on('resize', function(){
+        $links.removeAttr("style")
+    });
 }
 
 $(function() {
@@ -109,4 +143,7 @@ $(function() {
     addCopyButtonToSnippets();
     addAnchorLinksToHeaders();
     scrollUpButton();
+    postToolbar();
+    dropdowns();
+    menuToggle();
 });

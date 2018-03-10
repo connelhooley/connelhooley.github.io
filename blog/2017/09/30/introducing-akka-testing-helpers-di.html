@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Connel Hooley - UPDATE: Introducing Akka Testing Helpers</title>
-  
-  <link rel="stylesheet" href="/assets/css/main.css">
-  
-
-  <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-  <link rel="manifest" href="/manifest.json">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
-  <meta name="theme-color" content="#f8bb15">
-  
-  
-  <!-- Begin Jekyll SEO tag v2.4.0 -->
-<meta name="generator" content="Jekyll v3.3.1" />
+<html lang=" en ">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connel Hooley - UPDATE: Introducing Akka Testing Helpers</title>
+    
+    <link rel="stylesheet" href="/assets/css/vendor/normalize.css">
+    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    
+    <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+    <meta name="theme-color" content="#f8bb15">
+    
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
 <meta property="og:title" content="UPDATE: Introducing Akka Testing Helpers" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Introduction to my new Akka testing NuGet package." />
@@ -36,8 +35,7 @@
 {"description":"Introduction to my new Akka testing NuGet package.","@type":"BlogPosting","url":"http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://connelhooley.uk/assets/images/logo.png"}},"headline":"UPDATE: Introducing Akka Testing Helpers","dateModified":"2017-09-30T19:00:00+01:00","datePublished":"2017-09-30T19:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-  
-  
+    
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -50,103 +48,93 @@
 </script>
 
 </head>
-
-  <body class="layout-post">
-    <header class="site-header" role="banner">
-  <div class="site-header-content">
-    <div class="site-nav-wrapper">
-      <nav class="site-nav navbar navbar-toggleable-md" role="navigation">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
-        
-        <a class="navbar-brand" href="/"><span class="logo">{C.H}</span></a>
-        
-        <div class="collapse navbar-collapse" id="collapseNavbar">
-          <div class="nav navbar-nav ml-auto">
-            <a id="blog-link" class="nav-item nav-link" href="/blog/">Blog</a>
-            
-            
-              
-                
-                
-                
-                  <a id="projects-link" class="nav-item nav-link" href="/projects/">Projects</a>
-                
-              
-            
-              
-                
-                
-                
-                  <a id="experiences-link" class="nav-item nav-link" href="/experience/">Experience</a>
-                
-              
-            
-          </div>
+<body id="layout-post">
+    <div id="site-header-bar">
+    <div id="site-header-bar-inner">
+        <div id="site-nav">
+            <a id="site-logo" href="/">{C.H}</a>
+            <button id="site-nav-mobile-toggler"><i class="fas fa-bars"></i></button>
         </div>
-      </nav>
-    </div>
-  </div>
-</header>
-
-    <main class="site-content" aria-label="Content">
-      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="header">
-    <div class="header-content">
-        <h1 class="title" itemprop="name headline">UPDATE: Introducing Akka Testing Helpers</h1>
-        
-            <div class="content description">
-                Introduction to my new Akka testing NuGet package.
-            </div>
-        
-        
-        
-            <div class="content">
-                <time datetime="2017-09-30T19:00:00+01:00" itemprop="datePublished">
-                    <date class="date" datetime="2017-09-30 18:00:00 +0000"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;30/09/2017</date>
-                </time>
-            </div>
-            <div class="content">
-                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Read in under 21  minutes
-            </div>
-        
-        
-        
-            <div class="content">
+        <nav id="site-nav-links">
+            <a class="site-nav-item site-nav-item-post site-nav-item-active" href="/blog/">Blog</a>
+            
+            
                 
-<a href="/language/c-sharp"><span class="tag"><i class="fa fa-code" aria-hidden="true"></i>&nbsp;C#</span></a>
-
-
-<a href="/technology/akka-dot-net"><span class="tag"><i class="fa fa-tag" aria-hidden="true"></i>&nbsp;Akka.NET</span></a>
-
-            </div>
-        
-        
-    </div>
-</header>
-  
-
-
-<div class="post-toolbar sticky">
-    <div class="post-toolbar-contents">
-        <div class="share-buttons">
-            <span class="label"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>&nbsp;Share&nbsp;</span>
-            <a class="toolbar-button" target="_BLANK" href="https://twitter.com/intent/tweet?text=UPDATE%3A+Introducing+Akka+Testing+Helpers+by+%40connel_dev&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di"><i class="fa fa-twitter-square fa-fw" aria-hidden="true"></i><span class="button-label">&nbsp;Tweet</span></a>
-            <a class="toolbar-button" target="_BLANK" href="//www.reddit.com/submit?url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di&title=UPDATE%3A+Introducing+Akka+Testing+Helpers"><i class="fa fa-reddit-square fa-fw" aria-hidden="true"></i><span class="button-label">&nbsp;Reddit</span></a>
-            <a class="toolbar-button" target="_BLANK" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di&title=UPDATE%3A+Introducing+Akka+Testing+Helpers"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true"></i><span class="button-label">&nbsp;LinkedIn</span></a>
-        </div>
-        <div class="scroll-buttons">
-            <button id="back-to-top" class="toolbar-button"><i class="fa fa-arrow-up fa-fw" aria-hidden="true"></i><span class="button-label">&nbsp;Back to top</span></button>
-            <a class="toolbar-button" href="#comments"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span class="button-label">&nbsp;Comments</span></a>
-        </div>
+                
+                
+                <a class="site-nav-item site-nav-item-projects" href="/projects/">Projects</a>
+                
+            
+                
+                
+                
+                <a class="site-nav-item site-nav-item-experiences" href="/experience/">Experience</a>
+                
+            
+        </nav>
     </div>
 </div>
-  
-  <div class="post-body">
-    <nav class="post-toc">
-      <div class="toc-title">Contents</div>
-      <div class="toc-items"><ul class="section-nav">
+<main id="site-main">
+    <article>
+    <header id="post-header">
+        <div id="post-header-inner">
+            <h1 id="post-header-title" class="post-header-item" itemprop="name headline">UPDATE: Introducing Akka Testing Helpers</h1>
+            
+            <div id="post-header-description" class="post-header-item">
+                Introduction to my new Akka testing NuGet package.
+            </div>
+            
+            
+            <div id="post-header-published" class="post-header-item">
+                <time datetime="2017-09-30T19:00:00+01:00" itemprop="date">
+                    <date class="date" datetime="2017-09-30 19:00:00 +0100"><i class="far fa-calendar-alt"></i>&nbsp;30/09/2017</date>
+                </time>
+            </div>
+            
+            
+            <div id="post-header-reading-time" class="post-header-item">
+                <i class="far fa-clock"></i>&nbsp;Read in under 21  minutes
+            </div>
+            
+            
+            
+            
+            <div id="post-header-meta" class="post-header-item">
+                
+<span class="meta-item"><i class="fas fa-code"></i>&nbsp;C#</span>
+
+
+<span class="meta-item"><i class="fas fa-tag"></i>&nbsp;Akka.NET</span>
+
+            </div>
+            
+        </div>
+    </header>
+    
+    
+    
+    
+    <div id="post-toolbar" class="sticky">
+        <div id="post-toolbar-inner">
+            <div id="post-toolbar-buttons">
+                <div id="post-toolbar-share-buttons">
+                    <span id="post-toolbar-share-buttons-label"><i class="fas fa-share-alt fa-fw"></i>&nbsp;<span class="post-toolbar-button-label">Share&nbsp;</span></span>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://twitter.com/intent/tweet?text=UPDATE%3A+Introducing+Akka+Testing+Helpers+by+%40connel_dev&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di"><i class="fab fa-twitter-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Twitter</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="//www.reddit.com/submit?url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di&title=UPDATE%3A+Introducing+Akka+Testing+Helpers"><i class="fab fa-reddit-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Reddit</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F09%2F30%2Fintroducing-akka-testing-helpers-di&title=UPDATE%3A+Introducing+Akka+Testing+Helpers"><i class="fab fa-linkedin fa-fw"></i><span class="post-toolbar-button-label">&nbsp;LinkedIn</span></a>
+                </div>
+                <div id="post-toolbar-scroll-buttons">
+                    <button id="post-toolbar-button-back-to-top" class="post-toolbar-button"><i class="fas fa-arrow-up fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Back to top</span></button>
+                    <a class="post-toolbar-button" href="#comments"><i class="fas fa-comments fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Comments</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="post-body">
+        <div id="post-body-inner">
+            <nav id="post-toc">
+                <div id="post-toc-title">Contents</div>
+                <div id="post-toc-items"><ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#the-problem">The problem</a></li>
 <li class="toc-entry toc-h1"><a href="#about-the-solution">About the solution</a></li>
@@ -161,16 +149,16 @@
 <li class="toc-entry toc-h1"><a href="#get-it-on-nuget">Get it on NuGet</a></li>
 <li class="toc-entry toc-h1"><a href="#whats-next">What’s next</a></li>
 </ul></div>
-    </nav>
-    <div class="post-content" itemprop="articleBody">
-      <h1 id="introduction">Introduction</h1>
+            </nav>
+            <div id="post-content" itemprop="articleBody">
+                <h1 id="introduction">Introduction</h1>
 <p>Myself and my colleagues found actors inside a hierarchy difficult to unit test when we began working on our first Akka production code base. I would like to first discuss why we found it difficult before presenting my solution.</p>
 
 <h1 id="the-problem">The problem</h1>
 <p>When unit testing, we wanted to mock out all children and parent actors, and for integration tests we wanted to mock out only some of the children and parents.</p>
 
 <p>This <a target="_BLANK" href="https://petabridge.com/blog/how-to-unit-test-akkadotnet-actors-akka-testkit/#how-do-i-test-a-parentchild-relationship">Petabridge blog post</a> describes how to unit test a parent-child relationship with the following example:</p>
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ChildActor</span> <span class="p">:</span> <span class="n">ReceiveActor</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ChildActor</span> <span class="p">:</span> <span class="n">ReceiveActor</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="nf">ChildActor</span><span class="p">()</span>
     <span class="p">{</span>
@@ -193,16 +181,15 @@
     <span class="p">[</span><span class="n">Test</span><span class="p">]</span>
     <span class="k">public</span> <span class="k">void</span> <span class="nf">Parent_should_create_child</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="c1">// verify child has been created by sending parent a message
-</span>        <span class="c1">// that is forwarded to child, and which child replies to sender with
-</span>        <span class="kt">var</span> <span class="n">parentProps</span> <span class="p">=</span> <span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ParentActor</span><span class="p">());</span>
+        <span class="c1">// verify child has been created by sending parent a message</span>
+        <span class="c1">// that is forwarded to child, and which child replies to sender with</span>
+        <span class="kt">var</span> <span class="n">parentProps</span> <span class="p">=</span> <span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ParentActor</span><span class="p">());</span>
         <span class="kt">var</span> <span class="n">parent</span> <span class="p">=</span> <span class="n">ActorOfAsTestActorRef</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="n">parentProps</span><span class="p">,</span> <span class="n">TestActor</span><span class="p">);</span>
         <span class="n">parent</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="s">"this should be forwarded to the child"</span><span class="p">);</span>
         <span class="nf">ExpectMsg</span><span class="p">(</span><span class="s">"hello!"</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Although this example seems fine, if the <code class="highlighter-rouge">ChildActor</code> had its own children, then this test could potentially run code in those children and every single actor underneath them. Take the following actor hierarchy (where actor <code class="highlighter-rouge">C</code> has an interface injected into it rather than having its own children):</p>
 
@@ -217,7 +204,7 @@
 <p><img src="http://connelhooley.uk/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d-mocks.png" alt="Actor hierarchy highlighted where testing actor D with mocks" /></p>
 
 <p>The Petabridge blog post also describes <a target="_BLANK" href="https://petabridge.com/blog/how-to-unit-test-akkadotnet-actors-akka-testkit/#example">how to replace your actors with mock versions, such as the <code class="highlighter-rouge">BlackHoleActor</code></a> using the following example:</p>
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">public</span> <span class="nf">IdentityManagerActor</span><span class="p">(</span><span class="n">IActorRef</span> <span class="n">authenticationActor</span><span class="p">)</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="nf">IdentityManagerActor</span><span class="p">(</span><span class="n">IActorRef</span> <span class="n">authenticationActor</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">_authenticator</span> <span class="p">=</span> <span class="n">authenticationActor</span><span class="p">;</span>
 
@@ -225,10 +212,10 @@
     <span class="p">{</span>
         <span class="kt">var</span> <span class="n">senderClosure</span> <span class="p">=</span> <span class="n">Sender</span><span class="p">;</span>
 
-        <span class="c1">// this actor needs it create user request to be authenticated
-</span>        <span class="c1">// within 2 seconds or this operation times out &amp; cancels
-</span>        <span class="c1">// the Task returned by Ask&lt;&gt;
-</span>        <span class="n">_authenticator</span><span class="p">.</span><span class="n">Ask</span><span class="p">&lt;</span><span class="n">UserResult</span><span class="p">&gt;(</span><span class="n">create</span><span class="p">,</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">2</span><span class="p">))</span>
+        <span class="c1">// this actor needs it create user request to be authenticated</span>
+        <span class="c1">// within 2 seconds or this operation times out &amp; cancels</span>
+        <span class="c1">// the Task returned by Ask&lt;&gt;</span>
+        <span class="n">_authenticator</span><span class="p">.</span><span class="n">Ask</span><span class="p">&lt;</span><span class="n">UserResult</span><span class="p">&gt;(</span><span class="n">create</span><span class="p">,</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">2</span><span class="p">))</span>
             <span class="p">.</span><span class="nf">ContinueWith</span><span class="p">(</span><span class="n">tr</span> <span class="p">=&gt;</span>
             <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">tr</span><span class="p">.</span><span class="n">IsCanceled</span> <span class="p">||</span> <span class="n">tr</span><span class="p">.</span><span class="n">IsFaulted</span><span class="p">)</span>
@@ -239,84 +226,82 @@
     <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="c1">// other code omitted for brevity...
-</span>
+<span class="c1">// other code omitted for brevity...</span>
+
 <span class="na">[Test]</span>
 <span class="k">public</span> <span class="k">void</span> <span class="nf">IdentityManagerActor_should_fail_create_user_on_timeout</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="c1">// the BlackHoleActor will NEVER respond to any message sent to it
-</span>    <span class="c1">// which will force the CreateUser request to time out
-</span>    <span class="kt">var</span> <span class="n">blackhole</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">BlackHoleActor</span><span class="p">.</span><span class="n">Props</span><span class="p">);</span>
+    <span class="c1">// the BlackHoleActor will NEVER respond to any message sent to it</span>
+    <span class="c1">// which will force the CreateUser request to time out</span>
+    <span class="kt">var</span> <span class="n">blackhole</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">BlackHoleActor</span><span class="p">.</span><span class="n">Props</span><span class="p">);</span>
     <span class="kt">var</span> <span class="n">identity</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">IdentityManagerActor</span><span class="p">(</span><span class="n">blackhole</span><span class="p">)));</span>
 
     <span class="n">identity</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="nf">CreateUser</span><span class="p">());</span>
     <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">ExpectMsg</span><span class="p">&lt;</span><span class="n">UserResult</span><span class="p">&gt;().</span><span class="n">Successful</span><span class="p">;</span>
     <span class="n">Assert</span><span class="p">.</span><span class="nf">False</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Although again this example seems fine, it results in losing the actor hierarchy. If you create two root actors from your <code class="highlighter-rouge">ActorSystem</code> and then inject one into another, then the actors are siblings rather than parent and child.</p>
 
 <p>This Petabridge blog post also describes how to unit test a child actor’s SupervisorStrategy with the following example:</p>
 
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="na">[Test]</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">[Test]</span>
 <span class="k">public</span> <span class="k">void</span> <span class="nf">OddEvenActor_should_throw_exception_on_bad_input</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="c1">// create coordinator, which spins up odd/even child actors
-</span>    <span class="kt">var</span> <span class="n">coordinator</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">OddEvenCoordinatorActor</span><span class="p">()),</span> <span class="s">"coordinator"</span><span class="p">);</span>
+    <span class="c1">// create coordinator, which spins up odd/even child actors</span>
+    <span class="kt">var</span> <span class="n">coordinator</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">OddEvenCoordinatorActor</span><span class="p">()),</span> <span class="s">"coordinator"</span><span class="p">);</span>
 
-    <span class="c1">// assert we're set up right
-</span>    <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="c1">// assert we're set up right</span>
+    <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
     <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
     <span class="n">ExpectMsg</span><span class="p">&lt;</span><span class="n">ValidInput</span><span class="p">&gt;();</span>
     <span class="n">ExpectMsg</span><span class="p">&lt;</span><span class="n">ValidInput</span><span class="p">&gt;();</span>
 
-    <span class="c1">// test
-</span>    <span class="kt">var</span> <span class="n">even</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/even"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
+    <span class="c1">// test</span>
+    <span class="kt">var</span> <span class="n">even</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/even"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
     <span class="kt">var</span> <span class="n">odd</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/odd"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
 
-    <span class="c1">// expect exception
-</span>    <span class="n">EventFilter</span><span class="p">.</span><span class="n">Exception</span><span class="p">&lt;</span><span class="n">BadDataException</span><span class="p">&gt;().</span><span class="nf">Expect</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span>
+    <span class="c1">// expect exception</span>
+    <span class="n">EventFilter</span><span class="p">.</span><span class="n">Exception</span><span class="p">&lt;</span><span class="n">BadDataException</span><span class="p">&gt;().</span><span class="nf">Expect</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span>
     <span class="p">{</span>
         <span class="n">even</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
         <span class="n">odd</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">}</span>
 
-<span class="c1">// omitted for brevity...
-</span>
+<span class="c1">// omitted for brevity...</span>
+
 <span class="na">[Test]</span>
 <span class="k">public</span> <span class="k">void</span> <span class="nf">OddEvenCoordinatorActor_should_stop_child_on_bad_data</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="c1">// create coordinator, which spins up odd/even child actors
-</span>    <span class="kt">var</span> <span class="n">coordinator</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">OddEvenCoordinatorActor</span><span class="p">()),</span> <span class="s">"coordinator"</span><span class="p">);</span>
+    <span class="c1">// create coordinator, which spins up odd/even child actors</span>
+    <span class="kt">var</span> <span class="n">coordinator</span> <span class="p">=</span> <span class="n">Sys</span><span class="p">.</span><span class="nf">ActorOf</span><span class="p">(</span><span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">OddEvenCoordinatorActor</span><span class="p">()),</span> <span class="s">"coordinator"</span><span class="p">);</span>
 
-    <span class="c1">// assert we're set up right
-</span>    <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="c1">// assert we're set up right</span>
+    <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
     <span class="n">coordinator</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
     <span class="n">ExpectMsg</span><span class="p">&lt;</span><span class="n">ValidInput</span><span class="p">&gt;();</span>
     <span class="n">ExpectMsg</span><span class="p">&lt;</span><span class="n">ValidInput</span><span class="p">&gt;();</span>
 
-    <span class="c1">// test
-</span>    <span class="kt">var</span> <span class="n">even</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/even"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
+    <span class="c1">// test</span>
+    <span class="kt">var</span> <span class="n">even</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/even"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
     <span class="kt">var</span> <span class="n">odd</span> <span class="p">=</span> <span class="nf">ActorSelection</span><span class="p">(</span><span class="s">"akka://test/user/coordinator/odd"</span><span class="p">).</span><span class="nf">ResolveOne</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">)).</span><span class="n">Result</span><span class="p">;</span>
 
-    <span class="c1">// even &amp; odd should be killed when parent's SupervisorStrategy kicks in
-</span>    <span class="nf">Watch</span><span class="p">(</span><span class="n">even</span><span class="p">);</span>
+    <span class="c1">// even &amp; odd should be killed when parent's SupervisorStrategy kicks in</span>
+    <span class="nf">Watch</span><span class="p">(</span><span class="n">even</span><span class="p">);</span>
     <span class="nf">Watch</span><span class="p">(</span><span class="n">odd</span><span class="p">);</span>
 
-    <span class="c1">// we cover BadDataShutdown being sent in another test
-</span>    <span class="nf">IgnoreMessages</span><span class="p">(</span><span class="n">msg</span> <span class="p">=&gt;</span> <span class="n">msg</span> <span class="k">is</span> <span class="n">BadDataShutdown</span><span class="p">);</span>
+    <span class="c1">// we cover BadDataShutdown being sent in another test</span>
+    <span class="nf">IgnoreMessages</span><span class="p">(</span><span class="n">msg</span> <span class="p">=&gt;</span> <span class="n">msg</span> <span class="k">is</span> <span class="n">BadDataShutdown</span><span class="p">);</span>
 
-    <span class="c1">// even &amp; odd should be killed when parent's SupervisorStrategy kicks in
-</span>    <span class="n">even</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+    <span class="c1">// even &amp; odd should be killed when parent's SupervisorStrategy kicks in</span>
+    <span class="n">even</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
     <span class="nf">ExpectTerminated</span><span class="p">(</span><span class="n">even</span><span class="p">);</span>
     <span class="n">odd</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
     <span class="nf">ExpectTerminated</span><span class="p">(</span><span class="n">odd</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Although once again this example seems fine, it is an integration test (by the blog post’s own admission) as it tests multiple actors in the same test. Also if you take the approach of testing the side affects of the SupervisorStrategy then you end up testing the Akka framework more than your own actors. For example if you have a SupervisorStrategy of the type AllForOneStrategy that has a retry limit of 10, then using this technique you need to watch an actor restart 10 times before you can assert it does not restart an 11th time, when really all we want to do is test how the SupervisorStrategy is configured.</p>
 
@@ -334,7 +319,7 @@
 
 <h2 id="example-1---creating-children--sending-them-messages">Example 1 - Creating Children &amp; Sending Them Messages</h2>
 <p>Below is an example test class that checks if an actor creates children with the correct name and type and forwards the correct messages to them:</p>
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.DI.Core</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.TestKit.Xunit2</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">FluentAssertions</span><span class="p">;</span>
@@ -362,13 +347,13 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChildWithCorrectTypeAndName</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
             
-            <span class="c1">//assert
-</span>            <span class="n">framework</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span>
                 <span class="p">.</span><span class="nf">ResolvedType</span><span class="p">(</span><span class="s">"child-actor-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="n">Be</span><span class="p">&lt;</span><span class="n">ChildActor</span><span class="p">&gt;();</span>
         <span class="p">}</span>
@@ -376,20 +361,19 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_SendsChildCorrectMessage</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span>
                 <span class="p">.</span><span class="nf">ResolvedTestProbe</span><span class="p">(</span><span class="s">"child-actor-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="nf">ExpectMsg</span><span class="p">(</span><span class="s">"hello actor 1"</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Firstly, we create a settings object using the static Empty property. The settings object is used to register custom handlers for each of your child actors, we’ll see an example of what these are later. Once you have a settings object you can create the framework by passing in:</p>
 <ul>
@@ -409,7 +393,7 @@
 
 <h2 id="example-2---handling-child-replies">Example 2 - Handling Child Replies</h2>
 <p>Below is an example that configures the child actor to reply to messages, and then asserts that a mock is given the replied message:</p>
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.DI.Core</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.TestKit.Xunit2</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Moq</span><span class="p">;</span>
@@ -434,7 +418,7 @@
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="k">public</span> <span class="k">interface</span> <span class="n">IRepository</span>
+        <span class="k">public</span> <span class="k">interface</span> <span class="nc">IRepository</span>
         <span class="p">{</span>
             <span class="k">void</span> <span class="nf">Save</span><span class="p">(</span><span class="kt">string</span> <span class="k">value</span><span class="p">);</span>
         <span class="p">}</span>
@@ -462,23 +446,22 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_ReceiveSaveMessage_StoresModifiedSaveMessageFromChildInRepo</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//arrange
-</span>            <span class="n">Mock</span><span class="p">&lt;</span><span class="n">IRepository</span><span class="p">&gt;</span> <span class="n">repoMock</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Mock</span><span class="p">&lt;</span><span class="n">IRepository</span><span class="p">&gt;();</span>
+            <span class="c1">//arrange</span>
+            <span class="n">Mock</span><span class="p">&lt;</span><span class="n">IRepository</span><span class="p">&gt;</span> <span class="n">repoMock</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Mock</span><span class="p">&lt;</span><span class="n">IRepository</span><span class="p">&gt;();</span>
             <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">RegisterHandler</span><span class="p">&lt;</span><span class="n">ChildActor</span><span class="p">,</span> <span class="n">ParentActor</span><span class="p">.</span><span class="n">Save</span><span class="p">&gt;(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="n">ChildActor</span><span class="p">.</span><span class="nf">ModifiedSave</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="nf">ToUpper</span><span class="p">()))</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="n">Props</span><span class="p">.</span><span class="nf">Create</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ParentActor</span><span class="p">(</span><span class="n">repoMock</span><span class="p">.</span><span class="n">Object</span><span class="p">)),</span> <span class="m">1</span><span class="p">);</span>
 
-            <span class="c1">//act
-</span>            <span class="n">framework</span><span class="p">.</span><span class="n">Sut</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="n">ParentActor</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">));</span>
+            <span class="c1">//act</span>
+            <span class="n">framework</span><span class="p">.</span><span class="n">Sut</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="k">new</span> <span class="n">ParentActor</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">));</span>
 
-            <span class="c1">//assert
-</span>            <span class="nf">AwaitAssert</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">repoMock</span><span class="p">.</span><span class="nf">Verify</span><span class="p">(</span><span class="n">repo</span> <span class="p">=&gt;</span> <span class="n">repo</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">),</span> <span class="n">Times</span><span class="p">.</span><span class="n">Once</span><span class="p">));</span>
+            <span class="c1">//assert</span>
+            <span class="nf">AwaitAssert</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">repoMock</span><span class="p">.</span><span class="nf">Verify</span><span class="p">(</span><span class="n">repo</span> <span class="p">=&gt;</span> <span class="n">repo</span><span class="p">.</span><span class="nf">Save</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">),</span> <span class="n">Times</span><span class="p">.</span><span class="n">Once</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">ParentActor</code> in this example doesn’t have a parameterless constructor, so a props object must be given to the <code class="highlighter-rouge">CreateFramework</code> method. This props object is used to inject the mock into the actor.</p>
 
@@ -486,7 +469,7 @@
 
 <h2 id="example-3---supervisor">Example 3 - Supervisor</h2>
 <p>The example below demonstrates how to check that an actor sends a message to its parent/supervisor:</p>
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.TestKit.Xunit2</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Xunit</span><span class="p">;</span>
 
@@ -510,28 +493,27 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">DummyActor_ReceiveStringMessage_SendsUpperCaseStringMessageToSupervisor</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//arrange
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">DummyActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//arrange</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">DummyActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">DummyActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">);</span>
 
-            <span class="c1">//act
-</span>            <span class="n">framework</span><span class="p">.</span><span class="n">Sut</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">);</span>
+            <span class="c1">//act</span>
+            <span class="n">framework</span><span class="p">.</span><span class="n">Sut</span><span class="p">.</span><span class="nf">Tell</span><span class="p">(</span><span class="s">"hello world"</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="n">Supervisor</span><span class="p">.</span><span class="nf">ExpectMsg</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">);</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="n">Supervisor</span><span class="p">.</span><span class="nf">ExpectMsg</span><span class="p">(</span><span class="s">"HELLO WORLD"</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>When the framework creates the sut actor, it creates it with a <code class="highlighter-rouge">TestProbe</code> as its parent, which you can access using the Supervisor property. This ensures you know the sut actor is sending messages to its parent and not back the sender.</p>
 
 <h2 id="example-4---supervisorstrategy">Example 4 - SupervisorStrategy</h2>
 <p>The following example demonstrates how to check that an actor creates its children with the correct <code class="highlighter-rouge">SupervisorStrategy</code>.</p>
 
-<div class="language-csharp highlighter-rouge"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.Actor</span><span class="p">;</span>
 <span class="k">using</span> <span class="nn">Akka.DI.Core</span><span class="p">;</span>
@@ -573,26 +555,26 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild1WithOneForOneStrategy</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
             
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="n">BeOfType</span><span class="p">&lt;</span><span class="n">OneForOneStrategy</span><span class="p">&gt;();</span>
         <span class="p">}</span>
 
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild1WithCorrectMaxNumberOfRetries</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">OneForOneStrategy</span><span class="p">&gt;().</span><span class="n">MaxNumberOfRetries</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
         <span class="p">}</span>
@@ -600,13 +582,13 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild1WithCorrectTimeout</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">OneForOneStrategy</span><span class="p">&gt;().</span><span class="n">WithinTimeRangeMilliseconds</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="m">1000</span><span class="p">);</span>
         <span class="p">}</span>
@@ -614,13 +596,13 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild1WithCorrectDecider</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-1"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">OneForOneStrategy</span><span class="p">&gt;().</span><span class="n">Decider</span><span class="p">.</span><span class="nf">Decide</span><span class="p">(</span><span class="k">new</span> <span class="nf">Exception</span><span class="p">())</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="n">Directive</span><span class="p">.</span><span class="n">Stop</span><span class="p">);</span>
         <span class="p">}</span>
@@ -628,26 +610,26 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild2WithOneForOneStrategy</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="n">BeOfType</span><span class="p">&lt;</span><span class="n">AllForOneStrategy</span><span class="p">&gt;();</span>
         <span class="p">}</span>
 
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild2WithCorrectMaxNumberOfRetries</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">AllForOneStrategy</span><span class="p">&gt;().</span><span class="n">MaxNumberOfRetries</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
         <span class="p">}</span>
@@ -655,13 +637,13 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild2WithCorrectTimeout</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">AllForOneStrategy</span><span class="p">&gt;().</span><span class="n">WithinTimeRangeMilliseconds</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="m">500</span><span class="p">);</span>
         <span class="p">}</span>
@@ -669,20 +651,19 @@
         <span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
         <span class="k">public</span> <span class="k">void</span> <span class="nf">ParentActor_Constructor_CreatesChild2WithCorrectDecider</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="c1">//act
-</span>            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
+            <span class="c1">//act</span>
+            <span class="n">UnitTestFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;</span> <span class="n">framework</span> <span class="p">=</span> <span class="n">UnitTestFrameworkSettings</span>
                 <span class="p">.</span><span class="n">Empty</span>
                 <span class="p">.</span><span class="n">CreateFramework</span><span class="p">&lt;</span><span class="n">ParentActor</span><span class="p">&gt;(</span><span class="k">this</span><span class="p">,</span> <span class="m">2</span><span class="p">);</span>
 
-            <span class="c1">//assert
-</span>            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
+            <span class="c1">//assert</span>
+            <span class="n">framework</span><span class="p">.</span><span class="nf">ResolvedSupervisorStrategy</span><span class="p">(</span><span class="s">"child-2"</span><span class="p">)</span>
                 <span class="p">.</span><span class="n">As</span><span class="p">&lt;</span><span class="n">AllForOneStrategy</span><span class="p">&gt;().</span><span class="n">Decider</span><span class="p">.</span><span class="nf">Decide</span><span class="p">(</span><span class="k">new</span> <span class="nf">Exception</span><span class="p">())</span>
                 <span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="n">Directive</span><span class="p">.</span><span class="n">Escalate</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>When a child is created the framework stores the SupervisorStrategy that was given in the Props object for that child (such as “child-2” in the example above). If no SupervisorStrategy is given in the Props object, then the parent’s private SupervisorStrategy property is returned (such as “child-1” in the example above).</p>
 
@@ -694,10 +675,10 @@
 </blockquote>
 
 <blockquote>
-  <p>NOTE: The package used to called ConnelHooley.AkkaTestingHelpers.DI, please use the new name if you’re using the old one.</p>
+  <p><strong>NOTE</strong>: The package used to called ConnelHooley.AkkaTestingHelpers.DI, please use the new name if you’re using the old one.</p>
 </blockquote>
 
-<p><a href="https://github.com/connelhooley/AkkaTestingHelpers" class="button-major" target="_BLANK"><i class="fa fa-github fa-fw" aria-hidden="true"></i> View the source code on GitHub</a></p>
+<p><a href="https://github.com/connelhooley/AkkaTestingHelpers" class="button-major" target="_BLANK"><i class="fab fa-github"></i> View the source code on GitHub</a></p>
 
 <h1 id="whats-next">What’s next</h1>
 <p><del>I am looking to migrate from .NET framework to .NET standard. I will also provide documentation on GitHub. I have also started a resolver for integration tests so will update when that is finished.</del></p>
@@ -705,60 +686,59 @@
 <p>I have migrated the package to .NET Standard 1.6. Additional documentation is also available on <a target="_BLANK" href="https://github.com/connelhooley/AkkaTestingHelpers">GitHub</a>. I have also created a <code class="highlighter-rouge">BasicResolver</code> class for integration tests which is also documented on GitHub.</p>
 
 
+            </div>
+            <div id="comments">
+                
+                    
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di';
+    this.page.identifier = 'http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di';
+};
+
+(function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = 'https://connelhooley.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+                
+            </div>
+        </div>
     </div>
-  </div>
-  <div id="comments" class="post-comments">
-    <div class="post-comments-content">
-      
-          
-
-  <div id="disqus_thread"></div>
-  <script>
-    var disqus_config = function () {
-      this.page.url = 'http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di';
-      this.page.identifier = 'http://connelhooley.uk/blog/2017/09/30/introducing-akka-testing-helpers-di';
-    };
-
-    (function() {
-      var d = document, s = d.createElement('script');
-
-      s.src = 'https://connelhooley.disqus.com/embed.js';
-
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-      
-    </div>
-  </div>
 </article>
-
-    </main>
-    <footer class="site-footer">
-    <div class="site-footer-content">
-        <div class="copy">
-            Connel Hooley <i class="fa fa-copyright" aria-hidden="true"></i> 2018
+</main>    
+    <footer id="site-footer" class="site-footer-post">
+        <div id="site-footer-inner">
+            <div id="site-footer-copy">
+                Connel Hooley <i class="far fa-copyright"></i> 2018
+            </div>
+            
+            <div id="site-footer-contact">
+                <a href="mailto:me@connelhooley.uk" target="_BLANK"><i class="fas fa-envelope fa-fw"></i>&nbsp;Email</a>&nbsp;&bull;
+                <a href="https://twitter.com/connel_dev" target="_BLANK"><i class="fab fa-twitter fa-fw"></i>&nbsp;Twitter</a>&nbsp;&bull;
+                <a href="http://uk.linkedin.com/in/connelhooley" target="_BLANK"><i class="fab fa-linkedin fa-fw"></i>&nbsp;LinkedIn</a>&nbsp;&bull;
+                <a href="/feed.xml" target="_BLANK"><i class="fas fa-rss"></i>&nbsp;Blog RSS</a>
+            </div>
+            
         </div>
-        
-        <div class="contact">
-            <a href="mailto:me@connelhooley.uk" target="_BLANK"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;Email</a>&nbsp;&bull;
-            <a href="https://twitter.com/connel_dev" target="_BLANK"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i>&nbsp;Twitter</a>&nbsp;&bull;
-            <a href="http://uk.linkedin.com/in/connelhooley" target="_BLANK"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true"></i>&nbsp;LinkedIn</a>
-        </div>
-        
-    </div>
-</footer>
-<script src="http://connelhooley.uk/assets/js/jquery-3.1.1.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/tether.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/bootstrap.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/moment.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/clipboard.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/js.cookie.js"></script>
-<script src="http://connelhooley.uk/assets/js/stickyfill.min.js"></script>
-<script src="http://connelhooley.uk/assets/js/fixanchorlinks.js"></script>
-<script src="http://connelhooley.uk/assets/js/main.js"></script>
-  </body>
-</html>
+    </footer>
+    
+    <script src="/assets/js/vendor/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/vendor/moment.min.js"></script>
+    <script src="/assets/js/vendor/clipboard.min.js"></script>
+    <script src="/assets/js/vendor/js.cookie.js"></script>
+    <script src="/assets/js/vendor/stickyfill.min.js"></script>
+    
+    <script src="/assets/js/vendor/fixanchorlinks.js"></script>
+    
+    <script src="/assets/js/main.js"></script>
+    
+</body>
