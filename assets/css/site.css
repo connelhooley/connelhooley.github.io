@@ -2799,7 +2799,7 @@ readers do not read off random characters that represent icons */
 /* Literal.String.Symbol */
 @media (max-width: 767px) {
   html {
-    font-size: 0.8rem; } }
+    font-size: 1rem; } }
 @media (min-width: 768px) {
   html {
     font-size: 1.3rem; } }
