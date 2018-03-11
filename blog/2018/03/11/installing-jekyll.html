@@ -1,0 +1,328 @@
+<html lang=" en ">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connel Hooley - Installing Jekyll on Windows</title>
+    
+    <link rel="stylesheet" href="/assets/css/vendor/normalize.css">
+    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
+    
+    <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+    <meta name="theme-color" content="#f8bb15">
+    
+    
+    <!-- Begin Jekyll SEO tag v2.4.0 -->
+<meta name="generator" content="Jekyll v3.7.2" />
+<meta property="og:title" content="Installing Jekyll on Windows" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A guide to getting Jekyll up and running on Bash for Windows with Visual Studio Code" />
+<meta property="og:description" content="A guide to getting Jekyll up and running on Bash for Windows with Visual Studio Code" />
+<link rel="canonical" href="http://connelhooley.uk/blog/2018/03/11/installing-jekyll" />
+<meta property="og:url" content="http://connelhooley.uk/blog/2018/03/11/installing-jekyll" />
+<meta property="og:site_name" content="Connel Hooley" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-11T16:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@connel_dev" />
+<meta name="twitter:creator" content="@connel_dev" />
+<script type="application/ld+json">
+{"description":"A guide to getting Jekyll up and running on Bash for Windows with Visual Studio Code","@type":"BlogPosting","url":"http://connelhooley.uk/blog/2018/03/11/installing-jekyll","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://connelhooley.uk/assets/images/logo.png"}},"headline":"Installing Jekyll on Windows","dateModified":"2018-03-11T16:00:00+00:00","datePublished":"2018-03-11T16:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://connelhooley.uk/blog/2018/03/11/installing-jekyll"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57397582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+<body id="layout-post">
+    <div id="site-header-bar">
+    <div id="site-header-bar-inner">
+        <div id="site-nav">
+            <a id="site-logo" href="/">{C.H}</a>
+            <button id="site-nav-mobile-toggler"><i class="fas fa-bars"></i></button>
+        </div>
+        <nav id="site-nav-links">
+            <a class="site-nav-item site-nav-item-post site-nav-item-active" href="/blog/">Blog</a>
+            
+            
+                
+                
+                
+                <a class="site-nav-item site-nav-item-projects" href="/projects/">Projects</a>
+                
+            
+                
+                
+                
+                <a class="site-nav-item site-nav-item-experiences" href="/experience/">Experience</a>
+                
+            
+        </nav>
+    </div>
+</div>
+<main id="site-main">
+    <article>
+    <header id="post-header">
+        <div id="post-header-inner">
+            <h1 id="post-header-title" class="post-header-item" itemprop="name headline">Installing Jekyll on Windows</h1>
+            
+            <div id="post-header-description" class="post-header-item">
+                A guide to getting Jekyll up and running on Bash for Windows with Visual Studio Code
+            </div>
+            
+            
+            <div id="post-header-published" class="post-header-item">
+                <time datetime="2018-03-11T16:00:00+00:00" itemprop="date">
+                    <date class="date" datetime="2018-03-11 16:00:00 +0000"><i class="far fa-calendar-alt"></i>&nbsp;11/03/2018</date>
+                </time>
+            </div>
+            
+            
+            <div id="post-header-reading-time" class="post-header-item">
+                <i class="far fa-clock"></i>&nbsp;Read in under 6  minutes
+            </div>
+            
+            
+            
+            
+            <div id="post-header-meta" class="post-header-item">
+                
+<span class="meta-item"><i class="fas fa-code"></i>&nbsp;HTML</span>
+
+<span class="meta-item"><i class="fas fa-code"></i>&nbsp;SCSS</span>
+
+
+<span class="meta-item"><i class="fas fa-tag"></i>&nbsp;Jekyll</span>
+
+            </div>
+            
+        </div>
+    </header>
+    
+    
+    
+    
+    <div id="post-toolbar" class="sticky">
+        <div id="post-toolbar-inner">
+            <div id="post-toolbar-buttons">
+                <div id="post-toolbar-share-buttons">
+                    <span id="post-toolbar-share-buttons-label"><i class="fas fa-share-alt fa-fw"></i>&nbsp;<span class="post-toolbar-button-label">Share&nbsp;</span></span>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://twitter.com/intent/tweet?text=Installing+Jekyll+on+Windows+by+%40connel_dev&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2018%2F03%2F11%2Finstalling-jekyll"><i class="fab fa-twitter-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Twitter</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="//www.reddit.com/submit?url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2018%2F03%2F11%2Finstalling-jekyll&title=Installing+Jekyll+on+Windows"><i class="fab fa-reddit-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Reddit</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2018%2F03%2F11%2Finstalling-jekyll&title=Installing+Jekyll+on+Windows"><i class="fab fa-linkedin fa-fw"></i><span class="post-toolbar-button-label">&nbsp;LinkedIn</span></a>
+                </div>
+                <div id="post-toolbar-scroll-buttons">
+                    <button id="post-toolbar-button-back-to-top" class="post-toolbar-button"><i class="fas fa-arrow-up fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Back to top</span></button>
+                    <a class="post-toolbar-button" href="#comments"><i class="fas fa-comments fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Comments</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="post-body">
+        <div id="post-body-inner">
+            <nav id="post-toc">
+                <div id="post-toc-title">Contents</div>
+                <div id="post-toc-items"><ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#background">Background</a></li>
+<li class="toc-entry toc-h1"><a href="#wsl">WSL?</a></li>
+<li class="toc-entry toc-h1"><a href="#installing-bash">Installing Bash</a></li>
+<li class="toc-entry toc-h1"><a href="#setting-up-bash">Setting Up Bash</a></li>
+<li class="toc-entry toc-h1"><a href="#installing-jekyll-in-bash">Installing Jekyll in Bash</a></li>
+<li class="toc-entry toc-h1"><a href="#creating-a-jekyll-site">Creating a Jekyll Site</a></li>
+<li class="toc-entry toc-h1"><a href="#setting-up-visual-studio-code">Setting Up Visual Studio Code</a></li>
+</ul></div>
+            </nav>
+            <div id="post-content" itemprop="articleBody">
+                <h1 id="background">Background</h1>
+<p>Jekyll is not officially supported on Windows, but thanks to a new feature of Windows 10, we can still create Jekyll websites on Windows without any issues. <a target="_BLANK" href="https://jekyllrb.com/docs/windows/#installation">Jekyll now recommends</a> installing it using <code class="highlighter-rouge">Bash on Windows</code>. This guide walks through how to do it and teaches you a little about how Bash and Linux works along the way. This guide assumes you have Windows 10 Fall Creators Update (version 1709) installed. I’ll also show you how to set up <a target="_BLANK" href="https://code.visualstudio.com/">Visual Studio Code</a> to use Bash.</p>
+
+<h1 id="wsl">WSL?</h1>
+<p>Jekyll is written in <code class="highlighter-rouge">Ruby</code> which itself runs in <code class="highlighter-rouge">Bash</code>. Bash is like Linux and Mac’s equivalent to CMD or PowerShell. Traditionally installing Ruby in Windows required installing lots of Bash commands that worked as a shim to getting Bash applications running on Windows. Windows 10 has a new feature you can enable that allows you to load a full Linux distribution into a Bash prompt that has access to the Windows file system called <code class="highlighter-rouge">WSL (Windows Subsystem for Linux)</code>. This is a better approach to polluting your PowerShell and Command Prompt terminals with Bash commands.</p>
+
+<h1 id="installing-bash">Installing Bash</h1>
+<p>Start off by enabling WSL on your machine. Press <i class="fab fa-windows"></i> and search for <em>“Turn Windows features on or off”</em>. Tick <em>“Windows Subsystem for Linux”</em> and follow the prompts.</p>
+
+<p><img src="/assets/images/installing-jekyll/enable-wsl.png" alt="Screenshot of enabling WSL" /></p>
+
+<p>Now enable “<em>developer mode</em>” if you haven’t done this before. Go to “<em>Settings</em>” then “<em>Update &amp; Security</em>” then “<em>For developers</em>” on the left-hand side and then finally click on “<em>Developer mode</em>”.</p>
+
+<p><img src="/assets/images/installing-jekyll/enable-developer-mode.png" alt="Screenshot of developer settings in Windows 10" /></p>
+
+<p>Now open the “<em>Microsoft Store</em>” and search for “<em>Ubuntu</em>”. Click on “<em>Get</em>”.</p>
+
+<p><img src="/assets/images/installing-jekyll/install-ubuntu.png" alt="Screenshot of Ubuntu in the Microsoft Store" /></p>
+
+<p>Once is it installed click on “<em>Launch</em>”.</p>
+
+<p><img src="/assets/images/installing-jekyll/installed-ubuntu.png" alt="Screenshot of Ubuntu installed in the Microsoft Store" /></p>
+
+<h1 id="setting-up-bash">Setting Up Bash</h1>
+<p>Wait for Ubuntu to finish installing.</p>
+
+<p><img src="/assets/images/installing-jekyll/wait-for-ubuntu.png" alt="Screenshot of Ubuntu installed in the Microsoft Store" /></p>
+
+<p>You will then be asked to supply a username and password. This username and password is only used inside the Bash window. To open a Bash window in Windows you need to already be logged in to Windows with a valid Windows account, so don’t worry about having a secure password if you’re only working on your local dev machine. When typing your password, it appears like you’re not typing (e.g. no asterisks appear with each key press in the console). Don’t let that fool you, just type your password and press enter. This is the behaviour of Bash whenever you type in a password.</p>
+
+<p>Inside Ubuntu <code class="highlighter-rouge">apt-get</code> is used to install and update applications. Installing applications in Linux is more like installing NPM or NuGet packages, rather than downloading installers like in Windows. Linux has <em>“repositories”</em> of packages of software. You must add a repository that contains the software you want to install, then install the package. This means that the vendor of the package can update it inside the repository and the update is then downloaded and installed as part of OS updates.</p>
+
+<p>Ubuntu keeps a local database/cache of all the packages that are available to install. Firstly, we must update this local database with this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update <span class="nt">-y</span>
+</code></pre></div></div>
+<blockquote class="smaller">
+  <p><strong>NOTE:</strong> <code class="highlighter-rouge">sudo</code> is the Linux equivalent of “<em>running as administrator</em>”</p>
+</blockquote>
+
+<p>You will be asked to enter your Linux password. Again, don’t be fooled if nothing appears in the console while you type.</p>
+
+<p>Now our Ubuntu installation knows about all the latest packages, run the following command to update them all:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get upgrade <span class="nt">-y</span>
+</code></pre></div></div>
+
+<h1 id="installing-jekyll-in-bash">Installing Jekyll in Bash</h1>
+<p>Now our Ubuntu installation is up to date we can start to follow the instructions from <a target="_BLANK" href="https://jekyllrb.com/docs/windows/#installation-via-bash-on-windows-10">Jekyll’s website</a> to install it. Add a reference to the Jekyll repository by entering the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-add-repository ppa:brightbox/ruby-ng
+</code></pre></div></div>
+
+<p>You will be asked to press enter to confirm. Once this has completed update your package database to include the packages in the newly added repository:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>Then install Ruby and Jekyll’s other dependencies:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>ruby2.3 ruby2.3-dev build-essential dh-autoreconf <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>Ruby has its own form of package system called <code class="highlighter-rouge">Gems</code>. A Gem in Ruby is synonymous with an NPM package in Node. Update gems installed by default with Ruby with the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo gem update
+</code></pre></div></div>
+
+<p>Then install the <code class="highlighter-rouge">jekyll</code> and <code class="highlighter-rouge">bundler</code> gems. Bundler is a Ruby thing that Jekyll uses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>gem <span class="nb">install </span>jekyll bundler
+</code></pre></div></div>
+
+<p>You can confirm the installation by entering the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll <span class="nt">-v</span>
+</code></pre></div></div>
+
+<h1 id="creating-a-jekyll-site">Creating a Jekyll Site</h1>
+<p>This should print something like <code class="highlighter-rouge">jekyll 3.7.2</code>. Your C drive is <em>“mounted”</em> into the Ubuntu instance running within windows. This means it lives within the <code class="highlighter-rouge">/mnt/c/</code> directory inside Bash (note directories as separated by forward slashes rather than back slashes in Linux). So, to change directory to <code class="highlighter-rouge">C:\_Code\Git\</code> you would type the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /mnt/c/_Code/Git/
+</code></pre></div></div>
+
+<p>CD to the directory you wish to put your Jekyll website’s folder into. Run the following command to create a new Jekyll website (which in turn, creates a folder for your website). Obviously replace yourwebsitenamehere with what you want to call your site:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new yourwebsitenamehere
+</code></pre></div></div>
+
+<h1 id="setting-up-visual-studio-code">Setting Up Visual Studio Code</h1>
+<p>If you haven’t installed Visual Studio Code, do so now. Open VS Code inside the folder the <code class="highlighter-rouge">jekyll new</code> command created. You can do this by using the file menu or by right clicking in the folder in file explorer. Once you have opened VS Code in the folder click on “<em>File</em>” then “<em>Preferences</em>” then <em>“Settings”</em>.</p>
+
+<p><img src="/assets/images/installing-jekyll/vs-code-open-settings.png" alt="Screenshot of Visual Studio Code with the file menu open" /></p>
+
+<p>Then click on Workspace settings on the right-hand side.</p>
+
+<p><img src="/assets/images/installing-jekyll/vs-code-settings.png" alt="Screenshot of Visual Studio Code with the settings window open" /></p>
+
+<p>Place the following JSON in Workspace settings:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"terminal.integrated.shell.windows"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:</span><span class="se">\\</span><span class="s2">Windows</span><span class="se">\\</span><span class="s2">System32</span><span class="se">\\</span><span class="s2">bash.exe"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This will ensure Bash is used in the VS Code’s integrated terminal when you open this folder.</p>
+
+<p>Now open the integrated terminal by pressing <code class="highlighter-rouge">CTRL</code> + <code class="highlighter-rouge">`</code> (that’s a back tick, it’s on the top left of the keyboard). You may be asked to confirm your choice of using Bash in the terminal, click “<em>Allow</em>”.</p>
+
+<p><img src="/assets/images/installing-jekyll/vs-code-bash-confirmation.png" alt="Screenshot of Visual Studio Code asking to use bash" /></p>
+
+<p>You will now see a Bash terminal in VS Code:</p>
+
+<p><img src="/assets/images/installing-jekyll/vs-code-bash-terminal.png" alt="Screenshot of Visual Studio Code's integrated shell using Bash" /></p>
+
+<p>You can now run Jekyll commands in the integrated terminal. To launch your Jekyll website run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll serve
+</code></pre></div></div>
+
+
+            </div>
+            <div id="comments">
+                
+                    
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://connelhooley.uk/blog/2018/03/11/installing-jekyll';
+    this.page.identifier = 'http://connelhooley.uk/blog/2018/03/11/installing-jekyll';
+};
+
+(function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = 'https://connelhooley.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+                
+            </div>
+        </div>
+    </div>
+</article>
+</main>    
+    <footer id="site-footer" class="site-footer-post">
+        <div id="site-footer-inner">
+            <div id="site-footer-copy">
+                Connel Hooley <i class="far fa-copyright"></i> 2018
+            </div>
+            
+            <div id="site-footer-contact">
+                <a href="mailto:me@connelhooley.uk" target="_BLANK"><i class="fas fa-envelope fa-fw"></i>&nbsp;Email</a>&nbsp;&bull;
+                <a href="https://twitter.com/connel_dev" target="_BLANK"><i class="fab fa-twitter fa-fw"></i>&nbsp;Twitter</a>&nbsp;&bull;
+                <a href="http://uk.linkedin.com/in/connelhooley" target="_BLANK"><i class="fab fa-linkedin fa-fw"></i>&nbsp;LinkedIn</a>&nbsp;&bull;
+                <a href="/feed.xml" target="_BLANK"><i class="fas fa-rss"></i>&nbsp;Blog RSS</a>
+            </div>
+            
+        </div>
+    </footer>
+    
+    <script src="/assets/js/vendor/jquery-3.1.1.min.js"></script>
+    <script src="/assets/js/vendor/moment.min.js"></script>
+    <script src="/assets/js/vendor/clipboard.min.js"></script>
+    <script src="/assets/js/vendor/js.cookie.js"></script>
+    <script src="/assets/js/vendor/stickyfill.min.js"></script>
+    
+    <script src="/assets/js/vendor/fixanchorlinks.js"></script>
+    
+    <script src="/assets/js/main.js"></script>
+    
+</body>

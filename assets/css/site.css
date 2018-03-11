@@ -3623,6 +3623,9 @@ h6 .heading-link {
 #post-toolbar {
   background-color: #eceeef;
   font-size: .6rem; }
+  @media (max-width: 767px) {
+    #post-toolbar {
+      font-size: 1rem; } }
   #post-toolbar #post-toolbar-inner {
     margin-top: auto;
     margin-bottom: auto;
@@ -3686,7 +3689,7 @@ h6 .heading-link {
       margin-bottom: 2rem;
       margin-left: 2rem; } }
   #post-toc #post-toc-title {
-    padding: 1rem;
+    padding: 0.7rem 1rem;
     color: #ffffff;
     font-family: "Bree Serif", Georgia, "Times New Roman", Times, serif;
     text-transform: uppercase;
@@ -3700,39 +3703,39 @@ h6 .heading-link {
       font-weight: 400; }
     #post-toc #post-toc-items ul .toc-h1 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 1rem; }
     #post-toc #post-toc-items ul .toc-h2 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 2rem; }
     #post-toc #post-toc-items ul .toc-h3 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 3rem; }
     #post-toc #post-toc-items ul .toc-h4 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 4rem; }
     #post-toc #post-toc-items ul .toc-h5 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 5rem; }
     #post-toc #post-toc-items ul .toc-h6 a {
       display: block;
-      padding-top: 1rem;
+      padding-top: 0.7rem;
       padding-right: 1rem;
-      padding-bottom: 1rem;
+      padding-bottom: 0.7rem;
       padding-left: 6rem; }
   #post-toc #post-toc-items > ul > .toc-entry:nth-child(odd) {
     background-color: #1a1a1a; }
@@ -3791,6 +3794,9 @@ h6 .heading-link {
   background-color: #f7f7f9;
   word-break: break-word;
   border: 1px solid #e8e8ee; }
+  #post-content blockquote code.highlighter-rouge {
+    background-color: #ffffff;
+    font-size: 100%; }
 #post-content .button-major {
   box-sizing: border-box;
   border: none;
@@ -3813,6 +3819,8 @@ h6 .heading-link {
   #post-content .button-major:hover {
     color: #000000;
     background-color: #f9c947; }
+#post-content .smaller {
+  font-size: .7rem; }
 #post-content div.highlighter-rouge {
   position: relative; }
   #post-content div.highlighter-rouge pre {
