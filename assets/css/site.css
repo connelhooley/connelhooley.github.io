@@ -3797,6 +3797,10 @@ h6 .heading-link {
   #post-content blockquote code.highlighter-rouge {
     background-color: #ffffff;
     font-size: 100%; }
+#post-content #comments {
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+  border-top: solid 2px #f7f7f9; }
 #post-content .button-major {
   box-sizing: border-box;
   border: none;
