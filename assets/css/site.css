@@ -3972,6 +3972,8 @@ h6 .heading-link {
   #experiences-list .experience-item .experience-item-content,
   #experiences-list .experience-item .experience-item-meta {
     font-weight: 300; }
+  #experiences-list .experience-item .experience-item-content {
+    line-height: normal; }
 
 #layout-404 #page-header h1 {
   text-align: center;
