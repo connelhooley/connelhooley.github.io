@@ -3417,6 +3417,10 @@ h6 .heading-link {
     float: none;
     margin-bottom: 0; }
 
+#layout-home,
+#site-footer.site-footer-home {
+  background-color: #3a3d3f; }
+
 #page-header,
 #page-content {
   padding-top: 2.5rem;
