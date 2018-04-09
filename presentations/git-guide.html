@@ -1,0 +1,929 @@
+<html lang=" en ">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connel Hooley - Git Guide</title>
+    
+    <link rel="stylesheet" href="/assets/css/presentations.css">
+    
+    <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f8bb15">
+    <meta name="theme-color" content="#f8bb15">
+    
+    <script src="/assets/js/vendor/reveal/lib/head.min.js"></script>
+    
+    
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57397582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+<body id="layout-presentation">
+    
+    <div class="reveal">
+    <div class="slides" aria-label="Slides">
+        <section>
+    <section>
+        <h1>Guide to git</h1>
+    </section>
+    <section>
+        <p>This guide aims to introduce you to git and is targetted at devs who currently use TFVC</p>
+    </section>
+</section>
+<section>
+    <section>
+        <h1>Why is git popular?</h1>
+        <ul>
+            <li>Better tooling support for non Visual Studio devs</li>
+            <li>Better suited for open source development</li>
+            <li>Better suited for feature branching</li>
+            <li>The cost of supporting more than one VC system in build pieplines has resulted in products such as VSTS offering features in git before TFVC</li>
+        </ul>
+        <aside class="notes">
+            <ul>
+                <li>I think the "new branches for user stories" feature in VSTS works in git but not TFVC</li>
+            </ul>
+        </aside>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Git is usually used from within your IDE but lets start off by running through some basic usage of git from the command line&hellip;</p>
+    </section>
+    <section>
+        <p>When using git the first thing you need to do is tell it who you are by using the <b>git config</b> command:</p>
+        <img src="/assets/images/git-guide/git-0.png" />
+        <p><small>Normally your IDE does this for you</small></p>
+    </section>
+    <section>
+        <p>Lets make our current directory a git repository by running the <b>git init</b> command:</p>
+        <img src="/assets/images/git-guide/git-1.png" />
+        <ul>
+            <li>Creates a hidden <b>.git</b> folder that git uses to store stuff</li>
+            <li>Think of a <b>repository</b> as a TFVC workspace</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets create a file in the workspace and put some text in it:</p>
+        <img src="/assets/images/git-guide/git-2.png" />
+    </section>
+    <section>
+        <p>Now lets run <b>git status</b> to see the current status of our workspace:</p>
+        <img src="/assets/images/git-guide/git-3.png" />
+        <ul>
+            <li>This command tells you which files are to be included in the next commit</li>
+            <li>A <b>commit</b> is the same as a check-in apart from it is entirely local</li>
+        </ul>
+    </section>
+    <section>
+        <img src="/assets/images/git-guide/git-3.png" />
+        <ul>
+            <li>As you can see we now have untracked files:</p>
+            <li>We need to <b>add</b> them to include them in our next commit (change set)</li>
+        </ul>
+    </section>
+    <section>
+        <p>So lets do that:</p>
+        <img src="/assets/images/git-guide/git-4.png" />
+        <p>Think of this as <b>including pending changes</b></p>
+    </section>
+    <section>
+        <p>Now lets run <b>git status</b> again:</p>
+        <img src="/assets/images/git-guide/git-5.png" />
+        <p>Now our changes are <b>commited</b> which means they will be in our next commit</p>
+    </section>
+    <section>
+        <p>Now lets run <b>git commit</b> to check in our changes</p>
+        <img src="/assets/images/git-guide/git-6.png" />
+    </section>
+    <section>
+        <h1>Git Commit</h1>
+        <p>Unlike TFVC where checking in sends the changes up to a remote server, git commits are entirely local</p>
+        <p><small><i>We'll get to sending the changes to a remote server later</i></small></p>
+    </section>
+    <section>
+        <p>Lets run <b>git log</b> to view our history of commits:</p>
+        <img src="/assets/images/git-guide/git-7.png" />
+    </section>
+    <section>
+        <img src="/assets/images/git-guide/git-7.png" />
+        <ul>
+            <li>Notice the hash written in yellow next to the word commit, this is the commit ID</li>
+            <li>Think of this as a <b>change set ID</b></li>
+            <li>A commit ID is a SHA-1 hash</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets decrypt the commit ID hash to see what's inside it using the <b>git cat-file</b> command:</p>
+        <img src="/assets/images/git-guide/git-8.png" />
+        <ul>
+            <li>Everything here looks pretty standard apart from the tree which is another SHA-1 hash</li>
+            <li>A <b>tree</b> is git speak for a directory</li>
+            <li>This means the commit ID is a hash of a hash along side some metadata</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets decrypt the tree SHA-1 hash:</p>
+        <img src="/assets/images/git-guide/git-9.png" />
+        <ul>
+            <li>This tree contains a blob called helloworld.txt</li>
+            <li>A <b>blob</b> is git speak for the contents of a file</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets decrypt the blob SHA-1 hash:</p>
+        <img src="/assets/images/git-guide/git-10.png" />
+        <p>As you can see it contains the file contents</p>
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-1.png" />
+        <p><small>It's hashes all the way down</small></p>
+    </section>
+    <section>
+        <p>Lets add some new files to our workspace:</p>
+        <img src="/assets/images/git-guide/git-11.png" />
+    </section>
+    <section>
+        <p>Lets include them in our changes (add)<br />and check them in (commit):</p>
+        <img src="/assets/images/git-guide/git-12.png" />
+    </section>
+    <section>
+        <p>Lets view our history again</p>
+        <img src="/assets/images/git-guide/git-13.png" />
+        <p>We now have 2 commits</p>
+    </section>
+    <section>
+        <p>Lets decrypt the latest commit ID to see what's inside it:</p>
+        <img src="/assets/images/git-guide/git-14.png" />
+        <ul>
+            <li>This commit has a parent which is the previous commit</li>
+            <li>This means that even if two workspaces contain the exact same files &amp; folders, unless they share the exact same history and were created at the exact same time, their commit IDs will be different</li>
+            <li>This means that if you commit some changes, then remove the changes and commit again, then the commit ID will be different despite the workspace being the same</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets decrypt the tree to see what's inside it:</p>
+        <img src="/assets/images/git-guide/git-15.png" />
+        <p>As you can see, trees can contain multiple files &amp; directories just like the file system</p>
+    </section>
+    <section>
+        <p>Lets decrypt the new directory to see what's inside it:</p>
+        <img src="/assets/images/git-guide/git-16.png" />
+        <p>The tree contains the new files as expected</p>
+    </section>
+    <section>
+        <p>For completeness lets just decrypt one of the new files:</p>
+        <img src="/assets/images/git-guide/git-17.png" />
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-2.png" />
+    </section>
+    <section>
+        <p>Lets put the exact same content into 2 different files:</p>
+        <img src="/assets/images/git-guide/git-18.png" />
+    </section>
+    <section>
+        <p>Running <b>git status</b> tells us we have unstaged changes:</p>
+        <img src="/assets/images/git-guide/git-19.png" />
+        <p>You may notice that this run of git status talks about the files being unstaged as opposed to untracked like earlier&hellip;</p>
+    </section>
+    <section>
+        <h1>Untracked vs unstaged</h1>
+        <ul>
+            <li>An <b>untracked</b> file is a brand new file that has been newly created</li>
+            <li>An <b>unstaged</b> file is a file that has been previously commited, but has since been modified</li>
+            <li>This is always abstracted away from you by your IDE so don't worry about it too much</li>
+        </ul>
+    </section>
+    <section>
+        <p>Adding the files includes them in our commit:</p>
+        <img src="/assets/images/git-guide/git-20.png" />
+        <p>In git land this is usually called <b>staging</b> your changes</p>
+    </section>
+    <section>
+        <p>Lets commit our changes:</p>
+        <img src="/assets/images/git-guide/git-21.png" />
+    </section>
+    <section>
+        <p>We can now see our history contains 3 commits:</p>
+        <img src="/assets/images/git-guide/git-22.png" />
+    </section>
+    <section>
+        <p>Lets view our new object tree in the terminal:</p>
+        <img src="/assets/images/git-guide/git-23.png" />
+        <ul>
+            <li>Note how both subfolderfile1.txt and subfolderfile2.txt have the exact <b>same</b> hash</li>
+            <li>This demonstrates how efficient git is when storing files locally</li>
+        </ul>
+    </section>
+    <section>
+        <h1>Git Object Tree</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-3.png" />
+    </section>
+    <section>
+        <p>Lets look at actually where git stores these objects on the disk</p>
+        <img src="/assets/images/git-guide/git-24.png" />
+    </section>
+    <section>
+        <h1>Storage</h1>
+        <ul>
+            <li>Git stores files in the hidden directory. They are placed in:</li>
+            <ul>
+                <li>A directory that is named after the first 2 letters of the hash</li>
+                <li>A file that is named after the subsequent 38 character of the hash</li>
+            </ul>
+            <li>The object files in the hidden directory are compressed so cannot be opened without using special git commands</li>
+        </ul>
+    </section>
+    <section>
+        <p>You may have noticed that the blob hash for the oringal helloworld.txt never changed during any of the commits</p>
+        <p>This means that every commit represents a snapshot of all the files on the disk during the time of the commit, but the same file contents is never stored twice</p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Lets look at working with remote servers&hellip;</p>
+    </section>
+    <section>
+        <p>It is possible to create git repositories that are hosted by a provider</p>
+        <p><small>This is common practice</small></p>
+    </section>
+    <section>
+        <p>Creating a remote repository varies per provider, but it is usuaully a very simple process</p>
+        <img src="/assets/images/git-guide/vsts-remote-repository-creating.png" />
+    </section>
+    <section>
+        <p>Once you have created a remote repository you then have two options. You can either:</p>
+        <ul>
+            <li>Take a local repository that you have already created by running <b>git init</b> and upload it to the empty remote repository</li>
+            <li>Download the empty remote repository to your machine</li>
+        </ul>
+    </section>
+    <section>
+        <p>The git hosting provider will usually give you hints on how to do both:</p>
+        <img src="/assets/images/git-guide/vsts-remote-repository-created.png" />
+    </section>
+    <section>
+        <h1>Auth</h1>
+        <ul>
+            <li>When accessing VSTS git repositories from Visual Studio you are authenticated automatically</li>
+            <li>When accessing the repository from the command-line like we are, we need to generate <b>git credentials</b></li>
+            <li>This is a username and password that can only be used to access the git repository</li>
+            <li>Visual Studio uses a more advanced token based system to authenticate git users</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets do that now by clicking on generate git credentials:</p>
+        <img src="/assets/images/git-guide/vsts-remote-repository-created-credentials-1.png" />
+    </section>
+    <section>
+        <p>Then simply fill in the form:</p>
+        <img src="/assets/images/git-guide/vsts-remote-repository-created-credentials-2.png" />
+        <p><small>Normally you don't need to do this since you'll be using Visual Studio</small></p>
+    </section>
+    <section>
+        <p>Now lets download the repository to our machine by running the <b>git clone</b> command with the URL that VSTS gave us:</p>
+        <img src="/assets/images/git-guide/git-25.png" />
+    </section>
+    <section>
+        <p>The git clone command creates a sub directory that is a local git repository. You can create local commits in this repository and then push them up to the server.</p>
+    </section>
+    <section>
+        <p>Alternatively, if you've already got a local git repository then you can push it up to the server instead of cloning.</p>
+    </section>
+    <section>
+        <p>Lets push our git repository we worked on earlier to the remote VSTS repository we have created:</p>
+        <img src="/assets/images/git-guide/git-26.png" />
+    </section>
+    <section>
+        <p>We can now see the contents of our remote repository in VSTS:</p>
+        <img src="/assets/images/git-guide/vsts-remote-repository-pushed.png" />
+    </section>
+</section>
+<!--  -->
+<section>
+    <section>
+        <p>Regardless of whether we cloned a remote repository to our machine or pushed our local repository to the remote server, we now have a local repository that is "linked" to a remote repository.</p>
+    </section>
+    <section>
+        <p>We can see this "link" configured inside git's <b>config</b> file that you can find in the hidden <b>.git</b> folder:</p>
+        <img src="/assets/images/git-guide/git-remote-config.png" />
+        <p>Here you can see we have one branch called <b>master</b> and one remote repository called <b>origin</b>.</p>
+    </section>
+    <section>
+        <p>You can have many remote repository linked to your local repository but this is rare.</p>
+        <p>The convention is to call your remote repository <b>origin</b>.</p>
+        <p>We will go through branches later.</p>
+    </section>
+    <section>
+        <p>Lets make some local changes to the repo we pushed up to VSTS by modifiying a file:</p>
+        <img src="/assets/images/git-guide/git-27.png" />
+        <ul>
+            <li>Note that it says: Your branch is one commit ahead of 'origin/master'</li>
+            <li>This means that our local master branch has one commit that the remote master branch doesn't have</li>
+        </ul>
+    </section>
+    <section>
+        <p>Lets make another commit modifying the same file:</p>
+        <img src="/assets/images/git-guide/git-28.png" />
+        <p>We're now 2 ahead of master</p>
+    </section>
+    <section>
+        <p>We can now <b>push</b> our commit to the remote VSTS repository:</p>
+        <img src="/assets/images/git-guide/git-29.png" />
+    </section>
+    <section>
+        <p>Annoyingly most of the message is about a change in behaviour that was introduced in git 2. That's embrace the new behaviour and stop that message appearing in the future:</p>
+        <img src="/assets/images/git-guide/git-30.png" />
+    </section>
+    <section>
+        <p>If we look at VSTS we can see it knows about both of the new commits now:</p>
+        <img src="/assets/images/git-guide/vsts-commit-history-1.png" />
+    </section>
+    <section>
+        <p>This allows us to make our commit messages in git much more descriptive than our check-in messages in TFVC.</p>
+    </section>
+    <section>
+        <p>Since we are in control of when others can see our changes, we can make lots of small commits with descriptive messages and then push them when we are ready.</p>
+        <p>This is in contrast to TFVC messages where you only describe your changes when you're ready to publish them, resulting in a larger amount of changes needing to be described.</p>
+    </section>
+    <section>
+        <p>Commit messages are also mandatroy, you must provide one - unlike check-in messages</p>
+    </section>
+    <section>
+        <p>Lets make a change on the remote server that isn't on our machine:</p>
+        <img src="/assets/images/git-guide/vsts-modifying-file-remotely.png" />
+        <p>This is the same as someone else making a commit, and then pushing it to the remote repository</p>
+    </section>
+    <section>
+        <p>Lets pull that change down to our machine using the <b>git pull</b> command:</p>
+        <img src="/assets/images/git-guide/git-31.png" />
+    </section>
+</section>
+<section>
+    <section>
+        <h1>Lets recap what we've seen so far&hellip;</h1>
+    </section>
+    <section>
+        <h1>git repository<br />==<br />TFVC workspace</h1>
+    </section>
+    <section>
+        <h1>git commmit<br />==<br />TFVC changeset</h1>
+    </section>
+    <section>
+        <h1>git commmit &amp;&amp; git push<br />==<br />TFVC check-in</h1>
+        <img src="/assets/images/git-guide/push.png" />
+    </section>
+    <section>
+        <h1>git pull<br />==<br />TFVC get latest</h1>
+        <img src="/assets/images/git-guide/pull.png" />
+    </section>
+    <section>
+        <h1>git staging changes<br />==<br />TFVC include pending changes</h1>
+    </section>
+    <section>
+        <h1>git commit id<br />==<br />TFVC changeset id</h1>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Lets see what all this looks like in Visual Studio&hellip;</p>
+    </section>
+    <section>
+        <p>After we've made some changes in our local repository we can review our changes inside the changes window:</p>
+        <img src="/assets/images/git-guide/vs-commit.png" />
+        <p>By default all changes are staged</p>
+    </section>
+    <section>
+        <p>You can also choose which files to commit by using the right click menu to stage only some of them:</p>
+        <img src="/assets/images/git-guide/vs-commit-stage.png" />
+    </section>
+    <section>
+        <p>If you choose to stage only certain files, then the other files are unstaged:</p>
+        <img src="/assets/images/git-guide/vs-commit-staged.png" />
+    </section>
+    <section>
+        <p>Once you have committed, you need to push your changes to the server. To do this click on sync:</p>
+        <img src="/assets/images/git-guide/vs-committed.png" />
+    </section>
+    <section>
+        <p>Visual Studio has a feature called <b>sync</b></p>
+        <p>Sync just calls <b>pull</b> then <b>push</b></p>
+    </section>
+    <section>
+        <p>Clicking on the blue <b>sync</b> link underneath the branch name performs a sync</p>
+        <img src="/assets/images/git-guide/vs-sync-1.png" />
+        <p>The local repository and the server will then have the same code for the current branch</p>
+    </section>
+    <section>
+        <p>You can view commits by right clicking on the solution and then clicking on history:</p>
+        <img src="/assets/images/git-guide/vs-commit-history.png" />
+    </section>
+    <section>
+        <p>The read arrows on the right-hand side point to which commit the local and remote repositories consider to the latest:</p>
+        <img src="/assets/images/git-guide/vs-commit-history-head.png" />
+        <p>This means our local branch is 1 commit ahead of the remote repository</p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Lets create a new branch inside our repository:</p>
+        <img src="/assets/images/git-guide/git-32.png" />
+        <p>This command creates a branch and "switches" to it</p>
+    </section>
+    <section>
+        <p>Unlike in VSTS where branches are represented in mapped folders, git repositories manage different branches by allowing you to switch between them.</p>
+        <p>When you switch branches your workspace is changed to represent the branch you're changing to.</p>
+    </section>
+    <section>
+        <p>Having lots of branches on your machine doesn't actually take up as much room as you'd think since git is efficient and only ever stores the same version of a file once. Normally branches will have more in common than differences.</p>
+        <p>When you switch branches your workspace is instantly changed to represent the branch you're changing to.</p>
+    </section>
+    <section>
+        <p>Lets make a change in our new <i>vnext</i> branch:</p>
+        <img src="/assets/images/git-guide/git-33.png" />
+    </section>
+    <section>
+        <p>Now we can view the contents of the modified file before and after changing branches:</p>
+        <img src="/assets/images/git-guide/git-34.png" />
+    </section>
+    <section>
+        <p>A branch in git is simply a link to a commit id</p>
+        <p>When you perform a commit the current branch is updated to the new commit</p>
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-4.png" />
+    </section>
+    <section>
+        <p>Lets make a change to our master branch that conflicts with the change in vnext:</p>
+        <img src="/assets/images/git-guide/git-35.png" />
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-5.png" />
+    </section>
+    <section>
+        <p>We can now try and perform a <b>merge</b>:</p>
+        <img src="/assets/images/git-guide/git-36.png" />
+        <p>Since we are currently in the master branch, this merges vnext into master</p>
+    </section>
+    <section>
+        <p>As expected we have a merge conflict, we can see this by running git status:</p>
+        <img src="/assets/images/git-guide/git-37.png" />
+    </section>
+    <section>
+        <p>If we look inside the conflicted file, we can see that git has put both modified versions of the conflicted line in the file:</p>
+        <img src="/assets/images/git-guide/git-38.png" />
+    </section>
+    <section>
+        <p>We can fix the merge by modifiying the file and then performing a commit:</p>
+        <img src="/assets/images/git-guide/git-39.png" />
+        <p><small>Note we didn't have to specify a commit name, since our workspace was in process of performing a merge</small></p>
+    </section>
+    <section>
+        <p>Note that if we were merging with Visual Studio then we would have the standard merge window and this would handle the extra commit command required</p>
+    </section>
+    <section>
+        <p>If we run <b>git log</b> then we can see the merge commmit:</p>
+        <img src="/assets/images/git-guide/git-40.png" />
+    </section>
+    <section>
+        <p>If we decrypt the commit we find something interesting about it:</p>
+        <img src="/assets/images/git-guide/git-41.png" />
+        <p>Merge commits have 2 parents</p>
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-6.png" />
+    </section>
+</section>
+<section>
+    <section>
+        <p>Git also has a merging feature called <b>rebase</b></p>
+    </section>
+    <section>
+        <p>When merging a branch it can be difficult to track where certain changes come from</p>
+        <p>Rebasing allows you to stack one branch on top of another</p>
+    </section>
+    <section>
+        <p>Lets make some changes in a new branch but perform a hotfix to the master branch in the process:</p>
+        <img src="/assets/images/git-guide/git-42.png" />
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-7.png" />
+    </section>
+    <section>
+        <p>Now we can rebase our new-feature branch onto the latest version of the master branch:</p>
+        <img src="/assets/images/git-guide/git-43.png" />
+    </section>
+    <section>
+        <p>If we view our last 5 commits you can see that our changes have now been made "on top of" our hotfix:</p>
+        <img src="/assets/images/git-guide/git-44.png" />
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-8.png" />
+    </section>
+    <section>
+        <p>We now have a much simpler commit history, and all the new feature commits are grouped together</p>
+    </section>
+    <section>
+        <p>If we want our rebased changes to go into main then the merge is very simple as we have all the changes from master in our branch already</p>
+    </section>
+    <section>
+        <p>Since our new-feature branch is now an extension of master we can do a simple merge to bring master up to date:</p>
+        <img src="/assets/images/git-guide/git-45.png" />
+        <p><small>When the branch you're merging in already has all of the commits of the current branch, this is called a fast-forward merge</small></p>
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-9.png" />
+    </section>
+    <section>
+        <p>Think of performing a rebase as saying:<br /><b><i>"I want my changes to be applied to the latest version of the source branch"</i></b></p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>A git <b>tag</b> is a snapshot of the code at a given momment in time</p>
+    </section>
+    <section>
+        <p>Branches and tags are merely links to a commit</p>
+    </section>
+    <section>
+        <p>When a commit is made, the current branch is updated to point at the latest commit, whereas a tag does not move</p>
+    </section>
+    <section>
+        <p>Lets create a tag using the <b>git tag</b> command:</p>
+        <img src="/assets/images/git-guide/git-46.png" />
+    </section>
+    <section>
+        <p>Now lets make a change to our branch:</p>
+        <img src="/assets/images/git-guide/git-47.png" />
+    </section>
+    <section>
+        <h1>Git Object Hierarchy</h1>
+        <img src="/assets/images/git-guide/git-object-hierarchy-10.png" />
+    </section>
+    <section>
+        <p>This makes tags a perfect way to track releases</p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>The <b>git push</b> command only pushes commits from branches that the remote server knows about</p>
+    </section>
+    <section>
+        <p>Lets run a <b>git push</b> command now:</p>
+        <img src="/assets/images/git-guide/git-48.png" />
+    </section>
+    <section>
+        <p>If we look at VSTS we'll see that it still doesn't know about any of our branches or tags we've created locally:</p>
+        <img src="/assets/images/git-guide/vsts-no-branches-pushed.png" />
+        <img src="/assets/images/git-guide/vsts-no-tags-pushed.png" />
+    </section>
+    <section>
+        <p>We must push these branches and tags up manually</p>
+    </section>
+    <section>
+        <p>This is to prevent all your local experimental dev branches being uploaded</p>
+    </section>
+    <section>
+        <p>To push a local branch add a couple of parameters to the push command:</p>
+        <img src="/assets/images/git-guide/git-49.png" />
+        <p><small>Visual Studio does this for you&hellip;</small></p>
+    </section>
+    <section>
+        <p>You'll now see this branch in VSTS:</p>
+        <img src="/assets/images/git-guide/vsts-branch-pushed.png" />
+    </section>
+    <section>
+        <p>This also works for tags:</p>
+        <img src="/assets/images/git-guide/git-50.png" />
+        <p><small>Visual Studio does <b>not</b> do this for you&hellip;</small></p>
+    </section>
+    <section>
+        <p>You'll now see this tag in VSTS:</p>
+        <img src="/assets/images/git-guide/vsts-tag-pushed.png" />
+        <p><small>Visual Studio does <b>not</b> do this for you&hellip;</small></p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Lets see what branching and merging looks like in Visual Studio &hellip;</p>
+    </section>
+    <section>
+        <p>Lets start off by creating a branch</p>
+    </section>
+    <section>
+        <p>Go to the Team Explorer</p>
+        <img src="/assets/images/git-guide/vs-team-explorer.png" />
+        <p>And click on "Branches"</p>
+    </section>
+    <section>
+        <p>Here we can see our local and remote branches:</p>
+        <img src="/assets/images/git-guide/vs-branches-1.png" />
+        <p>Click on "New Branch" to create a branch</p>
+    </section>
+    <section>
+        <p>Enter the name of your new branch and click on "Create Branch":</p>
+        <img src="/assets/images/git-guide/vs-new-branch.png" />
+        <p><small>Leaving "Checkout branch" ticked means you'll switch to this branch once it is created</small></p>
+    </section>
+    <section>
+        <p>Make some changes to a file, then go back to Team Explorer:</p>
+        <img src="/assets/images/git-guide/vs-team-explorer.png" />
+        <p>And click on "Changes"</p>
+    </section>
+    <section>
+        <p>Enter your commit message and click on "Commit All"</p>
+        <img src="/assets/images/git-guide/vs-changes.png" />
+    </section>
+    <section>
+        <p>Go back to Team Explorer:</p>
+        <img src="/assets/images/git-guide/vs-team-explorer.png" />
+        <p>And click on "Sync"</p>
+    </section>
+    <section>
+        <p>Click on "Push" to push your new local branch to the remote server:</p>
+        <img src="/assets/images/git-guide/vs-sync-2.png" />
+    </section>
+    <section>
+        <p>Visual Studio will tell you when it's finished:</p>
+        <img src="/assets/images/git-guide/vs-sync-pushed-branch.png" />
+    </section>
+    <section>
+        <p>If we go back to the Branches screen we can see there is a remote version of our new branch that others can now see:</p>
+        <img src="/assets/images/git-guide/vs-branches-2.png" />
+    </section>
+    <section>
+        <p>The easiest way to switch branches is to use the menu on the bottom right hand corner:</p>
+        <img src="/assets/images/git-guide/vs-switch-branch.png" />
+        <p>Use this menu to switch between branches and then commit conflicting changes in either branch</p>
+    </section>
+    <section>
+        <p>Now go to the Branches screen:</p>
+        <img src="/assets/images/git-guide/vs-branches-2.png" />
+        <p>And click on "Merge"</p>
+    </section>
+    <section>
+        <p>We're switched to the master branch, so lets merge our experimental branch into our master branch:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge.png" />
+    </section>
+    <section>
+        <p>Visual Studio will tell you about the conflicts:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts.png" />
+    </section>
+    <section>
+        <p>If we view the conflicting file we'll see the merge text git puts in the file:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-file.png" />
+    </section>
+    <section>
+        <p>If we go back to the Changes screen we can either cancel the merge by clicing on "Abort" or resolve the conflicts by clicking on "Conflicts 1":</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts.png" />
+    </section>
+    <section>
+        <p>If we go back click on "Conflicts 1" then a list of files that have conflicts:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-resolve-1.png" />
+    </section>
+    <section>
+        <p>Clicking on a file gives us some options:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-resolve-2.png" />
+    </section>
+    <section>
+        <p>If we go back click on "Merge" then we see the familiar conflicts window:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-resolve-3.png" />
+    </section>
+    <section>
+        <p>Once we have resolved the conflict we can commit our merge (or abort it):</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-resolve-4.png" />
+    </section>
+    <section>
+        <p>Clicking on "Commit Merge" takes us to the commit screen:</p>
+        <img src="/assets/images/git-guide/vs-branch-merge-conflicts-resolve-5.png" />
+        <p>It has a handy note saying we're in the middle of a merge</p>
+    </section>
+    <section>
+        <p>We can then push our merge commit to the remote repository just like any other commit</p>
+    </section>
+</section>
+<section>
+    <section>
+        <p>Git also has a feature called a <b>pull request</b></p>
+    </section>
+    <section>
+        <p>A pull request is actually a feature of git itself, but is actually a feature that git providers offer</p>
+    </section>
+    <section>
+        <p>With open source projects anyone can access your source code</p>
+    </section>
+    <section>
+        <p>This also means they can change it add new features</p>
+    </section>
+    <section>
+        <p>Open source projects require the ability to stop anyone just modifiying the remote repository at will</p>
+        <p>But they also require the ability to take changes from other people's repository</p>
+    </section>
+    <section>
+        <p>Lets run through how this works in git&hellip;</p>
+    </section>
+    <section>
+        <p>Imagine an open source team has an public repository:</p>
+        <img src="/assets/images/git-guide/git-pr-1.png" />
+    </section>
+    <section>
+        <p>A contributor <b>forks</b> the remote repository into their own remote repository</p>
+        <img src="/assets/images/git-guide/git-pr-2.png" />
+    </section>
+    <section>
+        <p>Forking is a feature offered by a git provider, not git itself</p>
+    </section>
+    <section>
+        <p>The Contributor only has read access to the original repository but has read and write access to their forked copy</p>
+    </section>
+    <section>
+        <p>Contributors clone their forked remote repository onto their machine:</p>
+        <img src="/assets/images/git-guide/git-pr-3.png" />
+    </section>
+    <section>
+        <p>They make changes in their own local repository and push them up to their forked repository</p>
+        <img src="/assets/images/git-guide/git-pr-4.png" />
+    </section>
+    <section>
+        <p>They then peform a <b>pull request</b>:</p>
+        <img src="/assets/images/git-guide/git-pr-5.png" />
+    </section>
+    <section>
+        <p>A pull request asks the original repository's owners if they would like to pull the changes from the forked repository</p>
+    </section>
+    <section>
+        <p>Pull requests are a feature offered by a git provider, not git itself</p>
+    </section>
+    <section>
+        <p>Most git providers offer a GUI including a comments/forum section where the original repository's owners can discuss the changes</p>
+    </section>
+    <section>
+        <p>The original repository's owners can then accept or reject the pull request:</p>
+        <img src="/assets/images/git-guide/git-pr-6.png" />
+    </section>
+    <section>
+        <p>If accepted then the original and forked repositories will contain the same code:</p>
+        <img src="/assets/images/git-guide/git-pr-7.png" />
+    </section>
+    <section>
+        <p>Because the UI for commenting on the changes and the ability to accept and reject is so useful for code reviews, some git providers also allow dev teams to perform pull requests on branch merges too</p>
+    </section>
+    <section>
+        <p>Lets walk through doing a pull request when merging two branches in VSTS&hellip;</p>
+    </section>
+    <section>
+        <p><small>It brings up this form:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-1.png" />
+    </section>
+    <section>
+        <p><small>Once it is created we are then given a comments section for all the reviewers to discuss the potential merge:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-2.png" />
+    </section>
+    <section>
+        <p><small>We can then approve or reject the request:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-3.png" />
+    </section>
+    <section>
+        <p><small>You can then clearly see in the discussions who's approved and rejected the request:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-4.png" />
+        <p><small>You can also mark each comment as approved or rejected too</small></p>
+    </section>
+    <section>
+        <p><small>When you're ready you can complete the merge:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-5.png" />
+    </section>
+    <section>
+        <p><small>Notice the option to delete the branch, this is perfect for feature branches:</small></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-6.png" />
+    </section>
+    <section>
+        <p></p>
+        <img src="/assets/images/git-guide/vsts-pull-request-7.png" />
+    </section>
+</section>
+<section>
+    <section>
+        <p>Commit messages are actually seperated into two parts</p>
+    </section>
+    <section>
+        <p>The first line of the message is the commit message</p>
+        <p><small>The convention is to keep this line under 72 characters long.</small></p>
+    </section>
+    <section>
+        <p>Any subsequent lines can contain a more detailed description of the commit</p>
+        <p><small>There is no limit to the length of the detailed description</small></p>
+    </section>
+    <section>
+        <p>The commit message and detailed description must be seperated by a new line</p>
+    </section>
+    <section>
+        <p>Below is an example commit messages that demonstrates this:</p>
+        <pre><code class="bash" data-trim>
+            Database timeout bug fix
+
+            The user repository was not disposing of the DbContext correctly so I added a using statement.
+
+            - I also updated all of the unit tests.
+            - I also updated all of the integration tests.
+        </code></pre>
+    </section>
+    <section>
+        <p>When viewing commit history in VSTS the first line is displayed as the commit message, with the rest of it being displayed as a tooltip:</p>
+        <img src="/assets/images/git-guide/vsts-commit-history-2.png" />
+        <img src="/assets/images/git-guide/vsts-commit-history-2-tooltip.png" />
+    </section>
+    <section>
+        <p>When viewing an individual commit in VSTS the first line is displayed as the commit message, with the rest of it being accessible by clicking on ˅:</p>
+        <img src="/assets/images/git-guide/vsts-view-commit.png" />
+        <img src="/assets/images/git-guide/vsts-view-commit-details.png" />
+    </section>
+</section>
+<section>
+    <h1>Thanks for listening!</h1>
+    <p>Any questions?</p>
+</section>
+    </div>
+</div>
+<script src="/assets/js/vendor/reveal/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {
+                src: '/assets/js/vendor/reveal/lib/classList.js',
+                condition: function () {
+                    return !document.body.classList;
+                }
+            },
+            {
+                src: '/assets/js/vendor/reveal/plugins/marked.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            },
+            {
+                src: '/assets/js/vendor/reveal/plugins/markdown.js',
+                condition: function () {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            },
+            { 
+                src: '/assets/js/vendor/reveal/plugins/highlight.js', 
+                async: true, 
+                condition: function () { 
+                    return !!document.querySelector('pre code'); 
+                }, 
+                callback: function () { 
+                    hljs.initHighlightingOnLoad(); 
+                }
+            },
+            { 
+                src: '/assets/js/vendor/reveal/plugins/zoom.js', 
+                async: true 
+            },
+            { 
+                src: '/assets/js/vendor/reveal/plugins/notes.js', 
+                async: true 
+            }
+        ]
+    });
+</script>    
+    <footer id="site-footer" class="site-footer-presentation">
+        <div id="site-footer-inner">
+            <div id="site-footer-copy">
+                Connel Hooley <i class="far fa-copyright"></i> 2018
+            </div>
+            
+            <div id="site-footer-contact">
+                <a href="mailto:me@connelhooley.uk" target="_BLANK"><i class="fas fa-envelope fa-fw"></i>&nbsp;Email</a>&nbsp;&bull;
+                <a href="https://twitter.com/connel_dev" target="_BLANK"><i class="fab fa-twitter fa-fw"></i>&nbsp;Twitter</a>&nbsp;&bull;
+                <a href="http://uk.linkedin.com/in/connelhooley" target="_BLANK"><i class="fab fa-linkedin fa-fw"></i>&nbsp;LinkedIn</a>&nbsp;&bull;
+                <a href="/feed.xml" target="_BLANK"><i class="fas fa-rss"></i>&nbsp;Blog RSS</a>
+            </div>
+            
+        </div>
+    </footer>
+    
+</body>
