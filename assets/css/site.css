@@ -3236,11 +3236,11 @@ a i.fab {
     .pager span.previous:visited,
     .pager span.previous:active {
       color: #b2b8bc;
-      background-color: #f8bb15; }
+      background-color: #fce6aa; }
     .pager span.next:hover,
     .pager span.previous:hover {
       color: #b2b8bc;
-      background-color: #f8bb15; }
+      background-color: #fce6aa; }
 
 .meta-item {
   color: #ffffff;
