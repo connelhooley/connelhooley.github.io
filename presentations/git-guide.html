@@ -40,7 +40,7 @@
         <h1>Guide to git</h1>
     </section>
     <section>
-        <p>This guide aims to introduce you to git and is targetted at devs who currently use TFVC</p>
+        <p>This guide aims to introduce you to git and is targeted at devs who currently use TFVC</p>
     </section>
 </section>
 <section>
@@ -50,7 +50,7 @@
             <li>Better tooling support for non Visual Studio devs</li>
             <li>Better suited for open source development</li>
             <li>Better suited for feature branching</li>
-            <li>The cost of supporting more than one VC system in build pieplines has resulted in products such as VSTS offering features in git before TFVC</li>
+            <li>The cost of supporting more than one VC system in build pipelines has resulted in products such as VSTS offering features in git before TFVC</li>
         </ul>
         <aside class="notes">
             <ul>
@@ -103,7 +103,7 @@
     <section>
         <p>Now lets run <b>git status</b> again:</p>
         <img src="/assets/images/git-guide/git-5.png" />
-        <p>Now our changes are <b>commited</b> which means they will be in our next commit</p>
+        <p>Now our changes are <b>committed</b> which means they will be in our next commit</p>
     </section>
     <section>
         <p>Now lets run <b>git commit</b> to check in our changes</p>
@@ -206,7 +206,7 @@
         <h1>Untracked vs unstaged</h1>
         <ul>
             <li>An <b>untracked</b> file is a brand new file that has been newly created</li>
-            <li>An <b>unstaged</b> file is a file that has been previously commited, but has since been modified</li>
+            <li>An <b>unstaged</b> file is a file that has been previously committed, but has since been modified</li>
             <li>This is always abstracted away from you by your IDE so don't worry about it too much</li>
         </ul>
     </section>
@@ -251,7 +251,7 @@
         </ul>
     </section>
     <section>
-        <p>You may have noticed that the blob hash for the oringal helloworld.txt never changed during any of the commits</p>
+        <p>You may have noticed that the blob hash for the original helloworld.txt never changed during any of the commits</p>
         <p>This means that every commit represents a snapshot of all the files on the disk during the time of the commit, but the same file contents is never stored twice</p>
     </section>
 </section>
@@ -264,7 +264,7 @@
         <p><small>This is common practice</small></p>
     </section>
     <section>
-        <p>Creating a remote repository varies per provider, but it is usuaully a very simple process</p>
+        <p>Creating a remote repository varies per provider, but it is usually a very simple process</p>
         <img src="/assets/images/git-guide/vsts-remote-repository-creating.png" />
     </section>
     <section>
@@ -315,7 +315,6 @@
         <img src="/assets/images/git-guide/vsts-remote-repository-pushed.png" />
     </section>
 </section>
-<!--  -->
 <section>
     <section>
         <p>Regardless of whether we cloned a remote repository to our machine or pushed our local repository to the remote server, we now have a local repository that is "linked" to a remote repository.</p>
@@ -331,7 +330,7 @@
         <p>We will go through branches later.</p>
     </section>
     <section>
-        <p>Lets make some local changes to the repo we pushed up to VSTS by modifiying a file:</p>
+        <p>Lets make some local changes to the repo we pushed up to VSTS by modifying a file:</p>
         <img src="/assets/images/git-guide/git-27.png" />
         <ul>
             <li>Note that it says: Your branch is one commit ahead of 'origin/master'</li>
@@ -363,7 +362,7 @@
         <p>This is in contrast to TFVC messages where you only describe your changes when you're ready to publish them, resulting in a larger amount of changes needing to be described.</p>
     </section>
     <section>
-        <p>Commit messages are also mandatroy, you must provide one - unlike check-in messages</p>
+        <p>Commit messages are also mandatory, you must provide one - unlike check-in messages</p>
     </section>
     <section>
         <p>Lets make a change on the remote server that isn't on our machine:</p>
@@ -383,10 +382,10 @@
         <h1>git repository<br />==<br />TFVC workspace</h1>
     </section>
     <section>
-        <h1>git commmit<br />==<br />TFVC changeset</h1>
+        <h1>git commit<br />==<br />TFVC changeset</h1>
     </section>
     <section>
-        <h1>git commmit &amp;&amp; git push<br />==<br />TFVC check-in</h1>
+        <h1>git commit &amp;&amp; git push<br />==<br />TFVC check-in</h1>
         <img src="/assets/images/git-guide/push.png" />
     </section>
     <section>
@@ -492,7 +491,7 @@
         <img src="/assets/images/git-guide/git-38.png" />
     </section>
     <section>
-        <p>We can fix the merge by modifiying the file and then performing a commit:</p>
+        <p>We can fix the merge by modifying the file and then performing a commit:</p>
         <img src="/assets/images/git-guide/git-39.png" />
         <p><small>Note we didn't have to specify a commit name, since our workspace was in process of performing a merge</small></p>
     </section>
@@ -500,7 +499,7 @@
         <p>Note that if we were merging with Visual Studio then we would have the standard merge window and this would handle the extra commit command required</p>
     </section>
     <section>
-        <p>If we run <b>git log</b> then we can see the merge commmit:</p>
+        <p>If we run <b>git log</b> then we can see the merge commit:</p>
         <img src="/assets/images/git-guide/git-40.png" />
     </section>
     <section>
@@ -545,7 +544,7 @@
         <p>We now have a much simpler commit history, and all the new feature commits are grouped together</p>
     </section>
     <section>
-        <p>If we want our rebased changes to go into main then the merge is very simple as we have all the changes from master in our branch already</p>
+        <p>If we want our rebased changes to go into the master branch then the merge is very simple as we have all the changes from master in our branch already</p>
     </section>
     <section>
         <p>Since our new-feature branch is now an extension of master we can do a simple merge to bring master up to date:</p>
@@ -562,7 +561,7 @@
 </section>
 <section>
     <section>
-        <p>A git <b>tag</b> is a snapshot of the code at a given momment in time</p>
+        <p>A git <b>tag</b> is a snapshot of the code at a given moment in time</p>
     </section>
     <section>
         <p>Branches and tags are merely links to a commit</p>
@@ -627,7 +626,7 @@
 </section>
 <section>
     <section>
-        <p>Lets see what branching and merging looks like in Visual Studio &hellip;</p>
+        <p>Lets see what branching and merging looks like in Visual Studio&hellip;</p>
     </section>
     <section>
         <p>Lets start off by creating a branch</p>
@@ -696,7 +695,7 @@
         <img src="/assets/images/git-guide/vs-branch-merge-conflicts-file.png" />
     </section>
     <section>
-        <p>If we go back to the Changes screen we can either cancel the merge by clicing on "Abort" or resolve the conflicts by clicking on "Conflicts 1":</p>
+        <p>If we go back to the Changes screen we can either cancel the merge by clicking on "Abort" or resolve the conflicts by clicking on "Conflicts 1":</p>
         <img src="/assets/images/git-guide/vs-branch-merge-conflicts.png" />
     </section>
     <section>
@@ -738,7 +737,7 @@
         <p>This also means they can change it add new features</p>
     </section>
     <section>
-        <p>Open source projects require the ability to stop anyone just modifiying the remote repository at will</p>
+        <p>Open source projects require the ability to stop anyone just modifying the remote repository at will</p>
         <p>But they also require the ability to take changes from other people's repository</p>
     </section>
     <section>
@@ -767,7 +766,7 @@
         <img src="/assets/images/git-guide/git-pr-4.png" />
     </section>
     <section>
-        <p>They then peform a <b>pull request</b>:</p>
+        <p>They then perform a <b>pull request</b>:</p>
         <img src="/assets/images/git-guide/git-pr-5.png" />
     </section>
     <section>
@@ -825,7 +824,7 @@
 </section>
 <section>
     <section>
-        <p>Commit messages are actually seperated into two parts</p>
+        <p>Commit messages are actually separated into two parts</p>
     </section>
     <section>
         <p>The first line of the message is the commit message</p>
@@ -836,7 +835,7 @@
         <p><small>There is no limit to the length of the detailed description</small></p>
     </section>
     <section>
-        <p>The commit message and detailed description must be seperated by a new line</p>
+        <p>The commit message and detailed description must be separated by a new line</p>
     </section>
     <section>
         <p>Below is an example commit messages that demonstrates this:</p>
