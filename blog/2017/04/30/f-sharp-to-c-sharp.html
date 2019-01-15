@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connel Hooley - Calling F# Code in a C# Project</title>
     
-    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1538834465467480800">
-    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1538834465467480800">
-    <link rel="stylesheet" href="/assets/css/site.css?1538834465467480800">
+    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1547586448044462100">
+    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1547586448044462100">
+    <link rel="stylesheet" href="/assets/css/site.css?1547586448044462100">
     
     <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -24,8 +24,8 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A brief overview of how F# code is exposed to C# projects" />
 <meta property="og:description" content="A brief overview of how F# code is exposed to C# projects" />
-<link rel="canonical" href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" />
-<meta property="og:url" content="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" />
+<link rel="canonical" href="https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" />
+<meta property="og:url" content="https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" />
 <meta property="og:site_name" content="Connel Hooley" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-04-30T18:00:00+01:00" />
@@ -33,7 +33,7 @@
 <meta name="twitter:site" content="@connel_dev" />
 <meta name="twitter:creator" content="@connel_dev" />
 <script type="application/ld+json">
-{"description":"A brief overview of how F# code is exposed to C# projects","@type":"BlogPosting","url":"http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://connelhooley.uk/assets/images/logo.png"}},"headline":"Calling F# Code in a C# Project","dateModified":"2017-04-30T18:00:00+01:00","datePublished":"2017-04-30T18:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"},"@context":"http://schema.org"}</script>
+{"description":"A brief overview of how F# code is exposed to C# projects","@type":"BlogPosting","url":"https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://connelhooley.uk/assets/images/logo.png"}},"headline":"Calling F# Code in a C# Project","dateModified":"2017-04-30T18:00:00+01:00","datePublished":"2017-04-30T18:00:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta property="fb:app_id" content="1962072957454562" />
@@ -132,14 +132,14 @@
             <div id="post-toolbar-buttons">
                 <div id="post-toolbar-share-buttons">
                     <span id="post-toolbar-share-buttons-label"><i class="fas fa-share-alt fa-fw"></i>&nbsp;<span class="post-toolbar-button-label">Share&nbsp;</span></span>
-                    <a class="post-toolbar-button" target="_BLANK" href="https://twitter.com/intent/tweet?text=Calling+F%23+Code+in+a+C%23+Project+by+%40connel_dev&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp"><i class="fab fa-twitter-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Twitter</span></a>
-                    <a class="post-toolbar-button" target="_BLANK" href="//www.reddit.com/submit?url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp&title=Calling+F%23+Code+in+a+C%23+Project"><i class="fab fa-reddit-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Reddit</span></a>
-                    <a class="post-toolbar-button" target="_BLANK" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp&title=Calling+F%23+Code+in+a+C%23+Project"><i class="fab fa-linkedin fa-fw"></i><span class="post-toolbar-button-label">&nbsp;LinkedIn</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://twitter.com/intent/tweet?text=Calling+F%23+Code+in+a+C%23+Project+by+%40connel_dev&url=https%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp"><i class="fab fa-twitter-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Twitter</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="//www.reddit.com/submit?url=https%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp&title=Calling+F%23+Code+in+a+C%23+Project"><i class="fab fa-reddit-square fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Reddit</span></a>
+                    <a class="post-toolbar-button" target="_BLANK" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fconnelhooley.uk%2Fblog%2F2017%2F04%2F30%2Ff-sharp-to-c-sharp&title=Calling+F%23+Code+in+a+C%23+Project"><i class="fab fa-linkedin fa-fw"></i><span class="post-toolbar-button-label">&nbsp;LinkedIn</span></a>
                 </div>
                 <div id="post-toolbar-scroll-buttons">
                     <button id="post-toolbar-button-back-to-top" class="post-toolbar-button"><i class="fas fa-arrow-up fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Back to top</span></button>
                     
-                    <a class="post-toolbar-button" href="#comments"><i class="fas fa-comments fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Comments&nbsp;(<span class="fb-comments-count" data-href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"></span>)</span></a>
+                    <a class="post-toolbar-button" href="#comments"><i class="fas fa-comments fa-fw"></i><span class="post-toolbar-button-label">&nbsp;Comments&nbsp;(<span class="fb-comments-count" data-href="https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp"></span>)</span></a>
                     
                 </div>
             </div>
@@ -648,7 +648,7 @@
 
 <p>Gives the following error in C#:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/enum-char.png" alt="Screenshot of Visual Studio displaying an error when trying to use a char enum from F#" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/enum-char.png" alt="Screenshot of Visual Studio displaying an error when trying to use a char enum from F#" /></p>
 
 <h2 id="cases-with-types">Cases With Types</h2>
 <p>The most common form of discriminated unions however, have cases that are either empty or contain types.</p>
@@ -820,11 +820,11 @@
 
 <p>To consume this function, we are asked to reference FSharp.Core:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the unit type" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the unit type" /></p>
 
 <p>Before finding out that we cannot instantiate unit anyway:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-failing-to-construct.png" alt="Screenshot of Visual Studio error message when trying to construct a unit type" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/unit-failing-to-construct.png" alt="Screenshot of Visual Studio error message when trying to construct a unit type" /></p>
 
 <p>Instead of constructing the unit type however, we can simply pass in null like so<sup id="fnref:unit-null"><a href="#fn:unit-null" class="footnote">2</a></sup>:</p>
 
@@ -885,7 +885,7 @@
 
 <p>To consume this function in C# we must reference FSharp.Core - just like we did for the unit type:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the option type" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the option type" /></p>
 
 <p>We can assign values to option types without a hitch in C#:</p>
 
@@ -908,15 +908,15 @@
 
 <p>Below is a screenshot of Intellisense when using an instance of the option class:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-instance.png" alt="Screenshot of Visual Studio Intellisense when using an option instance" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-instance.png" alt="Screenshot of Visual Studio Intellisense when using an option instance" /></p>
 
 <p>Below is a screenshot of Intellisense when using static methods in the option class:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-static.png" alt="Screenshot of Visual Studio Intellisense when using an option instance" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-static.png" alt="Screenshot of Visual Studio Intellisense when using an option instance" /></p>
 
 <p>One surprising thing I found was that the <code class="highlighter-rouge">None</code> property returned null.</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-null-reference-exception.png" alt="Screenshot of Visual Studio null reference exception when using none type" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/option-null-reference-exception.png" alt="Screenshot of Visual Studio null reference exception when using none type" /></p>
 
 <p>Due to the lack of functionality exposed by the option type to C#, it becomes awkward to use:</p>
 
@@ -982,7 +982,7 @@
 
 <p>To consume this function in C# we must reference FSharp.Core - just like we did for the unit and option types:</p>
 
-<p><img src="http://connelhooley.uk/assets/images/f-sharp-to-c-sharp/list-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the F# list type" /></p>
+<p><img src="https://connelhooley.uk/assets/images/f-sharp-to-c-sharp/list-add-f-sharp-core-reference.png" alt="Screenshot of Visual Studio asking to add a reference to F# Core to use the F# list type" /></p>
 
 <p>We can then consume the list like so:</p>
 
@@ -1052,7 +1052,7 @@
             
             <div id="comments">
                 
-<div class="fb-comments" data-href="http://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" data-numposts="5" data-width="100%"></div>
+<div class="fb-comments" data-href="https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp" data-numposts="5" data-width="100%"></div>
 
             </div>
             
@@ -1076,14 +1076,14 @@
         </div>
     </footer>
     
-    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1538834465467480800"></script>
-    <script src="/assets/js/vendor/moment.min.js?1538834465467480800"></script>
-    <script src="/assets/js/vendor/clipboard.min.js?1538834465467480800"></script>
-    <script src="/assets/js/vendor/js.cookie.js?1538834465467480800"></script>
-    <script src="/assets/js/vendor/stickyfill.min.js?1538834465467480800"></script>
+    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1547586448044462100"></script>
+    <script src="/assets/js/vendor/moment.min.js?1547586448044462100"></script>
+    <script src="/assets/js/vendor/clipboard.min.js?1547586448044462100"></script>
+    <script src="/assets/js/vendor/js.cookie.js?1547586448044462100"></script>
+    <script src="/assets/js/vendor/stickyfill.min.js?1547586448044462100"></script>
     
-    <script src="/assets/js/vendor/fixanchorlinks.js?1538834465467480800"></script>
+    <script src="/assets/js/vendor/fixanchorlinks.js?1547586448044462100"></script>
     
-    <script src="/assets/js/main.js?1538834465467480800"></script>
+    <script src="/assets/js/main.js?1547586448044462100"></script>
     
 </body>
