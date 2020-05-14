@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connel Hooley - Styling React Apps</title>
     
-    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1589473142522212500">
-    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1589473142522212500">
-    <link rel="stylesheet" href="/assets/css/site.css?1589473142522212500">
+    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1589483514208518700">
+    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1589483514208518700">
+    <link rel="stylesheet" href="/assets/css/site.css?1589483514208518700">
     
     <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -106,7 +106,7 @@
             
             
             <div id="post-header-reading-time" class="post-header-item">
-                <i class="far fa-clock"></i>&nbsp;Read in under 14  minutes
+                <i class="far fa-clock"></i>&nbsp;Read in under 16  minutes
             </div>
             
             
@@ -162,6 +162,8 @@
 <li class="toc-entry toc-h1"><a href="#inline-styling">Inline styling</a></li>
 <li class="toc-entry toc-h1"><a href="#css-modules">CSS Modules</a></li>
 <li class="toc-entry toc-h1"><a href="#css-in-js">CSS-in-JS</a></li>
+<li class="toc-entry toc-h1"><a href="#polished">Polished</a></li>
+<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
 </ul></div>
             </nav>
             
@@ -496,7 +498,53 @@ world
   </tbody>
 </table>
 
-<p>Overall I think pros fair outweigh the cons, let me know what you think in the comments!</p>
+<h1 id="polished">Polished</h1>
+
+<p>The final piece of the jigsaw we’re missing, is a replacement for the SCSS/SASS helper functions. For example, SCSS exposes a method that allows you to <a target="_BLANK" href="https://sass-lang.com/documentation/modules/color#darken">darken</a> a colour by a certain factor. This can be achieved whilst using CSS-in-JS by using a library like <code class="highlighter-rouge">polished</code>. For can find the docs for <code class="highlighter-rouge">polished</code> <a target="_BLANK" href="https://polished.js.org/docs">here</a>. Below is an example of how we can use <code class="highlighter-rouge">polished</code> to darken a link by 20% when it’s hovered over:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HomeLink.jsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">styled</span> <span class="k">from</span> <span class="s1">'styled-components'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">darken</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'polished'</span>
+
+<span class="kd">const</span> <span class="nx">StyledLink</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">.</span><span class="nx">a</span><span class="s2">`
+    text-decoration: underline;
+    &amp;,
+    &amp;:link,
+    &amp;:visited,
+    &amp;:active {
+        color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">primaryColor</span><span class="p">)}</span><span class="s2">;
+    }
+    &amp;:hover {
+        color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">darken</span><span class="p">(.</span><span class="mi">2</span><span class="p">,</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">primaryColor</span><span class="p">))}</span><span class="s2">;
+}
+`</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">HomeLink</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">StyledLink</span> <span class="na">href=</span><span class="s2">"/"</span><span class="p">&gt;</span>
+            Home
+        <span class="p">&lt;/</span><span class="nc">StyledLink</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This results in the following style tag being created in the document’s head:</p>
+
+<p><img src="/assets/images/react-styling/polished-html.png" alt="A screenshot showing the hover value set to a darker value in the generated style block'" /></p>
+
+<p>You can also see the <code class="highlighter-rouge">styled-components</code> library’s auto-prefixing in action here. Notice how it has only applied <code class="highlighter-rouge">webkit-</code> prefixes because I was using Chrome.</p>
+
+<p>Other features of the <code class="highlighter-rouge">polished</code> library that are easily achieved in SCSS include mathematical operations. E.g. if you add together <code class="highlighter-rouge">"2rem"</code> and <code class="highlighter-rouge">"1rem"</code> in JavaScript, they’ll concatenate because they’re both strings. The <code class="highlighter-rouge">polished</code> library has a method called <code class="highlighter-rouge">math</code> that you can call like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">math</span><span class="p">(</span><span class="s2">"1rem + 2rem"</span><span class="p">);</span> <span class="c1">// result contains "3rem"</span>
+</code></pre></div></div>
+
+<p>Read about the math function <a target="_BLANK" href="https://polished.js.org/docs/#math">here</a>.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Combining <code class="highlighter-rouge">styled-components</code> and <code class="highlighter-rouge">polish</code> seem like a great fit to me. They’re not perfect, they do add load to the JavaScript engine when the component is rendered for the first time, but overall I think they’re a very good middle ground. Let me know what you think in the comments!</p>
 
 
             </div>
@@ -527,14 +575,14 @@ world
         </div>
     </footer>
     
-    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1589473142522212500"></script>
-    <script src="/assets/js/vendor/moment.min.js?1589473142522212500"></script>
-    <script src="/assets/js/vendor/clipboard.min.js?1589473142522212500"></script>
-    <script src="/assets/js/vendor/js.cookie.js?1589473142522212500"></script>
-    <script src="/assets/js/vendor/stickyfill.min.js?1589473142522212500"></script>
+    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1589483514208518700"></script>
+    <script src="/assets/js/vendor/moment.min.js?1589483514208518700"></script>
+    <script src="/assets/js/vendor/clipboard.min.js?1589483514208518700"></script>
+    <script src="/assets/js/vendor/js.cookie.js?1589483514208518700"></script>
+    <script src="/assets/js/vendor/stickyfill.min.js?1589483514208518700"></script>
     
-    <script src="/assets/js/vendor/fixanchorlinks.js?1589473142522212500"></script>
+    <script src="/assets/js/vendor/fixanchorlinks.js?1589483514208518700"></script>
     
-    <script src="/assets/js/main.js?1589473142522212500"></script>
+    <script src="/assets/js/main.js?1589483514208518700"></script>
     
 </body>
