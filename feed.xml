@@ -1,4 +1,334 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="https://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2020-05-12T12:49:01+01:00</updated><id>https://connelhooley.uk/feed.xml</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Akka Testing Helpers V2</title><link href="https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2" rel="alternate" type="text/html" title="Akka Testing Helpers V2" /><published>2018-10-05T18:00:00+01:00</published><updated>2018-10-05T18:00:00+01:00</updated><id>https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2</id><content type="html" xml:base="https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://connelhooley.uk/feed.xml" rel="self" type="application/atom+xml" /><link href="https://connelhooley.uk/" rel="alternate" type="text/html" /><updated>2020-05-14T17:19:02+01:00</updated><id>https://connelhooley.uk/feed.xml</id><title type="html">Connel Hooley</title><subtitle>.NET/Web developer based in Norwich</subtitle><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><entry><title type="html">Styling React Apps</title><link href="https://connelhooley.uk/blog/2020/05/14/react-styling" rel="alternate" type="text/html" title="Styling React Apps" /><published>2020-05-14T11:00:00+01:00</published><updated>2020-05-14T11:00:00+01:00</updated><id>https://connelhooley.uk/blog/2020/05/14/react-styling</id><content type="html" xml:base="https://connelhooley.uk/blog/2020/05/14/react-styling">&lt;h1 id=&quot;sass&quot;&gt;SASS&lt;/h1&gt;
+
+&lt;p&gt;Traditionally I’ve used pre-processors such as SASS/SCSS to style websites I’ve built. They offer great features like variables and mixins. This allows a developer to control the global look and feel of a site from a single location, without diving into detailed CSS rules. For example this is some SCSS I used to style this site:&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// In a shared global file&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$primary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#f8bb15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$secondary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ternary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#ffffff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$quaternary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#464a4c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$quinary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#f7f7f9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$muted-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#636c72&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$error-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;#d9534f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;@mixin&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;media-extra-small-only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max-width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;575px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;@content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// In a file for the front page&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;#primary-area&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$primary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nn&quot;&gt;#logo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;media-extra-small-only&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;letter-spacing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;.5rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ternary-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;font-family&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$fancy-font-family&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;text-transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;uppercase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The mixins and variables allow me to theme how the front-page and other pages look without having to refactor the CSS for those pages. E.g. I could change most of this website from being yellow to blue or change the screen width I use to declare a screen is no longer extra-small (mobile) in a single line. This is really powerful, particularly when you have a white-label product.&lt;/p&gt;
+
+&lt;h1 id=&quot;react-components&quot;&gt;React Components&lt;/h1&gt;
+
+&lt;p&gt;With React however, we are encouraged to decouple our components as much as possible. In my opinion if a component is given the same props, a component should always act and &lt;em&gt;look&lt;/em&gt; the same, if you want your components to be truly independent chunks on a page. If however, the CSS isn’t controlled by the component, that might not always be true. Depending on where it’s placed in the page, different selectors could kick in and potentially hide content for example. Whether you have the same opinion or not, the nature of a global stylesheet definitely conflicts with the idea of componentisation.&lt;/p&gt;
+
+&lt;p&gt;I remember being horrified when I first saw react code. Transitionally I had always separated my HTML, JS and CSS:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/js-html-css.png&quot; alt=&quot;Diagram with 3 boxes, labelled left to right: JS, HTML, CSS&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yet React blew that out of the water, it splattered the HTML and JS together:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/react-css.png&quot; alt=&quot;Diagram with 2 boxes, labelled left to right: JS + HTML, CSS&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Merging them together gives us various benefits. For example it offers a better developer experience since we no longer have to constantly flick between two files and we get better encapsulation as everything is in one place and is in control of the component. The next logical step is to encapsulate our styling within our components too so we get those benefits again.&lt;/p&gt;
+
+&lt;h1 id=&quot;inline-styling&quot;&gt;Inline styling&lt;/h1&gt;
+
+&lt;p&gt;Inline styling is the most obvious and simplest way to achieve this, below is a really simple example.&lt;/p&gt;
+
+&lt;p&gt;Firstly we can create a config file that controls the global aspect of our site:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Theme.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;primaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pink&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;secondaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;navy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;defaultFontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Unlike global style sheets that go in to the nitty gritty detail of specifying exact element selectors, here we only specify things like colours and fonts and sizes. It is then up to the components to use these values as they see fit. This is a much less brittle way of storing your global styles.&lt;/p&gt;
+
+&lt;p&gt;Once we have the config file we consume it like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// SiteHeader.jsx&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./Theme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SiteHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;primaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;secondaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontWeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;IsBold&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;bold&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;normal&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;fontSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;2rem&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;header&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/header&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, you can get really readable styling using inline styles. You get the benefits of having a centralised config for your site, similar to the SCSS variables I mentioned previously, and the components are really nicely encapsulated along with their styles.&lt;/p&gt;
+
+&lt;p&gt;It is also easier to maintain than CSS files as we get very little help from the IDE with CSS. For example if you refactor a load of components so that they no longer use several classes, you now have to go hunting through the CSS to remove the classes there too. Often these can get missed and they end up unnecessarily bloating your CSS. Using inline styles, that problem goes away. If you remove a component you know its styles are removed to.&lt;/p&gt;
+
+&lt;p&gt;Another benefit of inline styles is that we don’t get class name clashes. This occurs when two components both use the same class name for their styling, but want different things from that class name.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, inline styling does have some serious downsides too, which largely make it a &lt;strong&gt;bad choice&lt;/strong&gt; to use most of the time.&lt;/p&gt;
+
+&lt;p&gt;For example, the rendered HTML is extremely bloated with inline styles making it hard to debug.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/inline-html.png&quot; alt=&quot;A picture showing the inline styles rendered in the DOM&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In a simple example like above, it isn’t a problem but once you have all of your components styles in the DOM it’s not hard to imagine how much of a mess that would become.&lt;/p&gt;
+
+&lt;p&gt;These inline styles can also have really bad performance. If you have a list of 50 components that all use the same styles, the browser has to calculate the styling for each component individually, so it does the same thing 50 times. Inline styles are &lt;a target=&quot;_BLANK&quot; href=&quot;https://medium.com/@oleg008/inline-styles-vs-css-f8c1c926bb63&quot;&gt;handled differently&lt;/a&gt; to normal CSS and I believe inline styles are calculated by the browser’s JavaScript engine and not its CSS engine, which adds to the performance hit.&lt;/p&gt;
+
+&lt;p&gt;Inline styles do not support multiple commonly used CSS features like pseudo classes, animations and media queries. You have to combine them with traditional stylesheets to achieve this but then you’re losing the benefits of the encapsulation and you’re arguably making things worse by splitting the styling across multiple places.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Pros&lt;/th&gt;
+      &lt;th&gt;Cons&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Simple&lt;/td&gt;
+      &lt;td&gt;Debugging&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Allows global themeing whilst retaining encapsulation&lt;/td&gt;
+      &lt;td&gt;Performance&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Easier to maintain than CSS files&lt;/td&gt;
+      &lt;td&gt;Lack of features&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;css-modules&quot;&gt;CSS Modules&lt;/h1&gt;
+
+&lt;p&gt;CSS modules allow us to scope CSS classes to a specific component. Below is a very simple example of how to use CSS modules:&lt;/p&gt;
+
+&lt;div class=&quot;language-jsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// SiteHeader.jsx&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;./header.module.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SiteHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;header&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;className=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;classes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;/* SiteHeader.module.css */&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.header&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pink&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;navy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;font-weight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above example requires Webpack to be set up correctly, this is done for you by tools like &lt;code class=&quot;highlighter-rouge&quot;&gt;create-react-app&lt;/code&gt;. At build time Webpack places a random suffix on the class name like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/css-module-html.png&quot; alt=&quot;A screenshot showing the header class in the module has changed to 'SiteHeader_header__1up6K'&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When running in production mode, Webpack then joins together all the modules in one minified file.&lt;/p&gt;
+
+&lt;p&gt;The unique class name is created by joining together the CSS module name (“SiteHeader”), the class name (“header”) and then a random suffix to ensure uniqueness.&lt;/p&gt;
+
+&lt;p&gt;This scopes the styles to a component so we can’t have class name clashes. It still relies on the CSS being put in a separate file however and it offers no clear way of sharing styles between components.&lt;/p&gt;
+
+&lt;p&gt;The performance is much better than inline styles though, because it is still uses CSS classes, the CSS engine loads in the styling on page load and it only needs to load the class once, regardless of how many time the component is rendered on the page. You also have access to all of CSS’s features such as pseudo classes, animations and media queries.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Pros&lt;/th&gt;
+      &lt;th&gt;Cons&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Solves class name clashes&lt;/td&gt;
+      &lt;td&gt;No clean way to share global themeing&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Better performance&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Full CSS feature-set&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;css-in-js&quot;&gt;CSS-in-JS&lt;/h1&gt;
+
+&lt;p&gt;So, what we really want at this point is the flexibility and encapsulation of inline styles with the performance and feature set of full CSS. I believe CSS-in-JS mostly takes the best from both worlds. There are many CSS-in-JS libraries but &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; appears to be the most popular at the moment:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/css-in-js-trend.png&quot; alt=&quot;A graph showing styled-components as the most downloaded library compared to a few competitors, taken 14th May 2020&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a target=&quot;_BLANK&quot; href=&quot;https://medium.com/@oleg008/inline-styles-vs-css-f8c1c926bb63&quot;&gt;See here for the latest graph.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;CSS-in-JS libraries take in an object that represents a set of styles in a very similar way to inline styles. The difference with CSS-in-JS being instead of putting those rules in an inline style attribute, they inject a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;style&amp;gt;&lt;/code&gt; block into the DOM.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library uses a new ES language feature that I hadn’t seen before called “&lt;a target=&quot;_BLANK&quot; href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates&quot;&gt;tagged template literals&lt;/a&gt;”. Just in-case it’s catches you off guard too I’ll go over it quickly now. To use it, you first have declare a function that takes in a collection of strings and any number of additional params like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myExample&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;strings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Strings:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;strings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Keys:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foreach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then if you call the method using a new funky syntax:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;value2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myExample&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;goodbye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The example function would log:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Strings:
+hello
+goodbye
+Keys:
+helloworldgoodbye42
+world
+42
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The strings parameter contains all of the parts of the interpolated template, plus the result of the interpolation.&lt;/li&gt;
+  &lt;li&gt;The keys parameter contains all of the passed in values.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now we know a little about this new syntax we can look at how we could use the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library in a very simple example:&lt;/p&gt;
+
+&lt;div class=&quot;language-jsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;styled-components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Header&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`
+    background-color: pink;
+    color: navy;
+    font-weight: bold;
+    font-size: 2rem;
+`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SiteHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;styled.header&lt;/code&gt; method returns a styled &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;header&amp;gt;&lt;/code&gt; tag, the library has methods for all HTML tags such as &lt;code class=&quot;highlighter-rouge&quot;&gt;styled.h1&lt;/code&gt; etc. It looks like this when it’s rendered in the browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/styled-component-html-1.png&quot; alt=&quot;A screenshot showing the header element has been given a random class called 'sc-AxjAm feMNGA'&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And if we look in the head of our HTML page you can see the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library has inserted the following style block:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/react-styling/styled-component-html-2.png&quot; alt=&quot;A screenshot showing the head element with a CSS code block for the 'sc-AxjAm feMNGA' CSS class&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The random class name prevents clashes with other components in the same way as CSS modules. Using a style blocks means that a lot of the performance issues and lack of features with inline styles goes away.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library also has an API allowing you to define a global theme object, so you can change the look and feel of the site from a central place too, like we did earlier in the inline example:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Theme.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;primaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;pink&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;secondaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;navy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;defaultFontFamily&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-jsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// App.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ThemeProvider&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;styled-components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./Theme&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SiteHeader&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;./SiteHeader&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ThemeProvider&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;theme=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SiteHeader&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Example&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ThemeProvider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-jsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// SiteHeader.js&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;styled-components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Header&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;styled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`
+    background-color: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;primaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;
+    color: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${({&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;secondaryColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;;
+    font-weight: bold;
+    font-size: 2rem;
+`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SiteHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So there are two main things to explain here. The first is that the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library contains a &lt;code class=&quot;highlighter-rouge&quot;&gt;ThemeProvider&lt;/code&gt; component. This uses the &lt;a target=&quot;_BLANK&quot; href=&quot;https://reactjs.org/docs/context.html&quot;&gt;react context API&lt;/a&gt; to expose the global theme object to styled components. This is usually done in a root element like &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;App/&amp;gt;&lt;/code&gt;. You can also nest themes which is pretty neat. The second thing to explain is the anonymous functions in the styled header. If the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library receives a function for one of the interpolated parameters, it passed in the props for that styled component along with the theme object as a property. For the “color” rule I deconstructed the “theme” property from the props parameter. This looks weird on first glance but once you get used to it, it helps simplify the code when you’re accessing the theme a lot.&lt;/p&gt;
+
+&lt;p&gt;Another nice feature is that when the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library inserts the CSS into the DOM, it also &lt;a target=&quot;_BLANK&quot; href=&quot;https://github.com/styled-components/styled-components/issues/487#issuecomment-279230917&quot;&gt;auto-prefixes&lt;/a&gt; it, and because this is done client side, it only inserts the prefixes that are needed for that browser.&lt;/p&gt;
+
+&lt;p&gt;There are a lot more features of the &lt;code class=&quot;highlighter-rouge&quot;&gt;styled-components&lt;/code&gt; library, you find the docs &lt;a target=&quot;_BLANK&quot; href=&quot;https://styled-components.com/docs&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Pros&lt;/th&gt;
+      &lt;th&gt;Cons&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Allows global themeing whilst retaining encapsulation&lt;/td&gt;
+      &lt;td&gt;Less performant than CSS, more load on client via JavaScript&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Easier to maintain than CSS files&lt;/td&gt;
+      &lt;td&gt;There can be more of a flicker on page load when the CSS is inserted into the DOM&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Much better performance than inline styles&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Full CSS feature-set&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Overall I think pros fair outweigh the cons, let me know what you think in the comments!&lt;/p&gt;</content><author><name>{&quot;twitter&quot;=&gt;&quot;connel_dev&quot;}</name></author><summary type="html">SASS Traditionally I’ve used pre-processors such as SASS/SCSS to style websites I’ve built. They offer great features like variables and mixins. This allows a developer to control the global look and feel of a site from a single location, without diving into detailed CSS rules. For example this is some SCSS I used to style this site: // In a shared global file $primary-color: #f8bb15; $secondary-color: #000000; $ternary-color: #ffffff; $quaternary-color: #464a4c; $quinary-color: #f7f7f9; $muted-color: #636c72; $error-color: #d9534f; @mixin media-extra-small-only { @media (max-width: 575px) { @content; } } // In a file for the front page #primary-area { background-color: $primary-color; #logo h1 { @include media-extra-small-only { font-size: 5rem; letter-spacing: .5rem; } font-size: 6rem; color: $ternary-color; font-family: $fancy-font-family; text-transform: uppercase; } } The mixins and variables allow me to theme how the front-page and other pages look without having to refactor the CSS for those pages. E.g. I could change most of this website from being yellow to blue or change the screen width I use to declare a screen is no longer extra-small (mobile) in a single line. This is really powerful, particularly when you have a white-label product. React Components With React however, we are encouraged to decouple our components as much as possible. In my opinion if a component is given the same props, a component should always act and look the same, if you want your components to be truly independent chunks on a page. If however, the CSS isn’t controlled by the component, that might not always be true. Depending on where it’s placed in the page, different selectors could kick in and potentially hide content for example. Whether you have the same opinion or not, the nature of a global stylesheet definitely conflicts with the idea of componentisation. I remember being horrified when I first saw react code. Transitionally I had always separated my HTML, JS and CSS: Yet React blew that out of the water, it splattered the HTML and JS together: Merging them together gives us various benefits. For example it offers a better developer experience since we no longer have to constantly flick between two files and we get better encapsulation as everything is in one place and is in control of the component. The next logical step is to encapsulate our styling within our components too so we get those benefits again. Inline styling Inline styling is the most obvious and simplest way to achieve this, below is a really simple example. Firstly we can create a config file that controls the global aspect of our site: // Theme.js export default { primaryColor: &quot;pink&quot;, secondaryColor: &quot;navy&quot;, defaultFontFamily: &quot;'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&quot;, }; Unlike global style sheets that go in to the nitty gritty detail of specifying exact element selectors, here we only specify things like colours and fonts and sizes. It is then up to the components to use these values as they see fit. This is a much less brittle way of storing your global styles. Once we have the config file we consume it like so: // SiteHeader.jsx import React from &quot;react&quot;; import theme from &quot;./Theme&quot;; export function SiteHeader(props) { const style = { backgroundColor: theme.primaryColor, color: theme.secondaryColor, fontFamily: theme.fontFamily, fontWeight: props.IsBold ? &quot;bold&quot; : &quot;normal&quot;, fontSize: &quot;2rem&quot;, }; return &amp;lt;header style={style}&amp;gt;{props.title}&amp;lt;/header&amp;gt; } As you can see, you can get really readable styling using inline styles. You get the benefits of having a centralised config for your site, similar to the SCSS variables I mentioned previously, and the components are really nicely encapsulated along with their styles. It is also easier to maintain than CSS files as we get very little help from the IDE with CSS. For example if you refactor a load of components so that they no longer use several classes, you now have to go hunting through the CSS to remove the classes there too. Often these can get missed and they end up unnecessarily bloating your CSS. Using inline styles, that problem goes away. If you remove a component you know its styles are removed to. Another benefit of inline styles is that we don’t get class name clashes. This occurs when two components both use the same class name for their styling, but want different things from that class name. Unfortunately, inline styling does have some serious downsides too, which largely make it a bad choice to use most of the time. For example, the rendered HTML is extremely bloated with inline styles making it hard to debug. In a simple example like above, it isn’t a problem but once you have all of your components styles in the DOM it’s not hard to imagine how much of a mess that would become. These inline styles can also have really bad performance. If you have a list of 50 components that all use the same styles, the browser has to calculate the styling for each component individually, so it does the same thing 50 times. Inline styles are handled differently to normal CSS and I believe inline styles are calculated by the browser’s JavaScript engine and not its CSS engine, which adds to the performance hit. Inline styles do not support multiple commonly used CSS features like pseudo classes, animations and media queries. You have to combine them with traditional stylesheets to achieve this but then you’re losing the benefits of the encapsulation and you’re arguably making things worse by splitting the styling across multiple places. Pros Cons Simple Debugging Allows global themeing whilst retaining encapsulation Performance Easier to maintain than CSS files Lack of features CSS Modules CSS modules allow us to scope CSS classes to a specific component. Below is a very simple example of how to use CSS modules: // SiteHeader.jsx import React from &quot;react&quot;; import classes from &quot;./header.module.css&quot;; export function SiteHeader(props) { return &amp;lt;header className={classes.header} &amp;gt;{props.title}&amp;lt;/header&amp;gt;; } /* SiteHeader.module.css */ .header { background-color: pink; color: navy; font-weight: bold; font-size: 2rem; } The above example requires Webpack to be set up correctly, this is done for you by tools like create-react-app. At build time Webpack places a random suffix on the class name like this: When running in production mode, Webpack then joins together all the modules in one minified file. The unique class name is created by joining together the CSS module name (“SiteHeader”), the class name (“header”) and then a random suffix to ensure uniqueness. This scopes the styles to a component so we can’t have class name clashes. It still relies on the CSS being put in a separate file however and it offers no clear way of sharing styles between components. The performance is much better than inline styles though, because it is still uses CSS classes, the CSS engine loads in the styling on page load and it only needs to load the class once, regardless of how many time the component is rendered on the page. You also have access to all of CSS’s features such as pseudo classes, animations and media queries. Pros Cons Solves class name clashes No clean way to share global themeing Better performance   Full CSS feature-set   CSS-in-JS So, what we really want at this point is the flexibility and encapsulation of inline styles with the performance and feature set of full CSS. I believe CSS-in-JS mostly takes the best from both worlds. There are many CSS-in-JS libraries but styled-components appears to be the most popular at the moment: See here for the latest graph. CSS-in-JS libraries take in an object that represents a set of styles in a very similar way to inline styles. The difference with CSS-in-JS being instead of putting those rules in an inline style attribute, they inject a &amp;lt;style&amp;gt; block into the DOM. The styled-components library uses a new ES language feature that I hadn’t seen before called “tagged template literals”. Just in-case it’s catches you off guard too I’ll go over it quickly now. To use it, you first have declare a function that takes in a collection of strings and any number of additional params like this: function myExample(strings, ...keys) { console.log(&quot;Strings:&quot;) strings.foreach(console.log) console.log(&quot;Keys:&quot;) keys.foreach(console.log) } Then if you call the method using a new funky syntax: const value1 = &quot;world&quot;; const value2 = 42; myExample`hello${value1}goodbye${value2}` The example function would log: Strings: hello goodbye Keys: helloworldgoodbye42 world 42 The strings parameter contains all of the parts of the interpolated template, plus the result of the interpolation. The keys parameter contains all of the passed in values. Now we know a little about this new syntax we can look at how we could use the styled-components library in a very simple example: import React from &quot;react&quot;; import styled from &quot;styled-components&quot;; const Header = styled.header` background-color: pink; color: navy; font-weight: bold; font-size: 2rem; `; export function SiteHeader(props) { return &amp;lt;Header&amp;gt;{props.title}&amp;lt;/Header&amp;gt; } The styled.header method returns a styled &amp;lt;header&amp;gt; tag, the library has methods for all HTML tags such as styled.h1 etc. It looks like this when it’s rendered in the browser: And if we look in the head of our HTML page you can see the styled-components library has inserted the following style block: The random class name prevents clashes with other components in the same way as CSS modules. Using a style blocks means that a lot of the performance issues and lack of features with inline styles goes away. The styled-components library also has an API allowing you to define a global theme object, so you can change the look and feel of the site from a central place too, like we did earlier in the inline example: // Theme.js export default { primaryColor: &quot;pink&quot;, secondaryColor: &quot;navy&quot;, defaultFontFamily: &quot;'Open Sans', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;&quot;, }; // App.js import React from &quot;react&quot;; import { ThemeProvider } from &quot;styled-components&quot;; import theme from &quot;./Theme&quot;; import { SiteHeader } from &quot;./SiteHeader&quot;; export function App() { return ( &amp;lt;ThemeProvider theme={theme}&amp;gt; &amp;lt;SiteHeader title=&quot;Example&quot; /&amp;gt; &amp;lt;/ThemeProvider&amp;gt; ); } // SiteHeader.js import React from &quot;react&quot;; import styled from &quot;styled-components&quot;; const Header = styled.header` background-color: ${props =&amp;gt; props.theme.primaryColor}; color: ${({theme}) =&amp;gt; theme.secondaryColor}; font-weight: bold; font-size: 2rem; `; export function SiteHeader(props) { return &amp;lt;Header&amp;gt;{props.title}&amp;lt;/Header&amp;gt; } So there are two main things to explain here. The first is that the styled-components library contains a ThemeProvider component. This uses the react context API to expose the global theme object to styled components. This is usually done in a root element like &amp;lt;App/&amp;gt;. You can also nest themes which is pretty neat. The second thing to explain is the anonymous functions in the styled header. If the styled-components library receives a function for one of the interpolated parameters, it passed in the props for that styled component along with the theme object as a property. For the “color” rule I deconstructed the “theme” property from the props parameter. This looks weird on first glance but once you get used to it, it helps simplify the code when you’re accessing the theme a lot. Another nice feature is that when the styled-components library inserts the CSS into the DOM, it also auto-prefixes it, and because this is done client side, it only inserts the prefixes that are needed for that browser. There are a lot more features of the styled-components library, you find the docs here. Pros Cons Allows global themeing whilst retaining encapsulation Less performant than CSS, more load on client via JavaScript Easier to maintain than CSS files There can be more of a flicker on page load when the CSS is inserted into the DOM Much better performance than inline styles   Full CSS feature-set   Overall I think pros fair outweigh the cons, let me know what you think in the comments!</summary></entry><entry><title type="html">Akka Testing Helpers V2</title><link href="https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2" rel="alternate" type="text/html" title="Akka Testing Helpers V2" /><published>2018-10-05T18:00:00+01:00</published><updated>2018-10-05T18:00:00+01:00</updated><id>https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2</id><content type="html" xml:base="https://connelhooley.uk/blog/2018/10/05/akka-testing-helpers-v2">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;For an introduction into what the Akka Testing Helpers project is, please see the solution’s new &lt;a target=&quot;_BLANK&quot; href=&quot;https://github.com/connelhooley/AkkaTestingHelpers&quot;&gt;readme on GitHub&lt;/a&gt;.&lt;/p&gt;
 
