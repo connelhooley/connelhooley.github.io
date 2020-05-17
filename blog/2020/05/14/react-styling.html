@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connel Hooley - Styling React Apps</title>
     
-    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1589533881741963400">
-    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1589533881741963400">
-    <link rel="stylesheet" href="/assets/css/site.css?1589533881741963400">
+    <link rel="stylesheet" href="/assets/css/vendor/normalize.css?1589738463958964300">
+    <link rel="stylesheet" href="/assets/css/vendor/stickyfill.css?1589738463958964300">
+    <link rel="stylesheet" href="/assets/css/site.css?1589738463958964300">
     
     <link rel="alternate" type="application/rss+xml" title="Connel Hooley" href="/feed.xml">  
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -106,7 +106,7 @@
             
             
             <div id="post-header-reading-time" class="post-header-item">
-                <i class="far fa-clock"></i>&nbsp;Read in under 16  minutes
+                <i class="far fa-clock"></i>&nbsp;Read in under 25  minutes
             </div>
             
             
@@ -163,6 +163,7 @@
 <li class="toc-entry toc-h1"><a href="#css-modules">CSS Modules</a></li>
 <li class="toc-entry toc-h1"><a href="#css-in-js">CSS-in-JS</a></li>
 <li class="toc-entry toc-h1"><a href="#polished">Polished</a></li>
+<li class="toc-entry toc-h1"><a href="#some-more-examples">Some More Examples</a></li>
 <li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
 </ul></div>
             </nav>
@@ -237,7 +238,7 @@
 
 <p>Once we have the config file we consume it like so:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SiteHeader.jsx</span>
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SiteHeader.jsx</span>
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
 
 <span class="k">import</span> <span class="nx">theme</span> <span class="k">from</span> <span class="s2">"./Theme"</span><span class="p">;</span>
@@ -250,13 +251,13 @@
         <span class="na">fontWeight</span><span class="p">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">IsBold</span> <span class="p">?</span> <span class="s2">"bold"</span> <span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
         <span class="na">fontSize</span><span class="p">:</span> <span class="s2">"2rem"</span><span class="p">,</span>
     <span class="p">};</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">header</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">style</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/header</span><span class="err">&gt;
-</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">header</span> <span class="na">style=</span><span class="si">{</span><span class="nx">style</span><span class="si">}</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;;</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>As you can see, you can get really readable styling using inline styles. You get the benefits of having a centralised config for your site, similar to the SCSS variables I mentioned previously, and the components are really nicely encapsulated along with their styles.</p>
 
-<p>It is also easier to maintain than CSS files as we get very little help from the IDE with CSS. For example if you refactor a load of components so that they no longer use several classes, you now have to go hunting through the CSS to remove the classes there too. Often these can get missed and they end up unnecessarily bloating your CSS. Using inline styles, that problem goes away. If you remove a component you know its styles are removed to.</p>
+<p>It is also easier to maintain than CSS files as we get very little help from the IDE with CSS. For example if you refactor a load of components so that they no longer use several classes, you now have to go hunting through the CSS to remove the classes there too. Often these can get missed and they end up unnecessarily bloating your CSS. Using inline styles, that problem goes away. If you remove a component you know its styles are removed too.</p>
 
 <p>Another benefit of inline styles is that we don’t get class name clashes. This occurs when two components both use the same class name for their styling, but want different things from that class name.</p>
 
@@ -297,22 +298,29 @@
 
 <h1 id="css-modules">CSS Modules</h1>
 
-<p>CSS modules allow us to scope CSS classes to a specific component. Below is a very simple example of how to use CSS modules:</p>
+<p>CSS modules allow us to scope CSS classes to a specific component. Below is a very simple example of how to use CSS modules combined with CSS variables:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// SiteHeader.jsx</span>
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="nx">classes</span> <span class="k">from</span>  <span class="s2">"./header.module.css"</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">classes</span> <span class="k">from</span>  <span class="s2">"./SiteHeader.module.css"</span><span class="p">;</span>
 
 <span class="k">export</span> <span class="kd">function</span> <span class="nx">SiteHeader</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">&lt;</span><span class="nt">header</span> <span class="na">className=</span><span class="si">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">header</span><span class="si">}</span> <span class="p">&gt;</span><span class="si">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Site.css */</span>
+<span class="nd">:root</span> <span class="p">{</span>
+    <span class="py">--primaryColor</span><span class="p">:</span> <span class="no">pink</span><span class="p">;</span>
+    <span class="py">--secondaryColor</span><span class="p">:</span> <span class="no">navy</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* SiteHeader.module.css */</span>
 <span class="nc">.header</span> <span class="p">{</span>
-    <span class="nl">background-color</span><span class="p">:</span> <span class="no">pink</span><span class="p">;</span>
-    <span class="nl">color</span><span class="p">:</span> <span class="no">navy</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--primaryColor</span><span class="p">);</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--secondaryColor</span><span class="p">);</span>
     <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
     <span class="nl">font-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
 <span class="p">}</span>
@@ -322,13 +330,17 @@
 
 <p><img src="/assets/images/react-styling/css-module-html.png" alt="A screenshot showing the header class in the module has changed to 'SiteHeader_header__1up6K'" /></p>
 
-<p>When running in production mode, Webpack then joins together all the modules in one minified file.</p>
+<p>When running in production mode, Webpack joins together all the modules into one minified file.</p>
 
-<p>The unique class name is created by joining together the CSS module name (“SiteHeader”), the class name (“header”) and then a random suffix to ensure uniqueness.</p>
+<p>The unique class name is created by joining together the CSS module name (“SiteHeader”), the class name (“header”) and then a random suffix to ensure uniqueness. This scopes the styles to a component so we can’t have class name clashes.</p>
 
-<p>This scopes the styles to a component so we can’t have class name clashes. It still relies on the CSS being put in a separate file however and it offers no clear way of sharing styles between components.</p>
+<p>The performance is much better than inline styles, the CSS engine loads in the styling on page load and it only needs to load the class once, regardless of how many times the component is rendered on the page. You also have access to all of CSS’s features such as pseudo classes, animations and media queries. CSS variables work in all modern browsers and a shim is available for IE.</p>
 
-<p>The performance is much better than inline styles though, because it is still uses CSS classes, the CSS engine loads in the styling on page load and it only needs to load the class once, regardless of how many time the component is rendered on the page. You also have access to all of CSS’s features such as pseudo classes, animations and media queries.</p>
+<p>It still relies on the CSS being put in a separate file however, so we still have to flicker between multiple files when developing against a component. This means so we lose a tiny bit of the tight encapsulation of inline styles although due to the scoping of the classes we do get much better encapsulation compared to traditional global stylesheets.</p>
+
+<p>One of the tiny niggling issues of having a separate CSS file, is that if you’re developing a package for 3rd party use, the 3rd party has to reference both your JS files and your CSS file. WIth inline styles it’s as simple as installing an NPM package and importing the component.</p>
+
+<p>Another thing we lose compared to global SCSS style sheets is the lack of a mixins. Mixins are small helper methods that you can execute. For example, SCSS exposes a method that allows you to <a target="_BLANK" href="https://sass-lang.com/documentation/modules/color#darken">darken</a> a colour by a certain factor.</p>
 
 <table>
   <thead>
@@ -340,10 +352,14 @@
   <tbody>
     <tr>
       <td>Solves class name clashes</td>
-      <td>No clean way to share global themeing</td>
+      <td>CSS is still in a separate file</td>
     </tr>
     <tr>
-      <td>Better performance</td>
+      <td>Much better encapsulation than global stylesheet</td>
+      <td>No SCSS mixins</td>
+    </tr>
+    <tr>
+      <td>Much better performance</td>
       <td> </td>
     </tr>
     <tr>
@@ -355,7 +371,7 @@
 
 <h1 id="css-in-js">CSS-in-JS</h1>
 
-<p>So, what we really want at this point is the flexibility and encapsulation of inline styles with the performance and feature set of full CSS. I believe CSS-in-JS mostly takes the best from both worlds. There are many CSS-in-JS libraries but <code class="highlighter-rouge">styled-components</code> appears to be the most popular at the moment:</p>
+<p>Depending on your requirements, CSS modules combined with CSS variables will probably do you pretty well in most cases. It is however a shame in my personal opinion, that the inline styles have such a better development experience compared to CSS modules. When I cam across CSS-in-JS it looked like a great halfway house between the two. There are many CSS-in-JS libraries but <code class="highlighter-rouge">styled-components</code> appears to be the most popular at the moment:</p>
 
 <p><img src="/assets/images/react-styling/css-in-js-trend.png" alt="A graph showing styled-components as the most downloaded library compared to a few competitors, taken 14th May 2020" /></p>
 
@@ -363,7 +379,7 @@
 
 <p>CSS-in-JS libraries take in an object that represents a set of styles in a very similar way to inline styles. The difference with CSS-in-JS being instead of putting those rules in an inline style attribute, they inject a <code class="highlighter-rouge">&lt;style&gt;</code> block into the DOM.</p>
 
-<p>The <code class="highlighter-rouge">styled-components</code> library uses a new ES language feature that I hadn’t seen before called “<a target="_BLANK" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates">tagged template literals</a>”. Just in-case it’s catches you off guard too I’ll go over it quickly now. To use it, you first have declare a function that takes in a collection of strings and any number of additional params like this:</p>
+<p>The <code class="highlighter-rouge">styled-components</code> library uses a new ES language feature that I hadn’t seen before called “<a target="_BLANK" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates">tagged template literals</a>”. Just in-case it’s catches you off guard too I’ll go over it quickly now. To use it, you first have to declare a function that takes in a collection of strings and any number of additional params like this:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">myExample</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span> <span class="p">...</span><span class="nx">keys</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Strings:"</span><span class="p">)</span>
@@ -421,7 +437,7 @@ world
 
 <p><img src="/assets/images/react-styling/styled-component-html-2.png" alt="A screenshot showing the head element with a CSS code block for the 'sc-AxjAm feMNGA' CSS class" /></p>
 
-<p>The random class name prevents clashes with other components in the same way as CSS modules. Using a style blocks means that a lot of the performance issues and lack of features with inline styles goes away.</p>
+<p>The random class name prevents clashes with other components in the same way CSS modules do. Using a style blocks means that a lot of the performance issues and lack of features with inline styling go away.</p>
 
 <p>The <code class="highlighter-rouge">styled-components</code> library also has an API allowing you to define a global theme object, so you can change the look and feel of the site from a central place too, like we did earlier in the inline example:</p>
 
@@ -500,7 +516,7 @@ world
 
 <h1 id="polished">Polished</h1>
 
-<p>The final piece of the jigsaw we’re missing, is a replacement for the SCSS/SASS helper functions. For example, SCSS exposes a method that allows you to <a target="_BLANK" href="https://sass-lang.com/documentation/modules/color#darken">darken</a> a colour by a certain factor. This can be achieved whilst using CSS-in-JS by using a library like <code class="highlighter-rouge">polished</code>. You can find the docs for <code class="highlighter-rouge">polished</code> <a target="_BLANK" href="https://polished.js.org/docs">here</a>. Below is an example of how we can use <code class="highlighter-rouge">polished</code> to darken a link by 20% when it’s hovered over:</p>
+<p>The final piece of the jigsaw we’re missing, is a replacement for the SCSS/SASS mixins. This can be achieved while using CSS-in-JS by using a library like <code class="highlighter-rouge">polished</code>. You can find the docs for <code class="highlighter-rouge">polished</code> <a target="_BLANK" href="https://polished.js.org/docs">here</a>. Below is an example of how we can use <code class="highlighter-rouge">polished</code> to darken a link by 20% when it’s hovered over:</p>
 
 <div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HomeLink.jsx</span>
 <span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
@@ -543,6 +559,181 @@ world
 
 <p>Read about the math function <a target="_BLANK" href="https://polished.js.org/docs/#math">here</a>.</p>
 
+<h1 id="some-more-examples">Some More Examples</h1>
+
+<p>Here are a couple of more advanced examples:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Theme.js</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="na">mediaQueries</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">extraSmall</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// Extra small devices (portrait phones)</span>
+            <span class="na">only</span><span class="p">:</span> <span class="s2">"(max-width: 575px)"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">small</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// Small devices (landscape phones)</span>
+            <span class="na">down</span><span class="p">:</span> <span class="s2">"(max-width: 767px)"</span><span class="p">,</span>
+            <span class="na">up</span><span class="p">:</span> <span class="s2">"(min-width: 576px)"</span><span class="p">,</span>
+            <span class="na">only</span><span class="p">:</span> <span class="s2">"(min-width: 576px) and (max-width: 767px)"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">medium</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// Medium devices (tablets)</span>
+            <span class="na">down</span><span class="p">:</span> <span class="s2">"(max-width: 991px)"</span><span class="p">,</span>
+            <span class="na">up</span><span class="p">:</span> <span class="s2">"(min-width: 768px)"</span><span class="p">,</span>
+            <span class="na">only</span><span class="p">:</span> <span class="s2">"(min-width: 768px) and (max-width: 991px)"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">large</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// Large devices (desktops)</span>
+            <span class="na">down</span><span class="p">:</span> <span class="s2">"(max-width: 1199px)"</span><span class="p">,</span>
+            <span class="na">up</span><span class="p">:</span> <span class="s2">"(min-width: 992px)"</span><span class="p">,</span>
+            <span class="na">only</span><span class="p">:</span> <span class="s2">"(min-width: 992px) and (max-width: 1199px)"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">extraLarge</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">only</span><span class="p">:</span> <span class="s2">"(max-width: 1200px)"</span><span class="p">,</span> <span class="c1">// Extra large devices (large desktops)</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">gridWidths</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">small</span><span class="p">:</span> <span class="s2">"540px"</span><span class="p">,</span>
+        <span class="na">medium</span><span class="p">:</span> <span class="s2">"720px"</span><span class="p">,</span>
+        <span class="na">large</span><span class="p">:</span> <span class="s2">"960px"</span><span class="p">,</span>
+        <span class="na">extraLarge</span><span class="p">:</span> <span class="s2">"1140px"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">gridGutterSize</span><span class="p">:</span> <span class="s2">"1rem"</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ResponsiveContainer.jsx</span>
+<span class="k">import</span> <span class="nx">styled</span> <span class="k">from</span> <span class="s2">"styled-components"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ResponsiveContainer</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">.</span><span class="nx">div</span><span class="s2">`
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding-top: 0;
+    padding-right: </span><span class="p">${({</span><span class="nx">gutter</span><span class="p">,</span> <span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">gutter</span> <span class="p">?</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridGutterSize</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">}</span><span class="s2">;
+    padding-bottom: 0;
+    padding-left: </span><span class="p">${({</span><span class="nx">gutter</span><span class="p">,</span> <span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">gutter</span> <span class="p">?</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridGutterSize</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">}</span><span class="s2">;
+    @media </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">mediaQueries</span><span class="p">.</span><span class="nx">small</span><span class="p">.</span><span class="nx">up</span><span class="p">}</span><span class="s2"> {
+        width: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridWidths</span><span class="p">.</span><span class="nx">small</span><span class="p">}</span><span class="s2">;
+    }
+    @media </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">mediaQueries</span><span class="p">.</span><span class="nx">medium</span><span class="p">.</span><span class="nx">up</span><span class="p">}</span><span class="s2"> {
+        width: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridWidths</span><span class="p">.</span><span class="nx">medium</span><span class="p">}</span><span class="s2">;
+    }
+    @media </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">mediaQueries</span><span class="p">.</span><span class="nx">large</span><span class="p">.</span><span class="nx">up</span><span class="p">}</span><span class="s2"> {
+        width: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridWidths</span><span class="p">.</span><span class="nx">large</span><span class="p">}</span><span class="s2">;
+    }
+    @media </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">mediaQueries</span><span class="p">.</span><span class="nx">extraLarge</span><span class="p">.</span><span class="nx">only</span><span class="p">}</span><span class="s2"> {
+        width: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">gridWidths</span><span class="p">.</span><span class="nx">extraLarge</span><span class="p">}</span><span class="s2">;
+    }
+`</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The above example gives us a responsive grid, much like the one that is used in bootstrap to centre your content at a fixed width in the centre of the page. Below is example usage:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ResponsiveContainer&gt;</span>
+    Some content
+<span class="nt">&lt;/ResponsiveContainer&gt;</span>
+
+
+<span class="nt">&lt;ResponsiveContainer</span> <span class="na">gutter</span><span class="nt">&gt;</span>
+    Some content
+<span class="nt">&lt;/ResponsiveContainer&gt;</span>
+</code></pre></div></div>
+
+<p>As you can see, here we allow the developer to specify whether there are gutter spaces in the container in the form of props. This means we now allow developers to change how this component looks in two ways, globally via the theme object or per component using props. This allows us to control exactly how the component can be tweaked. For example, it makes no sense to change the <code class="highlighter-rouge">box-sizing</code> property of the container, in fact doing so would result in a bug having this hard-coded in the component makes that more obvious compared to having it in an external file. It also means that given the same props, the component always renders the same in the browser which is nice.</p>
+
+<p>Also note how the example above includes variables like <code class="highlighter-rouge">"(min-width: 992px) and (max-width: 1199px)"</code>, it wouldn’t be possible to have that as a variable in CSS modules. The following CSS wouldn’t be valid</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span> <span class="n">--mediaQueriesLargeOnly</span> <span class="p">{</span><span class="c">/*  this line wouldn't be valid  */</span>
+    <span class="nt">width</span><span class="o">:</span> <span class="nt">--gridWidthsLarge</span><span class="o">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Due to the fact that the CSS string is interpolated before it is ran by the browser, we get this little added benefit.</p>
+
+<p>Another nice feature of the <code class="highlighter-rouge">styled-components</code> library its “extend” functionality. Below is an example:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">styled</span> <span class="k">from</span> <span class="s2">"styled-components"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">darken</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"polished"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">BaseButton</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">.</span><span class="nx">button</span><span class="s2">`
+    transition: background-color 0.5s ease;
+    /* Other shared styles for button here */
+`</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">SuccessButton</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">(</span><span class="nx">BaseButton</span><span class="p">)</span><span class="s2">`
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">positiveColor</span><span class="p">}</span><span class="s2">
+    background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">positiveColorBackground</span><span class="p">}</span><span class="s2">
+    &amp;:hover {
+        background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">darken</span><span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">defaultBrightnessAdjustment</span><span class="p">,</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">positiveColorBackground</span><span class="p">))}</span><span class="s2">;
+    }
+`</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">FailureButton</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">(</span><span class="nx">BaseButton</span><span class="p">)</span><span class="s2">`
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">failureColor</span><span class="p">}</span><span class="s2">
+    background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">failureColorBackground</span><span class="p">}</span><span class="s2">
+    &amp;:hover {
+        background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">darken</span><span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">defaultBrightnessAdjustment</span><span class="p">,</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">failureColorBackground</span><span class="p">))}</span><span class="s2">;
+    }
+`</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">WarningButton</span> <span class="o">=</span> <span class="nx">styled</span><span class="p">(</span><span class="nx">BaseButton</span><span class="p">)</span><span class="s2">`
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">warningColor</span><span class="p">}</span><span class="s2">
+    background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">warningColorBackground</span><span class="p">}</span><span class="s2">
+    &amp;:hover {
+        background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">darken</span><span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">defaultBrightnessAdjustment</span><span class="p">,</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">warningColorBackground</span><span class="p">))}</span><span class="s2">;
+    }
+`</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The code above allows us to have the equivalent of a base-css class, but since we don’t export it, it is only available to us which something that is very difficult (impossible?) to do with CSS alone.</p>
+
+<p>You may be wondering how you apply styles to elements like body, since they sit outside of the global React component. That is done using the <code class="highlighter-rouge">createGlobalStyles</code> method like below:</p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// GlobalStyling.jsx</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createGlobalStyle</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'styled-components'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">darken</span><span class="p">,</span> <span class="nx">normalize</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'polished'</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">GlobalStyling</span> <span class="o">=</span> <span class="nx">createGlobalStyle</span><span class="s2">`
+  </span><span class="p">${</span><span class="nx">normalize</span><span class="p">()}</span><span class="s2">
+  body {
+    background-color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">)}</span><span class="s2">;
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">background</span><span class="p">.</span><span class="nx">defaultColor</span><span class="p">)}</span><span class="s2">;
+    font-family: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">defaultFont</span><span class="p">)}</span><span class="s2">;
+  }
+  a,
+  a:link,
+  a:visited,
+  a:active {
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">primaryColor</span><span class="p">)}</span><span class="s2">;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: </span><span class="p">${({</span><span class="nx">theme</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">darken</span><span class="p">(</span><span class="nx">theme</span><span class="p">.</span><span class="nx">defaultBrightnessAdjustment</span><span class="p">,</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">primaryColor</span><span class="p">))}</span><span class="s2">;
+    text-decoration: underline;
+  }
+`</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// App.jsx</span>
+<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s2">"react"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ThemeProvider</span>  <span class="p">}</span> <span class="k">from</span> <span class="s2">"styled-components"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">theme</span> <span class="k">from</span> <span class="s2">"./Theme"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">GlobalStyling</span> <span class="p">}</span> <span class="k">from</span> <span class="s2">"./GlobalStyling"</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">&lt;</span><span class="nc">ThemeProvider</span> <span class="na">theme=</span><span class="si">{</span><span class="nx">theme</span><span class="si">}</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nc">GlobalStyling</span> <span class="p">/&gt;</span>
+            // Rest of app here
+        <span class="p">&lt;/</span><span class="nc">ThemeProvider</span><span class="p">&gt;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above example exports a global styles component that should be declared in your root component and have no children of its own. The CSS inside this module is applied to the whole page. This does allow you to specify some defaults for your page although it is often best to keep this as small as possible and keep your styling in your theme and component in my opinion. This can be useful though if you are serving html stored in a database for example. You can read more about the <code class="highlighter-rouge">createGlobalStyles</code> method from the <code class="highlighter-rouge">styled-components</code> library <a target="_BLANK" href="https://styled-components.com/docs/api#createglobalstyle">here</a>.</p>
+
+<p>Another thing you may have noticed is the <code class="highlighter-rouge">normalize</code> method from the <code class="highlighter-rouge">polished</code> library. CSS normalize or reset libraries need to be applied to the entire page so they need to be applied globally. Whether you want to use one depends on your requirements. You can read more about the <code class="highlighter-rouge">normalize</code> method from the <code class="highlighter-rouge">polished</code> library <a target="_BLANK" href="https://polished.js.org/docs/#normalize">here</a>.</p>
+
 <h1 id="summary">Summary</h1>
 
 <p>Combining <code class="highlighter-rouge">styled-components</code> and <code class="highlighter-rouge">polish</code> seem like a great fit to me. They’re not perfect, they do add load to the JavaScript engine when the component is rendered for the first time, but overall I think they’re a very good middle ground. Let me know what you think in the comments!</p>
@@ -576,14 +767,14 @@ world
         </div>
     </footer>
     
-    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1589533881741963400"></script>
-    <script src="/assets/js/vendor/moment.min.js?1589533881741963400"></script>
-    <script src="/assets/js/vendor/clipboard.min.js?1589533881741963400"></script>
-    <script src="/assets/js/vendor/js.cookie.js?1589533881741963400"></script>
-    <script src="/assets/js/vendor/stickyfill.min.js?1589533881741963400"></script>
+    <script src="/assets/js/vendor/jquery-3.1.1.min.js?1589738463958964300"></script>
+    <script src="/assets/js/vendor/moment.min.js?1589738463958964300"></script>
+    <script src="/assets/js/vendor/clipboard.min.js?1589738463958964300"></script>
+    <script src="/assets/js/vendor/js.cookie.js?1589738463958964300"></script>
+    <script src="/assets/js/vendor/stickyfill.min.js?1589738463958964300"></script>
     
-    <script src="/assets/js/vendor/fixanchorlinks.js?1589533881741963400"></script>
+    <script src="/assets/js/vendor/fixanchorlinks.js?1589738463958964300"></script>
     
-    <script src="/assets/js/main.js?1589533881741963400"></script>
+    <script src="/assets/js/main.js?1589738463958964300"></script>
     
 </body>
