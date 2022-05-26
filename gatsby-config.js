@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "connelhooley",
+    title: "{C.H}",
     description: ".NET/Web developer based in Norwich",
     siteUrl: "https://connelhooley.uk/",
     social: {
