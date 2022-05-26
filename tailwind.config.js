@@ -20,10 +20,13 @@ module.exports = {
         },
       },      
       fontFamily: {
-        "logo": ["Slabo 27px", ...defaultTheme.fontFamily.serif],
-        "sans": ["Open Sans", ...defaultTheme.fontFamily.sans],
-        "serif": ["Bree Serif", ...defaultTheme.fontFamily.serif],
-        "mono": ["Source Code Pro", ...defaultTheme.fontFamily.mono],
+        "logo": ["Slabo\\ 27px", ...defaultTheme.fontFamily.serif],
+        "sans": ["Open\\ Sans", ...defaultTheme.fontFamily.sans],
+        "serif": ["Bree\\ Serif", ...defaultTheme.fontFamily.serif],
+        "mono": ["Source\\ Code\\ Pro", ...defaultTheme.fontFamily.mono],
+      },
+      boxShadow: {
+        "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
       },
     },
   },
