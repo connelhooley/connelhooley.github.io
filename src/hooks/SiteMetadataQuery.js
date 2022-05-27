@@ -5,12 +5,16 @@ const useSiteMetadata = () => {
     query {
       site {
         siteMetadata {
+          logo
           title
           description
           siteUrl
+          email
           social {
             twitter
+            linkedIn
           }
+          cvVersion
         }
       }
     }

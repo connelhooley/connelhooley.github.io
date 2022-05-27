@@ -1,17 +1,21 @@
 module.exports = {
   siteMetadata: {
-    title: "{C.H}",
+    logo: "{C.H}",
+    title: "Connel Hooley",
     description: ".NET/Web developer based in Norwich",
     siteUrl: "https://connelhooley.uk/",
+    email: "me@connelhooley.uk",
     social: {
-      twitter: `connel_dev`,
+      twitter: "connel_dev",
+      linkedIn: "connelhooley",
     },
+    cvVersion: 1,
   },
   plugins: [
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.jpg",
+        icon: "src/images/icon.png",
         name: "Connel Hooley",
         short_name: "{C.H}",
         start_url: "/",

@@ -7,13 +7,13 @@ import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
 
 const NavBar = () => {
-  const {title} = useSiteMetadata();
+  const {logo} = useSiteMetadata();
   const [open, setOpen] = useState(false);
   return (
     <nav className="bg-black text-white">
       <div className="container mx-auto flex flex-wrap sm:flex-nowrap">
         <BrandLink to="/">
-          {title}
+          {logo}
         </BrandLink>
         <div className="flex sm:hidden flex-grow justify-end items-center p-6">
           <button className="border border-gray-700 text-white transition-colors duration-400 hover:text-primary p-3" onClick={() => setOpen(o => !o)}>
