@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useMemo } from "react"
+import React, { useRef, useCallback, useState, useMemo, forwardRef } from "react"
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faCaretUp, faCopyright, faEnvelope, faFileLines, faFilePdf, faFileWord, faPrint } from "@fortawesome/free-solid-svg-icons";
@@ -13,65 +13,153 @@ const IndexPage = () => {
   const cvMenuRef = useRef();
   const [cvDropdownOpen, setCvDropdownOpen] = useState(false);
   const onCvMenuBlur = useCallback((e) => {
-    if (!cvMenuRef.current.contains(e.relatedTarget)) {
+    if (!cvMenuRef?.current?.contains(e.relatedTarget)) {
       setCvDropdownOpen(false);
     }
   }, []);
   const { logo, email, social: { twitter, linkedIn }, cvVersion } = useSiteMetadata();
   return (
     <main>
-      <div className="bg-primary">
-        <Container>
-          <Section className="text-center max-w-[700px] py-12">
-            <h1 className="font-logo font-black tracking-widest sm:tracking-[1.5rem] text-7xl sm:text-9xl text-white mb-8 sm:mb-12">{logo}</h1>
-            <p className="text-2xl sm:text-3xl text-black tracking-wide font-light mb-8 sm:mb-12">
-              .NET/Web developer based in Norwich, UK
-            </p>
-            <div className="max-w-[500px] mx-auto">
-              <Link to="/blog" className="block text-center w-full bg-black hover:text-primary hover:bg-gray-700 transition-colors duration-400 text-white p-6 text-xl sm:text-2xl">
-                <FontAwesomeIcon icon={faArrowRight} />&nbsp;Go to Blog
-              </Link>
-            </div>
-          </Section>
-        </Container>
-      </div>
-      <div className="bg-gray-700">
-        <Container>
-          <Section className="max-w-[500px] py-12">
-            <a href={`mailto:${email}`} target="_blank" rel="noreferrer" className="block text-center w-full text-primary border border-primary hover:bg-primary hover:text-white transition-colors duration-400 p-6 mb-4 text-xl sm:text-2xl">
-              <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
-            </a>
-            <a href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer" className="block text-center w-full text-primary border border-primary hover:bg-primary hover:text-white transition-colors duration-400 p-6 mb-4 text-xl sm:text-2xl">
-              <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
-            </a>
-            <a href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer" className="block text-center w-full text-primary border border-primary hover:bg-primary hover:text-white transition-colors duration-400 p-6 mb-4 text-xl sm:text-2xl">
-              <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
-            </a>
-            <div ref={cvMenuRef} role="menu" className="relative" tabIndex={-1} aria-haspopup="true" aria-expanded={cvDropdownOpen} onBlur={onCvMenuBlur}>
-              <button id="cvMenuButton" className="block text-center w-full text-primary border border-primary hover:bg-primary hover:text-white transition-colors duration-400 p-6 mb-4 text-xl sm:text-2xl" onClick={() => setCvDropdownOpen(o => !o)}>
-                <FontAwesomeIcon icon={faFileLines} />&nbsp;CV&nbsp;<FontAwesomeIcon icon={faCaretUp} />
-              </button>
-              <div ria-labelledby="cvMenuButton" className={classNames({ "hidden": !cvDropdownOpen, "z-50 border border-gray-900 block absolute bottom-full": cvDropdownOpen })}>
-                <a role="menuitem"  href={`/ConnelHooleyCV.pdf?v=${cvVersion}`} target="_blank" rel="noreferrer" className="block w-full bg-white text-black hover:bg-primary-light px-6 py-3 text-xl sm:text-2xl">
-                  <FontAwesomeIcon icon={faFilePdf} />&nbsp;PDF
-                </a>
-                <a role="menuitem" href={`/ConnelHooleyCV.docx?v=${cvVersion}`} target="_blank" rel="noreferrer" className="block w-full bg-white text-black hover:bg-primary-light px-6 py-3 text-xl sm:text-2xl">
-                  <FontAwesomeIcon icon={faFileWord} />&nbsp;Word
-                </a>
-                <a role="menuitem"  href={`/ConnelHooleyCV-Printer-Friendly.docx?v=${cvVersion}`} target="_blank" rel="noreferrer" className="block w-full bg-white text-black hover:bg-primary-light px-6 py-3 text-xl sm:text-2xl">
-                  <FontAwesomeIcon icon={faPrint} />&nbsp; Word (Printer friendly)
-                </a>
-              </div>
-            </div>
-            {/* Prevents clicks to other elements while menu is open */}
-            {cvDropdownOpen && <div className="fixed z-40 inset-0"></div>}
-          </Section>
-          <footer className="text-sm text-white text-center -mt-6 pb-6">
-            Connel Hooley&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
-          </footer>
-        </Container>
-      </div>
+      <HomeSection mode="primary">
+        <HomePrimaryTitle>{logo}</HomePrimaryTitle>
+        <HomePrimaryTagLine>
+          .NET/Web developer based in Norwich, UK
+        </HomePrimaryTagLine>
+        <HomeButtons>
+          <HomeButton mode="primary" as={Link} to="/blog">
+            <FontAwesomeIcon icon={faArrowRight} />&nbsp;Go to Blog
+          </HomeButton>
+        </HomeButtons>
+      </HomeSection>
+      <HomeSection mode="secondary">
+        <HomeButtons>
+          <HomeButton mode="secondary" href={`mailto:${email}`} target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
+          </HomeButton>
+          <HomeButton mode="secondary" href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
+          </HomeButton>
+          <HomeButton mode="secondary" href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
+          </HomeButton>
+          <HomeMenuContainer ref={cvMenuRef} role="menu" tabIndex={-1} aria-haspopup="true" aria-expanded={cvDropdownOpen} onBlur={onCvMenuBlur}>
+            <HomeButton as="button" mode="secondary" id="cvDropdownOpen" onClick={() => setCvDropdownOpen(o => !o)}>
+              <FontAwesomeIcon icon={faFileLines} />&nbsp;CV&nbsp;<FontAwesomeIcon icon={faCaretUp} />
+            </HomeButton>
+            <HomeMenuItems ria-labelledby="cvDropdownOpen" menuOpen={cvDropdownOpen}>
+              <HomeMenuItem href={`/ConnelHooleyCV.pdf?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faFilePdf} />&nbsp;PDF
+              </HomeMenuItem>
+              <HomeMenuItem href={`/ConnelHooleyCV.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faFileWord} />&nbsp;Word
+              </HomeMenuItem>
+              <HomeMenuItem href={`/ConnelHooleyCV-Printer-Friendly.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faPrint} />&nbsp; Word (Printer friendly)
+              </HomeMenuItem>
+            </HomeMenuItems>
+          </HomeMenuContainer>
+          {cvDropdownOpen && <HomeMenuBackdrop onClick={() => setCvDropdownOpen(false)} />}
+        </HomeButtons>
+        <HomeFooter>
+          Connel Hooley&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
+        </HomeFooter>
+      </HomeSection>
     </main>
+  );
+};
+
+const HomePrimaryTitle = ({className, children, ...props}) => {
+  return (
+    <h1 className={classNames("font-logo font-black tracking-widest sm:tracking-[1.5rem] text-7xl sm:text-9xl text-white mb-8 sm:mb-12", className)} {...props}>
+      {children}
+    </h1>
+  );
+};
+
+const HomePrimaryTagLine = ({className, children, ...props}) => {
+  return (
+    <p className={classNames("text-2xl sm:text-3xl text-black tracking-wide font-light mb-8 sm:mb-12", className)} {...props}>
+      {children}
+    </p>
+  );
+};
+
+const HomeSection = ({ as: Component = "div", mode, className, children, ...props }) => {
+  const style = {
+    "bg-primary": mode === "primary",
+    "bg-gray-700": mode === "secondary"
+  };
+  return (
+    <Component className={classNames(style, className)} {...props}>
+      <Container>
+        <Section className="text-center max-w-[700px] py-12">
+          {children}
+        </Section>
+      </Container>
+    </Component>
+  );
+};
+
+const HomeButtons = ({ className, children, ...props }) => {
+  return (
+    <div className={classNames("mx-auto max-w-[500px]", className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+const HomeMenuItems = ({ menuOpen, className, children, ...props }) => {
+  const style = {
+    "hidden": !menuOpen,
+    "z-50 border border-gray-900 block absolute bottom-full": menuOpen
+  };
+  return (
+    <div className={classNames(style, className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+const HomeMenuItem = ({ as: Component = "a", className, children, ...props }) => {
+  return (
+    <Component role="menuitem" className={classNames("text-left block w-full bg-white text-black hover:bg-primary-light px-6 py-3 text-lg", className)} {...props}>
+      {children}
+    </Component>
+  );
+};
+
+const HomeButton = ({ as: Component = "a", mode, className, children, ...props }) => {
+  const style = {
+    "block text-center w-full transition-colors duration-400 p-6 text-xl mb-4 last:mb-0": true,
+    "bg-black text-white hover:bg-gray-700 hover:text-primary": mode === "primary",
+    "bg-gray-700 text-primary border border-primary hover:bg-primary hover:text-white": mode === "secondary",
+  };
+  return (
+    <Component className={classNames(style, className)} {...props}>
+      {children}
+    </Component>
+  );
+};
+
+const HomeMenuContainer = forwardRef(({ className, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={classNames("relative 4 mb-4 last:mb-0", className)} {...props}>
+      {children}
+    </div>
+  );
+});
+
+const HomeMenuBackdrop = () => {
+  return (
+    <div className="fixed z-40 inset-0"></div>
+  );
+};
+
+const HomeFooter = ({ className, children, ...props }) => {
+  return (
+    <footer className={classNames("text-sm text-white text-center mt-12 -mb-4", className)} {...props}>
+      {children}
+    </footer>
   );
 };
 
