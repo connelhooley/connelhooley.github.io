@@ -228,5 +228,3 @@ public interface IKeyVaultConfig
 ```
 
 [github-issue]: https://github.com/damienbod/IdentityServer4AspNetCoreIdentityTemplate/issues/30
-
-{:target="\_BLANK"}

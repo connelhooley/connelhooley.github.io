@@ -707,130 +707,68 @@ When searching for Akka information online, ensure you always add "net" onto you
 
 [akka]: http://akka.io/
 
-{:target="\_BLANK"}
-
 [akka.net]: http://getakka.net/
-
-{:target="\_BLANK"}
 
 [akka-api-docs]: http://api.getakka.net/docs/stable/html/5590F8C9.htm
 
-{:target="\_BLANK"}
-
 [akka-docs]: http://getakka.net/docs/
-
-{:target="\_BLANK"}
 
 [petabridge]: https://petabridge.com/
 
-{:target="\_BLANK"}
-
 [petabridge-blog]: https://petabridge.com/blog/
-
-{:target="\_BLANK"}
 
 [akka-system]: http://api.getakka.net/docs/stable/html/B0425D96.htm
 
-{:target="\_BLANK"}
-
 [akka-actor-of]: http://api.getakka.net/docs/stable/html/C622B6E1.htm
-
-{:target="\_BLANK"}
 
 [akka-props]: http://api.getakka.net/docs/stable/html/CA4B795B.htm
 
-{:target="\_BLANK"}
-
 [akka-actor-ref]: http://api.getakka.net/docs/stable/html/56C46846.htm
-
-{:target="\_BLANK"}
 
 [poco]: https://en.wikipedia.org/wiki/Plain_old_CLR_object
 
-{:target="\_BLANK"}
-
 [akka-tell]: http://api.getakka.net/docs/stable/html/D0008D9.htm
-
-{:target="\_BLANK"}
 
 [akka-actor-base]: http://api.getakka.net/docs/stable/html/DD956C95.htm
 
-{:target="\_BLANK"}
-
 [akka-receive-actor]: http://api.getakka.net/docs/stable/html/B124B2AF.htm
-
-{:target="\_BLANK"}
 
 [akka-persistent-actors-docs]: http://getakka.net/docs/persistence/persistent-actors
 
-{:target="\_BLANK"}
-
 [akka-persistent-actor]: http://api.getakka.net/docs/stable/html/B124B2AF.htm
-
-{:target="\_BLANK"}
 
 [akka-receive]: http://api.getakka.net/docs/stable/html/5C8C7532.htm
 
-{:target="\_BLANK"}
-
 [akka-context]: http://api.getakka.net/docs/stable/html/CD4308E5.htm
-
-{:target="\_BLANK"}
 
 [akka-context-parent]: http://api.getakka.net/docs/stable/html/88D6E91E.htm
 
-{:target="\_BLANK"}
-
 [akka-ask]: http://api.getakka.net/docs/stable/html/88D6E91E.htm
-
-{:target="\_BLANK"}
 
 [akka-receive-async]: http://api.getakka.net/docs/stable/html/6A92E9E6.htm
 
-{:target="\_BLANK"}
-
 [akka-become]: http://api.getakka.net/docs/stable/html/2F03E8DE.htm
-
-{:target="\_BLANK"}
 
 [akka-unbounded-stash]: http://api.getakka.net/docs/stable/html/B13D7126.htm
 
-{:target="\_BLANK"}
-
 [akka-stash]: http://api.getakka.net/docs/stable/html/83B3E7F5.htm
-
-{:target="\_BLANK"}
 
 [akka-stash-stash]: http://api.getakka.net/docs/stable/html/5227A101.htm
 
-{:target="\_BLANK"}
-
 [akka-stash-unstash-all]: http://api.getakka.net/docs/stable/html/804DA779.htm
-
-{:target="\_BLANK"}
 
 [akka-unstashing]: https://github.com/petabridge/akka-bootcamp/blob/master/src/Unit-2/lesson5/README.md#unstashing-the-entire-stash-at-once
 
-{:target="\_BLANK"}
-
 [akka-life-cycle]: http://getakka.net/docs/Actor%20lifecycle
-
-{:target="\_BLANK"}
 
 [akka-pipe-to]: http://api.getakka.net/docs/stable/html/29094973.htm
 
-{:target="\_BLANK"}
-
 [akka-pipe-to-2]: http://api.getakka.net/docs/stable/html/6BE66425.htm
-
-{:target="\_BLANK"}
 
 [akka-async]: https://petabridge.com/blog/akkadotnet-async-actors-using-pipeto/
 
-{:target="\_BLANK"}
+[actor-hierarchy]: actor-hierarchy.png
 
-[actor-hierarchy]: {{"/assets/images/actor-hierarchy.png" | absolute_url }}
+[actor-ref]: actor-ref.png
 
-[actor-ref]: {{"/assets/images/actor-ref.png" | absolute_url }}
-
-[actor-ref-new]: {{"/assets/images/actor-ref-new.png" | absolute_url }}
+[actor-ref-new]: actor-ref-new.png

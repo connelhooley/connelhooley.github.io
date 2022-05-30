@@ -560,18 +560,12 @@ I have migrated the package to .NET Standard 1.6. Additional documentation is al
 
 [petabridge-testing-children]: https://petabridge.com/blog/how-to-unit-test-akkadotnet-actors-akka-testkit/#how-do-i-test-a-parentchild-relationship
 
-{:target="\_BLANK"}
-
 [github]: https://github.com/connelhooley/AkkaTestingHelpers
-
-{:target="\_BLANK"}
 
 [petabridge-testing-black-hole]: https://petabridge.com/blog/how-to-unit-test-akkadotnet-actors-akka-testkit/#example
 
-{:target="\_BLANK"}
+[actor-hierarchy]: introducing-akka-testing-helpers-di/actor-hierarchy.png
 
-[actor-hierarchy]: {{"/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy.png" | absolute_url }}
+[actor-hierarchy-testing-d]: introducing-akka-testing-helpers-di/actor-hierarchy-testing-d.png
 
-[actor-hierarchy-testing-d]: {{"/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d.png" | absolute_url }}
-
-[actor-hierarchy-testing-d-mocks]: {{"/assets/images/introducing-akka-testing-helpers-di/actor-hierarchy-testing-d-mocks.png" | absolute_url }}
+[actor-hierarchy-testing-d-mocks]: introducing-akka-testing-helpers-di/actor-hierarchy-testing-d-mocks.png

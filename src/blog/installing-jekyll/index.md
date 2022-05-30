@@ -148,21 +148,17 @@ You can now run Jekyll commands in the integrated terminal. To launch your Jekyl
 jekyll serve
 ```
 
-[enable-wsl]: {{"/assets/images/installing-jekyll/enable-wsl.png" | relative_url }}
-[enable-developer-mode]: {{"/assets/images/installing-jekyll/enable-developer-mode.png" | relative_url }}
-[install-ubuntu]: {{"/assets/images/installing-jekyll/install-ubuntu.png" | relative_url }}
-[installed-ubuntu]: {{"/assets/images/installing-jekyll/installed-ubuntu.png" | relative_url }}
-[wait-for-ubuntu]: {{"/assets/images/installing-jekyll/wait-for-ubuntu.png" | relative_url }}
-[vs-code-open-settings]: {{"/assets/images/installing-jekyll/vs-code-open-settings.png" | relative_url }}
-[vs-code-settings]: {{"/assets/images/installing-jekyll/vs-code-settings.png" | relative_url }}
-[vs-code-bash-confirmation]: {{"/assets/images/installing-jekyll/vs-code-bash-confirmation.png" | relative_url }}
-[vs-code-bash-terminal]: {{"/assets/images/installing-jekyll/vs-code-bash-terminal.png" | relative_url }}
-[vs-code-loading-prompt]: {{"/assets/images/installing-jekyll/vs-code-loading-prompt.png" | relative_url }}
+[enable-wsl]: enable-wsl.png
+[enable-developer-mode]: enable-developer-mode.png
+[install-ubuntu]: install-ubuntu.png
+[installed-ubuntu]: installed-ubuntu.png
+[wait-for-ubuntu]: wait-for-ubuntu.png
+[vs-code-open-settings]: vs-code-open-settings.png
+[vs-code-settings]: vs-code-settings.png
+[vs-code-bash-confirmation]: vs-code-bash-confirmation.png
+[vs-code-bash-terminal]: vs-code-bash-terminal.png
+[vs-code-loading-prompt]: vs-code-loading-prompt.png
 
-[vs-code]: https://code.visualstudio.com/
-
-{:target="\_BLANK"}
+[vs-code]: <https://code.visualstudio.com/>
 [jekyll-install-docs]: <https://jekyllrb.com/docs/windows/#installation>
-{:target="\_BLANK"}
 [jekyll-install-docs-bash]: <https://jekyllrb.com/docs/windows/#installation-via-bash-on-windows-10>
-{:target="\_BLANK"}

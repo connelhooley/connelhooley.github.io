@@ -103,7 +103,5 @@ The above example blocks the thread by 3 seconds if the given TestKit instance h
 
 [akka-testing-helpers-readme]: https://github.com/connelhooley/AkkaTestingHelpers
 
-{:target="\_BLANK"}
-
 [old-blog-post]: {{ site.baseurl }}{% link _posts/2017-09-30-introducing-akka-testing-helpers-di.md %}
 {:target="\_BLANK"}

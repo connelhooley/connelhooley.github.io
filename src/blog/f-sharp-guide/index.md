@@ -957,54 +957,32 @@ In the above example connelAge equals "26" and bob equals "Age is unknown". Cons
 
 [linq]: https://msdn.microsoft.com/en-us/library/bb397947.aspx#Anchor_0
 
-{:target="\_BLANK"}
-
 [action]: https://msdn.microsoft.com/en-us/library/018hxwa8(v=vs.110).aspx
-
-{:target="\_BLANK"}
 
 [func]: https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx
 
-{:target="\_BLANK"}
-
 [printfn]: https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/core.printf-module-%5Bfsharp%5D#remarks
-
-{:target="\_BLANK"}
 
 [so-c-sharp-signature]: http://stackoverflow.com/a/8808773/310098
 
-{:target="\_BLANK"}
-
 [builder-pattern]: http://blogs.tedneward.com/patterns/Builder-CSharp
-
-{:target="\_BLANK"}
 
 [vs-2017-preview]: https://www.visualstudio.com/en-us/news/releasenotes/vs2017-preview-relnotes#fsharp
 
-{:target="\_BLANK"}
-
 [power-tools]: https://marketplace.visualstudio.com/items?itemName=FSharpSoftwareFoundation.VisualFPowerTools
-
-{:target="\_BLANK"}
 
 [power-tools-folders]: https://fsprojects.github.io/VisualFSharpPowerTools/folderorganization.html
 
-{:target="\_BLANK"}
-
 [power-tools-github]: https://github.com/fsprojects/VisualFSharpPowerTools
-
-{:target="\_BLANK"}
 
 [ionide]: http://ionide.io
 
-{:target="\_BLANK"}
+[new-solution]: f-sharp-guide/f-sharp-new-solution.png
 
-[new-solution]: {{"/assets/images/f-sharp-guide/f-sharp-new-solution.png" | absolute_url }}
+[solution-explorer]: f-sharp-guide/f-sharp-solution-explorer.png
 
-[solution-explorer]: {{"/assets/images/f-sharp-guide/f-sharp-solution-explorer.png" | absolute_url }}
+[project-item-context-menu]: f-sharp-guide/f-sharp-solution-explorer-context-menu.png
 
-[project-item-context-menu]: {{"/assets/images/f-sharp-guide/f-sharp-solution-explorer-context-menu.png" | absolute_url }}
+[add-new-file]: f-sharp-guide/f-sharp-add-new-file.png
 
-[add-new-file]: {{"/assets/images/f-sharp-guide/f-sharp-add-new-file.png" | absolute_url }}
-
-[string-format-overloads]: {{"/assets/images/f-sharp-guide/f-sharp-string-format-overloads.png" | absolute_url }}
+[string-format-overloads]: f-sharp-guide/f-sharp-string-format-overloads.png
