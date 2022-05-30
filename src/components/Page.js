@@ -72,6 +72,13 @@ const Section = ({as: Component = "section", className, children, ...props}) => 
   )
 };
 
+const Tag = ({children}) => {
+  return (
+    <span className="inline-block p-1 text-xs bg-black text-white mr-1 last:mr-0">
+      {children}
+    </span>
+  );
+};
 
 export {
   Container,
@@ -79,4 +86,5 @@ export {
   Section,
   Date,
   Button,
+  Tag,
 };
