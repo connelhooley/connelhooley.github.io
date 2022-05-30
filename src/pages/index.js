@@ -11,10 +11,10 @@ import { Container, Section } from "../components/Page";
 const IndexPage = () => {
   const year = useMemo(() => new Date().getFullYear(), []);
   const cvMenuRef = useRef();
-  const [cvDropdownOpen, setCvDropdownOpen] = useState(false);
+  const [cvMenuOpen, setCvMenuOpen] = useState(false);
   const onCvMenuBlur = useCallback((e) => {
     if (!cvMenuRef?.current?.contains(e.relatedTarget)) {
-      setCvDropdownOpen(false);
+      setCvMenuOpen(false);
     }
   }, []);
   const { logo, email, social: { twitter, linkedIn }, cvVersion } = useSiteMetadata();
@@ -42,11 +42,11 @@ const IndexPage = () => {
           <HomeButton mode="secondary" href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
           </HomeButton>
-          <HomeMenuContainer ref={cvMenuRef} role="menu" tabIndex={-1} aria-haspopup="true" aria-expanded={cvDropdownOpen} onBlur={onCvMenuBlur}>
-            <HomeButton as="button" mode="secondary" id="cvDropdownOpen" onClick={() => setCvDropdownOpen(o => !o)}>
+          <HomeMenuContainer ref={cvMenuRef} role="menu" tabIndex={-1} aria-haspopup="true" aria-expanded={cvMenuOpen} onBlur={onCvMenuBlur}>
+            <HomeButton as="button" mode="secondary" id="cvDropdownOpen" onClick={() => setCvMenuOpen(o => !o)}>
               <FontAwesomeIcon icon={faFileLines} />&nbsp;CV&nbsp;<FontAwesomeIcon icon={faCaretUp} />
             </HomeButton>
-            <HomeMenuItems ria-labelledby="cvDropdownOpen" menuOpen={cvDropdownOpen}>
+            <HomeMenuItems ria-labelledby="cvDropdownOpen" menuOpen={cvMenuOpen}>
               <HomeMenuItem href={`/ConnelHooleyCV.pdf?v=${cvVersion}`} target="_blank" rel="noreferrer">
                 <FontAwesomeIcon icon={faFilePdf} />&nbsp;PDF
               </HomeMenuItem>
@@ -58,7 +58,7 @@ const IndexPage = () => {
               </HomeMenuItem>
             </HomeMenuItems>
           </HomeMenuContainer>
-          {cvDropdownOpen && <HomeMenuBackdrop onClick={() => setCvDropdownOpen(false)} />}
+          {cvMenuOpen && <HomeMenuBackdrop onClick={() => setCvMbloenuOpen(false)} />}
         </HomeButtons>
         <HomeFooter>
           Connel Hooley&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}

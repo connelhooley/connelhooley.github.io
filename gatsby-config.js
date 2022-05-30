@@ -24,6 +24,13 @@ module.exports = {
         display: "standalone",
       },
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "blog",
+        path: `${__dirname}/src/blog`,
+      },
+    },
     // {
     //   resolve: "gatsby-plugin-google-analytics",
     //   options: {
@@ -31,5 +38,23 @@ module.exports = {
     //   },
     // },
     "gatsby-plugin-postcss",
-  ]
+    "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-react-helmet",
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_self",
+              rel: "nofollow",
+            },
+          },
+        ],
+      },
+    },
+  ],
 };

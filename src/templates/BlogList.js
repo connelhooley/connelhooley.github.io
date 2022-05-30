@@ -2,7 +2,7 @@ import React from "react"
 
 import { Layout } from "../components/Layout";
 
-const BlogPage = () => {
+const BlogList = () => {
   return (
     <Layout>
       Blog Todo
@@ -10,4 +10,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default BlogList;
