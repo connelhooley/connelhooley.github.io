@@ -1,6 +1,6 @@
 ---
 title: Akka Testing Helpers V2
-date: 2018-10-05 17:00:00 +0000
+date: 2018-10-05 17:00:00
 description: Announcing Akka Testing Helpers V2
 languages:
   - C#
@@ -103,5 +103,4 @@ The above example blocks the thread by 3 seconds if the given TestKit instance h
 
 [akka-testing-helpers-readme]: https://github.com/connelhooley/AkkaTestingHelpers
 
-[old-blog-post]: {{ site.baseurl }}{% link _posts/2017-09-30-introducing-akka-testing-helpers-di.md %}
-{:target="\_BLANK"}
+[old-blog-post]: /blog/2017/09/30/introducing-akka-testing-helpers-di

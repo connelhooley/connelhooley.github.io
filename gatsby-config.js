@@ -50,7 +50,61 @@ module.exports = {
             resolve: "gatsby-remark-external-links",
             options: {
               target: "_self",
-              rel: "nofollow",
+              rel: "noreferrer",
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            title: "Connel Hooley Blog RSS Feed",
+            output: "rss.xml",
+            query: `
+              {
+                allMarkdownRemark(
+                  filter: {fields: {collection: {eq: "blog"}}, frontmatter: {draft: {ne: true}}}
+                  sort: {fields: frontmatter___date, order: ASC}
+                ) {
+                  nodes {
+                    fields {
+                      slug
+                    }
+                    frontmatter {
+                      title
+                      date
+                      description
+                    }
+                    html
+                  }
+                }
+              }
+            `,
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.nodes.map(node => {
+                return {
+                  title: node.frontmatter.title,
+                  description: node.frontmatter.description,
+                  date: node.frontmatter.date,
+                  url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  custom_elements: [{ "content:encoded": node.html }],
+                };
+              })
             },
           },
         ],

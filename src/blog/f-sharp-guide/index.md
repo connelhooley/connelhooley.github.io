@@ -1,6 +1,6 @@
 ---
 title: A C# Developer's Guide to F#
-date: 2017-04-10 13:00:00 +0000
+date: 2017-04-10 13:00:00
 description: A brief introduction to F# from the point of view of a C# developer. This guide aims to get stuck straight into F# without too much functional theory.
 languages:
   - F#

@@ -17,7 +17,7 @@ const IndexPage = () => {
       setCvMenuOpen(false);
     }
   }, []);
-  const { logo, email, social: { twitter, linkedIn }, cvVersion } = useSiteMetadata();
+  const { title, logo, email, social: { twitter, linkedIn }, cvVersion } = useSiteMetadata();
   return (
     <main>
       <HomeSection mode="primary">
@@ -26,7 +26,7 @@ const IndexPage = () => {
           .NET/Web developer based in Norwich, UK
         </HomePrimaryTagLine>
         <HomeButtons>
-          <HomeButton mode="primary" as={Link} to="/blog">
+          <HomeButton mode="primary" as={Link} to="/blog/">
             <FontAwesomeIcon icon={faArrowRight} />&nbsp;Go to Blog
           </HomeButton>
         </HomeButtons>
@@ -58,10 +58,10 @@ const IndexPage = () => {
               </HomeMenuItem>
             </HomeMenuItems>
           </HomeMenuContainer>
-          {cvMenuOpen && <HomeMenuBackdrop onClick={() => setCvMbloenuOpen(false)} />}
+          {cvMenuOpen && <HomeMenuBackdrop />}
         </HomeButtons>
         <HomeFooter>
-          Connel Hooley&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
+          {title}&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
         </HomeFooter>
       </HomeSection>
     </main>

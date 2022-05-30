@@ -1,6 +1,6 @@
 ---
 title: "UPDATE: Introducing Akka Testing Helpers"
-date: 2017-09-30 18:00:00 +0000
+date: 2017-09-30 18:00:00
 description: Introduction to my new Akka testing NuGet package.
 languages:
   - C#

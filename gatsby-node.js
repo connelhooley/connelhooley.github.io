@@ -1,6 +1,6 @@
-const path = require("path");
-
 const { createFilePath } = require("gatsby-source-filesystem");
+const path = require("path");
+const moment = require("moment");
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -12,11 +12,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       value: collection,
     });
     if (collection === "blog") {
-      const slug = createFilePath({ node, getNode, basePath: collection });
+      const path = createFilePath({ node, getNode, basePath: collection });
+      const date = moment(node.frontmatter.date);
+      const slug = `/blog/${date.format("YYYY/MM/DD")}${path}`
       createNodeField({
         node,
         name: "slug",
-        value: `/blog${slug}`,
+        value: slug,
       });
     }
   }
@@ -24,7 +26,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async function ({ actions, graphql }) {
   await createBlogPages({ actions, graphql });
-  await createPolicyPages({ actions, graphql });
 };
 
 const createBlogPages = async function ({ actions, graphql }) {
@@ -32,7 +33,7 @@ const createBlogPages = async function ({ actions, graphql }) {
   const { data } = await graphql(`
     query {
       allMarkdownRemark(
-        filter: {fields: {collection: {eq: "blog"}}}
+        filter: {fields: {collection: {eq: "blog"}}, frontmatter: {draft: {ne: true}}}
         sort: {fields: frontmatter___date}
       ) {
         edges {
@@ -70,13 +71,13 @@ const createBlogPages = async function ({ actions, graphql }) {
   const itemCount = data.allMarkdownRemark.edges.length;
   const pageCount = Math.ceil(itemCount / pageSize);
   const createBlogListPath = (pageNumber) => {
-    if (pageNumber < 1 && pageNumber > pageCount) {
+    if (pageNumber < 1 || pageNumber > pageCount) {
       return null;
     }
     if (pageNumber === 1) {
-      return "/blog";
+      return "/blog/";
     }
-    return `/blog/${pageNumber}`;
+    return `/blog/${pageNumber}/`;
   }
   Array.from({ length: pageCount }).forEach((_, i) => {
     const currentPage = i + 1;
@@ -85,7 +86,7 @@ const createBlogPages = async function ({ actions, graphql }) {
     const nextPath = createBlogListPath(currentPage + 1);
     createPage({
       path,
-      component: path.resolve("./src/templates/BlogList.js"),
+      component: require.resolve("./src/templates/BlogList.js"),
       context: {
         limit: pageSize,
         skip: i * pageSize,

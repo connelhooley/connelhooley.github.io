@@ -28,13 +28,13 @@ const NavBar = () => {
             "flex flex-col sm:flex-row w-full": open,
           },
         )}>
-          <PageLink to="/blog">
+          <PageLink to="/blog/">
             Blog
           </PageLink>
-          <PageLink to="/projects">
+          <PageLink to="/projects/">
             Projects
           </PageLink>
-          <PageLink to="/experience">
+          <PageLink to="/experience/">
             Experience
           </PageLink>
         </div>

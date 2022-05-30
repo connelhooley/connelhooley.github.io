@@ -8,7 +8,7 @@ const primaryColor = "#f8bb15";
 
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx,mdx}",
+    "./src/**/*.{js,jsx,mdx,md}",
   ],
   theme: {
     extend: {

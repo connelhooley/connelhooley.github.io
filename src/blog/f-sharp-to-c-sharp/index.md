@@ -1,6 +1,6 @@
 ---
 title: Calling F# Code in a C# Project
-date: 2017-04-30 17:00:00+0000
+date: 2017-04-30 17:00:00
 description: A brief overview of how F# code is exposed to C# projects
 languages:
   - F#
@@ -905,31 +905,31 @@ public static class Example
 
 Arrays are the same in F# as in C# so they perfectly consumable from C#.
 
-[enum-char]: f-sharp-to-c-sharp/enum-char.png
-[unit-add-f-sharp-core-reference]: f-sharp-to-c-sharp/unit-add-f-sharp-core-reference.png
-[unit-failing-to-construct]: f-sharp-to-c-sharp/unit-failing-to-construct.png
-[option-add-f-sharp-core-reference]: f-sharp-to-c-sharp/option-add-f-sharp-core-reference.png
-[option-null-reference-exception]: f-sharp-to-c-sharp/option-null-reference-exception.png
-[option-instance]: f-sharp-to-c-sharp/option-instance.png
-[option-static]: f-sharp-to-c-sharp/option-static.png
-[list-add-f-sharp-core-reference]: f-sharp-to-c-sharp/list-add-f-sharp-core-reference.png
+[enum-char]: enum-char.png
+[unit-add-f-sharp-core-reference]: unit-add-f-sharp-core-reference.png
+[unit-failing-to-construct]: unit-failing-to-construct.png
+[option-add-f-sharp-core-reference]: option-add-f-sharp-core-reference.png
+[option-null-reference-exception]: option-null-reference-exception.png
+[option-instance]: option-instance.png
+[option-static]: option-static.png
+[list-add-f-sharp-core-reference]: list-add-f-sharp-core-reference.png
 
 [f-sharp-guidelines]: http://fsharp.org/specs/component-design-guidelines/#5-guidelines-for-libraries-for-use-from-other-net-languages
 [tuple]: https://msdn.microsoft.com/en-us/library/system.tuple(v=vs.110).aspx
 [value-tuple]: <https://msdn.microsoft.com/en-us/library/system.valuetuple(v=vs.110).aspx>
-{:target="\_BLANK"}
+
 [value-tuple-docs]: <https://msdn.microsoft.com/en-us/library/system.valuetuple(v=vs.110).aspx#Anchor_3>
-{:target="\_BLANK"}
+
 [deconstructors-docs]: <https://msdn.microsoft.com/en-us/magazine/mt790184.aspx>
-{:target="\_BLANK"}
+
 [why-different-tuples]: <http://mustoverride.com/tuples_structs/>
-{:target="\_BLANK"}
+
 [c-sharp-7-features]: <https://blogs.msdn.microsoft.com/dotnet/2017/03/09/new-features-in-c-7-0/>
-{:target="\_BLANK"}
+
 [may]: <https://www.nuget.org/packages/Strilanc.Value.May/>
-{:target="\_BLANK"}
+
 [msdn-resizearray]: <https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B>'t%5D-type-abbreviation-%5Bfsharp%5D
-{:target="\_BLANK"}
+
 
 [^person-typo]: Thanks to Haumohio Ltd in the comments for spotting a typo here <small>(I have since moved my comments from Disqus to Facebook)</small>.
 [^unit-null]: Thanks to vaskir (@kot_2010) on Twitter for pointing out that null can be used when a function takes in unit.
