@@ -2,7 +2,7 @@ import React from "react";
 import { graphql, Link } from "gatsby";
 
 import { Layout } from "../components/Layout";
-import { Button, Container, Date, Tag, Title } from "../components/Page";
+import { Button, Container, Date, Header, Tag, Title } from "../components/Page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft, faAnglesRight, faCode, faTag } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
@@ -10,9 +10,11 @@ import classNames from "classnames";
 const BlogList = ({ data, pageContext }) => {
   return (
     <Layout>
-      <Title>
-        Blog
-      </Title>
+      <Header>
+        <Title>
+          Blog
+        </Title>
+      </Header>
       <Container>
         <BlogItems>
           {data.allMarkdownRemark.edges.map(({ node }) =>
@@ -26,10 +28,10 @@ const BlogList = ({ data, pageContext }) => {
               slug={node.fields.slug} />)}
           <PaginationContainer>
             <PaginationButton as={Link} to={pageContext.prevPath}>
-              <FontAwesomeIcon fixedWidth icon={faAnglesLeft} />&nbsp;Prev
+              <FontAwesomeIcon fixedWidth icon={faAnglesLeft} />&nbsp;Newer
             </PaginationButton>
             <PaginationButton as={Link} to={pageContext.nextPath}>
-              Next&nbsp;<FontAwesomeIcon fixedWidth icon={faAnglesRight} />
+              Older&nbsp;<FontAwesomeIcon fixedWidth icon={faAnglesRight} />
             </PaginationButton>
           </PaginationContainer>
         </BlogItems>
@@ -40,7 +42,7 @@ const BlogList = ({ data, pageContext }) => {
 
 const BlogItems = ({ children }) => {
   return (
-    <div className="grid grid-cols-1 divide-y max-w-[700px]">
+    <div className="grid grid-cols-1 divide-y">
       {children}
     </div>
   );

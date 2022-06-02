@@ -12,6 +12,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        "xl": "1380px",
+      },      
+      typography: {
+        primary: {
+          css: {
+            "--tw-prose-links": darken(primaryColor, .2),
+          },
+        },
+      },
       colors: {
         primary: {
           "light": lighen(primaryColor, .2),

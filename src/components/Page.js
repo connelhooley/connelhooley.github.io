@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
-const Container = ({as: Component = "div", className, children, ...props}) => {
+const Container = ({ as: Component = "div", className, children, ...props }) => {
   return (
     <Component
       className={classNames(
@@ -18,33 +18,35 @@ const Container = ({as: Component = "div", className, children, ...props}) => {
   )
 };
 
-const Title = ({as: Component = "header", className, children, ...props}) => {
+const Header = ({ as: Component = "header", className, children, ...props }) => {
   return (
-    <Component
-      className={classNames(
-        "py-12 bg-primary",
-        className,
-      )}
-      {...props}
-    >
+    <Component className={classNames("py-12 bg-primary", className)} {...props}>
       <Container>
-        <h1 className="text-white text-8xl">{children}</h1>
+        {children}
       </Container>
     </Component>
   )
 };
 
-const Date = ({date, showRelative, ...props}) => {
+const Title = ({ as: Component = "h1", className, children, ...props }) => {
+  return (
+    <Component className={classNames("text-white text-8xl mb-6 last:mb-0", className)} {...props}>
+      {children}
+    </Component>
+  )
+};
+
+const Date = ({ date, showRelative, ...props }) => {
   const parsed = moment(date);
   return (
     <span {...props}>
       <FontAwesomeIcon icon={faCalendarAlt} />&nbsp;{parsed.format("DD/MM/YYYY")}
       {showRelative && <span>&nbsp;({parsed.fromNow()})</span>}
-      </span>
+    </span>
   );
 };
 
-const Button = ({as: Component = "button", className, children, ...props}) => {
+const Button = ({ as: Component = "button", className, children, ...props }) => {
   return (
     <Component
       className={classNames(
@@ -58,21 +60,16 @@ const Button = ({as: Component = "button", className, children, ...props}) => {
   );
 };
 
-const Section = ({as: Component = "section", className, children, ...props}) => {
+const Section = ({ as: Component = "section", className, children, ...props }) => {
   return (
     <Component
-      className={classNames(
-        "mx-auto py-8",
-        className,
-      )}
-      {...props}
-    >
+      className={classNames("mx-auto py-8", className)} {...props}>
       {children}
     </Component>
-  )
+  );
 };
 
-const Tag = ({children}) => {
+const Tag = ({ children }) => {
   return (
     <span className="inline-block p-1 text-xs bg-black text-white mr-1 last:mr-0">
       {children}
@@ -80,11 +77,28 @@ const Tag = ({children}) => {
   );
 };
 
+const Copy = ({ as: Component = "div", className, children, ...props }) => {
+  return (
+    <Component
+      className={classNames(
+        "max-w-none",
+        "prose prose-primary",
+        "prose-code:before:content-none prose-code:after:content-none",
+        "prose-li:m-0",
+        className
+      )} {...props}>
+      {children}
+    </Component>
+  );
+};
+
 export {
   Container,
+  Header,
   Title,
   Section,
   Date,
   Button,
   Tag,
+  Copy,
 };

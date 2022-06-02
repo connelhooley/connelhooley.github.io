@@ -53,6 +53,10 @@ module.exports = {
               rel: "noreferrer",
             },
           },
+          "gatsby-remark-reading-time",
+          "gatsby-remark-prismjs-copy-button",
+          "gatsby-remark-prismjs",
+          "gatsby-remark-autolink-headers"
         ],
       },
     },
