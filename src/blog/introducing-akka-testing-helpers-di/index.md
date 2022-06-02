@@ -564,8 +564,8 @@ I have migrated the package to .NET Standard 1.6. Additional documentation is al
 
 [petabridge-testing-black-hole]: https://petabridge.com/blog/how-to-unit-test-akkadotnet-actors-akka-testkit/#example
 
-[actor-hierarchy]: introducing-akka-testing-helpers-di/actor-hierarchy.png
+[actor-hierarchy]: actor-hierarchy.png
 
-[actor-hierarchy-testing-d]: introducing-akka-testing-helpers-di/actor-hierarchy-testing-d.png
+[actor-hierarchy-testing-d]: actor-hierarchy-testing-d.png
 
-[actor-hierarchy-testing-d-mocks]: introducing-akka-testing-helpers-di/actor-hierarchy-testing-d-mocks.png
+[actor-hierarchy-testing-d-mocks]: actor-hierarchy-testing-d-mocks.png

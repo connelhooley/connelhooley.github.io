@@ -928,11 +928,9 @@ Arrays are the same in F# as in C# so they perfectly consumable from C#.
 
 [may]: <https://www.nuget.org/packages/Strilanc.Value.May/>
 
-[msdn-resizearray]: <https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B>'t%5D-type-abbreviation-%5Bfsharp%5D
+[msdn-resizearray]: <https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/collections.resizearray%5B't%5D-type-abbreviation-%5Bfsharp%5D>
 
 
 [^person-typo]: Thanks to Haumohio Ltd in the comments for spotting a typo here <small>(I have since moved my comments from Disqus to Facebook)</small>.
 [^unit-null]: Thanks to vaskir (@kot_2010) on Twitter for pointing out that null can be used when a function takes in unit.
 [^list]: Thanks to Stuart in the comments for pointing out the [ResizeArray][msdn-resizearray] type <small>(I have since moved my comments from Disqus to Facebook)</small>.
-
-<div class="references-title">References</div>

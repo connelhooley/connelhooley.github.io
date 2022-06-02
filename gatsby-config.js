@@ -4,6 +4,7 @@ module.exports = {
     title: "Connel Hooley",
     description: ".NET/Web developer based in Norwich",
     siteUrl: "https://connelhooley.uk/",
+    siteOrigin: "https://connelhooley.uk",
     email: "me@connelhooley.uk",
     social: {
       twitter: "connel_dev",
@@ -49,14 +50,34 @@ module.exports = {
           {
             resolve: "gatsby-remark-external-links",
             options: {
-              target: "_self",
+              target: "_blank",
               rel: "noreferrer",
             },
           },
           "gatsby-remark-reading-time",
-          "gatsby-remark-prismjs-copy-button",
-          "gatsby-remark-prismjs",
-          "gatsby-remark-autolink-headers"
+          {
+            resolve: "gatsby-remark-prismjs",
+            options: {
+              noInlineHighlight: true,
+            },
+          },
+          "gatsby-remark-ch-code-copy",
+          {
+            resolve: "gatsby-remark-autolink-headers",
+            options: {
+              isIconAfterHeader: true,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              // It's important to specify the maxWidth (in pixels) of
+              // the content container as this plugin uses this as the
+              // base for generating different widths of each image.
+              maxWidth: 1200,
+              linkImagesToOriginal: false,
+            },
+          },
         ],
       },
     },

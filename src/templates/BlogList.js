@@ -1,15 +1,20 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
-
-import { Layout } from "../components/Layout";
-import { Button, Container, Date, Header, Tag, Title } from "../components/Page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft, faAnglesRight, faCode, faTag } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
+import { Layout } from "../components/Layout";
+import { Container, Header, Title } from "../components/Page";
+import { Button } from "../components/Button";
+import { Date } from "../components/Date";
+import { Tag } from "../components/Tag";
+import { PageSeo } from "../components/Seo";
+
 const BlogList = ({ data, pageContext }) => {
   return (
     <Layout>
+      <PageSeo title="Blog" tabTitleSegments={["Blog"]} />
       <Header>
         <Title>
           Blog
@@ -55,7 +60,7 @@ const BlogItem = ({ title, date, description, languages, technologies, slug }) =
       <p className="mb-6">{description}</p>
       <div className="sm:flex sm:justify-between">
         <div className="shrink-0 mb-4 sm:mb-0">
-          <Date className="text-gray-500 font-light mr-4" date={date} showRelative />
+          <Date className="text-gray-500 font-light mr-4" value={date} showRelative />
         </div>
         <div>
           {languages && languages.map((language, i) =>

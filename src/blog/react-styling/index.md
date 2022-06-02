@@ -342,7 +342,7 @@ export function HomeLink() {
 
 This results in the following style tag being created in the document's head:
 
-![A screenshot showing the hover value set to a darker value in the generated style block'][polished-html]
+![A screenshot showing the hover value set to a darker value in the generated style block][polished-html]
 
 You can also see the `styled-components` library's auto-prefixing in action here. Notice how it has only applied `webkit-` prefixes because I was using Chrome.
 

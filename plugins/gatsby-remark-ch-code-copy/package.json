@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-remark-ch-header-link",
+  "name": "gatsby-remark-ch-code-copy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^5.3.3",
+    "unist-util-visit": "^2.0.3"
+  }
 }

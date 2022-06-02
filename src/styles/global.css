@@ -18,3 +18,53 @@
     @apply font-serif uppercase;
   }
 }
+
+.prose h1 + p,
+.prose h2 + p,
+.prose h3 + p,
+.prose h4 + p,
+.prose h5 + p,
+.prose h6 + p {
+  @apply mt-0 scroll-mt-4;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply scroll-mt-16;
+}
+
+.anchor.after svg {
+  @apply stroke-primary;
+}
+
+.code-copy-wrapper {
+  @apply relative clear-both;
+}
+
+.code-copy-button {
+  @apply absolute top-0 right-0 bg-gray-600 text-white text-xs p-1;
+}
+
+.toc {
+  @apply text-sm;
+}
+
+.toc a {
+  @apply py-2 inline-block hover:underline
+}
+
+.toc ul {
+  @apply pl-4 first:pl-0;
+}
+
+.toc > ul > li {
+  @apply px-2 bg-gray-800 even:bg-gray-900 text-primary;
+}
+/* 
+.toc > ul > li > ul {
+  @apply pl-1;
+} */

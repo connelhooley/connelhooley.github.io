@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require('tailwindcss/colors')
 const color = require('color')
 
 const lighen = (clr, val) => color(clr).lighten(val).rgb().string();
@@ -23,6 +24,7 @@ module.exports = {
         },
       },
       colors: {
+        gray: colors.neutral,
         primary: {
           "light": lighen(primaryColor, .2),
           "DEFAULT": primaryColor,

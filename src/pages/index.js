@@ -7,6 +7,7 @@ import classNames from "classnames";
 
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
 import { Container, Section } from "../components/Page";
+import { SiteSeo } from "../components/Seo";
 
 const IndexPage = () => {
   const year = useMemo(() => new Date().getFullYear(), []);
@@ -19,56 +20,59 @@ const IndexPage = () => {
   }, []);
   const { title, logo, email, social: { twitter, linkedIn }, cvVersion } = useSiteMetadata();
   return (
-    <main>
-      <HomeSection mode="primary">
-        <HomePrimaryTitle>{logo}</HomePrimaryTitle>
-        <HomePrimaryTagLine>
-          .NET/Web developer based in Norwich, UK
-        </HomePrimaryTagLine>
-        <HomeButtons>
-          <HomeButton mode="primary" as={Link} to="/blog/">
-            <FontAwesomeIcon icon={faArrowRight} />&nbsp;Go to Blog
-          </HomeButton>
-        </HomeButtons>
-      </HomeSection>
-      <HomeSection mode="secondary">
-        <HomeButtons>
-          <HomeButton mode="secondary" href={`mailto:${email}`} target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
-          </HomeButton>
-          <HomeButton mode="secondary" href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
-          </HomeButton>
-          <HomeButton mode="secondary" href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
-          </HomeButton>
-          <HomeMenuContainer ref={cvMenuRef} role="menu" tabIndex={-1} aria-haspopup="true" aria-expanded={cvMenuOpen} onBlur={onCvMenuBlur}>
-            <HomeButton as="button" mode="secondary" id="cvDropdownOpen" onClick={() => setCvMenuOpen(o => !o)}>
-              <FontAwesomeIcon icon={faFileLines} />&nbsp;CV&nbsp;<FontAwesomeIcon icon={faCaretUp} />
+    <>
+      <SiteSeo />
+      <main>
+        <HomeSection mode="primary">
+          <HomePrimaryTitle>{logo}</HomePrimaryTitle>
+          <HomePrimaryTagLine>
+            .NET/Web developer based in Norwich, UK
+          </HomePrimaryTagLine>
+          <HomeButtons>
+            <HomeButton mode="primary" as={Link} to="/blog/">
+              <FontAwesomeIcon icon={faArrowRight} />&nbsp;Go to Blog
             </HomeButton>
-            <HomeMenuItems ria-labelledby="cvDropdownOpen" menuOpen={cvMenuOpen}>
-              <HomeMenuItem href={`/ConnelHooleyCV.pdf?v=${cvVersion}`} target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faFilePdf} />&nbsp;PDF
-              </HomeMenuItem>
-              <HomeMenuItem href={`/ConnelHooleyCV.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faFileWord} />&nbsp;Word
-              </HomeMenuItem>
-              <HomeMenuItem href={`/ConnelHooleyCV-Printer-Friendly.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
-                <FontAwesomeIcon icon={faPrint} />&nbsp; Word (Printer friendly)
-              </HomeMenuItem>
-            </HomeMenuItems>
-          </HomeMenuContainer>
-          {cvMenuOpen && <HomeMenuBackdrop />}
-        </HomeButtons>
-        <HomeFooter>
-          {title}&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
-        </HomeFooter>
-      </HomeSection>
-    </main>
+          </HomeButtons>
+        </HomeSection>
+        <HomeSection mode="secondary">
+          <HomeButtons>
+            <HomeButton mode="secondary" href={`mailto:${email}`} target="_blank" rel="noreferrer">
+              <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
+            </HomeButton>
+            <HomeButton mode="secondary" href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer">
+              <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
+            </HomeButton>
+            <HomeButton mode="secondary" href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
+              <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
+            </HomeButton>
+            <HomeMenuContainer ref={cvMenuRef} role="menu" tabIndex={-1} aria-haspopup="true" aria-expanded={cvMenuOpen} onBlur={onCvMenuBlur}>
+              <HomeButton as="button" mode="secondary" id="cvDropdownOpen" onClick={() => setCvMenuOpen(o => !o)}>
+                <FontAwesomeIcon icon={faFileLines} />&nbsp;CV&nbsp;<FontAwesomeIcon icon={faCaretUp} />
+              </HomeButton>
+              <HomeMenuItems ria-labelledby="cvDropdownOpen" menuOpen={cvMenuOpen}>
+                <HomeMenuItem href={`/ConnelHooleyCV.pdf?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                  <FontAwesomeIcon icon={faFilePdf} />&nbsp;PDF
+                </HomeMenuItem>
+                <HomeMenuItem href={`/ConnelHooleyCV.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                  <FontAwesomeIcon icon={faFileWord} />&nbsp;Word
+                </HomeMenuItem>
+                <HomeMenuItem href={`/ConnelHooleyCV-Printer-Friendly.docx?v=${cvVersion}`} target="_blank" rel="noreferrer">
+                  <FontAwesomeIcon icon={faPrint} />&nbsp; Word (Printer friendly)
+                </HomeMenuItem>
+              </HomeMenuItems>
+            </HomeMenuContainer>
+            {cvMenuOpen && <HomeMenuBackdrop />}
+          </HomeButtons>
+          <HomeFooter>
+            {title}&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
+          </HomeFooter>
+        </HomeSection>
+      </main>
+    </>
   );
 };
 
-const HomePrimaryTitle = ({className, children, ...props}) => {
+const HomePrimaryTitle = ({ className, children, ...props }) => {
   return (
     <h1 className={classNames("font-logo font-black tracking-widest sm:tracking-[1.5rem] text-7xl sm:text-9xl text-white mb-8 sm:mb-12", className)} {...props}>
       {children}
@@ -76,7 +80,7 @@ const HomePrimaryTitle = ({className, children, ...props}) => {
   );
 };
 
-const HomePrimaryTagLine = ({className, children, ...props}) => {
+const HomePrimaryTagLine = ({ className, children, ...props }) => {
   return (
     <p className={classNames("text-2xl sm:text-3xl text-black tracking-wide font-light mb-8 sm:mb-12", className)} {...props}>
       {children}
