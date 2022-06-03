@@ -1,9 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classNames from "classnames";
 
-const Copy = ({ as: Component = "div", className, children, ...props }) => {
+const Copy = forwardRef(({ as: Component = "div", className, children, ...props }, ref) => {
   return (
     <Component
+      ref={ref}
       className={classNames(
         "max-w-none",
         "prose prose-primary",
@@ -16,7 +17,7 @@ const Copy = ({ as: Component = "div", className, children, ...props }) => {
       {children}
     </Component>
   );
-};
+});
 
 export {
   Copy,
