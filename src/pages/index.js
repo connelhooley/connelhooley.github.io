@@ -6,7 +6,7 @@ import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import classNames from "classnames";
 
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
-import { Container, Section } from "../components/Page";
+import { Container } from "../components/Page";
 import { SiteSeo } from "../components/Seo";
 
 const IndexPage = () => {
@@ -96,9 +96,9 @@ const HomeSection = ({ as: Component = "div", mode, className, children, ...prop
   return (
     <Component className={classNames(style, className)} {...props}>
       <Container>
-        <Section className="text-center max-w-[700px] py-12">
+        <div className="mx-auto text-center max-w-[700px] py-12">
           {children}
-        </Section>
+        </div>
       </Container>
     </Component>
   );

@@ -5,6 +5,7 @@ module.exports = {
     description: ".NET/Web developer based in Norwich",
     siteUrl: "https://connelhooley.uk/",
     siteOrigin: "https://connelhooley.uk",
+    presentationSiteOrigin: "https://slides.connelhooley.uk",
     email: "me@connelhooley.uk",
     social: {
       twitter: "connel_dev",
@@ -54,14 +55,13 @@ module.exports = {
               rel: "noreferrer",
             },
           },
-          "gatsby-remark-reading-time",
           {
             resolve: "gatsby-remark-prismjs",
             options: {
               noInlineHighlight: true,
             },
           },
-          "gatsby-remark-ch-code-copy",
+          "gatsby-remark-prismjs-copy",
           {
             resolve: "gatsby-remark-autolink-headers",
             options: {
@@ -69,7 +69,7 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-images`,
+            resolve: "gatsby-remark-images",
             options: {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the

@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { graphql } from "gatsby";
+import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faClock, faCode, faComment, faShareAlt, faTag } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faClock, faCode, faComment, faExternalLinkAlt, faShareAlt, faTag } from "@fortawesome/free-solid-svg-icons";
+import { faLinkedin, faReddit, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import { Layout } from "../components/Layout";
 import { Header, Title, Container, Section } from "../components/Page";
 import { Copy } from "../components/Copy";
 import { Date } from "../components/Date";
+import { Button } from "../components/Button";
 import { Tag } from "../components/Tag";
 import { PageSeo } from "../components/Seo";
-import { faLinkedin, faReddit, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
-import classNames from "classnames";
 
 const BlogPost = ({ data, pageContext: { slug } }) => {
   const contentRef = useRef();
@@ -33,12 +34,12 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
     document.addEventListener("scroll", onScroll);
     return () => document.removeEventListener("scroll", onScroll);
   }, [onScroll]);
-  const { siteUrl } = useSiteMetadata();
+  const { siteUrl, presentationSiteOrigin } = useSiteMetadata();
   const {
-    frontmatter: { title, description, date, languages, technologies },
-    fields: { readingTime },
+    frontmatter: { title, description, date, toc, showReadingTime, presentation, languages, technologies },
     html,
-    tableOfContents } = data.markdownRemark;
+    tableOfContents,
+    timeToRead } = data.markdownRemark;
   return (
     <Layout>
       <PageSeo title={title} tabTitleSegments={["Blog", title]} description={description} />
@@ -46,7 +47,7 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
         <BlogPostTitle>{title}</BlogPostTitle>
         <BlogPostMeta large>{description}</BlogPostMeta>
         <BlogPostMeta><Date value={date} showRelative /></BlogPostMeta>
-        <BlogPostMeta><FontAwesomeIcon icon={faClock} />&nbsp;{readingTime.text}</BlogPostMeta>
+        {showReadingTime !== false && <BlogPostMeta><FontAwesomeIcon icon={faClock} />&nbsp;{timeToRead} mins to read</BlogPostMeta>}
         <BlogPostMeta>
           {languages && languages.map((language, i) =>
             <Tag key={i}><FontAwesomeIcon icon={faCode} />&nbsp;{language}</Tag>)}
@@ -95,10 +96,16 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
       </BlogPostToolbar>
       <Container>
         <Section>
-          <BlogPostTableOfContents dangerouslySetInnerHTML={{ __html: tableOfContents }} />
+          {toc !== false && <BlogPostTableOfContents dangerouslySetInnerHTML={{ __html: tableOfContents }} />}
           <Copy ref={contentRef} dangerouslySetInnerHTML={{ __html: html }} />
         </Section>
       </Container>
+      {presentation &&
+        <BlogPostPresentationButtonSection>
+          <Button as="a" href={`${presentationSiteOrigin}${presentation}`} target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faExternalLinkAlt} />&nbsp;Open presentation
+          </Button>
+        </BlogPostPresentationButtonSection>}
     </Layout>
   );
 };
@@ -173,6 +180,16 @@ const BlogPostTableOfContents = ({ className, ...props }) => {
   );
 };
 
+const BlogPostPresentationButtonSection = ({ children }) => {
+  return (
+    <Section>
+      <div className="bg-gray-200 text-center p-8">
+        {children}
+      </div>
+    </Section>
+  );
+};
+
 export default BlogPost;
 
 export const query = graphql`
@@ -184,17 +201,16 @@ export const query = graphql`
         title
         description
         date
+        showReadingTime
+        toc
+        presentation
         languages
         technologies
-      }
-      fields {
-        readingTime {
-          text
-        }
       }
       excerpt: excerpt(format: PLAIN, pruneLength: 160, truncate: true)
       html
       tableOfContents
+      timeToRead
     }
     prev: markdownRemark(
       fields: {slug: {eq: $prevSlug}, collection: {eq: "blog"}}

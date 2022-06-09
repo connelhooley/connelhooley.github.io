@@ -1,17 +1,13 @@
 exports.onClientEntry = () => {
   window._codeToClipboard = (event) => {
     const button = event.currentTarget;
-    const codeContainer = button.nextSibling;
-    console.info(button);
-    console.info(codeContainer);
-    console.info(codeContainer.textContent);
-
+    const codeContainer = button.parentElement.querySelector(".gatsby-highlight");
     navigator.clipboard.writeText(codeContainer.textContent || "");
     button.textContent = "Copied";
     button.disabled = true;
     setTimeout(() => {
       button.textContent = "Copy";
       button.disabled = false;
-    }, 3000);
+    }, 3_000);
   };  
 };

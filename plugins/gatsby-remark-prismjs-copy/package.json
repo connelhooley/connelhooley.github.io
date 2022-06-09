@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-remark-ch-code-copy",
+  "name": "gatsby-remark-prismjs-copy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
