@@ -135,7 +135,7 @@ const HomeMenuItem = ({ as: Component = "a", className, children, ...props }) =>
 const HomeButton = ({ as: Component = "a", mode, className, children, ...props }) => {
   const style = {
     "block text-center w-full transition-colors duration-400 p-6 text-xl mb-4 last:mb-0": true,
-    "bg-black text-white hover:bg-gray-700 hover:text-primary": mode === "primary",
+    "bg-black text-white hover:text-primary": mode === "primary",
     "bg-gray-700 text-primary border border-primary hover:bg-primary hover:text-white": mode === "secondary",
   };
   return (

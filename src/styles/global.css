@@ -64,7 +64,12 @@
 .toc > ul > li {
   @apply px-2 bg-gray-800 even:bg-gray-900 text-primary;
 }
-/* 
-.toc > ul > li > ul {
-  @apply pl-1;
-} */
+
+::selection {
+  @apply bg-primary text-white;
+}
+
+.invert-selection::selection,
+.invert-selection *::selection {
+  @apply bg-black text-white;
+}

@@ -17,7 +17,7 @@ const Container = ({ as: Component = "div", className, children, ...props }) => 
 
 const Header = ({ as: Component = "header", className, children, ...props }) => {
   return (
-    <Component className={classNames("py-12 bg-primary", className)} {...props}>
+    <Component className={classNames("py-12 bg-primary invert-selection", className)} {...props}>
       <Container>
         {children}
       </Container>
