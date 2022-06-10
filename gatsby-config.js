@@ -15,30 +15,26 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        icon: "src/images/icon.png",
-        name: "Connel Hooley",
-        short_name: "{C.H}",
-        start_url: "/",
-        background_color: "#f8bb15",
-        theme_color: "#ffffff",
-        display: "standalone",
-      },
-    },
-    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "blog",
         path: `${__dirname}/src/blog`,
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-google-analytics",
-    //   options: {
-    //     "trackingId": ""
-    //   },
-    // },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "experiences",
+        path: `${__dirname}/src/experiences`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "projects",
+        path: `${__dirname}/src/projects`,
+      },
+    },
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
@@ -71,14 +67,29 @@ module.exports = {
           {
             resolve: "gatsby-remark-images",
             options: {
-              // It's important to specify the maxWidth (in pixels) of
-              // the content container as this plugin uses this as the
-              // base for generating different widths of each image.
               maxWidth: 1200,
               linkImagesToOriginal: false,
             },
           },
         ],
+      },
+    },    
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        icon: "src/images/icon.png",
+        name: "Connel Hooley",
+        short_name: "{C.H}",
+        start_url: "/",
+        background_color: "#f8bb15",
+        theme_color: "#ffffff",
+        display: "standalone",
+      },
+    },    
+    {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        "trackingId": "UA-57397582-1"
       },
     },
     {
