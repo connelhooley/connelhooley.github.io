@@ -27,7 +27,7 @@ const Header = ({ as: Component = "header", className, children, ...props }) => 
 
 const Title = ({ as: Component = "h1", className, children, ...props }) => {
   return (
-    <Component className={classNames("text-white text-8xl", className)} {...props}>
+    <Component className={classNames("text-white text-6xl sm:text-8xl truncate", className)} {...props}>
       {children}
     </Component>
   )

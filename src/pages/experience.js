@@ -71,7 +71,7 @@ const ExperienceItem = ({ html, title, start, end, website, languages, technolog
     <div className="py-8">
       <Copy className="mb-4">
         <h1>{title}&nbsp;<small>&nbsp;{start} - {end ?? "Now"}</small></h1>
-        {website && <p><FontAwesomeIcon icon={faGlobe} />&nbsp;<a href={website} target="_blank" rel="noreferrer">{website}</a></p>}
+        {website && <p className="truncate"><FontAwesomeIcon icon={faGlobe} />&nbsp;<a href={website} target="_blank" rel="noreferrer">{website}</a></p>}
       </Copy>
       <Copy className="mb-4" dangerouslySetInnerHTML={{ __html: html }} />
       <div>
