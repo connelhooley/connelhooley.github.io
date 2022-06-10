@@ -70,7 +70,7 @@ const ProjectItem = ({ html, title, website, github, languages, technologies }) 
     <div className="py-8">
       <Copy className="mb-4">
         <h1>{title}</h1>
-        {website && <p><FontAwesomeIcon icon={github ? faGithub : faGlobe} />&nbsp;<a href={website}>{website}</a></p>}
+        {website && <p><FontAwesomeIcon icon={github ? faGithub : faGlobe} />&nbsp;<a href={website} target="_blank" rel="noreferrer">{website}</a></p>}
       </Copy>
       <Copy className="mb-4" dangerouslySetInnerHTML={{ __html: html }} />
       <div>
