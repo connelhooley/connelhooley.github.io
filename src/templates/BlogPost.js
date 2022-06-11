@@ -14,11 +14,12 @@ import { Button } from "../components/Button";
 import { Tag } from "../components/Tag";
 import { PageSeo } from "../components/Seo";
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
+import { useAnimationFrame } from "../hooks/AnimationFrame";
 
 const BlogPost = ({ data, pageContext: { slug } }) => {
   const contentRef = useRef();
   const [showScrollButton, setShowScrollButton] = useState();
-  const onScroll = useCallback((e) => {
+  const onScroll = useCallback(() => {
     if (contentRef.current) {
       var { top } = contentRef.current.getBoundingClientRect();
       if (window.scrollY > top) {
@@ -28,13 +29,14 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
       }
     }
   }, []);
+  const onScrollBuffered = useAnimationFrame(onScroll);
   const scrollToTop = useCallback(() => {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
-    document.addEventListener("scroll", onScroll);
-    return () => document.removeEventListener("scroll", onScroll);
-  }, [onScroll]);
+    document.addEventListener("scroll", onScrollBuffered);
+    return () => document.removeEventListener("scroll", onScrollBuffered);
+  }, [onScrollBuffered]);
   const { siteUrl, presentationSiteOrigin } = useSiteMetadata();
   const {
     frontmatter: { title, description, date, toc, showReadingTime, presentation, languages, technologies },
