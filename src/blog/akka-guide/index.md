@@ -6,7 +6,7 @@ languages:
   - C#
 technologies:
   - Akka.NET
-presentation: akka-guide
+presentation: /akka-guide
 ---
 
 # Background
