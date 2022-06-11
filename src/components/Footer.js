@@ -30,7 +30,7 @@ const Footer = () => {
             <FooterLink href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
             </FooterLink>
-            <FooterLink as={Link} href="/rss.xml" target="_blank" rel="noreferrer">
+            <FooterLink as={Link} to="/rss.xml" target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faRss} />&nbsp;RSS
             </FooterLink>
           </div>
