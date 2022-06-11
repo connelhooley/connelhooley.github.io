@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp, faClock, faCode, faComment, faExternalLinkAlt, faShareAlt, faTag } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faReddit, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { DiscussionEmbed } from "disqus-react";
 
 import { Layout } from "../components/Layout";
 import { Header, Container, Section } from "../components/Page";
@@ -107,10 +108,9 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
           </Button>
         </BlogPostPresentationButtonSection>}
       <Container>
-        <Section>
-          <div id="comments">
-          </div>
-        </Section>
+        <BlogPostCommentsSection id="comments">
+            <DiscussionEmbed shortname="connelhooley" config={{ identifier: slug, title }} />
+        </BlogPostCommentsSection>
       </Container>
     </Layout>
   );
@@ -192,6 +192,14 @@ const BlogPostPresentationButtonSection = ({ children }) => {
       <div className="bg-gray-200 text-center p-8">
         {children}
       </div>
+    </Section>
+  );
+};
+
+const BlogPostCommentsSection = ({ children, ...props }) => {
+  return (
+    <Section className="my-24 scroll-mt-16" {...props}>
+        {children}
     </Section>
   );
 };
