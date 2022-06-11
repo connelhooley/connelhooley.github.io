@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 
 import { Layout } from "../components/Layout";
 import { Header } from "../components/Page";
@@ -33,9 +34,9 @@ const NotFoundTitle = ({ children }) => {
   )
 };
 
-const NotFoundButton = ({ children, ...props }) => {
+const NotFoundButton = ({ className, children, ...props }) => {
   return (
-    <Link className="inline-block p-4 text-center bg-black text-white hover:text-primary transition-colors duration-400" {...props}>
+    <Link className={classNames("inline-block p-4 text-center bg-black text-white hover:text-primary transition-colors duration-400", className)} {...props}>
       {children}
     </Link>
   )
