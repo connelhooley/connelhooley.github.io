@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
 import { Container } from "../components/Page";
 import { SiteSeo } from "../components/Seo";
+import { CookieAlert } from "../components/CookieAlert";
 
 const IndexPage = () => {
   const year = useMemo(() => new Date().getFullYear(), []);
@@ -22,6 +23,7 @@ const IndexPage = () => {
   return (
     <>
       <SiteSeo />
+      <CookieAlert />
       <main>
         <HomeSection mode="primary">
           <HomePrimaryTitle>{logo}</HomePrimaryTitle>
