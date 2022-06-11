@@ -8,7 +8,7 @@ import { Container } from "./Page";
 const CookieAlert = () => {
   const [confirmed, setConfirmed] = useState();
   const onClick = useCallback(() => {
-    window.document.cookie = "acknowledge-cookies=true; max-age=31536000; SameSite=lax";
+    window.document.cookie = "acknowledge-cookies=true; path=/; max-age=31536000; SameSite=lax";
     setConfirmed(true);
   }, []);
   if (typeof window === "undefined" || window.document.cookie.split("; ").find(row => row.startsWith("acknowledge-cookies")) || confirmed === true) {
