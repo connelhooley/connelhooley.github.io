@@ -34,7 +34,7 @@ const createBlogPages = async function ({ actions, graphql }) {
     query {
       allMarkdownRemark(
         filter: {fields: {collection: {eq: "blog"}}, frontmatter: {draft: {ne: true}}}
-        sort: {fields: frontmatter___date}
+        sort: {fields: frontmatter___date, order: DESC}
       ) {
         edges {
           node {
