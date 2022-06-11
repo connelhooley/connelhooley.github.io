@@ -6,7 +6,7 @@ import { faArrowUp, faClock, faCode, faComment, faExternalLinkAlt, faShareAlt, f
 import { faLinkedin, faReddit, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import { Layout } from "../components/Layout";
-import { Header, Title, Container, Section } from "../components/Page";
+import { Header, Container, Section } from "../components/Page";
 import { Copy } from "../components/Copy";
 import { Date } from "../components/Date";
 import { Button } from "../components/Button";
@@ -89,7 +89,7 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
           {showScrollButton && <BlogPostToolbarButton onClick={scrollToTop}>
             <FontAwesomeIcon icon={faArrowUp} />&nbsp;Back to top
           </BlogPostToolbarButton>}
-          <BlogPostToolbarButton>
+          <BlogPostToolbarButton as="a" href="#comments">
             <FontAwesomeIcon icon={faComment} />&nbsp;Comments
           </BlogPostToolbarButton>
         </BlogPostToolbarButtonGroup>
@@ -106,13 +106,19 @@ const BlogPost = ({ data, pageContext: { slug } }) => {
             <FontAwesomeIcon icon={faExternalLinkAlt} />&nbsp;Open presentation
           </Button>
         </BlogPostPresentationButtonSection>}
+      <Container>
+        <Section>
+          <div id="comments">
+          </div>
+        </Section>
+      </Container>
     </Layout>
   );
 };
 
 const BlogPostTitle = ({ children }) => {
   return (
-    <Title className="text-5xl mb-4">{children}</Title>
+    <h1 className="text-white text-4xl sm:text-5xl mb-4 ">{children}</h1>
   );
 };
 
