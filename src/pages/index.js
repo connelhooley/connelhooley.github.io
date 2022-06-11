@@ -74,7 +74,7 @@ const IndexPage = () => {
 
 const HomePrimaryTitle = ({ className, children, ...props }) => {
   return (
-    <h1 className={classNames("font-logo font-black tracking-widest sm:tracking-[1.5rem] text-7xl sm:text-9xl text-white mb-8 sm:mb-12", className)} {...props}>
+    <h1 className={classNames("invert-selection font-logo font-black tracking-widest sm:tracking-[1.5rem] text-7xl sm:text-9xl text-white mb-8 sm:mb-12", className)} {...props}>
       {children}
     </h1>
   );
@@ -82,7 +82,7 @@ const HomePrimaryTitle = ({ className, children, ...props }) => {
 
 const HomePrimaryTagLine = ({ className, children, ...props }) => {
   return (
-    <p className={classNames("text-2xl sm:text-3xl text-black tracking-wide font-light mb-8 sm:mb-12", className)} {...props}>
+    <p className={classNames("invert-selection text-2xl sm:text-3xl text-black tracking-wide font-light mb-8 sm:mb-12", className)} {...props}>
       {children}
     </p>
   );
