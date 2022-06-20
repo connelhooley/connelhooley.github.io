@@ -47,7 +47,7 @@ const BlogList = ({ data, pageContext }) => {
 
 const BlogItems = ({ children }) => {
   return (
-    <div className="grid grid-cols-1 divide-y">
+    <div className="max-w-[700px] grid grid-cols-1 divide-y">
       {children}
     </div>
   );
