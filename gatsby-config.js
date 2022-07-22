@@ -11,7 +11,7 @@ module.exports = {
       twitter: "connel_dev",
       linkedIn: "connelhooley",
     },
-    cvVersion: 1,
+    cvVersion: 2,
   },
   plugins: [
     {
