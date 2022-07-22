@@ -3,7 +3,7 @@ title:  Test Helpers
 website: https://github.com/connelhooley/TestHelpers
 languages:
 - C#
-order: 1
+order: 3
 github: true
 ---
 

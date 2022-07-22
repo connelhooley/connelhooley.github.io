@@ -14,7 +14,7 @@ const ProjectsPage = () => {
     query {
       allMarkdownRemark(
         filter: {fields: {collection: {eq: "projects"}}}
-        sort: {fields: frontmatter___order, order: DESC}
+        sort: {fields: frontmatter___order, order: ASC}
       ) {
         edges {
           node {
