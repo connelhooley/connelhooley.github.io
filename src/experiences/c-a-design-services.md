@@ -1,5 +1,6 @@
 ---
 title:  C A Design Services
+role: Developer
 start: 2014
 end: 2015
 website: http://www.cadesignservices.co.uk

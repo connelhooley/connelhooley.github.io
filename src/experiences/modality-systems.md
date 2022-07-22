@@ -1,5 +1,6 @@
 ---
-title:  Modality Systems
+title: Modality Systems
+role: Developer
 start: 2015
 end: 2018
 website: https://www.modalitysystems.com
