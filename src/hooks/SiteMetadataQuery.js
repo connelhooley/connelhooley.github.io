@@ -15,6 +15,7 @@ const useSiteMetadata = () => {
           social {
             twitter
             linkedIn
+            mastodon
           }
           cvVersion
         }

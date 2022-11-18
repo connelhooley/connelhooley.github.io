@@ -10,6 +10,7 @@ module.exports = {
     social: {
       twitter: "connel_dev",
       linkedIn: "connelhooley",
+      mastodon: "https://mastodonapp.uk/@connelhooley",
     },
     cvVersion: 2,
   },
