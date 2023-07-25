@@ -8,7 +8,6 @@ module.exports = {
     presentationSiteOrigin: "https://slides.connelhooley.uk",
     email: "me@connelhooley.uk",
     social: {
-      twitter: "connel_dev",
       linkedIn: "connelhooley",
       mastodon: "https://mastodonapp.uk/@connelhooley",
     },

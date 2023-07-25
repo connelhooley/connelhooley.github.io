@@ -13,7 +13,6 @@ const useSiteMetadata = () => {
           presentationSiteOrigin
           email
           social {
-            twitter
             linkedIn
             mastodon
           }

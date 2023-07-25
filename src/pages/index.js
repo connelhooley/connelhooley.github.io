@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useMemo, forwardRef } from "react
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faCaretUp, faCopyright, faEnvelope, faFileLines, faFilePdf, faFileWord, faPrint } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedin, faTwitter, faMastodon } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import classNames from "classnames";
 
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
@@ -19,7 +19,7 @@ const IndexPage = () => {
       setCvMenuOpen(false);
     }
   }, []);
-  const { title, logo, email, social: { twitter, linkedIn, mastodon }, cvVersion } = useSiteMetadata();
+  const { title, logo, email, social: { linkedIn, mastodon }, cvVersion } = useSiteMetadata();
   return (
     <>
       <SiteSeo />
@@ -40,9 +40,6 @@ const IndexPage = () => {
           <HomeButtons>
             <HomeButton mode="secondary" href={`mailto:${email}`} target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
-            </HomeButton>
-            <HomeButton mode="secondary" href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer">
-              <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
             </HomeButton>
             <HomeButton mode="secondary" href={mastodon} target="_blank" rel="me">
               <FontAwesomeIcon icon={faMastodon} />&nbsp;Mastodon

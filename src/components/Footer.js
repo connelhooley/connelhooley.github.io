@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright, faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons";
-import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import classNames from "classnames";
 
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
@@ -10,7 +10,7 @@ import { Container } from "../components/Page";
 
 const Footer = () => {
   const year = useMemo(() => new Date().getFullYear(), []);
-  const { title, email, social: { twitter, linkedIn } } = useSiteMetadata();
+  const { title, email, social: { mastodon, linkedIn } } = useSiteMetadata();
   return (
     <footer className="mt-8 mb-4">
       <Container>
@@ -24,8 +24,8 @@ const Footer = () => {
             <FooterLink href={`mailto:${email}`} target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faEnvelope} />&nbsp;Email
             </FooterLink>
-            <FooterLink href={`https://twitter.com/${twitter}`} target="_blank" rel="noreferrer">
-              <FontAwesomeIcon icon={faTwitter} />&nbsp;Twitter
+            <FooterLink href={mastodon} target="_blank" rel="noreferrer">
+              <FontAwesomeIcon icon={faMastodon} />&nbsp;Mastodon
             </FooterLink>
             <FooterLink href={`https://uk.linkedin.com/in/${linkedIn}`} target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faLinkedin} />&nbsp;LinkedIn
