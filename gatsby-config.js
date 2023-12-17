@@ -9,7 +9,7 @@ module.exports = {
     email: "me@connelhooley.uk",
     social: {
       linkedIn: "connelhooley",
-      mastodon: "https://mastodonapp.uk/@connelhooley",
+      mastodon: "https://mastodon.social/@connel",
     },
     cvVersion: 2,
   },
