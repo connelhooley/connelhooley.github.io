@@ -24,7 +24,7 @@ const IndexPage = () => {
     <>
       <SiteSeo />
       <CookieAlert />
-      <main>
+      <Main>
         <HomeSection mode="primary">
           <HomePrimaryTitle>{logo}</HomePrimaryTitle>
           <HomePrimaryTagLine>
@@ -69,8 +69,16 @@ const IndexPage = () => {
             {title}&nbsp;<FontAwesomeIcon icon={faCopyright} />&nbsp;{year}
           </HomeFooter>
         </HomeSection>
-      </main>
+      </Main>
     </>
+  );
+};
+
+const Main = ({ className, children, ...props }) => {
+  return (
+    <main className={classNames("h-screen flex flex-col", className)} {...props}>
+      {children}
+    </main>
   );
 };
 
@@ -92,7 +100,7 @@ const HomePrimaryTagLine = ({ className, children, ...props }) => {
 
 const HomeSection = ({ as: Component = "div", mode, className, children, ...props }) => {
   const style = {
-    "bg-primary": mode === "primary",
+    "bg-primary flex-grow flex flex-col justify-center": mode === "primary",
     "bg-gray-700": mode === "secondary"
   };
   return (
