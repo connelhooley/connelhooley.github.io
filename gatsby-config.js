@@ -11,7 +11,7 @@ module.exports = {
       linkedIn: "connelhooley",
       mastodon: "https://mastodon.social/@connel",
     },
-    cvVersion: 2,
+    cvVersion: 4, // Used to cache bust CV
   },
   plugins: [
     {
