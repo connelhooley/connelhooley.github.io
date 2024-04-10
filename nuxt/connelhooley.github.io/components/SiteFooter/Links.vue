@@ -1,0 +1,5 @@
+<template>
+  <div class="flex justify-center gap-4">
+    <slot />
+  </div>
+</template>
