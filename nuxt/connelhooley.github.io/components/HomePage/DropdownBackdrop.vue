@@ -1,8 +1,8 @@
 <script setup>
-  const emit = defineEmits(["esc"]);
+  const emit = defineEmits(["close"]);
   const handler = (e) => {
     if (e.key === "Escape") {
-      emit("esc");
+      emit("close");
     }
   };
   onMounted(() => document.addEventListener("keyup", handler));
@@ -10,4 +10,5 @@
 </script>
 
 <template>
+  <div tabindex="-1" @focusin="$emit('close')"></div>
 </template>

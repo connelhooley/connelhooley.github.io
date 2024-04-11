@@ -8,6 +8,9 @@ const { logo } = useAppConfig();
       {{ logo }}
     </SiteHeaderHomeLink>
     <SiteHeaderMenu>
+      <template #mobile-button="{ open }">
+        <SiteHeaderMobileMenuButton :open="open" />
+      </template>
       <SiteHeaderMenuLink to="/blog">
         Blog
       </SiteHeaderMenuLink>

@@ -5,11 +5,8 @@ const open = ref(false);
 </script>
 
 <template>
-  <div class="flex sm:hidden flex-grow justify-end items-center p-6">
-    <button class="p-3 border border-gray-700 text-white transition-colors duration-300 hover:text-primary" @click.prevent="open = !open">
-      <font-awesome-icon fixed-width :icon="open ? faXmark : faBars" />
-      <span class="sr-only">{{ open ? "Close" : "Open" }} menu</span>
-    </button>
+  <div class="flex sm:hidden flex-grow justify-end items-center p-6" @click.prevent="open = !open">
+    <slot name="mobile-button" :open="open" />
   </div>
   <div :class="{
     'flex-grow justify-end items-stretch': true,

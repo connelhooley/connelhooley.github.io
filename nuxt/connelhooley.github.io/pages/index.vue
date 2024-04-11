@@ -1,5 +1,14 @@
 <script type="ts" setup>
-import { faArrowRight, faCaretUp, faCopyright, faEnvelope, faFileLines, faFilePdf, faFileWord, faPrint } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faCaretUp,
+  faCaretDown,
+  faCopyright,
+  faEnvelope,
+  faFileLines,
+  faFilePdf,
+  faFileWord,
+  faPrint } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 
 import pdf from "~/assets/cv/ConnelHooleyCV.pdf";
@@ -35,21 +44,23 @@ const year = new Date().getUTCFullYear();
         <HomePageButton mode="secondary" :to="`https://uk.linkedin.com/in/${linkedIn}`" target="_BLANK">
           <font-awesome-icon :icon=faLinkedin />&nbsp;LinkedIn
         </HomePageButton>
-        <HomePageDropdown mode="secondary">
-          <template #button-content>
-            <font-awesome-icon :icon=faFileLines />&nbsp;CV&nbsp;<font-awesome-icon :icon=faCaretUp />            
+        <HomePageDropdown id="CvDropdown">
+          <template #button="{id, open}">
+            <HomePageButton :id="id" mode="secondary" class="relative z-50" :is="'button'">
+              <font-awesome-icon :icon=faFileLines />&nbsp;
+              CV&nbsp;
+              <font-awesome-icon :icon="open ? faCaretDown : faCaretUp" />
+            </HomePageButton>
           </template>
-          <template #dropdown-content>
-            <HomePageDropdownItem :to=pdf noPrefetch target="_BLANK">
-              <font-awesome-icon :icon=faFilePdf />&nbsp;PDF
-            </HomePageDropdownItem>
-            <HomePageDropdownItem :to=doc noPrefetch target="_BLANK">
-              <font-awesome-icon :icon=faFileWord />&nbsp;Word
-            </HomePageDropdownItem>
-            <HomePageDropdownItem :to=docPrinter noPrefetch target="_BLANK">
-              <font-awesome-icon :icon=faPrint />&nbsp;Word (Printer friendly)
-            </HomePageDropdownItem>
-          </template>
+          <HomePageDropdownItem :to=pdf noPrefetch target="_BLANK">
+            <font-awesome-icon :icon=faFilePdf />&nbsp;PDF
+          </HomePageDropdownItem>
+          <HomePageDropdownItem :to=doc noPrefetch target="_BLANK">
+            <font-awesome-icon :icon=faFileWord />&nbsp;Word
+          </HomePageDropdownItem>
+          <HomePageDropdownItem :to=docPrinter noPrefetch target="_BLANK">
+            <font-awesome-icon :icon=faPrint />&nbsp;Word (Printer friendly)
+          </HomePageDropdownItem>
         </HomePageDropdown>
       </HomePageButtons>
       <HomePageFooter>
