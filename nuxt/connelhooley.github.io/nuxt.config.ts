@@ -21,10 +21,12 @@ export default defineNuxtConfig({
       },
       experience: {
         driver: "fs",
+        prefix: "/experience",
         base: resolve(__dirname, "experience"),
       },
       projects: {
         driver: "fs",
+        prefix: "/projects",
         base: resolve(__dirname, "projects"),
       },
     },
