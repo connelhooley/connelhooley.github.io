@@ -18,7 +18,7 @@ const props = defineProps({
       'bg-gray-700': mode === 'secondary'
     }"
   >
-    <div class="py-12 mx-auto text-center max-w-[700px]">
+    <div class="px-4 py-12 mx-auto text-center max-w-[700px]">
       <slot />
     </div>
   </section>

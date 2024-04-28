@@ -1,8 +1,6 @@
 <script type="ts" setup>
 import {
   faArrowRight,
-  faCaretUp,
-  faCaretDown,
   faCopyright,
   faEnvelope,
   faFileLines,
@@ -17,7 +15,7 @@ import docPrinter from "~/assets/cv/ConnelHooleyCV-Printer-Friendly.docx";
 
 definePageMeta({ layout: false });
 const { title, logo, email, social: { linkedIn, mastodon } } = useAppConfig();
-const year = new Date().getUTCFullYear();
+const year = computed(() => new Date().getUTCFullYear());
 </script>
 
 <template>
@@ -28,37 +26,35 @@ const year = new Date().getUTCFullYear();
         .NET/Web developer based in Norwich, UK
       </HomePageTagline>
       <HomePageButtons>
-        <HomePageButton mode="primary" to="/blog/">
+        <HomePageButton mode="primary" to="/blog">
           <font-awesome-icon :icon=faArrowRight />&nbsp;Go to Blog
         </HomePageButton>
       </HomePageButtons>
     </HomePageSection>
     <HomePageSection mode="secondary">
       <HomePageButtons>
-        <HomePageButton mode="secondary" :to="`mailto:${email}`" target="_BLANK">
+        <HomePageButton mode="secondary" :to="`mailto:${email}`" target="_blank">
           <font-awesome-icon :icon=faEnvelope />&nbsp;Email
         </HomePageButton>
-        <HomePageButton mode="secondary" :to=mastodon target="_BLANK">
+        <HomePageButton mode="secondary" :to=mastodon target="_blank">
           <font-awesome-icon :icon=faMastodon />&nbsp;Mastodon
         </HomePageButton>
-        <HomePageButton mode="secondary" :to="`https://uk.linkedin.com/in/${linkedIn}`" target="_BLANK">
+        <HomePageButton mode="secondary" :to="`https://uk.linkedin.com/in/${linkedIn}`">
           <font-awesome-icon :icon=faLinkedin />&nbsp;LinkedIn
         </HomePageButton>
         <HomePageDropdown id="CvDropdown">
           <template #button="{id, open}">
-            <HomePageButton :id="id" mode="secondary" class="relative z-50" :is="'button'">
-              <font-awesome-icon :icon=faFileLines />&nbsp;
-              CV&nbsp;
-              <font-awesome-icon :icon="open ? faCaretDown : faCaretUp" />
-            </HomePageButton>
+            <HomePageDropdownButton :id=id :open=open mode="secondary">
+              <font-awesome-icon :icon=faFileLines />&nbsp;CV
+            </HomePageDropdownButton>
           </template>
-          <HomePageDropdownItem :to=pdf noPrefetch target="_BLANK">
+          <HomePageDropdownItem :to=pdf noPrefetch target="_blank">
             <font-awesome-icon :icon=faFilePdf />&nbsp;PDF
           </HomePageDropdownItem>
-          <HomePageDropdownItem :to=doc noPrefetch target="_BLANK">
+          <HomePageDropdownItem :to=doc noPrefetch target="_blank">
             <font-awesome-icon :icon=faFileWord />&nbsp;Word
           </HomePageDropdownItem>
-          <HomePageDropdownItem :to=docPrinter noPrefetch target="_BLANK">
+          <HomePageDropdownItem :to=docPrinter noPrefetch target="_blank">
             <font-awesome-icon :icon=faPrint />&nbsp;Word (Printer friendly)
           </HomePageDropdownItem>
         </HomePageDropdown>

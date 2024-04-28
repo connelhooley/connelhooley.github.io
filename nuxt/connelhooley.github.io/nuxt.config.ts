@@ -8,6 +8,14 @@ export default defineNuxtConfig({
     //todo: https://content.nuxt.com/v1/community/integrations
   ],
   content: {
+    markdown: {
+      rehypePlugins: {
+        "rehype-external-links": {
+          rel: "noopener noreferrer",
+          target: "_blank",
+        },
+      },
+    },
     sources: {
       blog: {
         driver: "fs",

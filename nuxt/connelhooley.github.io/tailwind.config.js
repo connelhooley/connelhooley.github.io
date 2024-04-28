@@ -36,7 +36,7 @@ export default {
           "DEFAULT": primaryColor,
           "dark": darken(primaryColor, .2),
         },
-      },      
+      },
       fontFamily: {
         "logo": ["Slabo\\ 27px", ...defaultTheme.fontFamily.serif],
         "sans": ["Open\\ Sans", ...defaultTheme.fontFamily.sans],
