@@ -16,28 +16,6 @@ export default defineNuxtConfig({
         },
       },
     },
-    sources: {
-      blog: {
-        driver: "fs",
-        prefix: "/blog",
-        base: resolve(__dirname, "blog"),
-      },
-      slides: {
-        driver: "fs",
-        prefix: "/slides",
-        base: resolve(__dirname, "slides"),
-      },
-      experience: {
-        driver: "fs",
-        prefix: "/experience",
-        base: resolve(__dirname, "experience"),
-      },
-      projects: {
-        driver: "fs",
-        prefix: "/projects",
-        base: resolve(__dirname, "projects"),
-      },
-    },
   },
   app: {
     buildAssetsDir: "files",
