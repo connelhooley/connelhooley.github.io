@@ -5,7 +5,7 @@
   <PageContainer>
     <PageSection>
       <PageItems>
-        <ContentQuery path="experience" :sort="{'start': -1}" v-slot="{ data }">
+        <ContentQuery path="experience" :sort="{ start: -1 }" v-slot="{ data }">
           <PageItem v-for="item in data" :key="item._path">
             <Copy>
               <PageItemTitle>

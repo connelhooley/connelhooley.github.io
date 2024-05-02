@@ -3,7 +3,7 @@ import { faCopyright, faEnvelope, faRss } from "@fortawesome/free-solid-svg-icon
 import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 
 const { title, email, social: { mastodon, linkedIn } } = useAppConfig();
-const year = new Date().getUTCFullYear();
+const year = computed(() => new Date().getUTCFullYear());
 </script>
 
 <template>

@@ -6,7 +6,7 @@ import { faTag } from "@fortawesome/free-solid-svg-icons";
   <PageHeader>
     <PageTitle>
       <template #prefix>
-        <font-awesome-icon :icon=faTag />&nbsp;Technology:
+        <font-awesome-icon :icon=faTag />&nbsp;Technology
       </template>
       {{ $route.params.name }}
     </PageTitle>
