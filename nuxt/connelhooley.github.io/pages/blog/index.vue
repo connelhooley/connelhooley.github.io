@@ -1,5 +1,5 @@
 <template>
-    <PageHeader>
+  <PageHeader>
     <PageTitle>Blog</PageTitle>
   </PageHeader>
   <PageContainer>
