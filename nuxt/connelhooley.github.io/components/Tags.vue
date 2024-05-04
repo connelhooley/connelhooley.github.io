@@ -1,9 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { faCode, faTag } from "@fortawesome/free-solid-svg-icons";
-const props = defineProps({
-  languages: Array,
-  technologies: Array,
-});
+
+defineProps<{ languages: string[], technologies: string[] }>();
 </script>
 
 <template>

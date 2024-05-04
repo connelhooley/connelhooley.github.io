@@ -3,7 +3,7 @@
     <PageTitle>Experience</PageTitle>
   </PageHeader>
   <PageContainer>
-    <PageSection>
+    <PageSection narrow>
       <PageItems>
         <ContentQuery path="experience" :sort="{ start: -1 }" v-slot="{ data }">
           <PageItem v-for="item in data" :key="item._path">

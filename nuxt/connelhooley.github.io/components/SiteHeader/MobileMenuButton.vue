@@ -1,11 +1,7 @@
-<script setup>
+<script lang="ts" setup>
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const props = defineProps({
-  open: {
-    type: Boolean,
-  },
-});
+defineProps<{ open: boolean }>();
 </script>
 
 <template>

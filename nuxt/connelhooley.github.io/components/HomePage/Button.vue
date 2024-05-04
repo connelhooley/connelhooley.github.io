@@ -1,25 +1,21 @@
-<script setup>
+<script lang="ts" setup>
 import { NuxtLink } from "#components";
+interface Props {
+  is?: string | Component,
+  mode: string,
+}
 
-const props = defineProps({
-  is: {
-    default: NuxtLink,
-  },
-  mode: {
-    type: String,
-  },
+withDefaults(defineProps<Props>(), {
+  is: NuxtLink,
 });
-
 </script>
 
 <template>
-  <component :is="is" :class="
-    {
+  <component :is="is" :class="{
       'block text-center w-full transition-colors duration-400 p-6 text-xl mb-4 last:mb-0': true,
       'bg-black text-white hover:text-primary': mode === 'primary',
       'bg-gray-700 text-primary border border-primary hover:bg-primary hover:text-white': mode === 'secondary',
-    }"
-  >
+    }">
     <slot />
   </component>
 </template>

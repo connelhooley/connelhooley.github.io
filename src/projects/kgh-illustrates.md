@@ -2,7 +2,7 @@
 title:  KGH Illustrates
 website: https://www.kghillustrates.co.uk
 languages:
-- JS
+- JavaScript
 technologies:
 - Gastby
 - Tailwind CSS

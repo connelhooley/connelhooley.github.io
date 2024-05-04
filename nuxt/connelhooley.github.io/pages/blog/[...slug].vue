@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const route = useRoute();
 const { data } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
 </script>

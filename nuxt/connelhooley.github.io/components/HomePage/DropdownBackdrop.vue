@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   const emit = defineEmits(["close"]);
   const handler = (e) => {
     if (e.key === "Escape") {

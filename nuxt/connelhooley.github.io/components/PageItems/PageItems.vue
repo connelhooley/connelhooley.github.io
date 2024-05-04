@@ -1,5 +1,5 @@
 <template>
-  <div className="max-w-[700px] divide-y">
+  <div class="divide-y">
     <slot />
   </div>
 </template>

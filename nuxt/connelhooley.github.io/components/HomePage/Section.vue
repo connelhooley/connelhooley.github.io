@@ -1,12 +1,6 @@
-<script setup>
-const props = defineProps({
-  grow: {
-    type: Boolean,
-    default: false,
-  },
-  mode: {
-    type: String,
-  },
+<script lang="ts" setup>
+withDefaults(defineProps<{ grow?: boolean, mode: string }>(), {
+  grow: false,
 });
 </script>
 

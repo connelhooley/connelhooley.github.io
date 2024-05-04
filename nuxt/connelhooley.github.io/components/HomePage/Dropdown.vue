@@ -1,10 +1,5 @@
-<script setup>
-const props = defineProps({
-  id: {
-    type: String,
-  },
-});
-
+<script lang="ts" setup>
+defineProps<{ id: string }>();
 const open = ref(false);
 </script>
 
@@ -20,5 +15,5 @@ const open = ref(false);
       <slot />
     </div>
   </div>
-  <HomePageDropdownBackdrop v-if="open" class="fixed z-40 inset-0 bg-gray-500/75" @close="open=false" />
+  <HomePageDropdownBackdrop v-if="open" class="fixed z-40 inset-0 bg-gray-500/75" @close="open = false" />
 </template>

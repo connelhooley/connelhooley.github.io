@@ -1,11 +1,8 @@
-<script setup>
+<script lang="ts" setup>
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-const props = defineProps({
-  website: String,
-  github: Boolean,
-});
+defineProps<{ website: string, github?: boolean}>();
 </script>
 
 <template>

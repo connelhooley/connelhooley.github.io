@@ -1,5 +1,9 @@
+<script lang="ts" setup>
+defineProps<{ narrow?: boolean }>();
+</script>
+
 <template>
-  <section class="mx-auto my-8">
+  <section :class="['my-8', { 'max-w-[700px]': narrow }]">
     <slot />
   </section>
 </template>

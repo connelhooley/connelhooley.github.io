@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const open = ref(false);

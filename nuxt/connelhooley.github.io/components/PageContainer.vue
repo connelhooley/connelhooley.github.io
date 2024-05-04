@@ -1,9 +1,6 @@
-<script setup>
-const props = defineProps({
-  is: {
-    type: String,
-    default: "div",
-  },
+<script lang="ts" setup>
+withDefaults(defineProps<{ is: string | Component }>(), {
+  is: "div"
 });
 </script>
 

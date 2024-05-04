@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { faCopyright, faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 
