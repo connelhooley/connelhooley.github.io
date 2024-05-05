@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
-
 import type { ParsedContent } from '@nuxt/content/types';
 
 defineProps<{ item: ParsedContent }>();
@@ -12,13 +11,13 @@ defineProps<{ item: ParsedContent }>();
       <BlogPostItemTitle :to="item._path">
         {{ item.title }}&nbsp;<font-awesome-icon :icon="faAnglesRight" />
       </BlogPostItemTitle>
-      <BlogPostItemDescription>
+      <BlogPostItemContent>
         {{ item.description }}
-      </BlogPostItemDescription>
-      <BlogPostItemDescription>
-        {{ item.date }}
-      </BlogPostItemDescription>
+      </BlogPostItemContent>
     </Copy>
-    <Tags :languages=item.languages :technologies=item.technologies />
+    <BlogPostItemFooter>
+      <BlogPostItemDate :date="item.date" />
+      <Tags :languages=item.languages :technologies=item.technologies />
+    </BlogPostItemFooter>
   </PageItem>
 </template>

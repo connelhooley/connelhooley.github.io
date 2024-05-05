@@ -9,11 +9,11 @@ const queryParams: QueryBuilderParams = {
   where: [
     {
       _path: { $regex: "^/blog/.*" },
-      technology: { $contains: technologyName },
+      technologies: { $contains: technologyName },
     },
   ],
   sort: [
-    { _path: 1 },
+    { _path: -1 },
   ],
 };
 </script>
@@ -37,19 +37,12 @@ const queryParams: QueryBuilderParams = {
       <template #default="{ list, nextPage, prevPage }">
         <PageSection narrow>
           <PageItems>
-            <PageItem v-for="item in list" :key=item._path>
-              <Copy>
-                <PageItemTitle>
-                  {{ item.title }}
-                </PageItemTitle>
-              </Copy>
-              <Tags :languages=item.languages :technologies=item.technologies />
-            </PageItem>
+            <BlogPostItem v-for="item in list" :item="item" :key=item._path />
           </PageItems>
         </PageSection>
         <PageSection narrow>
           <PageItemsPager
-            :baseUrl="`/technology/${encodeURIComponent(technologyName)}`"
+            :baseUrl="`/technologies/${encodeURIComponent(technologyName)}`"
             :prevPage="prevPage"
             :nextPage="nextPage"
           />
