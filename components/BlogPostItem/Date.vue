@@ -8,6 +8,8 @@ const parsed = computed(() => moment(props.date));
 <template>
   <div class="text-gray-500 font-light">
     <font-awesome-icon :icon="faCalendarAlt" />&nbsp;{{ parsed.format("DD/MM/YYYY") }}
-    <span>&nbsp;({{ parsed.fromNow() }})</span>
+    <ClientOnly>
+      <span>&nbsp;({{ parsed.fromNow() }})</span>
+    </ClientOnly>
   </div>
 </template>
