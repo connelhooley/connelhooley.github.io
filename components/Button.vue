@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-withDefaults(defineProps<{ is: string | Component }>(), {
+withDefaults(defineProps<{ is?: string | Component }>(), {
   is: "button",
 });
 </script>
