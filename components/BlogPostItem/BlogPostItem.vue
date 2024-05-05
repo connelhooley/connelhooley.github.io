@@ -12,9 +12,9 @@ defineProps<{ item: ParsedContent }>();
       <BlogPostItemTitle :to="item._path">
         {{ item.title }}&nbsp;<font-awesome-icon :icon="faAnglesRight" />
       </BlogPostItemTitle>
-      <div>
+      <BlogPostItemDescription>
         {{ item.description }}
-      </div>
+      </BlogPostItemDescription>
     </Copy>
     <Tags :languages=item.languages :technologies=item.technologies />
   </PageItem>
