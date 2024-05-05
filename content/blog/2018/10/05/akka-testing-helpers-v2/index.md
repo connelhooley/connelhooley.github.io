@@ -1,6 +1,5 @@
 ---
 title: Akka Testing Helpers V2
-date: 2018-10-05 17:00:00
 description: Announcing Akka Testing Helpers V2
 languages:
   - C#

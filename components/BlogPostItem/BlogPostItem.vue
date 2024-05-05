@@ -15,6 +15,9 @@ defineProps<{ item: ParsedContent }>();
       <BlogPostItemDescription>
         {{ item.description }}
       </BlogPostItemDescription>
+      <BlogPostItemDescription>
+        {{ item.date }}
+      </BlogPostItemDescription>
     </Copy>
     <Tags :languages=item.languages :technologies=item.technologies />
   </PageItem>
