@@ -1,3 +1,8 @@
 {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "files.exclude": {
+        ".nuxt": true,
+        ".output": true,
+        "node_modules": true,
+    },
 }

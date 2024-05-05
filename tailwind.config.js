@@ -7,9 +7,15 @@ const darken = (clr, val) => color(clr).darken(val).rgb().string();
 
 const primaryColor = "#f8bb15";
 
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
-    "./src/**/*.{js,jsx,mdx,md}",
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./app.vue",
+    "./error.vue",
   ],
   theme: {
     extend: {
@@ -30,7 +36,7 @@ module.exports = {
           "DEFAULT": primaryColor,
           "dark": darken(primaryColor, .2),
         },
-      },      
+      },
       fontFamily: {
         "logo": ["Slabo\\ 27px", ...defaultTheme.fontFamily.serif],
         "sans": ["Open\\ Sans", ...defaultTheme.fontFamily.sans],
@@ -41,7 +47,7 @@ module.exports = {
         "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
       },
     },
-  },
+  },  
   plugins: [
     require("@tailwindcss/typography"),
   ],

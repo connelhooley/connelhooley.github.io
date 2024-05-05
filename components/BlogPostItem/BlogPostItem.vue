@@ -9,11 +9,9 @@ defineProps<{ item: ParsedContent }>();
 <template>
   <PageItem>
     <Copy>
-      <PageItemTitle>
-        <NuxtLink class="text-primary no-underline hover:underline" :to="item._path">
-          {{ item.title }}&nbsp;<font-awesome-icon :icon="faAnglesRight" />
-        </NuxtLink>
-      </PageItemTitle>
+      <BlogPostItemTitle :to="item._path">
+        {{ item.title }}&nbsp;<font-awesome-icon :icon="faAnglesRight" />
+      </BlogPostItemTitle>
       <div>
         {{ item.description }}
       </div>

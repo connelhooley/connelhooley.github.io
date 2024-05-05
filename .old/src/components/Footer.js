@@ -6,7 +6,7 @@ import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import classNames from "classnames";
 
 import { useSiteMetadata } from "../hooks/SiteMetadataQuery";
-import { Container } from "../components/Page";
+import { Container } from "./Page";
 
 const Footer = () => {
   const year = useMemo(() => new Date().getFullYear(), []);

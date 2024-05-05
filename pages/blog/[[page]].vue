@@ -2,6 +2,7 @@
 import type { QueryBuilderParams } from '@nuxt/content/dist/runtime/types'
 
 const route = useRoute();
+route.
 const pageNumber = parseInt(route.params.page as string || "1");
 const queryParams: QueryBuilderParams = {
   where: [
