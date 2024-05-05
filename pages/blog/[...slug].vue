@@ -1,10 +1,17 @@
-<script lang="ts" setup>
-const route = useRoute();
-const { data } = await useAsyncData(route.path, () => queryContent(route.path).findOne());
-</script>
-
 <template>
-  <h1>{{ data?.title }}</h1>
-  <p>{{ data?.description }}</p>
-  <ContentRenderer :value="data" />
+  <ContentDoc v-slot="{ doc }">
+    <PageHeader>
+      <PageTitle>
+        {{ doc.title }}
+      </PageTitle>
+      <p>{{ doc.description }}</p>
+    </PageHeader>  
+    <PageContainer>
+      <PageSection>
+        <Copy>
+          <ContentRenderer :value="doc" />
+        </Copy>
+      </PageSection>      
+    </PageContainer>
+  </ContentDoc>
 </template>
