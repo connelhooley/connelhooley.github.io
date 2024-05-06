@@ -8,13 +8,33 @@ export default defineNuxtConfig({
     // TODO: Favicon
   ],
   content: {
+    highlight: {
+      langs: [
+        "csharp",
+        "fsharp",
+        "json",
+        "css",
+        "scss",
+        "javascript",
+        "js",
+        "jsx",
+        "typescript",
+        "ts",
+        "tsx"
+      ],
+      theme: "slack-dark",
+    },
     markdown: {
+      anchorLinks: true,
       rehypePlugins: {
         "rehype-external-links": {
           rel: "noopener noreferrer",
           target: "_blank",
         },
       },
+      remarkPlugins: [
+        "remark-reading-time",
+      ],
     },
   },
   app: {

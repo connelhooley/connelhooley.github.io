@@ -1,6 +1,6 @@
 <template>
   <header class="py-12 bg-primary invert-selection">
-    <PageContainer>
+    <PageContainer class="space-y-4">
       <slot />
     </PageContainer>
   </header>
