@@ -20,7 +20,9 @@ export default defineNuxtConfig({
         "jsx",
         "typescript",
         "ts",
-        "tsx"
+        "tsx",
+        "ocaml",
+        "bash"
       ],
       theme: "slack-dark",
     },

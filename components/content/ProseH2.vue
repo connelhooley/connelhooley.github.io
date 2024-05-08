@@ -8,9 +8,9 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2)
 </script>
 
 <template>
-  <h2 :id="id">
+  <h2 class="group" :id="id">
     <slot />
-    <a class="display-block ml-2 text-sm" v-if="generate" :href="`#${id}`">
+    <a class="hidden group-hover:inline-block ml-2 text-sm" v-if="generate" :href="`#${id}`">
       <font-awesome-icon :icon=faLink />
     </a>
   </h2>
