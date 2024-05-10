@@ -11,7 +11,7 @@ technologies:
 
 If you return a 200 or 404 from a service, all of the models have optional properties:
 
-```ts [Hello]
+```ts [Hello] {2}
 export interface ExampleResponse {
   /** The description of the first property. */
   property1?: string | undefined;
