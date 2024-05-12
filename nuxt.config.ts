@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     "nuxt-content-assets", // Must be added before @nuxt/content
     "@nuxt/content",
     "@nuxtjs/sitemap"
-    // TODO: rss feed = https://content.nuxt.com/v1/community/integrations
+    // TODO: rss feed = https://mokkapps.de/blog/create-an-rss-feed-with-nuxt-3-and-nuxt-content-v2
     // TODO: Favicon
   ],
   site: {

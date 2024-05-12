@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { createSitePathResolver } from '#imports'
-
 const { name } = useSiteConfig();
 const { path } = useRoute();
 const resolvePath = createSitePathResolver({ absolute: true });
