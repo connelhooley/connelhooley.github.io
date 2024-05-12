@@ -14,6 +14,7 @@ import doc from "~/assets/cv/ConnelHooleyCV.docx";
 import docPrinter from "~/assets/cv/ConnelHooleyCV-Printer-Friendly.docx";
 
 definePageMeta({ layout: false });
+const { name } = useSiteConfig();
 const { title, description, logo, email, social: { linkedIn, mastodon } } = useAppConfig();
 const year = computed(() => new Date().getUTCFullYear());
 
@@ -64,7 +65,7 @@ useSeoMeta({
         </HomePageDropdown>
       </HomePageButtons>
       <HomePageFooter>
-        {{title}}&nbsp;<font-awesome-icon :icon=faCopyright />&nbsp;{{year}}
+        {{name}}&nbsp;<font-awesome-icon :icon=faCopyright />&nbsp;{{year}}
       </HomePageFooter>
     </HomePageSection>      
   </HomePageContainer>

@@ -2,14 +2,15 @@
 import { faCopyright, faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faMastodon } from "@fortawesome/free-brands-svg-icons";
 
-const { title, email, social: { mastodon, linkedIn } } = useAppConfig();
+const { name } = useSiteConfig();
+const { email, social: { mastodon, linkedIn } } = useAppConfig();
 const year = computed(() => new Date().getUTCFullYear());
 </script>
 
 <template>
   <SiteFooterContainer>
     <SiteFooterOwnership>
-      {{title}}&nbsp;<font-awesome-icon :icon=faCopyright />&nbsp;{{ year }}
+      {{name}}&nbsp;<font-awesome-icon :icon=faCopyright />&nbsp;{{ year }}
     </SiteFooterOwnership>
     <SiteFooterLinks>
       <SiteFooterLink :to="`mailto:${email}`" target="_blank">

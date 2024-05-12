@@ -4,9 +4,14 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-content-assets", // Must be added before @nuxt/content
     "@nuxt/content",
+    "@nuxtjs/sitemap"
     // TODO: rss feed = https://content.nuxt.com/v1/community/integrations
     // TODO: Favicon
   ],
+  site: {
+    name: "Connel Hooley",
+    url: "https://connelhooley.uk",
+  },
   content: {
     highlight: {
       langs: [
