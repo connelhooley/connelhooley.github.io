@@ -14,8 +14,12 @@ import doc from "~/assets/cv/ConnelHooleyCV.docx";
 import docPrinter from "~/assets/cv/ConnelHooleyCV-Printer-Friendly.docx";
 
 definePageMeta({ layout: false });
-const { title, logo, email, social: { linkedIn, mastodon } } = useAppConfig();
+const { title, description, logo, email, social: { linkedIn, mastodon } } = useAppConfig();
 const year = computed(() => new Date().getUTCFullYear());
+
+useSeoMeta({
+  description,
+});
 </script>
 
 <template>
@@ -23,7 +27,7 @@ const year = computed(() => new Date().getUTCFullYear());
     <HomePageSection mode="primary" grow>
       <HomePageTitle>{{logo}}</HomePageTitle>
       <HomePageTagline>
-        .NET/Web developer based in Norwich, UK
+        {{ description }}
       </HomePageTagline>
       <HomePageButtons>
         <HomePageButton mode="primary" to="/blog">

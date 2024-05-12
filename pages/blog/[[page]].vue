@@ -13,6 +13,10 @@ const queryParams: QueryBuilderParams = {
     { _path: -1 },
   ],
 };
+
+useSeoMeta({
+  title: "Blog",
+});
 </script>
 
 <template>

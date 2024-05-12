@@ -16,6 +16,10 @@ const queryParams: QueryBuilderParams = {
     { _path: -1 },
   ],
 };
+
+useSeoMeta({
+  title: technologyName,
+});
 </script>
 
 <template>

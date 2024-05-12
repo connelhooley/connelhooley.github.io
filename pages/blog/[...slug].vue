@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { NuxtLink } from "#components";
 import {
   faArrowUp,
   faClock,
@@ -26,18 +27,19 @@ import {
         <Date :date="doc.date" />
       </BlogPostMeta>
       <BlogPostMeta v-if="doc.readingTime">
-        <font-awesome-icon :icon=faClock />&nbsp;{{doc.readingTime.text }}
+        <font-awesome-icon :icon=faClock />&nbsp;{{ doc.readingTime.text }}
       </BlogPostMeta>
       <BlogPostMeta>
         <Tags :languages="doc.languages" :technologies="doc.technologies" />
       </BlogPostMeta>
-    </PageHeader>  
+    </PageHeader>
     <PageContainer>
       <PageSection>
+        <BlogPostTableOfContents v-if="doc.toc" :value="doc.toc" />
         <Copy>
           <ContentRenderer :value="doc" />
         </Copy>
-      </PageSection>      
+      </PageSection>
     </PageContainer>
   </ContentDoc>
 </template>

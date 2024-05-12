@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+useSeoMeta({
+  title: "Projects",
+});
+</script>
+
 <template>
   <PageHeader>
     <PageTitle>Projects</PageTitle>

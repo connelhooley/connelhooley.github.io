@@ -29,7 +29,7 @@ function copy() {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative clear-both">
     <div class="p-2 text-xs bg-gray-800 text-white" v-if="filename">{{ filename }}</div>
     <pre ref="codeRef" :class="['mt-0', $props.class]"><slot /></pre>
     <button @click="copy" :class="[

@@ -9,6 +9,8 @@ technologies:
   - NSwag
 ---
 
+# Title
+
 If you return a 200 or 404 from a service, all of the models have optional properties:
 
 ```ts [Hello] {2}
@@ -21,6 +23,8 @@ export interface ExampleResponse {
 ```
 
 I would prefer this wasn't the case as if I return 200 from my API I want to trust the data it returns.
+
+# Another *Title*
 
 Another thing you can't do is ignore certain types of client. My use-case was that I had an API Controller that I wanted to generated C# clients for, but not TypeScript. Without using a custom generator I don't think that's possible.
 

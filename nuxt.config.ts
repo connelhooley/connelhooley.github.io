@@ -28,6 +28,9 @@ export default defineNuxtConfig({
     },
     markdown: {
       anchorLinks: true,
+      toc: {
+        searchDepth: 0,
+      },
       rehypePlugins: {
         "rehype-external-links": {
           rel: "noopener noreferrer",
