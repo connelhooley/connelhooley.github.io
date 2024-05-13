@@ -1,13 +1,14 @@
 import RSS from "rss";
-import { serverQueryContent } from "#content/server"
-
+import { serverQueryContent } from "#content/server";
 
 export default defineEventHandler(async (event) => {
   const { name, url } = useSiteConfig(event);
   const { description } = useAppConfig(event);
   const resolvePath = createSitePathResolver(event, { absolute: true });
-  const docs = await serverQueryContent(event).sort({ date: -1 }).where({ _partial: false }).find();
-  const blogPosts = docs.filter(doc => doc?._path?.includes("/blog"));
+  const docs = await serverQueryContent(event)
+    .where({ _path: { $regex: "^/blog/.*" } })
+    .sort({ date: -1 })
+    .find();
 
   const feed = new RSS({
     title: name,
@@ -16,7 +17,7 @@ export default defineEventHandler(async (event) => {
     description,
   });
 
-  for (const doc of blogPosts) {
+  for (const doc of docs) {
     feed.item({
       title: doc.title ?? "-",
       url: resolvePath(doc._path ?? ""),

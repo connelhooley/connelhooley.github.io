@@ -10,7 +10,7 @@ const queryParams: QueryBuilderParams = {
     },
   ],
   sort: [
-    { _path: -1 },
+    { date: -1 },
   ],
 };
 

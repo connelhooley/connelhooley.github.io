@@ -1,5 +1,5 @@
 ---
-draft: true
+date: 2024-05-13 12:00:00
 title: Custom Typescript Clients Using NSwag
 description: NSwag is an awesome tool for generating request/response models and HTTP clients automatically by using Swagger/Open API docs. In this article I show you can totally customise the output of this tool to taylor the generated clients to your needs.
 languages:
