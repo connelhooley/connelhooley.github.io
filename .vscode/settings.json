@@ -2,7 +2,7 @@
     "editor.tabSize": 2,
     "files.exclude": {
         ".nuxt": true,
-        ".output": true,
+        // ".output": true,
         "node_modules": true,
     },
     "cSpell.words": [
