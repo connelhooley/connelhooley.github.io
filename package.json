@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy": "nuxt generate && gh-pages -d .output/public -b gh-pages"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -20,6 +21,7 @@
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.4.19",
     "color": "^4.2.3",
+    "gh-pages": "^6.1.1",
     "moment": "^2.30.1",
     "nuxt": "^3.11.1",
     "nuxt-content-assets": "^1.4.4",
