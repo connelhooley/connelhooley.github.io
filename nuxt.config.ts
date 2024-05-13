@@ -4,9 +4,7 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-content-assets", // Must be added before @nuxt/content
     "@nuxt/content",
-    "@nuxtjs/sitemap"
-    // TODO: rss feed = https://mokkapps.de/blog/create-an-rss-feed-with-nuxt-3-and-nuxt-content-v2
-    // TODO: Favicon
+    "@nuxtjs/sitemap",
   ],
   site: {
     name: "Connel Hooley",
@@ -63,4 +61,12 @@ export default defineNuxtConfig({
     "@fortawesome/fontawesome-svg-core/styles.css",
     "~/assets/css/main.css",
   ],
+  nitro: {
+    prerender: {
+      routes: [
+        "/rss.xml",
+        "/manifest.json",
+      ],
+    },
+  },
 });
