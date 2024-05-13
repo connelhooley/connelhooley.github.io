@@ -26,7 +26,7 @@ import {
       <BlogPostMeta>
         <Date :date="doc.date" />
       </BlogPostMeta>
-      <BlogPostMeta v-if="doc.readingTime">
+      <BlogPostMeta v-if="doc.readingTime && !doc.disableReadingTime">
         <font-awesome-icon :icon=faClock />&nbsp;{{ doc.readingTime.text }}
       </BlogPostMeta>
       <BlogPostMeta>
@@ -35,11 +35,18 @@ import {
     </PageHeader>
     <PageContainer>
       <PageSection>
-        <BlogPostTableOfContents v-if="doc.toc" :value="doc.toc" />
+        <BlogPostTableOfContents v-if="doc.toc && !doc.disableToc" :value="doc.toc" />
         <Copy>
           <ContentRenderer :value="doc" />
         </Copy>
       </PageSection>
     </PageContainer>
+    <PageSection>
+      <BlogPostPresentationToolbar v-if="doc.presentation">
+        <Button :is="NuxtLink" :to="doc.presentation" target="_blank">
+          <font-awesome-icon :icon=faExternalLinkAlt />&nbsp;Open presentation
+        </Button>
+      </BlogPostPresentationToolbar>
+    </PageSection>
   </ContentDoc>
 </template>

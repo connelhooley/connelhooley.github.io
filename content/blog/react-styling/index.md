@@ -1,7 +1,7 @@
 ---
 title: Styling React Apps
 date: 2020-05-14 10:00:00
-description: There's a few ways to style React apps. In this article a discuss why CSS-in-JS is my favoured approach and why.
+description: There's a few ways to style React apps. In this article I discuss why CSS-in-JS is my favoured approach and why.
 languages:
   - JS
   - CSS
