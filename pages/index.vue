@@ -18,9 +18,7 @@ const { name } = useSiteConfig();
 const { title, description, logo, email, social: { linkedIn, mastodon } } = useAppConfig();
 const year = computed(() => new Date().getUTCFullYear());
 
-useSeoMeta({
-  description,
-});
+useSeoMeta({ description });
 </script>
 
 <template>

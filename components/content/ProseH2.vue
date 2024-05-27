@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
-const props = defineProps<{ id?: string }>()
-
-const { headings } = useRuntimeConfig().public.mdc
-const generate = computed(() => props.id && headings?.anchorLinks?.h2)
+const props = defineProps<{ id?: string }>();
+const { headings } = useRuntimeConfig().public.mdc;
+const generate = computed(() => props.id && headings?.anchorLinks?.h2);
 </script>
 
 <template>
