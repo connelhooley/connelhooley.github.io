@@ -1,0 +1,41 @@
+<nav class="bg-black text-white">
+  <div class="container mx-auto flex flex-wrap sm:flex-nowrap">
+    <%~ await includeAsync("./site-nav-home-link") %>
+    <div class="flex sm:hidden flex-grow justify-end items-center p-6">
+      <button id="mobileButton" className="border border-gray-700 text-white transition-colors duration-400 hover:text-primary p-3">
+        <i id="mobileButtonIcon" class="fa-solid fa-fw fa-xmark"></i>
+        <% /* <FontAwesomeIcon fixedWidth icon={open ? faXmark : faBars} /> */ %>
+        <span id="mobileButtonLabel" className="sr-only">Open menu</span>
+      </button>
+    </div>
+    <% /* Toggle based on mobile button */ %>
+    <div id="navLinksContainer" class="flex-grow justify-end items-stretch flex flex-col sm:flex-row w-full">
+      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/blog/", label: "Blog" }) %>
+      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/projects/", label: "Projects" }) %>
+      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/experience/", label: "Experience" }) %>
+    </div>
+  </div>
+</nav>
+<script>
+  let open = false;
+  const mobileButton = document.getElementById("mobileButton");
+  const mobileButtonLabel = document.getElementById("mobileButtonLabel");
+  const mobileButtonIcon = document.getElementById("mobileButtonIcon");
+  const navLinksContainer = document.getElementById("navLinksContainer");
+  mobileButton.addEventListener("click", function (e) {
+    open = !open;
+    if (open) {
+      mobileButtonLabel.textContent = "Close menu";
+      mobileButtonIcon.classList.add("fa-xmark");
+      mobileButtonIcon.classList.remove("fa-bars");
+      navLinksContainer.classList.add("flex", "flex-col", "sm:flex-row", "w-full");
+      navLinksContainer.classList.remove("hidden", "sm:flex");
+    } else {
+      mobileButtonLabel.textContent = "Open menu";
+      mobileButtonIcon.classList.add("fa-bars");
+      mobileButtonIcon.classList.remove("fa-xmark");
+      navLinksContainer.classList.add("hidden", "sm:flex");
+      navLinksContainer.classList.remove("flex", "flex-col", "sm:flex-row", "w-full");
+    }
+  });
+</script>

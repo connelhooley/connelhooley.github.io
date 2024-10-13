@@ -1,1 +1,2 @@
+<%~ await includeAsync("../partials/site-nav", { route: it.route }) %>
 <%~ it.body %>

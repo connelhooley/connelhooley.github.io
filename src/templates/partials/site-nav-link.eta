@@ -1,0 +1,11 @@
+<a
+  class="
+    px-6 py-3 sm:p-6
+    items-center justify-center sm:flex
+    text-right sm:text-center hover:text-primary text-md
+    transition-colors duration-400
+    <%= it.route.startsWith(it.href) ? 'text-primary font-bold sm:shadow-primary-b' : '' %>"
+  href="<%= it.href %>"
+>
+  <%= it.label %>
+</a>

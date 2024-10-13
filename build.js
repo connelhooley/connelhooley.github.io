@@ -36,6 +36,18 @@ const store = {
   projects: [],
 };
 
+const assets = async () => {
+  console.log("Loading assets");
+  const srcFilePaths = await glob(srcDir + "/assets/**/*", { nodir: true });
+  await Promise.all(srcFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      path.relative(path.join(srcDir, "assets"), srcFilePath));
+    await cp(srcFilePath, distFilePath);
+  }));
+  console.log("Loaded assets");
+};
+
 const blog = async () => {
   console.log("Loading blog");
   const srcMdFilePaths = await glob(srcDir + "/blog/**/*.md");
@@ -53,9 +65,9 @@ const blog = async () => {
       .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;
     const date = new Date(data.date);
-    if (data.draft) {
-      return;
-    }
+    
+    if (data.draft) return;
+    
     const tempFilePath = path.join(
       tempDir,
       "blog",
@@ -70,7 +82,7 @@ const blog = async () => {
     const route = path.join(
       "/",
       path.dirname(path.relative(tempDir, tempFilePath)),
-      srcFilePathParsed.name.toLocaleLowerCase() === "index" ? "" : srcFilePathParsed.name);
+      srcFilePathParsed.name.toLocaleLowerCase() === "index" ? "/" : srcFilePathParsed.name + ".html");
     await mkdir(path.dirname(tempFilePath), { recursive: true });
     await writeFile(tempFilePath, parsedFile.toString("utf-8"));
     store.blog.push({
@@ -170,13 +182,14 @@ const projects = async () => {
 };
 
 await Promise.all([
+  assets(),
   blog(),
   experience(),
   projects()
 ]);
 
 const renderBlog = async () => {
-  console.log("Rendering blog posts");
+  console.log("Rendering blog post pages");
   await Promise.all(store.blog.map(async post => {
     const content = await readFile(post.meta.tempFilePath);
     const renderedTemplate = await eta.renderAsync("blog", { content, ...post });
@@ -185,6 +198,11 @@ const renderBlog = async () => {
       .use(rehypeDocument, {
         title: `Connel Hooley - ${post.data.title}`,
         language: "en-GB",
+        css: [
+          "/css/fontawesome.css",
+          "/css/brands.css",
+          "/css/solid.css",
+        ],
       })
       .use(rehypeFormat)
       .use(rehypeStringify)
@@ -192,7 +210,7 @@ const renderBlog = async () => {
     await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
     await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
   }));
-  console.log("Rendered blog posts");
+  console.log("Rendered blog post pages");
 };
 
 await Promise.all([
