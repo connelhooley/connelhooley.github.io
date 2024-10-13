@@ -1,4 +1,5 @@
 {
+    "debug.javascript.autoAttachFilter": "smart",
     "editor.tabSize": 2,
     "cSpell.words": [
         "Rehype",
