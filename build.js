@@ -4,10 +4,16 @@ import { glob } from "glob";
 import { unified } from "unified";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
+import autoprefixer from "autoprefixer";
+import postcss from "postcss";
+import createTailwindCss from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import colors from "tailwindcss/colors";
+import color from "color";
 
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype";
 
 import rehypeParse from "rehype-parse";
@@ -15,6 +21,9 @@ import rehypeDocument from "rehype-document";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
+
+const lighten = (clr, val) => color(clr).lighten(val).rgb().string();
+const darken = (clr, val) => color(clr).darken(val).rgb().string();
 
 const srcDir = "./src";
 const tempDir = "./temp";
@@ -37,15 +46,15 @@ const store = {
 };
 
 const assets = async () => {
-  console.log("Loading assets");
-  const srcFilePaths = await glob(srcDir + "/assets/**/*", { nodir: true });
+  console.log("Loading static");
+  const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
   await Promise.all(srcFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
       distDir,
-      path.relative(path.join(srcDir, "assets"), srcFilePath));
+      path.relative(path.join(srcDir, "static"), srcFilePath));
     await cp(srcFilePath, distFilePath);
   }));
-  console.log("Loaded assets");
+  console.log("Loaded static");
 };
 
 const blog = async () => {
@@ -65,9 +74,9 @@ const blog = async () => {
       .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;
     const date = new Date(data.date);
-    
+
     if (data.draft) return;
-    
+
     const tempFilePath = path.join(
       tempDir,
       "blog",
@@ -199,9 +208,10 @@ const renderBlog = async () => {
         title: `Connel Hooley - ${post.data.title}`,
         language: "en-GB",
         css: [
-          "/css/fontawesome.css",
-          "/css/brands.css",
-          "/css/solid.css",
+          "/css/main.css",
+          "/vendor/font-awesome/css/fontawesome.css",
+          "/vendor/font-awesome/css/brands.css",
+          "/vendor/font-awesome/css/solid.css",
         ],
       })
       .use(rehypeFormat)
@@ -213,8 +223,68 @@ const renderBlog = async () => {
   console.log("Rendered blog post pages");
 };
 
+const buildCss = async () => {
+  console.log("Building CSS");
+  const tailwindCss = createTailwindCss({
+    content: [
+      path.join(srcDir, "/templates/**/*.eta")
+    ],
+    theme: {
+      extend: {
+        screens: {
+          "xl": "1380px",
+        },
+        typography: {
+          primary: {
+            css: {
+              "--tw-prose-links": darken(primaryColor, .2),
+            },
+          },
+        },
+        colors: {
+          gray: colors.neutral,
+          primary: {
+            "light": lighten(primaryColor, .2),
+            "DEFAULT": primaryColor,
+            "dark": darken(primaryColor, .2),
+          },
+        },
+        fontFamily: {
+          "logo": ["Slabo\\ 27px", ...defaultTheme.fontFamily.serif],
+          "sans": ["Open\\ Sans", ...defaultTheme.fontFamily.sans],
+          "serif": ["Bree\\ Serif", ...defaultTheme.fontFamily.serif],
+          "mono": ["Source\\ Code\\ Pro", ...defaultTheme.fontFamily.mono],
+        },
+        boxShadow: {
+          "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
+        },
+      },
+    },
+    plugins: [],
+  });
+  const srcFilePath = path.join(
+    srcDir,
+    "css/main.css");
+  const distFilePath = path.join(
+    distDir,
+    path.relative(srcDir, srcFilePath));
+  const content = await readFile(srcFilePath);
+  const plugins = [
+    tailwindCss,
+    autoprefixer
+  ];
+  const result = await postcss(plugins).process(content, { from: srcFilePath, to: distFilePath });
+  await mkdir(path.dirname(distFilePath), { recursive: true });
+  await writeFile(distFilePath, result.css);
+  if (result.map) {
+    await writeFile(distFilePath + ".map", result.map);
+  }
+  console.log("Built CSS");
+};
+
 await Promise.all([
   renderBlog(),
+  buildCss(),
 ]);
 
 // TODO render blog post pages
