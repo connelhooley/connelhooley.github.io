@@ -1,0 +1,7 @@
+<% layout("./layouts/default") %>
+
+<h1><%= it.data.title %></h1>
+
+<div>
+  <%~ it.content %>
+</div>
