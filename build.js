@@ -4,11 +4,13 @@ import { glob } from "glob";
 import { unified } from "unified";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
+
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
 import createTailwindCss from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme";
-import colors from "tailwindcss/colors";
+import tailwindCssTypography from "@tailwindcss/typography";
+import defaultTheme from "tailwindcss/defaultTheme.js";
+import colors from "tailwindcss/colors.js";
 import color from "color";
 
 import remarkParse from "remark-parse";
@@ -21,9 +23,6 @@ import rehypeDocument from "rehype-document";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-
-const lighten = (clr, val) => color(clr).lighten(val).rgb().string();
-const darken = (clr, val) => color(clr).darken(val).rgb().string();
 
 const srcDir = "./src";
 const tempDir = "./temp";
@@ -67,7 +66,7 @@ const blog = async () => {
       .use(remarkParse)
       .use(remarkFrontmatter)
       .use(remarkGfm)
-      // TODO: Heading anchor tags, mermaid diagrams, code highlighting
+      // TODO: TOCs, heading anchor tags, mermaid diagrams, code highlighting
       .use(remarkRehype)
       .use(rehypeSanitize)
       .use(rehypeStringify)
@@ -197,11 +196,11 @@ await Promise.all([
   projects()
 ]);
 
-const renderBlog = async () => {
-  console.log("Rendering blog post pages");
+const renderBlogPosts = async () => {
+  console.log("Rendering blog posts");
   await Promise.all(store.blog.map(async post => {
     const content = await readFile(post.meta.tempFilePath);
-    const renderedTemplate = await eta.renderAsync("blog", { content, ...post });
+    const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
     const parsedFile = await unified()
       .use(rehypeParse, { fragment: true })
       .use(rehypeDocument, {
@@ -220,11 +219,14 @@ const renderBlog = async () => {
     await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
     await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
   }));
-  console.log("Rendered blog post pages");
+  console.log("Rendered blog posts");
 };
 
 const buildCss = async () => {
   console.log("Building CSS");
+  const primaryColor = "#f8bb15";
+  const lighten = (clr, val) => color(clr).lighten(val).rgb().string();
+  const darken = (clr, val) => color(clr).darken(val).rgb().string();
   const tailwindCss = createTailwindCss({
     content: [
       path.join(srcDir, "/templates/**/*.eta")
@@ -259,8 +261,10 @@ const buildCss = async () => {
           "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
         },
       },
-    },
-    plugins: [],
+    },    
+    plugins: [
+      tailwindCssTypography,
+    ],
   });
   const srcFilePath = path.join(
     srcDir,
@@ -271,7 +275,7 @@ const buildCss = async () => {
   const content = await readFile(srcFilePath);
   const plugins = [
     tailwindCss,
-    autoprefixer
+    autoprefixer,
   ];
   const result = await postcss(plugins).process(content, { from: srcFilePath, to: distFilePath });
   await mkdir(path.dirname(distFilePath), { recursive: true });
@@ -283,7 +287,7 @@ const buildCss = async () => {
 };
 
 await Promise.all([
-  renderBlog(),
+  renderBlogPosts(),
   buildCss(),
 ]);
 
@@ -294,7 +298,8 @@ await Promise.all([
 // TODO render blog home page
 // TODO render tag pages
 
-// TODO Tailwind?
+// TODO RSS
+// TODO Slides
 
 const distApiPath = path.join(distDir, "api.json");
 await mkdir(path.dirname(distApiPath), { recursive: true });

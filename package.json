@@ -5,16 +5,22 @@
   "type": "module",
   "description": "",
   "scripts": {
+    "dev": "npm run build && npm run start",
     "build": "node build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server ./dist -o /blog/2017/02/21/akka-guide/",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "exit 1 && npm run build && gh-pages -d dist -b gh-pages"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "color": "^4.2.3",
     "eta": "^3.5.0",
+    "gh-pages": "^6.2.0",
     "glob": "^11.0.0",
+    "http-server": "^14.1.1",
     "postcss": "^8.4.47",
     "rehype": "^13.0.2",
     "rehype-document": "^7.0.3",
