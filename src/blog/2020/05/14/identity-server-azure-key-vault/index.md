@@ -1,6 +1,6 @@
 ---
 title: Integrating Identity Server 4 With Azure Key Vault
-date: 2020-05-14 21:00:00
+time: 21:00:00
 description: This article contains a small code snippet that allows you to use Azure Key Vault as your signing credential store in Identity Server 4, including rotating key support.
 languages:
   - C#

@@ -1,6 +1,6 @@
 ---
 title: Akka Guide
-date: 2017-02-21 21:00:00
+time: 21:00:00
 description: Full introductory guide to Akka.NET
 languages:
   - C#

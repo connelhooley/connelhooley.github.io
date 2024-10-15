@@ -1,6 +1,6 @@
 ---
 title: Installing Jekyll on Windows
-date: 2018-03-11 16:00:00
+time: 16:00:00
 description: A guide to getting Jekyll up and running on Bash for Windows with Visual Studio Code
 languages:
   - HTML

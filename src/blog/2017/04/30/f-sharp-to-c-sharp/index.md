@@ -1,6 +1,6 @@
 ---
 title: Calling F# Code in a C# Project
-date: 2017-04-30 17:00:00
+time: 17:00:00
 description: A brief overview of how F# code is exposed to C# projects
 languages:
   - F#

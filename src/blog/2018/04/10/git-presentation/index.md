@@ -1,6 +1,6 @@
 ---
 title: Git Presentation
-date: 2018-04-10 17:00:00
+time: 17:00:00
 description: Introduction to git from the aspect of a TFVC developer
 technologies:
   - Git

@@ -2,6 +2,8 @@ import { rm, cp, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { glob } from "glob";
 import { unified } from "unified";
+import { fromHtmlIsomorphic } from "hast-util-from-html-isomorphic"
+import { toString } from "hast-util-to-string";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
 
@@ -19,8 +21,10 @@ import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype";
 
 import rehypeParse from "rehype-parse";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeToc from "@jsdevtools/rehype-toc";
 import rehypeDocument from "rehype-document";
-import rehypeSanitize from "rehype-sanitize";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
@@ -44,21 +48,9 @@ const store = {
   projects: [],
 };
 
-const assets = async () => {
-  console.log("Loading static");
-  const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
-  await Promise.all(srcFilePaths.map(async srcFilePath => {
-    const distFilePath = path.join(
-      distDir,
-      path.relative(path.join(srcDir, "static"), srcFilePath));
-    await cp(srcFilePath, distFilePath);
-  }));
-  console.log("Loaded static");
-};
-
-const blog = async () => {
-  console.log("Loading blog");
-  const srcMdFilePaths = await glob(srcDir + "/blog/**/*.md");
+const blogPosts = async () => {
+  console.log("Loading blog posts");
+  const srcMdFilePaths = await glob(srcDir + "/blog/*/*/*/*/index.md");
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const srcFilePathParsed = path.parse(srcFilePath);
     const parsedFile = await unified()
@@ -66,31 +58,36 @@ const blog = async () => {
       .use(remarkParse)
       .use(remarkFrontmatter)
       .use(remarkGfm)
-      // TODO: TOCs, heading anchor tags, mermaid diagrams, code highlighting
+      // TODO: mermaid diagrams, code highlighting
       .use(remarkRehype)
-      .use(rehypeSanitize)
+      .use(rehypeSlug)
+      .use(rehypeToc)
+      .use(rehypeAutolinkHeadings, {
+        behavior: "append",
+        content(node) {
+          const html = eta.render("partials/heading-link-content", { heading: toString(node) });
+          return fromHtmlIsomorphic(html).children;
+        },
+      })
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;
-    const date = new Date(data.date);
-
+    const relativePath = path.relative(srcDir, srcFilePathParsed.dir);
+    const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
+    data.date = new Date(`${year}-${month}-${day} ${data.time}`);
     if (data.draft) return;
-
     const tempFilePath = path.join(
       tempDir,
-      "blog",
-      date.getFullYear().toString().padStart(4, "0"),
-      (date.getMonth() + 1).toString().padStart(2, "0"),
-      date.getDate().toString().padStart(2, "0"),
-      path.relative(path.join(srcDir, "blog"), srcFilePathParsed.dir),
-      srcFilePathParsed.name + ".html");
+      relativePath,
+      "index.html");
     const distFilePath = path.join(
       distDir,
-      path.relative(tempDir, tempFilePath));
+      relativePath,
+      "index.html");
     const route = path.join(
       "/",
-      path.dirname(path.relative(tempDir, tempFilePath)),
-      srcFilePathParsed.name.toLocaleLowerCase() === "index" ? "/" : srcFilePathParsed.name + ".html");
+      relativePath,
+      "/");
     await mkdir(path.dirname(tempFilePath), { recursive: true });
     await writeFile(tempFilePath, parsedFile.toString("utf-8"));
     store.blog.push({
@@ -102,14 +99,6 @@ const blog = async () => {
       },
       data,
     });
-    const srcImgFilePaths = await glob(srcFilePathParsed.dir + "/**/*.png");
-    await Promise.all(srcImgFilePaths.map(async srcImgFilePath => {
-      const distImgFilePath = path.join(
-        distDir,
-        path.relative(tempDir, path.dirname(tempFilePath)),
-        path.basename(srcImgFilePath));
-      await cp(srcImgFilePath, distImgFilePath);
-    }));
   }));
   store.blog.sort((a, b) => {
     const dateA = new Date(a.data.date);
@@ -128,7 +117,7 @@ const blog = async () => {
       post.prev = prevPost;
     }
   });
-  console.log("Loaded blog");
+  console.log("Loaded blog posts");
 };
 
 const experience = async () => {
@@ -142,7 +131,6 @@ const experience = async () => {
       .use(remarkGfm)
       .use(remarkRehype)
       .use(rehypeFormat)
-      .use(rehypeSanitize)
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
     store.experience.push({
@@ -171,7 +159,6 @@ const projects = async () => {
       .use(remarkGfm)
       .use(remarkRehype)
       .use(rehypeFormat)
-      .use(rehypeSanitize)
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
     store.projects.push({
@@ -189,38 +176,12 @@ const projects = async () => {
   console.log("Loaded projects");
 };
 
+// Populate store and temp
 await Promise.all([
-  assets(),
-  blog(),
+  blogPosts(),
   experience(),
   projects()
 ]);
-
-const renderBlogPosts = async () => {
-  console.log("Rendering blog posts");
-  await Promise.all(store.blog.map(async post => {
-    const content = await readFile(post.meta.tempFilePath);
-    const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
-    const parsedFile = await unified()
-      .use(rehypeParse, { fragment: true })
-      .use(rehypeDocument, {
-        title: `Connel Hooley - ${post.data.title}`,
-        language: "en-GB",
-        css: [
-          "/css/main.css",
-          "/vendor/font-awesome/css/fontawesome.css",
-          "/vendor/font-awesome/css/brands.css",
-          "/vendor/font-awesome/css/solid.css",
-        ],
-      })
-      .use(rehypeFormat)
-      .use(rehypeStringify)
-      .process(renderedTemplate);
-    await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
-    await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
-  }));
-  console.log("Rendered blog posts");
-};
 
 const buildCss = async () => {
   console.log("Building CSS");
@@ -261,7 +222,7 @@ const buildCss = async () => {
           "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
         },
       },
-    },    
+    },
     plugins: [
       tailwindCssTypography,
     ],
@@ -286,11 +247,67 @@ const buildCss = async () => {
   console.log("Built CSS");
 };
 
+const copyStaticAssets = async () => {
+  console.log("Loading static assets");
+  const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
+  await Promise.all(srcFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      path.relative(path.join(srcDir, "static"), srcFilePath));
+    await cp(srcFilePath, distFilePath);
+  }));
+  console.log("Loaded static assets");
+};
+
+const copyBlogAssets = async () => {
+  console.log("Loading blog assets");
+  const srcImgFilePaths = await glob(srcDir + "/blog/**/*.png");
+  await Promise.all(srcImgFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      path.relative(srcDir, srcFilePath));
+    await cp(srcFilePath, distFilePath);
+  }));
+  console.log("Loaded blog assets");
+};
+
+const renderBlogPosts = async () => {
+  console.log("Rendering blog posts");
+  await Promise.all(store.blog.map(async post => {
+    const content = await readFile(post.meta.tempFilePath);
+    const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
+    const parsedFile = await unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeDocument, {
+        title: `Connel Hooley - ${post.data.title}`,
+        language: "en-GB",
+        css: [
+          "/css/main.css",
+          "/vendor/font-awesome/css/fontawesome.css",
+          "/vendor/font-awesome/css/brands.css",
+          "/vendor/font-awesome/css/solid.css",
+        ],
+      })
+      .use(rehypeFormat)
+      .use(rehypeStringify)
+      .process(renderedTemplate);
+    await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
+    await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
+  }));
+  console.log("Rendered blog posts");
+};
+
+// Populate dist
 await Promise.all([
-  renderBlogPosts(),
   buildCss(),
+  copyStaticAssets(),
+  copyBlogAssets(),
+  renderBlogPosts(),
 ]);
 
+// Mermaid JS
+// Syntax highlighting
+// Finish heading links (hide on hover)
 // TODO render blog post pages
 // TODO render experience page
 // TODO render projects page
