@@ -2,6 +2,7 @@ import { rm, cp, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { glob } from "glob";
 import { unified } from "unified";
+import { h } from "hastscript";
 import { fromHtmlIsomorphic } from "hast-util-from-html-isomorphic"
 import { toString } from "hast-util-to-string";
 import { matter } from "vfile-matter";
@@ -61,12 +62,25 @@ const blogPosts = async () => {
       // TODO: mermaid diagrams, code highlighting
       .use(remarkRehype)
       .use(rehypeSlug)
-      .use(rehypeToc)
+      .use(rehypeToc, {
+        customizeTOC(toc) {
+          const heading = h("h1", { "id": "__contents" }, "Contents");
+          toc.children.unshift(heading);
+          return toc;
+        },
+      })
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
+        headingProperties: { "class": "group" },
+        properties: { "class": "text-base ml-1 hidden group-hover:inline-block" },
         content(node) {
-          const html = eta.render("partials/heading-link-content", { heading: toString(node) });
-          return fromHtmlIsomorphic(html).children;
+          return [
+            h("i.fa-solid fa-link", { "aria-hidden": "true" }),
+            h("span.sr-only", `Go to ${toString(node)} section`),
+          ];
+        },
+        test(node) {
+          node.properties.id !== "__contents";
         },
       })
       .use(rehypeStringify)
@@ -225,6 +239,14 @@ const buildCss = async () => {
     },
     plugins: [
       tailwindCssTypography,
+    ],
+    safelist: [
+      "group",
+      "group-hover:inline-block",
+      "sr-only",
+      "hidden",
+      "text-base",
+      "ml-1",
     ],
   });
   const srcFilePath = path.join(

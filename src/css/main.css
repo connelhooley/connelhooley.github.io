@@ -34,11 +34,7 @@
 .prose h4,
 .prose h5,
 .prose h6 {
-  @apply scroll-mt-16;
-}
-
-.anchor.after svg {
-  @apply stroke-primary;
+  @apply scroll-mt-2;
 }
 
 .code-copy-wrapper {
@@ -50,19 +46,23 @@
 }
 
 .toc {
-  @apply text-sm;
+  @apply text-sm sm:w-72 mb-4 sm:ml-4 sm:float-right sm:relative sm:z-10;
+}
+
+.toc > h1 {
+  @apply text-3xl p-2 m-0 bg-gray-900 text-white;
 }
 
 .toc a {
-  @apply py-2 inline-block hover:underline
+  @apply inline-block text-primary no-underline hover:underline p-2;
 }
 
-.toc ul {
-  @apply pl-4 first:pl-0;
+.toc > ol > li {
+  @apply bg-gray-800 even:bg-gray-900;
 }
 
-.toc > ul > li {
-  @apply px-2 bg-gray-800 even:bg-gray-900 text-primary;
+.toc ol {
+  @apply m-0 p-0 list-none;
 }
 
 ::selection {
