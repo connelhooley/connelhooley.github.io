@@ -54,7 +54,7 @@
 }
 
 .toc a {
-  @apply inline-block text-primary no-underline hover:underline p-2;
+  @apply block text-primary no-underline hover:underline p-2 truncate;
 }
 
 .toc > ol > li {
