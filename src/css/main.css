@@ -18,6 +18,15 @@
   }
 }
 
+::selection {
+  @apply bg-primary text-white;
+}
+
+.invert-selection::selection,
+.invert-selection *::selection {
+  @apply bg-black text-white;
+}
+
 .prose {
   h1,
   h2,
@@ -38,39 +47,26 @@
   }
 }
 
+.toc {
+  @apply text-sm sm:w-72 mb-4 sm:ml-4 sm:float-right sm:relative sm:z-10;
+  & > h1 {
+    @apply text-3xl p-2 m-0 bg-gray-900 text-white;
+  }
+  & > ol > li {
+    @apply bg-gray-800 even:bg-gray-900;
+  }
+  ol {
+    @apply m-0 p-0 list-none;
+  }
+  a {
+    @apply block text-primary no-underline hover:underline p-2 truncate;
+  }
+}
+
 .code-copy-wrapper {
   @apply relative clear-both;
 }
 
 .code-copy-button {
   @apply absolute top-0 right-0 bg-gray-600 text-white text-xs p-1;
-}
-
-.toc {
-  @apply text-sm sm:w-72 mb-4 sm:ml-4 sm:float-right sm:relative sm:z-10;
-}
-
-.toc > h1 {
-  @apply text-3xl p-2 m-0 bg-gray-900 text-white;
-}
-
-.toc a {
-  @apply block text-primary no-underline hover:underline p-2 truncate;
-}
-
-.toc > ol > li {
-  @apply bg-gray-800 even:bg-gray-900;
-}
-
-.toc ol {
-  @apply m-0 p-0 list-none;
-}
-
-::selection {
-  @apply bg-primary text-white;
-}
-
-.invert-selection::selection,
-.invert-selection *::selection {
-  @apply bg-black text-white;
 }
