@@ -80,7 +80,7 @@ const blogPosts = async () => {
           ];
         },
         test(node) {
-          node.properties.id !== "__contents";
+          return node.properties.id !== "__contents";
         },
       })
       .use(rehypeStringify)
