@@ -8,7 +8,6 @@
   html {
     @apply font-sans;
   }
-
   h1,
   h2,
   h3,
@@ -19,22 +18,24 @@
   }
 }
 
-.prose h1 + p,
-.prose h2 + p,
-.prose h3 + p,
-.prose h4 + p,
-.prose h5 + p,
-.prose h6 + p {
-  @apply mt-0 scroll-mt-4;
-}
-
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  @apply scroll-mt-2;
+.prose {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply scroll-mt-2;
+    & > a {
+      @apply text-base ml-1 hidden;
+      & > span {
+        @apply sr-only;
+      }
+    }
+    & + p {
+      @apply mt-0 scroll-mt-4;
+    }
+  }
 }
 
 .code-copy-wrapper {

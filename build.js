@@ -3,13 +3,13 @@ import path from "path";
 import { glob } from "glob";
 import { unified } from "unified";
 import { h } from "hastscript";
-import { fromHtmlIsomorphic } from "hast-util-from-html-isomorphic"
 import { toString } from "hast-util-to-string";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
 
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
+import postcssNesting from "postcss-nesting";
 import createTailwindCss from "tailwindcss";
 import tailwindCssTypography from "@tailwindcss/typography";
 import defaultTheme from "tailwindcss/defaultTheme.js";
@@ -72,11 +72,11 @@ const blogPosts = async () => {
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
         headingProperties: { "class": "group" },
-        properties: { "class": "text-base ml-1 hidden group-hover:inline-block" },
+        properties: { "class": "group-hover:inline-block" },
         content(node) {
           return [
             h("i.fa-solid fa-link", { "aria-hidden": "true" }),
-            h("span.sr-only", `Go to ${toString(node)} section`),
+            h("span", `Go to ${toString(node)} section`),
           ];
         },
         test(node) {
@@ -243,10 +243,6 @@ const buildCss = async () => {
     safelist: [
       "group",
       "group-hover:inline-block",
-      "sr-only",
-      "hidden",
-      "text-base",
-      "ml-1",
     ],
   });
   const srcFilePath = path.join(
@@ -257,6 +253,7 @@ const buildCss = async () => {
     path.relative(srcDir, srcFilePath));
   const content = await readFile(srcFilePath);
   const plugins = [
+    postcssNesting,
     tailwindCss,
     autoprefixer,
   ];
