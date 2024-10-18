@@ -2,6 +2,7 @@
     "debug.javascript.autoAttachFilter": "disabled",
     "editor.tabSize": 2,
     "cSpell.words": [
+        "hastscript",
         "Rehype",
         "tailwindcss",
         "vfile"

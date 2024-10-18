@@ -24,10 +24,12 @@ import remarkRehype from "remark-rehype";
 import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeToc from "@jsdevtools/rehype-toc";
+import rehypeHighlight from "rehype-highlight";
 import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
+
+import { rehypeToc } from "./plugins.js";
 
 const srcDir = "./src";
 const tempDir = "./temp";
@@ -59,29 +61,28 @@ const blogPosts = async () => {
       .use(remarkParse)
       .use(remarkFrontmatter)
       .use(remarkGfm)
-      // TODO: mermaid diagrams, code highlighting
+      // TODO: mermaid diagrams
       .use(remarkRehype)
       .use(rehypeSlug)
-      .use(rehypeToc, {
-        customizeTOC(toc) {
-          const heading = h("h1", { "id": "__contents" }, "Contents");
-          toc.children.unshift(heading);
-          return toc;
-        },
-      })
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
-        headingProperties: { "class": "group" },
-        properties: { "class": "group-hover:inline-block" },
+        headingProperties: {"class": "heading"},
+        properties: { "class": "link" },
         content(node) {
           return [
-            h("i.fa-solid fa-link", { "aria-hidden": "true" }),
-            h("span", `Go to ${toString(node)} section`),
+            h("span", [
+              h("i.fa-solid fa-link", { "aria-hidden": "true" }),
+              h("span", `Go to ${toString(node)} section`),
+            ]),
           ];
         },
         test(node) {
           return node.properties.id !== "__contents";
         },
+      })
+      .use(rehypeToc)
+      .use(rehypeHighlight, {
+        plainText: [ "mermaid" ],
       })
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
@@ -302,6 +303,7 @@ const renderBlogPosts = async () => {
         language: "en-GB",
         css: [
           "/css/main.css",
+          "/vendor/highlight.js/css/ir-black.min.css",
           "/vendor/font-awesome/css/fontawesome.css",
           "/vendor/font-awesome/css/brands.css",
           "/vendor/font-awesome/css/solid.css",
@@ -325,8 +327,7 @@ await Promise.all([
 ]);
 
 // Mermaid JS
-// Syntax highlighting
-// Finish heading links (hide on hover)
+// Copy code button
 // TODO render blog post pages
 // TODO render experience page
 // TODO render projects page
