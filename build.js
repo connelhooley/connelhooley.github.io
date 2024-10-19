@@ -25,11 +25,11 @@ import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
+import rehypeToc from "@connelhooley/rehype-toc";
+import rehypeMermaid from "@connelhooley/rehype-mermaid";
 import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-
-import { rehypeToc } from "./plugins.js";
 
 const srcDir = "./src";
 const tempDir = "./temp";
@@ -39,10 +39,12 @@ const eta = new Eta({ views: path.join(srcDir, "templates") });
 
 console.log("Clearing temp");
 await rm(tempDir, { recursive: true, force: true });
+await mkdir(tempDir);
 console.log("Cleared temp");
 
 console.log("Clearing dist");
 await rm(distDir, { recursive: true, force: true });
+await mkdir(distDir);
 console.log("Cleared dist");
 
 const store = {
@@ -61,7 +63,6 @@ const blogPosts = async () => {
       .use(remarkParse)
       .use(remarkFrontmatter)
       .use(remarkGfm)
-      // TODO: mermaid diagrams
       .use(remarkRehype)
       .use(rehypeSlug)
       .use(rehypeAutolinkHeadings, {
@@ -84,6 +85,7 @@ const blogPosts = async () => {
       .use(rehypeHighlight, {
         plainText: [ "mermaid" ],
       })
+      .use(rehypeMermaid)
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;

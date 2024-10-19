@@ -1,11 +1,13 @@
-import { h } from "hastscript";
-import { toString } from "hast-util-to-string";
 import { visit } from "unist-util-visit";
+import { h } from "hastscript";
+import { headingRank } from "hast-util-heading-rank";
+import { toText } from "hast-util-to-text";
 
 // Stolen and simplified from
 // https://github.com/JS-DevTools/rehype-toc/blob/master/src/create-toc.ts
-export function rehypeToc() {
-  const headings = [
+
+export default function rehypeToc() {
+  const matchHeadings = [
     { tagName: "h1" },
     { tagName: "h2" },
     { tagName: "h3" },
@@ -16,22 +18,15 @@ export function rehypeToc() {
   const createListItem = heading => {
     return h("li", [
       h("a", { href: `#${heading.properties.id || ""}` }, [
-        toString(heading.children[0]),
+        toText(heading.children[0]),
       ]),
     ]);
   };
-
-  /**
-   * @param {Root} tree
-   * @return {undefined}
-   */
   return (tree) => {
-
     let levels = [];
     let currentLevel = { depth: 0, headingNumber: 0, list: undefined };
-
-    visit(tree, headings, heading => {
-      const headingNumber = parseInt(heading.tagName.slice(-1), 10);
+    visit(tree, matchHeadings, heading => {
+      const headingNumber = headingRank(heading);
       if (headingNumber > currentLevel.headingNumber) {
         // This is a higher heading number, so start a new level
         const depth = currentLevel.depth + 1;
@@ -51,7 +46,7 @@ export function rehypeToc() {
       } else {
         if (headingNumber < currentLevel.headingNumber) {
           // This is a lower heading number, so we need to go up to a previous level
-          for (let i = levels.length - 2; i >= 0; i--) {
+          for (const i = levels.length - 2; i >= 0; i--) {
             const level = levels[i];
             if (level.headingNumber === headingNumber) {
               // We found the previous level that matches this heading
@@ -76,5 +71,5 @@ export function rehypeToc() {
         h("h1", "Contents"),
         levels.length === 0 ? h("ol") : levels[0].list,
       ]));
-  }
+  };
 }
