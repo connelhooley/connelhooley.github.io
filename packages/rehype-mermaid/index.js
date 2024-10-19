@@ -40,11 +40,14 @@ export default function rehypeMermaid() {
     await Promise.all(matchedCodes.map(async ({mermaidSource, updateTree}) => {
       const { data } = await renderMermaid(browser, mermaidSource, "svg", {
         mermaidConfig: {
-          deterministicIds: true,
-          darkMode: true,
-          theme: "dark",
-          themeVariables: {
-          }
+          theme: "base",
+          themeVariables: {            
+            primaryColor: "#f8bb15",
+            primaryTextColor: "#000",
+            primaryBorderColor: "#000",
+            lineColor: "#f8bb15",
+            textColor: "#000",
+          },
         },
       });
       const mermaidParsed = data.toString();
