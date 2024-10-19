@@ -1,0 +1,11 @@
+<page-container>
+  <slot></slot>
+</page-container>
+
+<style webc:scoped>
+  :host {
+    display: block;
+    background-color: var(--primary-color);
+    padding: var(--spacing-6) 0;
+  }
+</style>

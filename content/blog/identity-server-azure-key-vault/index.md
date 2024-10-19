@@ -12,6 +12,23 @@ technologies:
 
 # Background
 
+``` mermaid
+graph TD
+  A[Christmas] -->|Get money| B(Go shopping)
+  B --> C{Let me think}
+  B --> G[/Another/]
+  C ==>|One| D[Laptop]
+  C -->|Two| E[iPhone]
+  C -->|Three| F[fa:fa-car Car]
+  subgraph section
+    C
+    D
+    E
+    F
+    G
+  end
+```
+
 I'm building a personal project using `IdentityServer4` to authenticate an API that is invoked from an SPA. I wanted to store the certificates I am using to sign my JWTs in `Azure Key Vault`. Key Vault supports rotating certificates, so I wanted to implement that in the solution, so I didn't have to remember to restart the application whenever the keys rotated.
 
 I found a discussion on GitHub [here][github-issue] that had some code snippets on how to do it. Below is my implementation, hopefully this will be helpful to someone.

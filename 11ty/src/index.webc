@@ -1,0 +1,8 @@
+---
+layout: layout.webc
+title: Home Page
+---
+
+<page-container>
+  Body
+</page-container>
