@@ -68,7 +68,7 @@ const blogPosts = async () => {
       .use(rehypeSlug)
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
-        headingProperties: {"class": "heading"},
+        headingProperties: { "class": "heading" },
         properties: { "class": "link" },
         content(node) {
           return [
@@ -84,15 +84,15 @@ const blogPosts = async () => {
       })
       .use(rehypeToc)
       .use(rehypeHighlight, {
-        plainText: [ "mermaid" ],
+        plainText: ["mermaid"],
       })
       .use(rehypeMermaid)
       .use(rehypeStringify)
-      .process(await readFile(srcFilePath));  
+      .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;
     const relativePath = path.relative(srcDir, srcFilePathParsed.dir);
     const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
-    data.date = new Date(`${year}-${month}-${day} ${data.time}`);
+    data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
     if (data.draft) return;
     const tempFilePath = path.join(
       tempDir,
@@ -271,6 +271,19 @@ const buildCss = async () => {
   console.log("Built CSS");
 };
 
+const buildJs = async () => {
+  console.log("Building JS");
+  const srcFilePaths = await glob(srcDir + "/scripts/**/*.js", { nodir: true });
+  await Promise.all(srcFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      "js",
+      path.relative(path.join(srcDir, "scripts"), srcFilePath));
+    await cp(srcFilePath, distFilePath);
+  }));
+  console.log("Building JS");
+};
+
 const copyStaticAssets = async () => {
   console.log("Loading static assets");
   const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
@@ -312,6 +325,10 @@ const renderBlogPosts = async () => {
           "/vendor/font-awesome/css/brands.css",
           "/vendor/font-awesome/css/solid.css",
         ],
+        js: [
+          "/js/copy-code.js",
+          "/js/mobile-menu.js"
+        ]
       })
       .use(rehypeFormat)
       .use(rehypeStringify)
@@ -325,6 +342,7 @@ const renderBlogPosts = async () => {
 // Populate dist
 await Promise.all([
   buildCss(),
+  buildJs(),
   copyStaticAssets(),
   copyBlogAssets(),
   renderBlogPosts(),

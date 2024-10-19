@@ -5,6 +5,8 @@
 
 <div class="container mx-auto px-4">
   <section class="mx-auto my-8">
-    <%~ await includeAsync("./partials/copy", { content: it.content }) %>
+    <article>
+      <%~ await includeAsync("./partials/copy", { content: it.content }) %>
+    </article>
   </section>
 </div>
