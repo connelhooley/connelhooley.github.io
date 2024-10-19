@@ -252,10 +252,10 @@ const buildCss = async () => {
   });
   const srcFilePath = path.join(
     srcDir,
-    "css/main.css");
+    "styles/main.css");
   const distFilePath = path.join(
     distDir,
-    path.relative(srcDir, srcFilePath));
+    "css/main.css");
   const content = await readFile(srcFilePath);
   const plugins = [
     postcssNesting,
