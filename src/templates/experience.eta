@@ -1,0 +1,7 @@
+<% layout("./layouts/default") %>
+<h1>Experience</h1>
+<% it.items.forEach(function (job) { %>
+  <div>
+    <%= job.data.title %>
+  </div>
+<% }); %>

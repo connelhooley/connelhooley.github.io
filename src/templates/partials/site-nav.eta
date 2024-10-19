@@ -1,29 +1,26 @@
-<nav class="bg-black text-white">
-  <div class="container mx-auto flex flex-wrap sm:flex-nowrap">
-    <%~ await includeAsync("./site-nav-home-link") %>
-    <div class="p-6 flex sm:hidden flex-grow justify-end items-center">
-      <button
-        id="mobileButton"
-        className="
-          p-3
-          border border-gray-700
-          transition-colors duration-400
-          text-white hover:text-primary"
-      >
+<nav>
+  <div>
+    <a href="/">{C.H}</a>
+    <div>
+      <button id="mobileButton">
         <i id="mobileButtonIcon" class="fa-solid fa-fw fa-bars"></i>
-        <span id="mobileButtonLabel" className="sr-only">Open menu</span>
+        <span id="mobileButtonLabel">Open menu</span>
       </button>
     </div>
-    <div
-      id="navLinksContainer"
-      class="
-        hidden grow
-        sm:flex flex-col sm:flex-row
-        justify-end items-stretch"
-      >
-      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/blog/", label: "Blog" }) %>
-      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/projects/", label: "Projects" }) %>
-      <%~ await includeAsync("./site-nav-link", { route: it.route, href: "/experience/", label: "Experience" }) %>
+    <div id="navLinksContainer">
+      <% const navLinks = [
+        { label: "Blog", href: "/blog/" },
+        { label: "Project", href: "/projects/" },
+        { label: "Experience", href: "/experience/" },
+      ]; %>
+      <% navLinks.forEach(function (navLink) { %>
+        <a
+          class="nav-link<%= it.route.startsWith(navLink.href) ? ' active' : '' %>"
+          href="<%= navLink.href %>"
+        >
+          <%= navLink.label %>
+        </a>
+      <% }); %>
     </div>
   </div>
 </nav>

@@ -1,0 +1,7 @@
+<% layout("./layouts/default") %>
+<h1>Projects</h1>
+<% it.items.forEach(function (project) { %>
+  <div>
+    <%= project.data.title %>
+  </div>
+<% }); %>

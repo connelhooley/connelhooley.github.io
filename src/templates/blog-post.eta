@@ -1,12 +1,7 @@
 <% layout("./layouts/default") %>
-<div class="container mx-auto px-4">
+<article>
   <h1><%= it.data.title %></h1>
-</div>
-
-<div class="container mx-auto px-4">
-  <section class="mx-auto my-8">
-    <article>
-      <%~ await includeAsync("./partials/copy", { content: it.content }) %>
-    </article>
-  </section>
-</div>
+  <div>
+    <%~ it.content %>
+  </div>
+</article>

@@ -1,0 +1,21 @@
+<% layout("./layouts/default") %>
+<h1><%= it.title %></h1>
+<% it.page.forEach(function (blogPost) { %>
+  <div>
+    <a href="<%= blogPost.route %>">
+      <%= blogPost.data.title %>
+    </a>
+  </div>
+<% }); %>
+<div>
+  <% if (it.prevPage) { %>
+    <% if (it.prevPage === 1) { %>
+      <a href="<%= it.baseRoute %>">Prev</a>
+    <% } else { %>
+      <a href="<%= it.baseRoute %><%= it.prevPage === 1 ? '' : 'page/' + it.prevPage + '/' %>">Prev</a>
+    <% } %>
+  <% } %>
+  <% if (it.nextPage) { %>
+    <a href="<%= it.baseRoute %>page/<%= it.nextPage %>/">Next</a>
+  <% } %>
+</div>

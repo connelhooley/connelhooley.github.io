@@ -34,6 +34,21 @@ const tempDir = "./temp";
 const distDir = "./dist";
 
 const eta = new Eta({ views: path.join(srcDir, "templates") });
+const defaultRehypeDocumentOptions = {
+  title: "Connel Hooley",
+  language: "en-GB",
+  css: [
+    "/css/main.css",
+    "/vendor/highlight.js/css/ir-black.min.css",
+    "/vendor/font-awesome/css/fontawesome.css",
+    "/vendor/font-awesome/css/brands.css",
+    "/vendor/font-awesome/css/solid.css",
+  ],
+  js: [
+    "/js/copy-code.js",
+    "/js/mobile-menu.js"
+  ],
+};
 
 console.log("Clearing temp");
 await rm(tempDir, { recursive: true, force: true });
@@ -49,6 +64,17 @@ const store = {
   blog: [],
   experience: [],
   projects: [],
+  languages: new Set(),
+  technologies: new Set(),
+};
+
+const paginate = (array, pageSize) => {
+  const result = [];
+  for (let i = 0; i < array.length; i += pageSize) {
+    const page = array.slice(i, i + pageSize);
+    result.push(page);
+  }
+  return result;
 };
 
 const blogPosts = async () => {
@@ -115,6 +141,8 @@ const blogPosts = async () => {
       },
       data,
     });
+    data?.languages?.forEach(language => store.languages.add(language));
+    data?.technologies?.forEach(technology => store.technologies.add(technology));
   }));
   mermaidStop();
   store.blog.sort((a, b) => {
@@ -240,7 +268,7 @@ const buildJs = async () => {
       await writeFile(distFilePath + ".map", result.map);
     }
   }));
-  console.log("Building JS");
+  console.log("Built JS");
 };
 
 const copyStaticAssets = async () => {
@@ -275,19 +303,8 @@ const renderBlogPosts = async () => {
     const parsedFile = await unified()
       .use(rehypeParse, { fragment: true })
       .use(rehypeDocument, {
-        title: `Connel Hooley - ${post.data.title}`,
-        language: "en-GB",
-        css: [
-          "/css/main.css",
-          "/vendor/highlight.js/css/ir-black.min.css",
-          "/vendor/font-awesome/css/fontawesome.css",
-          "/vendor/font-awesome/css/brands.css",
-          "/vendor/font-awesome/css/solid.css",
-        ],
-        js: [
-          "/js/copy-code.js",
-          "/js/mobile-menu.js"
-        ]
+        ...defaultRehypeDocumentOptions,
+        title: `${defaultRehypeDocumentOptions.title} - ${post.data.title}`,
       })
       .use(rehypeFormat)
       .use(rehypeStringify)
@@ -298,25 +315,140 @@ const renderBlogPosts = async () => {
   console.log("Rendered blog posts");
 };
 
+const renderExperience = async () => {
+  console.log("Rendering experience page");
+  const renderedTemplate = await eta.renderAsync("experience", {
+    route: "/experience/",
+    items: store.experience,
+  });
+  const parsedFile = await unified()
+    .use(rehypeParse, { fragment: true })
+    .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(renderedTemplate);
+  const distFilePath = path.join(distDir, "experience", "index.html");
+  await mkdir(path.dirname(distFilePath), { recursive: true });
+  await writeFile(distFilePath, parsedFile.toString("utf-8"));
+  console.log("Rendered experience page");
+};
+
+const renderProjects = async () => {
+  console.log("Rendering projects page");
+  const renderedTemplate = await eta.renderAsync("projects", {
+    route: "/projects/",
+    items: store.projects
+  });
+  const parsedFile = await unified()
+    .use(rehypeParse, { fragment: true })
+    .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(renderedTemplate);
+  const distFilePath = path.join(distDir, "projects", "index.html");
+  await mkdir(path.dirname(distFilePath), { recursive: true });
+  await writeFile(distFilePath, parsedFile.toString("utf-8"));
+  console.log("Rendered projects page");
+};
+
+const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnologies = false, isLanguage = false }) => {
+  console.log(`Rendering '${title}' paged collection`);
+  const pages = paginate(items, pageSize);
+  const pageCount = pages.length;
+  await Promise.all(pages.map(async (page, i) => {
+    const currentPage = i + 1;
+    const prevPage = currentPage === 1 ? null : currentPage - 1;
+    const nextPage = currentPage === pageCount ? null : currentPage + 1;
+    const renderedTemplate = await eta.renderAsync("paged-collection", {
+      route: currentPage === 1 ? baseRoute : baseRoute + "page/" + currentPage,
+      title,
+      baseRoute,
+      isTechnologies,
+      isLanguage,
+      page,
+      currentPage,
+      pageCount,
+      nextPage,
+      prevPage,
+    });
+    const parsedFile = await unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeDocument, defaultRehypeDocumentOptions)
+      .use(rehypeFormat)
+      .use(rehypeStringify)
+      .process(renderedTemplate);
+    const distFilePath = currentPage === 1
+      ? path.join(distDir, basePath, "index.html")
+      : path.join(distDir, basePath, "page", currentPage.toString(), "index.html");
+    await mkdir(path.dirname(distFilePath), { recursive: true });
+    await writeFile(distFilePath, parsedFile.toString("utf-8"));
+  }));
+  console.log(`Rendered '${title}' paged collection`);
+};
+
+const renderHome = async () => {
+  console.log("Rendering home");
+  // TODO Supply data?
+  const renderedTemplate = await eta.renderAsync("home", {});
+  const parsedFile = await unified()
+    .use(rehypeParse, { fragment: true })
+    .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(renderedTemplate);
+  await writeFile(path.join(distDir, "index.html"), parsedFile.toString("utf-8"));
+  console.log("Rendered home");
+};
+
 // Populate dist
 await Promise.all([
   buildCss(),
   buildJs(),
   copyStaticAssets(),
   copyBlogAssets(),
+  renderHome(),
+  renderExperience(),
+  renderProjects(),
   renderBlogPosts(),
+  renderPagedCollection({
+    items: store.blog,
+    basePath: "blog",
+    baseRoute: "/blog/",
+    title: "Blog",
+    pageSize: 5,
+  }),
+  ...Array.from(store.languages).map(language => {
+      return renderPagedCollection({
+        items: store.blog.filter(post => post.data?.languages?.includes(language)),
+        basePath: path.join("blog", "languages", language),
+        baseRoute: `/blog/languages/${encodeURIComponent(language)}/`,
+        title: language,
+        isLanguage: true,
+        pageSize: 5,
+      });
+    }),
+  ...Array.from(store.technologies).map(technology => {
+    return renderPagedCollection({
+      items: store.blog.filter(post => post.data?.technologies?.includes(technology)),
+      basePath: path.join("blog", "technologies", technology),
+      baseRoute: `/blog/technologies/${encodeURIComponent(technology)}/`,
+      title: technology,
+      isTechnologies: true,
+      pageSize: 5,
+    });
+  }),
 ]);
 
-// Mermaid JS
-// Copy code button
-// TODO render blog post pages
-// TODO render experience page
-// TODO render projects page
-// TODO render home page
-// TODO render blog home page
-// TODO render tag pages
+// TODO blog post pages
+// TODO experience page
+// TODO projects page
+// TODO home page
+// TODO blog page
+// TODO language page
+// TODO technology page
 
 // TODO RSS
+// TODO SEO tags (rehype-meta)
 // TODO Slides
 
 const distApiPath = path.join(distDir, "api.json");
