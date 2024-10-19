@@ -9,4 +9,4 @@ npm run build
 - Files in `./src/static` are copied into `./dist`.
 - The JavaScript files in `./src/scripts` are processed using Babel and written into `./dist/js`.
 - The `./src/styles/main.css` CSS file is processed using Post CSS and written to `./dist/css/main.css`.
-- Files in `./src/content/blog` are processed with Remark & Rehype, then embedded into the `./src/templates/blog-post.eta` and written into `./dist/blog`.
+- Files in `./src/content/blog` are processed with Remark & Rehype, then rendered into the `./src/templates/blog-post.eta` template and written into `./dist/blog`.
