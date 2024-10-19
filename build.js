@@ -26,7 +26,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeToc from "@connelhooley/rehype-toc";
-import rehypeMermaid from "@connelhooley/rehype-mermaid";
+import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
 import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
@@ -56,6 +56,7 @@ const store = {
 const blogPosts = async () => {
   console.log("Loading blog posts");
   const srcMdFilePaths = await glob(srcDir + "/blog/*/*/*/*/index.md");
+  await mermaidStart();
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const srcFilePathParsed = path.parse(srcFilePath);
     const parsedFile = await unified()
@@ -87,7 +88,7 @@ const blogPosts = async () => {
       })
       .use(rehypeMermaid)
       .use(rehypeStringify)
-      .process(await readFile(srcFilePath));
+      .process(await readFile(srcFilePath));  
     const data = parsedFile.data.matter;
     const relativePath = path.relative(srcDir, srcFilePathParsed.dir);
     const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
@@ -117,6 +118,7 @@ const blogPosts = async () => {
       data,
     });
   }));
+  mermaidStop();
   store.blog.sort((a, b) => {
     const dateA = new Date(a.data.date);
     const dateB = new Date(b.data.date);

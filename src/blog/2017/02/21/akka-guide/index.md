@@ -15,6 +15,15 @@ Akka is an actor framework. We'll cover what that means [in the next section](#a
 
 This guide only covers the basics of the actor model and Akka.NET. Basic knowledge of C# is assumed.
 
+```csharp
+public class Example {}
+```
+
+```mermaid
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+```
+
 # Actor Model
 
 The actor model is a way of structuring an application. Instead of classes calling each other directly, they communicate via **messages** via a framework. Classes that communicate in this manner are called **Actors**. A common analogy is that your application is a factory, your actors are your staff and messages are jobs that need doing.
