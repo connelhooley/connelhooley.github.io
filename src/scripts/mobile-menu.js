@@ -3,7 +3,7 @@ const mobileButton = document.getElementById("mobileButton");
 const mobileButtonLabel = document.getElementById("mobileButtonLabel");
 const mobileButtonIcon = document.getElementById("mobileButtonIcon");
 const navLinksContainer = document.getElementById("navLinksContainer");
-mobileButton.addEventListener("click", function() {
+mobileButton.addEventListener("click", () => {
   open = !open;
   if (open) {
     mobileButtonLabel.textContent = "Close menu";

@@ -7,14 +7,12 @@ import { toString } from "hast-util-to-string";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
 
-import autoprefixer from "autoprefixer";
+import babel from "@babel/core";
+
 import postcss from "postcss";
 import postcssNesting from "postcss-nesting";
-import createTailwindCss from "tailwindcss";
-import tailwindCssTypography from "@tailwindcss/typography";
-import defaultTheme from "tailwindcss/defaultTheme.js";
-import colors from "tailwindcss/colors.js";
-import color from "color";
+import postcssImport from "postcss-import";
+import autoprefixer from "autoprefixer";
 
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
@@ -55,7 +53,7 @@ const store = {
 
 const blogPosts = async () => {
   console.log("Loading blog posts");
-  const srcMdFilePaths = await glob(srcDir + "/blog/*/*/*/*/index.md");
+  const srcMdFilePaths = await glob(srcDir + "/content/blog/*/*/*/*/index.md");
   await mermaidStart();
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const srcFilePathParsed = path.parse(srcFilePath);
@@ -90,7 +88,7 @@ const blogPosts = async () => {
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
     const data = parsedFile.data.matter;
-    const relativePath = path.relative(srcDir, srcFilePathParsed.dir);
+    const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
     const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
     data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
     if (data.draft) return;
@@ -141,7 +139,7 @@ const blogPosts = async () => {
 
 const experience = async () => {
   console.log("Loading experience");
-  const srcMdFilePaths = await glob(srcDir + "/experience/**/*.md");
+  const srcMdFilePaths = await glob(srcDir + "/content/experience/**/*.md");
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const parsedFile = await unified()
       .use(() => (_, file) => matter(file))
@@ -169,7 +167,7 @@ const experience = async () => {
 
 const projects = async () => {
   console.log("Loading projects");
-  const srcMdFilePaths = await glob(srcDir + "/projects/**/*.md");
+  const srcMdFilePaths = await glob(srcDir + "/content/projects/**/*.md");
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const parsedFile = await unified()
       .use(() => (_, file) => matter(file))
@@ -204,52 +202,6 @@ await Promise.all([
 
 const buildCss = async () => {
   console.log("Building CSS");
-  const primaryColor = "#f8bb15";
-  const lighten = (clr, val) => color(clr).lighten(val).rgb().string();
-  const darken = (clr, val) => color(clr).darken(val).rgb().string();
-  const tailwindCss = createTailwindCss({
-    content: [
-      path.join(srcDir, "/templates/**/*.eta")
-    ],
-    theme: {
-      extend: {
-        screens: {
-          "xl": "1380px",
-        },
-        typography: {
-          primary: {
-            css: {
-              "--tw-prose-links": darken(primaryColor, .2),
-            },
-          },
-        },
-        colors: {
-          gray: colors.neutral,
-          primary: {
-            "light": lighten(primaryColor, .2),
-            "DEFAULT": primaryColor,
-            "dark": darken(primaryColor, .2),
-          },
-        },
-        fontFamily: {
-          "logo": ["Slabo\\ 27px", ...defaultTheme.fontFamily.serif],
-          "sans": ["Open\\ Sans", ...defaultTheme.fontFamily.sans],
-          "serif": ["Bree\\ Serif", ...defaultTheme.fontFamily.serif],
-          "mono": ["Source\\ Code\\ Pro", ...defaultTheme.fontFamily.mono],
-        },
-        boxShadow: {
-          "primary-b": `rgb(248, 187, 21) 0px -6px 0px 0px inset`
-        },
-      },
-    },
-    plugins: [
-      tailwindCssTypography,
-    ],
-    safelist: [
-      "group",
-      "group-hover:inline-block",
-    ],
-  });
   const srcFilePath = path.join(
     srcDir,
     "styles/main.css");
@@ -258,8 +210,8 @@ const buildCss = async () => {
     "css/main.css");
   const content = await readFile(srcFilePath);
   const plugins = [
+    postcssImport,
     postcssNesting,
-    tailwindCss,
     autoprefixer,
   ];
   const result = await postcss(plugins).process(content, { from: srcFilePath, to: distFilePath });
@@ -275,11 +227,18 @@ const buildJs = async () => {
   console.log("Building JS");
   const srcFilePaths = await glob(srcDir + "/scripts/**/*.js", { nodir: true });
   await Promise.all(srcFilePaths.map(async srcFilePath => {
+    const result = await babel.transformFileAsync(srcFilePath, {
+      presets: ["@babel/preset-env"],
+    });
     const distFilePath = path.join(
       distDir,
       "js",
       path.relative(path.join(srcDir, "scripts"), srcFilePath));
-    await cp(srcFilePath, distFilePath);
+    await mkdir(path.dirname(distFilePath), { recursive: true });
+    await writeFile(distFilePath, result.code);
+    if (result.map) {
+      await writeFile(distFilePath + ".map", result.map);
+    }
   }));
   console.log("Building JS");
 };
@@ -298,11 +257,11 @@ const copyStaticAssets = async () => {
 
 const copyBlogAssets = async () => {
   console.log("Loading blog assets");
-  const srcImgFilePaths = await glob(srcDir + "/blog/**/*.png");
+  const srcImgFilePaths = await glob(srcDir + "/content/blog/**/*.png");
   await Promise.all(srcImgFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
       distDir,
-      path.relative(srcDir, srcFilePath));
+      path.relative(path.join(srcDir, "content"), srcFilePath));
     await cp(srcFilePath, distFilePath);
   }));
   console.log("Loaded blog assets");
