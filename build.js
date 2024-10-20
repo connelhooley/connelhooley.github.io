@@ -462,6 +462,7 @@ console.log("Site built successfully");
 // TODO finish language page
 // TODO finish technology page
 
-// TODO RSS
 // TODO SEO tags (rehype-meta)
+// TODO Favicon
+// TODO RSS
 // TODO Slides
