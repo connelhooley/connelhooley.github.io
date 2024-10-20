@@ -262,7 +262,7 @@ const buildJs = async () => {
 };
 
 const copyStaticAssets = async () => {
-  console.log("Loading static assets");
+  console.log("Copying static assets");
   const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
   await Promise.all(srcFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
@@ -270,11 +270,11 @@ const copyStaticAssets = async () => {
       path.relative(path.join(srcDir, "static"), srcFilePath));
     await cp(srcFilePath, distFilePath);
   }));
-  console.log("Loaded static assets");
+  console.log("Copied static assets");
 };
 
 const copyBlogAssets = async () => {
-  console.log("Loading blog assets");
+  console.log("Copying blog assets");
   const srcImgFilePaths = await glob(srcDir + "/content/blog/**/*.png");
   await Promise.all(srcImgFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
@@ -282,7 +282,7 @@ const copyBlogAssets = async () => {
       path.relative(path.join(srcDir, "content"), srcFilePath));
     await cp(srcFilePath, distFilePath);
   }));
-  console.log("Loaded blog assets");
+  console.log("Copied blog assets");
 };
 
 const renderHome = async () => {
@@ -445,6 +445,7 @@ await Promise.all([
   renderBlog(),
 ]);
 
+console.log("Site built successfully");
 // TODO finish blog post pages
 // TODO finish experience page
 // TODO finish projects page
