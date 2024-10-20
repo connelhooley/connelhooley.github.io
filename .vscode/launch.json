@@ -12,6 +12,15 @@
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/build.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Watch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/watch.js"
     }
   ]
 }

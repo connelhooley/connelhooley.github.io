@@ -60,7 +60,7 @@ await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir);
 console.log("Cleared dist");
 
-const buildCss = async () => {
+export const buildCss = async () => {
   console.log("Building CSS");
   const srcFilePath = path.join(
     srcDir,
@@ -83,7 +83,7 @@ const buildCss = async () => {
   console.log("Built CSS");
 };
 
-const buildJs = async () => {
+export const buildJs = async () => {
   console.log("Building JS");
   const srcFilePaths = await glob(srcDir + "/scripts/**/*.js", { nodir: true });
   await Promise.all(srcFilePaths.map(async srcFilePath => {
@@ -103,7 +103,7 @@ const buildJs = async () => {
   console.log("Built JS");
 };
 
-const copyStaticAssets = async () => {
+export const copyStaticAssets = async () => {
   console.log("Copying static assets");
   const srcFilePaths = await glob(srcDir + "/static/**/*", { nodir: true });
   await Promise.all(srcFilePaths.map(async srcFilePath => {
@@ -115,7 +115,7 @@ const copyStaticAssets = async () => {
   console.log("Copied static assets");
 };
 
-const copyBlogAssets = async () => {
+export const copyBlogAssets = async () => {
   console.log("Copying blog assets");
   const srcImgFilePaths = await glob(srcDir + "/content/blog/**/*.png");
   await Promise.all(srcImgFilePaths.map(async srcFilePath => {
@@ -127,7 +127,7 @@ const copyBlogAssets = async () => {
   console.log("Copied blog assets");
 };
 
-const renderHome = async () => {
+export const renderHome = async () => {
   console.log("Rendering home");
   // TODO Supply data?
   const renderedTemplate = await eta.renderAsync("home", {});
@@ -141,7 +141,7 @@ const renderHome = async () => {
   console.log("Rendered home");
 };
 
-const renderExperience = async () => {
+export const renderExperience = async () => {
   const loadExperienceContent = async () => {
     console.log("Loading experience content");
     const srcMdFilePaths = await glob(srcDir + "/content/experience/**/*.md");
@@ -189,7 +189,7 @@ const renderExperience = async () => {
   console.log("Rendered experience page");
 };
 
-const renderProjects = async () => {
+export const renderProjects = async () => {
   const loadProjectsContent = async () => {
     console.log("Loading projects content");
     const srcMdFilePaths = await glob(srcDir + "/content/projects/**/*.md");
@@ -237,7 +237,7 @@ const renderProjects = async () => {
   console.log("Rendered projects page");
 };
 
-const renderBlog = async () => {
+export const renderBlog = async () => {
   const loadBlogContent = async () => {
     console.log("Loading blog content");
     const blog = {
