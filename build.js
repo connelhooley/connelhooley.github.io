@@ -400,13 +400,6 @@ const renderBlog = async () => {
     }));
     console.log(`Rendered '${title}' paged collection`);
   };
-  const renderApi = async ({ posts }) => {
-    const api = {
-      posts: posts.map(({ route, data }) => ({ route, data })),
-    };
-    const distApiPath = path.join(distDir, "api.json");
-    await writeFile(distApiPath, JSON.stringify(api, null, 2));
-  };
 
   const { posts, languages, technologies } = await loadBlogContent();
   await Promise.all([
@@ -438,7 +431,6 @@ const renderBlog = async () => {
         pageSize: 5,
       });
     }),
-    renderApi({ posts }),
   ]);
 };
 
