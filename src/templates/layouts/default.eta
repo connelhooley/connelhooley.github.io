@@ -1,3 +1,29 @@
-<%~ await includeAsync("../partials/site-nav", { route: it.route }) %>
-<%~ it.body %>
-<%~ await includeAsync("../partials/site-footer") %>
+<nav class="site-nav">
+  <div>
+    <a href="/">{C.H}</a>
+    <div>
+      <button id="mobileButton">
+        <i id="mobileButtonIcon" class="fa-solid fa-fw fa-bars"></i>
+        <span id="mobileButtonLabel">Open menu</span>
+      </button>
+    </div>
+    <div id="navLinksContainer">
+      <% const navLinks = [
+        { label: "Blog", href: "/blog/" },
+        { label: "Project", href: "/projects/" },
+        { label: "Experience", href: "/experience/" },
+      ]; %>
+      <% navLinks.forEach(({ label, href }) => { %>
+        <% const active = it.route.startsWith(href) ? "active" : "" %>
+        <a class="nav-link <%= active %>" href="<%= href %>">
+          <%= label %>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</nav>
+<main>
+  <%~ it.body %>
+</main>
+<footer class="site-footer">
+</footer>
