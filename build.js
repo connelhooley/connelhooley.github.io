@@ -60,15 +60,6 @@ await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir);
 console.log("Cleared dist");
 
-const paginate = (array, pageSize) => {
-  const result = [];
-  for (let i = 0; i < array.length; i += pageSize) {
-    const page = array.slice(i, i + pageSize);
-    result.push(page);
-  }
-  return result;
-};
-
 const loadBlogContent = async () => {
   console.log("Loading blog content");
   const blog = {
@@ -356,26 +347,46 @@ const renderBlog = async () => {
       await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
     }));
     console.log("Rendered blog posts");
-  };  
+  };
   const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnologies = false, isLanguage = false }) => {
+    const paginate = () => {
+      const pages = [];
+      const pageCount = Math.ceil(items.length / pageSize);
+      const getPageRoute = (pageNumber) => {
+        return pageNumber === 1
+          ? baseRoute
+          : `${baseRoute}page/${pageNumber}`;
+      };
+      const getPagePath = (pageNumber) => {
+        return pageNumber === 1
+          ? path.join(basePath, "index.html")
+          : path.join(basePath, "page", pageNumber.toString(), "index.html");
+      };
+      let pageNumber = 0;
+      for (let i = 0; i < items.length; i += pageSize) {
+        pageNumber++;
+        pages.push({
+          route: getPageRoute(pageNumber),
+          path: getPagePath(pageNumber),
+          items: items.slice(i, i + pageSize),
+          prevPageRoute: pageNumber === 1
+            ? null
+            : getPageRoute(pageNumber - 1),
+          nextPageRoute: pageNumber === pageCount
+            ? null
+            : getPageRoute(pageNumber + 1),
+        });
+      }
+      return { pageCount, pages };
+    };
     console.log(`Rendering '${title}' paged collection`);
-    const pages = paginate(items, pageSize);
-    const pageCount = pages.length;
-    await Promise.all(pages.map(async (page, i) => {
-      const currentPage = i + 1;
-      const prevPage = currentPage === 1 ? null : currentPage - 1;
-      const nextPage = currentPage === pageCount ? null : currentPage + 1;
+    const { pages } = paginate();
+    await Promise.all(pages.map(async (page) => {
       const renderedTemplate = await eta.renderAsync("paged-collection", {
-        route: currentPage === 1 ? baseRoute : baseRoute + "page/" + currentPage,
         title,
-        baseRoute,
         isTechnologies,
         isLanguage,
-        page,
-        currentPage,
-        pageCount,
-        nextPage,
-        prevPage,
+        ...page,
       });
       const parsedFile = await unified()
         .use(rehypeParse, { fragment: true })
@@ -383,9 +394,7 @@ const renderBlog = async () => {
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(renderedTemplate);
-      const distFilePath = currentPage === 1
-        ? path.join(distDir, basePath, "index.html")
-        : path.join(distDir, basePath, "page", currentPage.toString(), "index.html");
+      const distFilePath = path.join(distDir, page.path);
       await mkdir(path.dirname(distFilePath), { recursive: true });
       await writeFile(distFilePath, parsedFile.toString("utf-8"));
     }));
@@ -393,7 +402,7 @@ const renderBlog = async () => {
   };
   const renderApi = async ({ posts }) => {
     const api = {
-      posts: posts.map(({route, data}) => ({route, data})),
+      posts: posts.map(({ route, data }) => ({ route, data })),
     };
     const distApiPath = path.join(distDir, "api.json");
     await writeFile(distApiPath, JSON.stringify(api, null, 2));
@@ -433,7 +442,6 @@ const renderBlog = async () => {
   ]);
 };
 
-// Populate dist
 await Promise.all([
   buildCss(),
   buildJs(),
