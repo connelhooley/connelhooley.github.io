@@ -60,14 +60,6 @@ await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir);
 console.log("Cleared dist");
 
-const store = {
-  blog: [],
-  experience: [],
-  projects: [],
-  languages: new Set(),
-  technologies: new Set(),
-};
-
 const paginate = (array, pageSize) => {
   const result = [];
   for (let i = 0; i < array.length; i += pageSize) {
@@ -77,8 +69,13 @@ const paginate = (array, pageSize) => {
   return result;
 };
 
-const blogPosts = async () => {
-  console.log("Loading blog posts");
+const loadBlogContent = async () => {
+  console.log("Loading blog content");
+  const blog = {
+    posts: [],
+    languages: new Set(),
+    technologies: new Set(),
+  };
   const srcMdFilePaths = await glob(srcDir + "/content/blog/*/*/*/*/index.md");
   await mermaidStart();
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
@@ -101,9 +98,6 @@ const blogPosts = async () => {
               h("span", `Go to ${toString(node)} section`),
             ]),
           ];
-        },
-        test(node) {
-          return node.properties.id !== "__contents";
         },
       })
       .use(rehypeToc)
@@ -132,7 +126,7 @@ const blogPosts = async () => {
       "/");
     await mkdir(path.dirname(tempFilePath), { recursive: true });
     await writeFile(tempFilePath, parsedFile.toString("utf-8"));
-    store.blog.push({
+    blog.posts.push({
       route,
       meta: {
         srcFilePath,
@@ -141,34 +135,35 @@ const blogPosts = async () => {
       },
       data,
     });
-    data?.languages?.forEach(language => store.languages.add(language));
-    data?.technologies?.forEach(technology => store.technologies.add(technology));
+    data?.languages?.forEach(language => blog.languages.add(language));
+    data?.technologies?.forEach(technology => blog.technologies.add(technology));
   }));
   mermaidStop();
-  store.blog.sort((a, b) => {
+  blog.posts.sort((a, b) => {
     const dateA = new Date(a.data.date);
     const dateB = new Date(b.data.date);
     if (dateA < dateB) return 1;
     if (dateA > dateB) return -1;
     return 0;
   });
-  store.blog.forEach((post, index) => {
+  blog.posts.forEach((post, index) => {
     if (index > 0) {
-      const { prev, next, ...nextPost } = store.blog[index - 1]
+      const { prev, next, ...nextPost } = blog.posts[index - 1]
       post.next = nextPost;
     }
-    if (index + 1 <= store.blog.length - 1) {
-      const { prev, next, ...prevPost } = store.blog[index + 1]
+    if (index + 1 <= blog.posts.length - 1) {
+      const { prev, next, ...prevPost } = blog.posts[index + 1]
       post.prev = prevPost;
     }
   });
-  console.log("Loaded blog posts");
+  console.log("Loaded blog content");
+  return blog;
 };
 
-const experience = async () => {
-  console.log("Loading experience");
+const loadExperienceContent = async () => {
+  console.log("Loading experience content");
   const srcMdFilePaths = await glob(srcDir + "/content/experience/**/*.md");
-  await Promise.all(srcMdFilePaths.map(async srcFilePath => {
+  const experiences = await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const parsedFile = await unified()
       .use(() => (_, file) => matter(file))
       .use(remarkParse)
@@ -178,25 +173,26 @@ const experience = async () => {
       .use(rehypeFormat)
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
-    store.experience.push({
+    return {
       content: parsedFile.toString("utf-8"),
       data: parsedFile.data.matter,
-    });
+    };
   }));
-  store.experience.sort((a, b) => {
+  experiences.sort((a, b) => {
     const startA = a.data.start;
     const startB = b.data.start;
     if (startA < startB) return 1;
     if (startA > startB) return -1;
     return 0;
   });
-  console.log("Loaded experience");
+  console.log("Loaded experience content");
+  return experiences;
 };
 
-const projects = async () => {
-  console.log("Loading projects");
+const loadProjectsContent = async () => {
+  console.log("Loading projects content");
   const srcMdFilePaths = await glob(srcDir + "/content/projects/**/*.md");
-  await Promise.all(srcMdFilePaths.map(async srcFilePath => {
+  const projects = await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const parsedFile = await unified()
       .use(() => (_, file) => matter(file))
       .use(remarkParse)
@@ -206,27 +202,21 @@ const projects = async () => {
       .use(rehypeFormat)
       .use(rehypeStringify)
       .process(await readFile(srcFilePath));
-    store.projects.push({
+    return {
       content: parsedFile.toString("utf-8"),
       data: parsedFile.data.matter,
-    });
+    };
   }));
-  store.projects.sort((a, b) => {
+  projects.sort((a, b) => {
     const orderA = new Date(a.data.order);
     const orderB = new Date(b.data.order);
     if (orderA < orderB) return -1;
     if (orderA > orderB) return 1;
     return 0;
   });
-  console.log("Loaded projects");
+  console.log("Loaded projects content");
+  return projects;
 };
-
-// Populate store and temp
-await Promise.all([
-  blogPosts(),
-  experience(),
-  projects()
-]);
 
 const buildCss = async () => {
   console.log("Building CSS");
@@ -295,97 +285,6 @@ const copyBlogAssets = async () => {
   console.log("Loaded blog assets");
 };
 
-const renderBlogPosts = async () => {
-  console.log("Rendering blog posts");
-  await Promise.all(store.blog.map(async post => {
-    const content = await readFile(post.meta.tempFilePath);
-    const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
-    const parsedFile = await unified()
-      .use(rehypeParse, { fragment: true })
-      .use(rehypeDocument, {
-        ...defaultRehypeDocumentOptions,
-        title: `${defaultRehypeDocumentOptions.title} - ${post.data.title}`,
-      })
-      .use(rehypeFormat)
-      .use(rehypeStringify)
-      .process(renderedTemplate);
-    await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
-    await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
-  }));
-  console.log("Rendered blog posts");
-};
-
-const renderExperience = async () => {
-  console.log("Rendering experience page");
-  const renderedTemplate = await eta.renderAsync("experience", {
-    route: "/experience/",
-    items: store.experience,
-  });
-  const parsedFile = await unified()
-    .use(rehypeParse, { fragment: true })
-    .use(rehypeDocument, defaultRehypeDocumentOptions)
-    .use(rehypeFormat)
-    .use(rehypeStringify)
-    .process(renderedTemplate);
-  const distFilePath = path.join(distDir, "experience", "index.html");
-  await mkdir(path.dirname(distFilePath), { recursive: true });
-  await writeFile(distFilePath, parsedFile.toString("utf-8"));
-  console.log("Rendered experience page");
-};
-
-const renderProjects = async () => {
-  console.log("Rendering projects page");
-  const renderedTemplate = await eta.renderAsync("projects", {
-    route: "/projects/",
-    items: store.projects
-  });
-  const parsedFile = await unified()
-    .use(rehypeParse, { fragment: true })
-    .use(rehypeDocument, defaultRehypeDocumentOptions)
-    .use(rehypeFormat)
-    .use(rehypeStringify)
-    .process(renderedTemplate);
-  const distFilePath = path.join(distDir, "projects", "index.html");
-  await mkdir(path.dirname(distFilePath), { recursive: true });
-  await writeFile(distFilePath, parsedFile.toString("utf-8"));
-  console.log("Rendered projects page");
-};
-
-const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnologies = false, isLanguage = false }) => {
-  console.log(`Rendering '${title}' paged collection`);
-  const pages = paginate(items, pageSize);
-  const pageCount = pages.length;
-  await Promise.all(pages.map(async (page, i) => {
-    const currentPage = i + 1;
-    const prevPage = currentPage === 1 ? null : currentPage - 1;
-    const nextPage = currentPage === pageCount ? null : currentPage + 1;
-    const renderedTemplate = await eta.renderAsync("paged-collection", {
-      route: currentPage === 1 ? baseRoute : baseRoute + "page/" + currentPage,
-      title,
-      baseRoute,
-      isTechnologies,
-      isLanguage,
-      page,
-      currentPage,
-      pageCount,
-      nextPage,
-      prevPage,
-    });
-    const parsedFile = await unified()
-      .use(rehypeParse, { fragment: true })
-      .use(rehypeDocument, defaultRehypeDocumentOptions)
-      .use(rehypeFormat)
-      .use(rehypeStringify)
-      .process(renderedTemplate);
-    const distFilePath = currentPage === 1
-      ? path.join(distDir, basePath, "index.html")
-      : path.join(distDir, basePath, "page", currentPage.toString(), "index.html");
-    await mkdir(path.dirname(distFilePath), { recursive: true });
-    await writeFile(distFilePath, parsedFile.toString("utf-8"));
-  }));
-  console.log(`Rendered '${title}' paged collection`);
-};
-
 const renderHome = async () => {
   console.log("Rendering home");
   // TODO Supply data?
@@ -400,6 +299,140 @@ const renderHome = async () => {
   console.log("Rendered home");
 };
 
+const renderExperience = async () => {
+  const experiences = await loadExperienceContent();
+  console.log("Rendering experience page");
+  const renderedTemplate = await eta.renderAsync("experience", {
+    route: "/experience/",
+    items: experiences,
+  });
+  const parsedFile = await unified()
+    .use(rehypeParse, { fragment: true })
+    .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(renderedTemplate);
+  const distFilePath = path.join(distDir, "experience", "index.html");
+  await mkdir(path.dirname(distFilePath), { recursive: true });
+  await writeFile(distFilePath, parsedFile.toString("utf-8"));
+  console.log("Rendered experience page");
+};
+
+const renderProjects = async () => {
+  const projects = await loadProjectsContent();
+  console.log("Rendering projects page");
+  const renderedTemplate = await eta.renderAsync("projects", {
+    route: "/projects/",
+    items: projects,
+  });
+  const parsedFile = await unified()
+    .use(rehypeParse, { fragment: true })
+    .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeFormat)
+    .use(rehypeStringify)
+    .process(renderedTemplate);
+  const distFilePath = path.join(distDir, "projects", "index.html");
+  await mkdir(path.dirname(distFilePath), { recursive: true });
+  await writeFile(distFilePath, parsedFile.toString("utf-8"));
+  console.log("Rendered projects page");
+};
+
+const renderBlog = async () => {
+  const renderBlogPosts = async ({ posts }) => {
+    console.log("Rendering blog posts");
+    await Promise.all(posts.map(async post => {
+      const content = await readFile(post.meta.tempFilePath);
+      const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
+      const parsedFile = await unified()
+        .use(rehypeParse, { fragment: true })
+        .use(rehypeDocument, {
+          ...defaultRehypeDocumentOptions,
+          title: `${defaultRehypeDocumentOptions.title} - ${post.data.title}`,
+        })
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(renderedTemplate);
+      await mkdir(path.dirname(post.meta.distFilePath), { recursive: true });
+      await writeFile(post.meta.distFilePath, parsedFile.toString("utf-8"));
+    }));
+    console.log("Rendered blog posts");
+  };  
+  const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnologies = false, isLanguage = false }) => {
+    console.log(`Rendering '${title}' paged collection`);
+    const pages = paginate(items, pageSize);
+    const pageCount = pages.length;
+    await Promise.all(pages.map(async (page, i) => {
+      const currentPage = i + 1;
+      const prevPage = currentPage === 1 ? null : currentPage - 1;
+      const nextPage = currentPage === pageCount ? null : currentPage + 1;
+      const renderedTemplate = await eta.renderAsync("paged-collection", {
+        route: currentPage === 1 ? baseRoute : baseRoute + "page/" + currentPage,
+        title,
+        baseRoute,
+        isTechnologies,
+        isLanguage,
+        page,
+        currentPage,
+        pageCount,
+        nextPage,
+        prevPage,
+      });
+      const parsedFile = await unified()
+        .use(rehypeParse, { fragment: true })
+        .use(rehypeDocument, defaultRehypeDocumentOptions)
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(renderedTemplate);
+      const distFilePath = currentPage === 1
+        ? path.join(distDir, basePath, "index.html")
+        : path.join(distDir, basePath, "page", currentPage.toString(), "index.html");
+      await mkdir(path.dirname(distFilePath), { recursive: true });
+      await writeFile(distFilePath, parsedFile.toString("utf-8"));
+    }));
+    console.log(`Rendered '${title}' paged collection`);
+  };
+  const renderApi = async ({ posts }) => {
+    const api = {
+      posts: posts.map(({route, data}) => ({route, data})),
+    };
+    const distApiPath = path.join(distDir, "api.json");
+    await writeFile(distApiPath, JSON.stringify(api, null, 2));
+  };
+
+  const { posts, languages, technologies } = await loadBlogContent();
+  await Promise.all([
+    renderBlogPosts({ posts }),
+    renderPagedCollection({
+      items: posts,
+      basePath: "blog",
+      baseRoute: "/blog/",
+      title: "Blog",
+      pageSize: 5,
+    }),
+    ...Array.from(languages).map(language => {
+      return renderPagedCollection({
+        items: posts.filter(post => post.data?.languages?.includes(language)),
+        basePath: path.join("blog", "languages", language),
+        baseRoute: `/blog/languages/${encodeURIComponent(language)}/`,
+        title: language,
+        isLanguage: true,
+        pageSize: 5,
+      });
+    }),
+    ...Array.from(technologies).map(technology => {
+      return renderPagedCollection({
+        items: posts.filter(post => post.data?.technologies?.includes(technology)),
+        basePath: path.join("blog", "technologies", technology),
+        baseRoute: `/blog/technologies/${encodeURIComponent(technology)}/`,
+        title: technology,
+        isTechnologies: true,
+        pageSize: 5,
+      });
+    }),
+    renderApi({ posts }),
+  ]);
+};
+
 // Populate dist
 await Promise.all([
   buildCss(),
@@ -409,48 +442,17 @@ await Promise.all([
   renderHome(),
   renderExperience(),
   renderProjects(),
-  renderBlogPosts(),
-  renderPagedCollection({
-    items: store.blog,
-    basePath: "blog",
-    baseRoute: "/blog/",
-    title: "Blog",
-    pageSize: 5,
-  }),
-  ...Array.from(store.languages).map(language => {
-      return renderPagedCollection({
-        items: store.blog.filter(post => post.data?.languages?.includes(language)),
-        basePath: path.join("blog", "languages", language),
-        baseRoute: `/blog/languages/${encodeURIComponent(language)}/`,
-        title: language,
-        isLanguage: true,
-        pageSize: 5,
-      });
-    }),
-  ...Array.from(store.technologies).map(technology => {
-    return renderPagedCollection({
-      items: store.blog.filter(post => post.data?.technologies?.includes(technology)),
-      basePath: path.join("blog", "technologies", technology),
-      baseRoute: `/blog/technologies/${encodeURIComponent(technology)}/`,
-      title: technology,
-      isTechnologies: true,
-      pageSize: 5,
-    });
-  }),
+  renderBlog(),
 ]);
 
-// TODO blog post pages
-// TODO experience page
-// TODO projects page
-// TODO home page
-// TODO blog page
-// TODO language page
-// TODO technology page
+// TODO finish blog post pages
+// TODO finish experience page
+// TODO finish projects page
+// TODO finish home page
+// TODO finish blog page
+// TODO finish language page
+// TODO finish technology page
 
 // TODO RSS
 // TODO SEO tags (rehype-meta)
 // TODO Slides
-
-const distApiPath = path.join(distDir, "api.json");
-await mkdir(path.dirname(distApiPath), { recursive: true });
-await writeFile(distApiPath, JSON.stringify(store, null, 2));
