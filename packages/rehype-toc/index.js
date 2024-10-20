@@ -22,7 +22,10 @@ export default function rehypeToc() {
       ]),
     ]);
   };
-  return (tree) => {
+  return (tree, file) => {
+    if(file.data?.matter?.toc === false) {
+      return;
+    }
     let levels = [];
     let currentLevel = { depth: 0, headingNumber: 0, list: undefined };
     visit(tree, matchHeadings, heading => {
