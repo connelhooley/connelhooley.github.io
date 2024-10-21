@@ -1,4 +1,42 @@
 nav.site-nav {
-  background-color: var(black);
-  color: var(white);
+  background-color: black;
+  color: white;
+  font-size: var(--text-xl-font-size);
+  line-height: var(--text-xl-line-height);
+  padding: 0;
+  & .site-nav-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    & #siteNavMenuItems {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    & .site-nav-item {
+      padding: var(--spacing-6) var(--gutter);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      &:hover {
+        background-color: var(--gray-color-800);
+      }
+    }
+    & #siteNavMenuItems {
+      display: none;
+      gap: var(--spacing-4);
+      @media (--screen-sm-up) {
+        display: flex;
+      }
+      &.mobile-open {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    & #siteNavMobileButton {
+      @media (--screen-sm-up) {
+        display: none;
+      }
+    }
+  }
 }

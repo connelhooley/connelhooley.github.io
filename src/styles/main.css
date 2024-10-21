@@ -1,3 +1,44 @@
 @import url("_reset.css");
 @import url("_variables.css");
+
 @import url("_site-nav.css");
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  @media (--screen-sm-up) {
+    max-width: var(--screen-sm);
+  }
+
+  @media (--screen-md-up) {
+    max-width: var(--screen-md);
+  }
+
+  @media (--screen-lg-up) {
+    max-width: var(--screen-lg);
+  }
+
+  @media (--screen-xl-up) {
+    max-width: var(--screen-xl);
+  }
+
+  @media (--screen-2xl-up) {
+    max-width: var(--screen-2xl);
+  }
+}
+
+.section {
+  padding: var(--spacing-4) var(--gutter);
+}

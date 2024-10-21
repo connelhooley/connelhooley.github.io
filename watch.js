@@ -39,7 +39,9 @@ const watchTemplates = async () => {
         renderExperience(),
         renderProjects(),
       ]);
-    } else if (minimatch(change.filename, "{blog-post|paged-collection}.eta")) {
+    } else if (minimatch(change.filename, "blog-post.eta")) {
+      await renderBlog();
+    } else if (minimatch(change.filename, "paged-collection.eta")) {
       await renderBlog();
     } else if (minimatch(change.filename, "home.eta")) {
       await renderHome();

@@ -1,17 +1,21 @@
 <% layout("./layouts/default") %>
-<h1><%= it.title %></h1>
-<% it.items.forEach(function (post) { %>
-  <div>
-    <a href="<%= post.route %>">
-      <%= post.data.title %>
-    </a>
+<div class="container">
+  <div class="section">
+    <h1><%= it.title %></h1>
+    <% it.items.forEach(function (post) { %>
+      <div>
+        <a href="<%= post.route %>">
+          <%= post.data.title %>
+        </a>
+      </div>
+    <% }); %>
+    <div>
+      <% if (it.prevPageRoute) { %>
+        <a href="<%= it.prevPageRoute %>">Prev</a>
+      <% } %>
+      <% if (it.nextPageRoute) { %>
+        <a href="<%= it.nextPageRoute %>">Next</a>
+      <% } %>
+    </div>
   </div>
-<% }); %>
-<div>
-  <% if (it.prevPageRoute) { %>
-    <a href="<%= it.prevPageRoute %>">Prev</a>
-  <% } %>
-  <% if (it.nextPageRoute) { %>
-    <a href="<%= it.nextPageRoute %>">Next</a>
-  <% } %>
 </div>
