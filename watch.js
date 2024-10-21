@@ -33,7 +33,7 @@ const watchStatic = async () => {
 
 const watchTemplates = async () => {
   for await (const change of watch("./src/templates", { recursive: true })) {
-    if (minimatch(change.filename, "layout/default.eta")) {
+    if (minimatch(change.filename, "layouts/default.eta")) {
       await Promise.all([
         renderBlog(),
         renderExperience(),
