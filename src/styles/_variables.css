@@ -75,4 +75,16 @@
   --text-8xl-line-height: 1;
   --text-9xl-font-size: 8rem;
   --text-9xl-line-height: 1;
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-2xl: 1536px;
+  --gutter: var(--spacing-4);
 }
+
+@custom-media --screen-sm-up (min-width: 640px);
+@custom-media --screen-md-up (min-width: 768px);
+@custom-media --screen-lg-up (min-width: 1024px);
+@custom-media --screen-xl-up (min-width: 1280px);
+@custom-media --screen-2xl-up (min-width: 1536px);

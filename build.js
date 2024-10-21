@@ -12,6 +12,7 @@ import babel from "@babel/core";
 import postcss from "postcss";
 import postcssNesting from "postcss-nesting";
 import postcssImport from "postcss-import";
+import postcssCustomMedia from "postcss-custom-media";
 import autoprefixer from "autoprefixer";
 
 import remarkParse from "remark-parse";
@@ -71,6 +72,7 @@ export const buildCss = async () => {
   const content = await readFile(srcFilePath);
   const plugins = [
     postcssImport,
+    postcssCustomMedia,
     postcssNesting,
     autoprefixer,
   ];
