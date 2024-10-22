@@ -15,13 +15,13 @@ import {
 
 const watchCss = async () => {
   for await (const change of watch("./src/styles", { recursive: true })) {
-    await buildCss();
+    await buildCss().catch(console.error);
   }
 };
 
 const watchJs = async () => {
   for await (const change of watch("./src/scripts", { recursive: true })) {
-    await buildJs();
+    await buildJs().catch(console.error);
   }
 };
 
@@ -38,17 +38,17 @@ const watchTemplates = async () => {
         renderBlog(),
         renderExperience(),
         renderProjects(),
-      ]);
+      ]).catch(console.error);;
     } else if (minimatch(change.filename, "blog-post.eta")) {
-      await renderBlog();
+      await renderBlog().catch(console.error);;
     } else if (minimatch(change.filename, "paged-collection.eta")) {
-      await renderBlog();
+      await renderBlog().catch(console.error);;
     } else if (minimatch(change.filename, "home.eta")) {
-      await renderHome();
+      await renderHome().catch(console.error);;
     } else if (minimatch(change.filename, "experience.eta")) {
-      await renderExperience();
+      await renderExperience().catch(console.error);;
     } else if (minimatch(change.filename, "projects.eta")) {
-      await renderProjects();
+      await renderProjects().catch(console.error);;
     }
   }
 };
@@ -56,7 +56,7 @@ const watchTemplates = async () => {
 const watchBlogContent = async () => {
   for await (const change of watch("./src/content/blog", { recursive: true })) {
     if (minimatch(change.filename, "*/*/*/*/index.md")) {
-      await renderBlog();
+      await renderBlog().catch(console.error);;
     } else if (minimatch(change.filename, "**/*.png")) {
       await copyBlogAssets();
     }
@@ -65,13 +65,13 @@ const watchBlogContent = async () => {
 
 const watchExperienceContent = async () => {
   for await (const change of watch("./src/content/experience", { recursive: true })) {
-    await renderExperience();
+    await renderExperience().catch(console.error);;
   }
 };
 
 const watchProjectsContent = async () => {
   for await (const change of watch("./src/content/projects", { recursive: true })) {
-    await renderProjects();
+    await renderProjects().catch(console.error);;
   }
 };
 
