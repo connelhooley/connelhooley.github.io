@@ -14,8 +14,8 @@
         { label: "Experience", href: "/experience/" },
       ]; %>
       <% navLinks.forEach(({ label, href }) => { %>
-        <% const active = it.route.startsWith(href) ? "active" : "" %>
-        <a class="site-nav-item <%= site-nav-item-active %>" href="<%= href %>">
+        <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>
+        <a class="site-nav-item <%= active %>" href="<%= href %>">
           <%= label %>
         </a>
       <% }); %>
