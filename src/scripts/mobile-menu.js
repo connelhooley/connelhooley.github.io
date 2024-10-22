@@ -1,8 +1,8 @@
 let open = false;
-const mobileButton = document.getElementById("siteNavMobileButton");
-const mobileButtonLabel = document.getElementById("siteNavMobileButtonLabel");
-const mobileButtonIcon = document.getElementById("siteNavMobileButtonIcon");
-const navLinksContainer = document.getElementById("siteNavMenuItems");
+const mobileButton = document.getElementById("site-nav-mobile-button");
+const mobileButtonLabel = document.getElementById("site-nav-mobile-button-label");
+const mobileButtonIcon = document.getElementById("site-nav-mobile-button-icon");
+const navLinksContainer = document.getElementById("site-nav-menu-items");
 mobileButton.addEventListener("click", () => {
   open = !open;
   if (open) {

@@ -1,18 +1,14 @@
 nav.site-nav {
   background-color: black;
   color: white;
-  font-size: var(--text-xl-font-size);
-  line-height: var(--text-xl-line-height);
+  font-size: var(--text-lg-font-size);
+  line-height: var(--text-lg-line-height);
   padding: 0;
   & .site-nav-items {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    & #siteNavMenuItems {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-    }
+    flex-wrap: wrap;
     & .site-nav-item {
       padding: var(--spacing-6) var(--gutter);
       display: flex;
@@ -22,18 +18,21 @@ nav.site-nav {
         background-color: var(--gray-color-800);
       }
     }
-    & #siteNavMenuItems {
+    & #site-nav-menu-items {
       display: none;
-      gap: var(--spacing-4);
+      flex-direction: column;
+      flex-basis: 100%;
       @media (--screen-sm-up) {
         display: flex;
+        flex-direction: row;
+        gap: var(--spacing-4);
+        flex-basis: initial;
       }
       &.mobile-open {
         display: flex;
-        flex-direction: column;
       }
     }
-    & #siteNavMobileButton {
+    & #site-nav-mobile-button {
       @media (--screen-sm-up) {
         display: none;
       }
