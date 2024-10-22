@@ -1,28 +1,42 @@
-<nav class="site-nav">
-  <div class="site-nav-items container">
-    <a class="site-nav-item site-nav-home-link" href="/">
-      {C.H}
-    </a>
-    <button id="site-nav-mobile-button" class="site-nav-item">
-      <i id="site-nav-mobile-button-icon" class="fa-solid fa-fw fa-bars"></i>
-      <span id="site-nav-mobile-button-label" class="sr-only">Open menu</span>
-    </button>
-    <div id="site-nav-menu-items">
-      <% const navLinks = [
-        { label: "Blog", href: "/blog/" },
-        { label: "Project", href: "/projects/" },
-        { label: "Experience", href: "/experience/" },
-      ]; %>
-      <% navLinks.forEach(({ label, href }) => { %>
-        <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>
-        <a class="site-nav-item <%= active %>" href="<%= href %>">
-          <%= label %>
-        </a>
-      <% }); %>
-    </div>
-  </div>
+<a href="#content" class="sr-only">
+  Skip to content
+</a>
+<nav id="site-nav" tabindex="-1">
+  <ul class="site-nav-items container">
+    <li class="site-nav-item-wrapper">
+      <a class="site-nav-item site-nav-home-link" href="/">
+        {C.H}
+      </a>
+    </li>
+    <li class="site-nav-item-wrapper site-nav-menu-items-wrapper">
+      <button
+        id="site-nav-mobile-button"
+        class="site-nav-item"
+        aria-expanded="false"
+        aria-controls="site-nav-menu-items"
+      >
+        <i id="site-nav-mobile-button-icon" class="fa-solid fa-fw fa-bars"></i>
+        <span id="site-nav-mobile-button-label" class="sr-only">Open menu</span>
+      </button>
+      <ul id="site-nav-menu-items">
+        <% const navLinks = [
+          { label: "Blog", href: "/blog/" },
+          { label: "Project", href: "/projects/" },
+          { label: "Experience", href: "/experience/" },
+        ]; %>
+        <% navLinks.forEach(({ label, href }) => { %>
+          <li class="site-nav-item-wrapper">
+            <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>
+            <a class="site-nav-item <%= active %>" href="<%= href %>">
+              <%= label %>
+            </a>
+          </lu>
+        <% }); %>
+      </ul>
+    </li>
+  </ul>
 </nav>
-<main>
+<main id="content">
   <%~ it.body %>
 </main>
 <footer class="site-footer">
