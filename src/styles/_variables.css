@@ -79,12 +79,13 @@
   --screen-md: 768px;
   --screen-lg: 1024px;
   --screen-xl: 1280px;
-  --screen-2xl: 1536px;
+  /* --screen-2xl: 1536px; */
   --gutter: var(--spacing-4);
+  --heading-font-family: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
+  --default-font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
 }
 
 @custom-media --screen-sm-up (min-width: 640px);
 @custom-media --screen-md-up (min-width: 768px);
 @custom-media --screen-lg-up (min-width: 1024px);
-@custom-media --screen-xl-up (min-width: 1280px);
-@custom-media --screen-2xl-up (min-width: 1536px);
+@custom-media --screen-xl-up (min-width: 1536px);

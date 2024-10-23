@@ -1,7 +1,9 @@
 <% layout("./layouts/default") %>
-<article>
-  <h1><%= it.data.title %></h1>
-  <div>
+<article class="container">
+  <div class="section">
+    <header class="page-header">
+      <h1 class="blog-post-title"><%= it.data.title %></h1>
+    </header>
     <%~ it.content %>
   </div>
 </article>

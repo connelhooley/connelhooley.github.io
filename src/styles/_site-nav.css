@@ -1,6 +1,7 @@
 #site-nav {
   background-color: black;
   color: white;
+  font-family: var(--heading-font-family);
   font-size: var(--text-lg-font-size);
   line-height: var(--text-lg-line-height);
   position: relative;
@@ -19,8 +20,19 @@
         flex-direction: column;
         justify-content: center;
         padding: var(--spacing-6) var(--gutter);
+        transition: color 300ms ease;
         &:hover {
-          /* background-color: var(--gray-color-800); */
+          color: var(--primary-color)
+        }
+      }
+      & .site-nav-home-link {
+        font-size: var(--text-xl-font-size);
+        letter-spacing: 6px;
+      }
+      & .site-nav-item-active {
+        color: var(--primary-color);
+        @media (--screen-sm-up) {
+          box-shadow: 0px -6px 0px 0px var(--primary-color) inset;
         }
       }
     }
@@ -42,6 +54,9 @@
           left: 0;
           background-color: black;
           color: white;
+          & .site-nav-item {
+            padding: var(--spacing-2) var(--gutter);
+          }
         }
       }
       & #site-nav-mobile-button {

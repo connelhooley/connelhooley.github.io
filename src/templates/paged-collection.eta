@@ -1,7 +1,11 @@
 <% layout("./layouts/default") %>
+<header class="page-header">
+  <div class="container">
+    <h1><%= it.title %></h1>
+  </div>
+</header>
 <div class="container">
   <div class="section">
-    <h1><%= it.title %></h1>
     <% it.items.forEach(function (post) { %>
       <div>
         <a href="<%= post.route %>">

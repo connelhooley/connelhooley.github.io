@@ -87,4 +87,5 @@ browserSync({
   files: "./dist/**/*",
   port: 3000,
   open: "local",
+  notify: false,
 });

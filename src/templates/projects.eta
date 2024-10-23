@@ -1,7 +1,15 @@
 <% layout("./layouts/default") %>
-<h1>Projects</h1>
-<% it.items.forEach(function (project) { %>
-  <div>
-    <%= project.data.title %>
+<header class="page-header">
+  <div class="container">
+      <h1>Projects</h1>
   </div>
-<% }); %>
+</header>
+<div class="container">
+  <div class="section">
+    <% it.items.forEach(project => { %>
+      <div>
+        <%= project.data.title %>
+      </div>
+    <% }); %>
+  </div>
+</div>
