@@ -14,7 +14,9 @@
         <p><%= post.data.description %></p>
         <div class="blog-post-item-meta">
           <div class="blog-post-item-meta-date">
-            <%= post.data.date %>
+            <span data-relative-date="<%= post.data.dateIso %>">
+              <%= post.data.dateFormatted %>
+            </span>
           </div>
           <div class="blog-post-item-meta-tags">
             <% post.data?.languages?.forEach(language => { %>

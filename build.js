@@ -39,15 +39,17 @@ const defaultRehypeDocumentOptions = {
   title: "Connel Hooley",
   language: "en-GB",
   css: [
-    "/css/main.css",
-    "/vendor/dayjs/js/dayjs.min.js",
     "/vendor/highlight.js/css/ir-black.min.css",
     "/vendor/font-awesome/css/fontawesome.min.css",
     "/vendor/font-awesome/css/brands.min.css",
     "/vendor/font-awesome/css/solid.min.css",
+    "/css/main.css",
   ],
   js: [
+    "/vendor/dayjs/js/dayjs.min.js",
+    "/vendor/dayjs/js/relativeTime.min.js",
     "/js/copy-code.js",
+    "/js/date.js",
     "/js/mobile-menu.js"
   ],
 };
@@ -283,6 +285,8 @@ export const renderBlog = async () => {
       const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
       const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
       data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
+      data.dateFormatted = new Intl.DateTimeFormat('en-GB').format(data.date);
+      data.dateIso = data.date.toISOString();
       if (data.draft) return;
       const tempFilePath = path.join(
         tempDir,
