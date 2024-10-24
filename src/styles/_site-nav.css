@@ -1,6 +1,8 @@
 #site-nav {
-  background-color: black;
-  color: white;
+  --site-nav-background-color: black;
+  --site-nav-color: white;
+  background-color: var(--site-nav-background-color);
+  color: var(--site-nav-color);
   font-family: var(--heading-font-family);
   font-size: var(--text-lg-font-size);
   line-height: var(--text-lg-line-height);
@@ -41,8 +43,6 @@
         display: none;
         @media (--screen-sm-up) {
           display: flex;
-          flex-direction: column;
-          flex-basis: 100%;
           flex-direction: row;
           gap: var(--spacing-4);
         }
@@ -52,8 +52,8 @@
           top: 100%;
           right: 0;
           left: 0;
-          background-color: black;
-          color: white;
+          background-color: var(--site-nav-background-color);
+          color: var(--site-nav-color);
           & .site-nav-item {
             padding: var(--spacing-2) var(--gutter);
           }
