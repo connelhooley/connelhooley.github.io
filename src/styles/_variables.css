@@ -79,7 +79,6 @@
   --screen-md: 768px;
   --screen-lg: 1024px;
   --screen-xl: 1280px;
-  /* --screen-2xl: 1536px; */
   --gutter: var(--spacing-4);
   --heading-font-family: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
   --default-font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;

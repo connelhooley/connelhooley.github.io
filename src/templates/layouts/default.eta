@@ -2,13 +2,13 @@
   Skip to content
 </a>
 <nav id="site-nav" tabindex="-1">
-  <ul class="site-nav-items container">
+  <ul id="site-nav-menu-root-items" class="container">
     <li class="site-nav-item-wrapper">
-      <a class="site-nav-item site-nav-home-link" href="/">
+      <a class="site-nav-item site-nav-item-home" href="/">
         {C.H}
       </a>
     </li>
-    <li class="site-nav-item-wrapper site-nav-menu-items-wrapper">
+    <li class="site-nav-item-wrapper">
       <button
         id="site-nav-mobile-button"
         class="site-nav-item"
@@ -21,7 +21,7 @@
       <ul id="site-nav-menu-items">
         <% const navLinks = [
           { label: "Blog", href: "/blog/" },
-          { label: "Project", href: "/projects/" },
+          { label: "Projects", href: "/projects/" },
           { label: "Experience", href: "/experience/" },
         ]; %>
         <% navLinks.forEach(({ label, href }) => { %>
