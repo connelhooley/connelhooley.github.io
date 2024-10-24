@@ -40,10 +40,11 @@ const defaultRehypeDocumentOptions = {
   language: "en-GB",
   css: [
     "/css/main.css",
+    "/vendor/dayjs/js/dayjs.min.js",
     "/vendor/highlight.js/css/ir-black.min.css",
-    "/vendor/font-awesome/css/fontawesome.css",
-    "/vendor/font-awesome/css/brands.css",
-    "/vendor/font-awesome/css/solid.css",
+    "/vendor/font-awesome/css/fontawesome.min.css",
+    "/vendor/font-awesome/css/brands.min.css",
+    "/vendor/font-awesome/css/solid.min.css",
   ],
   js: [
     "/js/copy-code.js",
