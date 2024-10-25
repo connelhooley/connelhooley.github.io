@@ -38,6 +38,6 @@ mobileButton.addEventListener("click", () => {
     mobileButtonIcon.classList.add("fa-bars");
     mobileButtonIcon.classList.remove("fa-xmark");
     navLinksContainer.classList.remove("mobile-open");
-    mobileButton.setAttribute("aria-expanded", "true");
+    mobileButton.setAttribute("aria-expanded", "false");
   }
 });
