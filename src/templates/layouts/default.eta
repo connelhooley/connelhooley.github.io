@@ -5,7 +5,8 @@
   <ul id="site-nav-menu-root-items" class="container">
     <li class="site-nav-item-wrapper">
       <a class="site-nav-item site-nav-item-home" href="/">
-        {C.H}
+        <span aria-hidden="true">{C.H}</span>
+        <span class="sr-only">C H</span>
       </a>
     </li>
     <li class="site-nav-item-wrapper">

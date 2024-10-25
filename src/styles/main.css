@@ -1,7 +1,8 @@
 @import url("_reset.css");
 @import url("_variables.css");
 @import url("_site-nav.css");
-@import url("_blog-post-item.css");
+@import url("_blog-post-items.css");
+@import url("_blog-post.css");
 @import url("_tag.css");
 
 .sr-only {
@@ -61,7 +62,7 @@ h6 {
 
 .page-header {
   background-color: var(--primary-color);
-  padding: var(--spacing-6);
+  padding: var(--spacing-6) 0;
   & h1 {
     color: white;
     font-size: var(--text-6xl-font-size);
@@ -74,5 +75,16 @@ h6 {
       font-weight: normal;
       text-transform: none;
     }
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: var(--spacing-3);
+  background-color: var(--primary-color);
+  color: black;
+  &:hover {
+    background-color: var(--primary-color-dark);
+
   }
 }

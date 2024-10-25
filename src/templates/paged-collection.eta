@@ -14,8 +14,8 @@
         <p><%= post.data.description %></p>
         <div class="blog-post-item-meta">
           <div class="blog-post-item-meta-date">
-            <span data-relative-date="<%= post.data.dateIso %>">
-              <%= post.data.dateFormatted %>
+            <span data-relative-date="<%= post.data.date.toISOString() %>">
+              <%= new Intl.DateTimeFormat('en-GB').format(post.data.date) %>
             </span>
           </div>
           <div class="blog-post-item-meta-tags">
@@ -33,12 +33,12 @@
         </div>
       </div>
     <% }); %>
-    <div>
+    <div class="page-buttons">
       <% if (it.prevPageRoute) { %>
-        <a href="<%= it.prevPageRoute %>">Prev</a>
+        <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Previous</a>
       <% } %>
       <% if (it.nextPageRoute) { %>
-        <a href="<%= it.nextPageRoute %>">Next</a>
+        <a class="button" href="<%= it.nextPageRoute %>">Next&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
       <% } %>
     </div>
   </div>
