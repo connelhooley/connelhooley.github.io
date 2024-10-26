@@ -1,43 +1,44 @@
-let open = false;
 const nav = document.getElementById("site-nav");
 const mobileButton = document.getElementById("site-nav-mobile-button");
-const mobileButtonLabel = document.getElementById("site-nav-mobile-button-label");
-const mobileButtonIcon = document.getElementById("site-nav-mobile-button-icon");
 const navLinksContainer = document.getElementById("site-nav-menu-items");
+const open = () => {
+  window.addEventListener("resize", resizeListener);
+  nav.addEventListener("focusout", focusOutListener);
+  document.addEventListener("keydown", keydownListener);
+  mobileButton.setAttribute("aria-expanded", "true");
+  navLinksContainer.classList.add("mobile-open");
+  return false;
+};
+const close = () => {
+  window.removeEventListener("resize", resizeListener);
+  nav.removeEventListener("focusout", focusOutListener);
+  document.removeEventListener("keydown", keydownListener);
+  mobileButton.setAttribute("aria-expanded", "false");
+  navLinksContainer.classList.remove("mobile-open");
+  return false;
+};
+const toggle = () => {
+  if (mobileButton.getAttribute("aria-expanded") === "true") {
+    return close();
+  } else {
+    return open();
+  }
+};
 const resizeListener = () => {
   if (window.getComputedStyle(mobileButton).display == "none") {
-    mobileButton.click();
+    close();
   }
 };
 const focusOutListener = event => {
   if (!nav.contains(event.relatedTarget)) {
-    mobileButton.click();
+    close();
   }
 };
 const keydownListener = event => {
   if (event.key === "Escape") {
-    mobileButton.click();
+    close();
   }
 };
 mobileButton.addEventListener("click", () => {
-  open = !open;
-  if (open) {
-    window.addEventListener("resize", resizeListener);
-    nav.addEventListener("focusout", focusOutListener);
-    document.addEventListener("keydown", keydownListener);
-    mobileButtonLabel.textContent = "Close menu";
-    mobileButtonIcon.classList.add("fa-xmark");
-    mobileButtonIcon.classList.remove("fa-bars");
-    navLinksContainer.classList.add("mobile-open");
-    mobileButton.setAttribute("aria-expanded", "true");
-  } else {
-    window.removeEventListener("resize", resizeListener);
-    nav.removeEventListener("focusout", focusOutListener);
-    document.removeEventListener("keydown", keydownListener);
-    mobileButtonLabel.textContent = "Open menu";
-    mobileButtonIcon.classList.add("fa-bars");
-    mobileButtonIcon.classList.remove("fa-xmark");
-    navLinksContainer.classList.remove("mobile-open");
-    mobileButton.setAttribute("aria-expanded", "false");
-  }
+  toggle();
 });

@@ -26,6 +26,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeToc from "@connelhooley/rehype-toc";
 import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
+import rehypeNoJs from "@connelhooley/rehype-no-js";
 import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
@@ -139,6 +140,7 @@ export const renderHome = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
     .process(renderedTemplate);
@@ -185,6 +187,7 @@ export const renderExperience = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
     .process(renderedTemplate);
@@ -233,6 +236,7 @@ export const renderProjects = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
     .process(renderedTemplate);
@@ -344,6 +348,7 @@ export const renderBlog = async () => {
           ...defaultRehypeDocumentOptions,
           title: `${defaultRehypeDocumentOptions.title} - ${post.data.title}`,
         })
+        .use(rehypeNoJs)
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(renderedTemplate);
@@ -395,6 +400,7 @@ export const renderBlog = async () => {
       const parsedFile = await unified()
         .use(rehypeParse, { fragment: true })
         .use(rehypeDocument, defaultRehypeDocumentOptions)
+        .use(rehypeNoJs)
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(renderedTemplate);

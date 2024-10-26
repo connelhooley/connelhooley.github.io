@@ -50,6 +50,7 @@
   },
   "workspaces": [
     "packages/rehype-mermaid",
+    "packages/rehype-no-js",
     "packages/rehype-toc"
   ]
 }
