@@ -8,8 +8,10 @@
   <div class="section blog-post-items">
     <% it.items.forEach(post => { %>
       <div class="blog-post-item">
-        <a href="<%= post.route %>">
-          <h2><%= post.data.title %>&nbsp;<i class="fa-solid fa-angles-right"></i></h2>
+        <a class="blog-post-item-link" href="<%= post.route %>">
+          <h2 class="blog-post-item-title">
+            <%= post.data.title %>&nbsp;<i class="fa-solid fa-angles-right"></i>
+          </h2>
         </a>
         <p><%= post.data.description %></p>
         <div class="blog-post-item-meta">
@@ -20,14 +22,14 @@
           </div>
           <div class="blog-post-item-meta-tags">
             <% post.data?.languages?.forEach(language => { %>
-              <span class="tag">
+              <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
                 <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
-              </span>
+              </a>
             <% }); %>
             <% post.data?.technologies?.forEach(technology => { %>
-              <span class="tag">
+              <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology) %>">
                 <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
-              </span>
+              </a>
             <% }); %>
           </div>
         </div>
