@@ -4,9 +4,8 @@
 <nav id="site-nav" tabindex="-1">
   <ul id="site-nav-menu-root-items" class="container">
     <li class="site-nav-item-wrapper">
-      <a class="site-nav-item site-nav-item-home" href="/">
+      <a class="site-nav-item site-nav-item-home" href="/" aria-label="C H Home Page">
         <span aria-hidden="true">{C.H}</span>
-        <span class="sr-only">C H</span>
       </a>
     </li>
     <li class="site-nav-item-wrapper">
