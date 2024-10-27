@@ -25,6 +25,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import rehypeToc from "@connelhooley/rehype-toc";
+import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
 import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
 import rehypeNoJs from "@connelhooley/rehype-no-js";
 import rehypeDocument from "rehype-document";
@@ -282,6 +283,7 @@ export const renderBlog = async () => {
         .use(rehypeHighlight, {
           plainText: ["mermaid"],
         })
+        .use(rehypeCopyCodeButton)
         .use(rehypeMermaid)
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));
@@ -456,6 +458,9 @@ await Promise.all([
 ]);
 
 console.log("Site built successfully");
+
+// External links: https://github.com/rehypejs/rehype-external-links
+
 // TODO finish blog post pages
 // TODO finish experience page
 // TODO finish projects page

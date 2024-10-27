@@ -1,19 +1,21 @@
-document.querySelectorAll("article pre").forEach(pre => {
-  const wrapper = document.createElement("div");
-  pre.replaceWith(wrapper);
-  const button = document.createElement("button");
-  button.classList.add("button-copy");
-  button.textContent = "Copy";
-  wrapper.classList.add("code-wrapper");
-  wrapper.appendChild(button);
-  wrapper.appendChild(pre);
-  button.addEventListener("click", () => {
-    navigator.clipboard.writeText(pre.textContent || "");
-    button.textContent = "Copied";
-    button.disabled = true;
+document.querySelectorAll("[data-copy-code]").forEach(containerElement => {
+  const codeContent = containerElement.querySelector("pre code").textContent || "";
+  const iconElement = document.createElement("i");
+  iconElement.classList.add("fa-solid", "fw", "fa-copy");
+  const labelElement = document.createElement("span");
+  labelElement.textContent = "Copy";
+  const buttonElement = document.createElement("button");
+  buttonElement.classList.add("button", "copy-code-button");  
+  buttonElement.appendChild(iconElement);
+  buttonElement.appendChild(labelElement);
+  buttonElement.addEventListener("click", () => {
+    navigator.clipboard.writeText(codeContent);
+    labelElement.textContent = "Copied";
+    buttonElement.disabled = true;
     setTimeout(() => {
-      button.textContent = "Copy";
-      button.disabled = false;
+      labelElement.textContent = "Copy";
+      buttonElement.disabled = false;
     }, 3000);
   });
+  containerElement.prepend(buttonElement);  
 });

@@ -65,16 +65,8 @@ h6 {
   padding: var(--spacing-6) 0;
   & h1 {
     color: white;
-    font-size: var(--text-6xl-font-size);
-    line-height: var(--text-6xl-line-height);
-    font-weight: 700;
-    text-transform: uppercase;
-    &.blog-post-title {
-      font-size: var(--text-3xl-font-size);
-      line-height: var(--text-3xl-line-height);
-      font-weight: normal;
-      text-transform: none;
-    }
+    font-size: var(--text-5xl-font-size);
+    line-height: var(--text-5xl-line-height);
   }
 }
 
@@ -85,6 +77,5 @@ h6 {
   color: black;
   &:hover {
     background-color: var(--primary-color-dark);
-
   }
 }

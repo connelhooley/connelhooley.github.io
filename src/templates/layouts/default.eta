@@ -1,8 +1,3 @@
-<% const navLinks = [
-  { label: "Blog", href: "/blog/" },
-  { label: "Projects", href: "/projects/" },
-  { label: "Experience", href: "/experience/" },
-]; %>
 <a href="#content" class="sr-only">
   Skip to content
 </a>
@@ -14,32 +9,31 @@
       </a>
     </li>
     <li class="site-nav-item-wrapper">
-      <button
-        id="site-nav-mobile-button"
-        class="site-nav-item"
-        aria-expanded="false"
-        aria-controls="site-nav-menu-items"
-        data-mobile-button
-      >
-        <span id="site-nav-mobile-button-open-content">
-          <i class="fa-solid fa-fw fa-bars"></i>
-          <span class="sr-only">Open menu</span>
-        </span>
-        <span id="site-nav-mobile-button-closed-content">
-          <i class="fa-solid fa-fw fa-xmark"></i>
-          <span class="sr-only">Close menu</span>
-        </span>
-      </button>
-      <% /* <button
-        id="site-nav-mobile-button"
-        class="site-nav-item"
-        aria-expanded="false"
-        aria-controls="site-nav-menu-items"
-      >
-        <i id="site-nav-mobile-button-icon" class="fa-solid fa-fw fa-bars"></i>
-        <span id="site-nav-mobile-button-label" class="sr-only">Open menu</span>
-      </button> */ %>
+      <div id="site-nav-mobile-button-wrapper" class="site-nav-item">
+        <button
+          id="site-nav-mobile-button"
+          aria-expanded="false"
+          aria-controls="site-nav-menu-items"
+          data-mobile-menu-button
+          data-mobile-menu-button-expanded-menu-class="mobile-open"
+          data-mobile-menu-button-focusout-container-id="site-nav"
+        >
+          <span id="site-nav-mobile-button-open-content">
+            <i class="fa-solid fa-fw fa-xmark"></i>
+            <span class="sr-only">Close menu</span>
+          </span>
+          <span id="site-nav-mobile-button-closed-content">
+            <i class="fa-solid fa-fw fa-bars"></i>
+            <span class="sr-only">Open menu</span>
+          </span>
+        </button>
+      </div>
       <ul id="site-nav-menu-items">
+        <% const navLinks = [
+          { label: "Blog", href: "/blog/" },
+          { label: "Projects", href: "/projects/" },
+          { label: "Experience", href: "/experience/" },
+        ]; %>
         <% navLinks.forEach(({ label, href }) => { %>
           <li class="site-nav-item-wrapper">
             <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>

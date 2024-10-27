@@ -1,44 +1,45 @@
-const nav = document.getElementById("site-nav");
-const mobileButton = document.getElementById("site-nav-mobile-button");
-const navLinksContainer = document.getElementById("site-nav-menu-items");
-const open = () => {
-  window.addEventListener("resize", resizeListener);
-  nav.addEventListener("focusout", focusOutListener);
-  document.addEventListener("keydown", keydownListener);
-  mobileButton.setAttribute("aria-expanded", "true");
-  navLinksContainer.classList.add("mobile-open");
-  return false;
-};
-const close = () => {
-  window.removeEventListener("resize", resizeListener);
-  nav.removeEventListener("focusout", focusOutListener);
-  document.removeEventListener("keydown", keydownListener);
-  mobileButton.setAttribute("aria-expanded", "false");
-  navLinksContainer.classList.remove("mobile-open");
-  return false;
-};
-const toggle = () => {
-  if (mobileButton.getAttribute("aria-expanded") === "true") {
-    return close();
-  } else {
-    return open();
-  }
-};
-const resizeListener = () => {
-  if (window.getComputedStyle(mobileButton).display == "none") {
-    close();
-  }
-};
-const focusOutListener = event => {
-  if (!nav.contains(event.relatedTarget)) {
-    close();
-  }
-};
-const keydownListener = event => {
-  if (event.key === "Escape") {
-    close();
-  }
-};
-mobileButton.addEventListener("click", () => {
-  toggle();
+document.querySelectorAll("[data-mobile-menu-button]").forEach(buttonElement => {
+  const expandedMenuClass = buttonElement.getAttribute("data-mobile-menu-button-expanded-menu-class");
+  const focusoutContainerId = buttonElement.getAttribute("data-mobile-menu-button-focusout-container-id");
+  const focusoutContainerElement = document.getElementById(focusoutContainerId);
+  const menuId = buttonElement.getAttribute("aria-controls");
+  const menuElement = document.getElementById(menuId);
+
+  const resizeListener = event => {
+    if (window.getComputedStyle(buttonElement).display == "none") {
+      close();
+    }
+  };
+  const focusOutListener = event => {
+    if (!focusoutContainerElement.contains(event.relatedTarget)) {
+      close();
+    }
+  };
+  const keydownListener = event => {
+    if (event.key === "Escape") {
+      close();
+    }
+  };
+
+  const open = () => {
+    window.addEventListener("resize", resizeListener);
+    focusoutContainerElement.addEventListener("focusout", focusOutListener);
+    document.addEventListener("keydown", keydownListener);
+    buttonElement.setAttribute("aria-expanded", "true");
+    menuElement.classList.add(expandedMenuClass);
+  };
+  const close = () => {
+    window.removeEventListener("resize", resizeListener);
+    focusoutContainerElement.removeEventListener("focusout", focusOutListener);
+    document.removeEventListener("keydown", keydownListener);
+    buttonElement.setAttribute("aria-expanded", "false");
+    menuElement.classList.remove(expandedMenuClass);
+  };
+  buttonElement.addEventListener("click", () => {
+    if (buttonElement.getAttribute("aria-expanded") === "true") {
+      close();
+    } else {
+      open();
+    }
+  });
 });

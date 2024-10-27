@@ -49,6 +49,7 @@
     "vfile-matter": "^5.0.0"
   },
   "workspaces": [
+    "packages/rehype-copy-code-button",
     "packages/rehype-mermaid",
     "packages/rehype-no-js",
     "packages/rehype-toc"
