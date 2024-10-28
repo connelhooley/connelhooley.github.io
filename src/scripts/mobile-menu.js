@@ -1,17 +1,32 @@
-document.querySelectorAll("[data-mobile-menu-button]").forEach(buttonElement => {
-  const expandedMenuClass = buttonElement.getAttribute("data-mobile-menu-button-expanded-menu-class");
-  const focusoutContainerId = buttonElement.getAttribute("data-mobile-menu-button-focusout-container-id");
-  const focusoutContainerElement = document.getElementById(focusoutContainerId);
-  const menuId = buttonElement.getAttribute("aria-controls");
-  const menuElement = document.getElementById(menuId);
-
+document.querySelectorAll("[data-mobile-menu]").forEach(parentElement => {
+  const buttonContainerId = parentElement.getAttribute("data-mobile-menu-button-container-id");
+  const itemsId = parentElement.getAttribute("data-mobile-menu-items-id");
+  const itemsExpandedClass = parentElement.getAttribute("data-mobile-menu-items-expanded-class");
+  const itemsElement = document.getElementById(itemsId);
+  const buttonContainerElement = document.getElementById(buttonContainerId);
+  const buttonElement = document.createElement("button");
+  const iconElement = document.createElement("i");
+  buttonElement.appendChild(iconElement);
+  buttonElement.id = "site-nav-mobile-button";
+  buttonElement.setAttribute("aria-label", "Open menu");
+  buttonElement.setAttribute("aria-controls", itemsId);
+  iconElement.classList.add("fa-solid", "fa-fw", "fa-bars");
+  buttonElement.addEventListener("click", () => {
+    if (buttonElement.getAttribute("aria-expanded") === "true") {
+      close();
+    } else {
+      open();
+    }
+  });  
+  buttonContainerElement.appendChild(buttonElement); 
+  
   const resizeListener = event => {
     if (window.getComputedStyle(buttonElement).display == "none") {
       close();
     }
   };
   const focusOutListener = event => {
-    if (!focusoutContainerElement.contains(event.relatedTarget)) {
+    if (!parentElement.contains(event.relatedTarget)) {
       close();
     }
   };
@@ -23,23 +38,22 @@ document.querySelectorAll("[data-mobile-menu-button]").forEach(buttonElement => 
 
   const open = () => {
     window.addEventListener("resize", resizeListener);
-    focusoutContainerElement.addEventListener("focusout", focusOutListener);
+    parentElement.addEventListener("focusout", focusOutListener);
     document.addEventListener("keydown", keydownListener);
     buttonElement.setAttribute("aria-expanded", "true");
-    menuElement.classList.add(expandedMenuClass);
+    buttonElement.setAttribute("aria-label", "Close menu");
+    iconElement.classList.add("fa-xmark");
+    iconElement.classList.remove("fa-bars");
+    itemsElement.classList.add(itemsExpandedClass);
   };
   const close = () => {
     window.removeEventListener("resize", resizeListener);
-    focusoutContainerElement.removeEventListener("focusout", focusOutListener);
+    parentElement.removeEventListener("focusout", focusOutListener);
     document.removeEventListener("keydown", keydownListener);
     buttonElement.setAttribute("aria-expanded", "false");
-    menuElement.classList.remove(expandedMenuClass);
+    buttonElement.setAttribute("aria-label", "Open menu");
+    iconElement.classList.add("fa-bars");
+    iconElement.classList.remove("fa-xmark");
+    itemsElement.classList.remove(itemsExpandedClass);
   };
-  buttonElement.addEventListener("click", () => {
-    if (buttonElement.getAttribute("aria-expanded") === "true") {
-      close();
-    } else {
-      open();
-    }
-  });
 });
