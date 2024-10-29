@@ -2,10 +2,16 @@
 <article class="container gutter">
   <div class="blog-post section">
     <header class="page-header">
-    <div class="gutter">
-      <h1 class="blog-post-title"><%= it.data.title %></h1>
-    </div>
+      <div class="gutter">
+        <h1 class="blog-post-title"><%= it.data.title %></h1>
+      </div>
     </header>
+    <% if (it.data.toc) { %>
+      <nav class="toc">
+        <h1>Contents</h1>
+        <%~ include("./partials/toc", it.data.toc) %>
+      </nav>
+    <% } %>
     <%~ it.content %>
   </div>
 </article>

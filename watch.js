@@ -39,6 +39,8 @@ const watchTemplates = async () => {
         renderExperience(),
         renderProjects(),
       ]).catch(console.error);;
+    } else if (minimatch(change.filename, "partials/toc.eta")) {
+      await renderBlog().catch(console.error);;
     } else if (minimatch(change.filename, "blog-post.eta")) {
       await renderBlog().catch(console.error);;
     } else if (minimatch(change.filename, "paged-collection.eta")) {
