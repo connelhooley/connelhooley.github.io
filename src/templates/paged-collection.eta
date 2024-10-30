@@ -1,26 +1,43 @@
 <% layout("./layouts/default") %>
 <header class="page-header">
   <div class="container gutter">
-    <h1><%= it.title %></h1>
+    <h1>
+      <%= it.title %>
+      <% if (it.isLanguage) { %>
+        <span class="tag">
+          <span class="sr-only">(</span>
+          <i class="fa-solid fw fa-code"></i>
+          &nbsp;Language
+          <span class="sr-only">)</span>
+        </span>
+      <% } %>
+      <% if (it.isTechnology) { %>
+          <span class="sr-only">(</span>
+          <span class="tag"><i class="fa-solid fw fa-code"></i>
+          &nbsp;Technology
+          <span class="sr-only">)</span>
+        </span>
+      <% } %>
+    </h1>
   </div>
 </header>
 <div class="container gutter">
-  <div class="section blog-post-items">
+  <div class="section paged-items">
     <% it.items.forEach(post => { %>
-      <div class="blog-post-item">
-        <a class="blog-post-item-link" href="<%= post.route %>">
-          <h2 class="blog-post-item-title">
+      <div class="blog-post-paged-item">
+        <a class="blog-post-paged-item-link" href="<%= post.route %>">
+          <h2 class="blog-post-paged-item-title">
             <%= post.data.title %>&nbsp;<i class="fa-solid fa-angles-right"></i>
           </h2>
         </a>
         <p><%= post.data.description %></p>
-        <div class="blog-post-item-meta">
-          <div class="blog-post-item-meta-date">
+        <div class="blog-post-paged-item-meta">
+          <div class="blog-post-paged-item-meta-date">
             <span data-relative-date="<%= post.data.date.toISOString() %>">
               <%= new Intl.DateTimeFormat('en-GB').format(post.data.date) %>
             </span>
           </div>
-          <div class="blog-post-item-meta-tags">
+          <div class="blog-post-paged-item-meta-tags">
             <% post.data?.languages?.forEach(language => { %>
               <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
                 <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>

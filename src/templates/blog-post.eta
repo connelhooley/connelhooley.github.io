@@ -1,17 +1,48 @@
 <% layout("./layouts/default") %>
-<article class="container gutter">
-  <div class="blog-post section">
-    <header class="page-header">
-      <div class="gutter">
-        <h1 class="blog-post-title"><%= it.data.title %></h1>
+<article class="blog-post">
+  <header class="page-header">
+    <div class="container gutter">
+      <h1 class="blog-post-title"><%= it.data.title %></h1>
+      <div class="blog-post-meta">
+        <div>
+          <span class="sr-only">Published on</span>
+          <span data-relative-date="<%= it.data.date.toISOString() %>">
+            <i class="fa-regular fa-calendar-days"></i>&nbsp;<%= new Intl.DateTimeFormat('en-GB').format(it.data.date) %>
+          </span>
+        </div>
+        <div>
+          <i class="fa-solid fa-clock"></i>&nbsp;<%= it.data.readingTimeMins %>
+          <% if (it.data.readingTimeMins > 1) { %>
+            minutes
+          <% } else { %>
+            minute
+          <% } %>
+          to read
+        </div>
       </div>
-    </header>
+      <div class="blog-post-tags">
+        <% it.data?.languages?.forEach(language => { %>
+          <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
+            <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
+          </a>
+        <% }); %>
+        <% it.data?.technologies?.forEach(technology => { %>
+          <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology) %>">
+            <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </header>
+  <div class="container gutter">
     <% if (it.data.toc) { %>
-      <nav class="toc">
+      <nav class="blog-post-toc">
         <h1>Contents</h1>
         <%~ include("./partials/toc", it.data.toc) %>
       </nav>
     <% } %>
-    <%~ it.content %>
+    <div class="content">
+      <%~ it.content %>
+    </div>
   </div>
 </article>

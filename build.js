@@ -30,6 +30,8 @@ import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-m
 import rehypeNoJs from "@connelhooley/rehype-no-js";
 import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeInferReadingTimeMeta from "rehype-infer-reading-time-meta";
 import rehypeStringify from "rehype-stringify";
 
 const srcDir = "./src";
@@ -160,6 +162,7 @@ export const renderExperience = async () => {
         .use(remarkFrontmatter)
         .use(remarkGfm)
         .use(remarkRehype)
+        .use(rehypeExternalLinks, { rel: ["nofollow"] })
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));
@@ -209,6 +212,7 @@ export const renderProjects = async () => {
         .use(remarkFrontmatter)
         .use(remarkGfm)
         .use(remarkRehype)
+        .use(rehypeExternalLinks, { rel: ["nofollow"] })
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));
@@ -265,11 +269,12 @@ export const renderBlog = async () => {
         .use(remarkFrontmatter)
         .use(remarkGfm)
         .use(remarkRehype)
+        .use(rehypeInferReadingTimeMeta, { age: 21 })
         .use(rehypeSlug)
         .use(rehypeAutolinkHeadings, {
           behavior: "append",
-          headingProperties: { "class": "heading" },
-          properties: { "class": "link" },
+          headingProperties: { "class": "content-heading" },
+          properties: { "class": "content-heading-link" },
           content(node) {
             return [
               h("span", [
@@ -285,12 +290,26 @@ export const renderBlog = async () => {
         })
         .use(rehypeCopyCodeButton)
         .use(rehypeMermaid)
+        .use(rehypeExternalLinks, {
+          rel: ["external", "nofollow", "noopener", "noreferrer"],
+          target: "_blank",
+          contentProperties: {
+            class: "external-link",
+          },
+          content() {
+            return [
+              h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
+              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+            ];
+          },
+        })
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));
       const data = parsedFile.data.matter;
       const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
       const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
       data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
+      data.readingTimeMins = Math.ceil(parsedFile.data.meta.readingTime);
       if (data.draft) return;
       const tempFilePath = path.join(
         tempDir,
@@ -359,7 +378,7 @@ export const renderBlog = async () => {
     }));
     console.log("Rendered blog posts");
   };
-  const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnologies = false, isLanguage = false }) => {
+  const renderPagedCollection = async ({ items, basePath, baseRoute, pageSize = 5, title, isTechnology = false, isLanguage = false }) => {
     const paginate = () => {
       const pages = [];
       const pageCount = Math.ceil(items.length / pageSize);
@@ -395,7 +414,7 @@ export const renderBlog = async () => {
     await Promise.all(pages.map(async (page) => {
       const renderedTemplate = await eta.renderAsync("paged-collection", {
         title,
-        isTechnologies,
+        isTechnology,
         isLanguage,
         ...page,
       });
@@ -439,7 +458,7 @@ export const renderBlog = async () => {
         basePath: path.join("blog", "technologies", technology),
         baseRoute: `/blog/technologies/${encodeURIComponent(technology)}/`,
         title: technology,
-        isTechnologies: true,
+        isTechnology: true,
         pageSize: 5,
       });
     }),
@@ -459,15 +478,10 @@ await Promise.all([
 
 console.log("Site built successfully");
 
-// External links: https://github.com/rehypejs/rehype-external-links
-
-// TODO finish blog post pages
 // TODO finish experience page
 // TODO finish projects page
 // TODO finish home page
-// TODO finish blog page
-// TODO finish language page
-// TODO finish technology page
+// TODO finish site-footer
 
 // TODO SEO tags (rehype-meta)
 // TODO Favicon
