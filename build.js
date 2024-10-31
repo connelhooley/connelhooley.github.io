@@ -68,7 +68,6 @@ const defaultRehypeMetaOptions = {
   authorTwitter: "@connel_dev",
   siteTwitter: "@connel_dev",
   origin: "https://connelhooley.uk",
-  // <meta name="fediverse:creator" content="@robb@social.lol" />
   copyright: true,
   image: {
     alt: "C H",
