@@ -46,6 +46,7 @@ const eta = new Eta({
 });
 const defaultRehypeDocumentOptions = {
   language: "en-GB",
+  meta: [{ name: "fediverse:creator", content: "@connel@mastodon.social" }],
   css: [
     "/vendor/highlight.js/css/ir-black.min.css",
     "/vendor/font-awesome/css/fontawesome.min.css",
@@ -66,7 +67,8 @@ const defaultRehypeMetaOptions = {
   author: "Connel Hooley",
   authorTwitter: "@connel_dev",
   siteTwitter: "@connel_dev",
-  origin: "https://connelhooley.uk", 
+  origin: "https://connelhooley.uk",
+  // <meta name="fediverse:creator" content="@robb@social.lol" />
   copyright: true,
   image: {
     alt: "C H",
