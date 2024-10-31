@@ -1,5 +1,5 @@
 {
-  "name": "@connelhooley/rehype-toc",
+  "name": "@connelhooley/rehype-infer-toc-meta",
   "version": "1.0.0",
   "private": true,
   "type": "module",

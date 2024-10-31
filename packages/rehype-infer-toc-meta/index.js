@@ -2,7 +2,7 @@ import { visit } from "unist-util-visit";
 import { headingRank } from "hast-util-heading-rank";
 import { toText } from "hast-util-to-text";
 
-export default function rehypeToc() {
+export default function rehypeInferTocMeta() {
   const matchHeadings = [
     { tagName: "h1" },
     { tagName: "h2" },
@@ -12,7 +12,10 @@ export default function rehypeToc() {
     { tagName: "h6" },
   ];
   return (tree, file) => {
+    file.data ??= {};
+    file.data.meta ??= {};
     if (file.data?.matter?.toc === false) {
+      file.data.meta.toc = false;
       return;
     }
     const result = [];
@@ -28,6 +31,6 @@ export default function rehypeToc() {
       levels[depth].children = levels[depth].children || [];
       levels[depth].children.push(levels[depth + 1] = item);
     });
-    file.data.matter.toc = result;
+    file.data.meta.toc = result;
   };
 }

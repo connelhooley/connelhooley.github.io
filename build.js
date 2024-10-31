@@ -24,11 +24,12 @@ import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
-import rehypeToc from "@connelhooley/rehype-toc";
+import rehypeInferTocMeta from "@connelhooley/rehype-infer-toc-meta";
 import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
 import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
 import rehypeNoJs from "@connelhooley/rehype-no-js";
 import rehypeDocument from "rehype-document";
+import rehypeMeta from "rehype-meta"
 import rehypeFormat from "rehype-format";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeInferReadingTimeMeta from "rehype-infer-reading-time-meta";
@@ -38,9 +39,12 @@ const srcDir = "./src";
 const tempDir = "./temp";
 const distDir = "./dist";
 
-const eta = new Eta({ views: path.join(srcDir, "templates") });
+const eta = new Eta({
+  views: path.join(srcDir, "templates"),
+  cache: true,
+  cacheFilepaths: true,
+});
 const defaultRehypeDocumentOptions = {
-  title: "Connel Hooley",
   language: "en-GB",
   css: [
     "/vendor/highlight.js/css/ir-black.min.css",
@@ -55,6 +59,29 @@ const defaultRehypeDocumentOptions = {
     "/js/copy-code.js",
     "/js/relative-date.js",
     "/js/mobile-menu.js"
+  ],
+};
+
+const defaultRehypeMetaOptions = {
+  author: "Connel Hooley",
+  authorTwitter: "@connel_dev",
+  siteTwitter: "@connel_dev",
+  origin: "https://connelhooley.uk", 
+  copyright: true,
+  image: {
+    alt: "C H",
+    url: "https://connelhooley.uk/logo.png",
+    height: "1200",
+    width: "1200",
+  },
+  name: "Connel Hooley",
+  separator: " | ",
+  og: true,
+  twitter: true,
+  siteTags: [
+    "Dev",
+    "Development",
+    "Software",
   ],
 };
 
@@ -284,7 +311,7 @@ export const renderBlog = async () => {
             ];
           },
         })
-        .use(rehypeToc)
+        .use(rehypeInferTocMeta)
         .use(rehypeHighlight, {
           plainText: ["mermaid"],
         })
@@ -309,7 +336,8 @@ export const renderBlog = async () => {
       const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
       const [year, month, day] = relativePath.split(path.sep).slice(1, 4);
       data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
-      data.readingTimeMins = Math.ceil(parsedFile.data.meta.readingTime);
+      data.readingTime = parsedFile.data.meta.readingTime;
+      data.toc = parsedFile.data.meta.toc;
       if (data.draft) return;
       const tempFilePath = path.join(
         tempDir,
@@ -367,7 +395,19 @@ export const renderBlog = async () => {
         .use(rehypeParse, { fragment: true })
         .use(rehypeDocument, {
           ...defaultRehypeDocumentOptions,
-          title: `${defaultRehypeDocumentOptions.title} - ${post.data.title}`,
+        })
+        .use(rehypeMeta, {
+          ...defaultRehypeMetaOptions,
+          type: "article",
+          title: post.data.title,
+          description: post.data.description,
+          readingTime: post.data.readingTime,
+          published: post.data.date.toISOString(),
+          pathname: post.route,
+          tags: [
+            ...(post.data?.languages ?? []),
+            ...(post.data?.technologies ?? []),
+          ],
         })
         .use(rehypeNoJs)
         .use(rehypeFormat)
