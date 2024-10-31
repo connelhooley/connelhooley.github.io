@@ -537,7 +537,6 @@ console.log("Site built successfully");
 // TODO finish home page
 // TODO finish site-footer
 
-// TODO SEO tags (rehype-meta)
 // TODO Favicon
 // TODO RSS
 // TODO Slides
