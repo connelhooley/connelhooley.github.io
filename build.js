@@ -170,6 +170,7 @@ export const renderHome = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeMeta, defaultRehypeMetaOptions)
     .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
@@ -218,6 +219,11 @@ export const renderExperience = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeMeta, {
+      ...defaultRehypeMetaOptions,
+      title: "Experience",
+      pathname: "/experience/",
+    })
     .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
@@ -268,6 +274,11 @@ export const renderProjects = async () => {
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
+    .use(rehypeMeta, {
+      ...defaultRehypeMetaOptions,
+      title: "Projects",
+      pathname: "/projects/",
+    })
     .use(rehypeNoJs)
     .use(rehypeFormat)
     .use(rehypeStringify)
@@ -393,9 +404,7 @@ export const renderBlog = async () => {
       const renderedTemplate = await eta.renderAsync("blog-post", { content, ...post });
       const parsedFile = await unified()
         .use(rehypeParse, { fragment: true })
-        .use(rehypeDocument, {
-          ...defaultRehypeDocumentOptions,
-        })
+        .use(rehypeDocument, defaultRehypeDocumentOptions)
         .use(rehypeMeta, {
           ...defaultRehypeMetaOptions,
           type: "article",
@@ -425,7 +434,7 @@ export const renderBlog = async () => {
       const getPageRoute = (pageNumber) => {
         return pageNumber === 1
           ? baseRoute
-          : `${baseRoute}page/${pageNumber}`;
+          : `${baseRoute}page/${pageNumber}/`;
       };
       const getPagePath = (pageNumber) => {
         return pageNumber === 1
@@ -461,6 +470,11 @@ export const renderBlog = async () => {
       const parsedFile = await unified()
         .use(rehypeParse, { fragment: true })
         .use(rehypeDocument, defaultRehypeDocumentOptions)
+        .use(rehypeMeta, {
+          ...defaultRehypeMetaOptions,
+          title,
+          pathname: page.route,
+        })
         .use(rehypeNoJs)
         .use(rehypeFormat)
         .use(rehypeStringify)
