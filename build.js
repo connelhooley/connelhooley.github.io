@@ -6,6 +6,7 @@ import { h } from "hastscript";
 import { toString } from "hast-util-to-string";
 import { matter } from "vfile-matter";
 import { Eta } from "eta";
+import RSS from "rss";
 
 import babel from "@babel/core";
 
@@ -486,6 +487,36 @@ export const renderBlog = async () => {
     }));
     console.log(`Rendered '${title}' paged collection`);
   };
+  const renderRssFeed = async ({ posts }) => {
+    console.log("Rendering RSS feed");
+    const rss = new RSS({
+      title: defaultRehypeMetaOptions.name,
+      description: "My personal dev blog",
+      site_url: defaultRehypeMetaOptions.origin,
+      image_url: defaultRehypeMetaOptions.image.url,
+      feed_url: `${defaultRehypeMetaOptions.origin}/rss.xml`,
+      language: defaultRehypeDocumentOptions.language,
+      categories: defaultRehypeMetaOptions.siteTags,
+      managingEditor: defaultRehypeMetaOptions.author,
+      webMaster: defaultRehypeMetaOptions.author,
+    });
+    posts.slice(0, 500).forEach(post => {
+      rss.item({
+        title: post.data.title,
+        description: post.data.description,
+        url: path.join(defaultRehypeMetaOptions.origin, post.route),
+        date: post.data.date,
+        categories: [
+          ...(post.data?.languages ?? []),
+          ...(post.data?.technologies ?? []),
+        ],
+      });
+    });
+    const xml = rss.xml({ indent: true });
+    const distFilePath = path.join(distDir, "rss.xml");
+    await writeFile(distFilePath, xml);
+    console.log("Rendered RSS feed");
+  };
 
   const { posts, languages, technologies } = await loadBlogContent();
   await Promise.all([
@@ -517,6 +548,7 @@ export const renderBlog = async () => {
         pageSize: 5,
       });
     }),
+    renderRssFeed({ posts }),
   ]);
 };
 
@@ -539,5 +571,4 @@ console.log("Site built successfully");
 // TODO finish site-footer
 
 // TODO Favicon
-// TODO RSS
 // TODO Slides
