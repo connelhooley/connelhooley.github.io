@@ -505,7 +505,7 @@ export const renderBlog = async () => {
       description: "My personal dev blog",
       site_url: defaultRehypeMetaOptions.origin,
       image_url: defaultRehypeMetaOptions.image.url,
-      feed_url: `${defaultRehypeMetaOptions.origin}/rss.xml`,
+      feed_url: path.join(defaultRehypeMetaOptions.origin, "rss.xml"),
       language: defaultRehypeDocumentOptions.language,
       categories: defaultRehypeMetaOptions.siteTags,
       managingEditor: defaultRehypeMetaOptions.author,
