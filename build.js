@@ -50,7 +50,7 @@ const eta = new Eta({
     email: "me@connelhooley.uk",
     mastodon: "https://mastodon.social/@connel",
     linkedIn: "https://uk.linkedin.com/in/connelhooley",
-  })}`,
+  })};`,
 });
 
 const defaultRehypeDocumentOptions = {
