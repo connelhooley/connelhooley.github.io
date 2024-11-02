@@ -1,0 +1,31 @@
+#site-footer {
+  & .site-footer-items {
+    color: var(--gray-color-500);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+    justify-content: center;
+    @media (--screen-sm-up) {
+      justify-content: initial;
+    }
+    & a {
+      border-bottom: 1px solid var(--gray-color-500);
+      transition: color 300ms ease;
+      transition: border 300ms ease;
+      &:hover {
+        color: var(--primary-color-dark);
+        border-bottom: 1px solid var(--primary-color-dark);
+      }
+    }
+    & .site-footer-name {
+      flex-basis: 100%;
+      text-align: center;
+      @media (--screen-sm-up) {
+        flex-basis: initial;
+        text-align: initial;
+        flex-grow: 1;
+      }
+    }
+  }
+}

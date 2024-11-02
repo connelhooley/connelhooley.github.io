@@ -44,6 +44,13 @@ const eta = new Eta({
   views: path.join(srcDir, "templates"),
   cache: true,
   cacheFilepaths: true,
+  functionHeader: `const _globals = ${JSON.stringify({
+    name: "Connel Hooley",
+    year: new Date().getFullYear(),
+    email: "me@connelhooley.uk",
+    mastodon: "https://mastodon.social/@connel",
+    linkedIn: "https://uk.linkedin.com/in/connelhooley",
+  })}`,
 });
 
 const defaultRehypeDocumentOptions = {
@@ -178,8 +185,7 @@ export const copyBlogAssets = async () => {
 
 export const renderHome = async () => {
   console.log("Rendering home");
-  // TODO Supply data?
-  const renderedTemplate = await eta.renderAsync("home", {});
+  const renderedTemplate = await eta.renderAsync("home");
   const parsedFile = await unified()
     .use(rehypeParse, { fragment: true })
     .use(rehypeDocument, defaultRehypeDocumentOptions)
