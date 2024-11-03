@@ -43,7 +43,9 @@
     <div class="section">
       <ul class="site-footer-items">
         <li class="site-footer-name">
-          <%= _globals.name %>&nbsp;<i class="fa-solid fa-copyright"></i>&nbsp;<%= _globals.year %>
+          <%= _globals.name %>&nbsp;
+          <i aria-label="Copyright" class="fa-solid fa-copyright"></i>&nbsp;
+          <%= _globals.year %>
         </li>
         <li>
           <a href="mailto:<%= _globals.email %>" target="_blank">
