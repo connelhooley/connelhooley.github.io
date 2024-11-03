@@ -82,6 +82,10 @@
   --gutter: var(--spacing-4);
   --heading-font-family: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
   --default-font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
+  --selection-background-color: var(--primary-color);
+  --selection-text-color: white;
+  --selection-inverted-background-color: black;
+  --selection-inverted-text-color: white;
 }
 
 @custom-media --screen-sm-up (min-width: 640px);

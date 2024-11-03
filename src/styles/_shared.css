@@ -14,14 +14,8 @@ h6 {
 }
 
 ::selection {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.invert-selection::selection,
-.invert-selection *::selection {
-  background-color: black;
-  color: white;
+  background-color: var(--selection-background-color);
+  color: var(--selection-text-color);
 }
 
 .sr-only {
@@ -72,6 +66,11 @@ h6 {
   &:hover {
     background-color: var(--primary-color-dark);
   }
+  &::selection,
+  & ::selection {
+    background-color: var(--selection-inverted-background-color);
+    color: var(--selection-inverted-text-color);
+  }
 }
 
 .page-header {
@@ -84,5 +83,10 @@ h6 {
     & .tag {
       vertical-align: middle;
     }
+  }
+  &::selection,
+  & ::selection {
+    background-color: var(--selection-inverted-background-color);
+    color: var(--selection-inverted-text-color);
   }
 }
