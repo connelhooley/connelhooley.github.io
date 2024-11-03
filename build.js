@@ -44,8 +44,6 @@ const distDir = "./dist";
 
 const eta = new Eta({
   views: path.join(srcDir, "templates"),
-  cache: true,
-  cacheFilepaths: true,
   functionHeader: `const _globals = ${JSON.stringify({
     name: "Connel Hooley",
     year: new Date().getFullYear(),

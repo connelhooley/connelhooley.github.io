@@ -43,26 +43,21 @@
     <div class="section">
       <ul class="site-footer-items">
         <li class="site-footer-name">
-          <%= _globals.name %>&nbsp;
-          <i aria-label="Copyright" class="fa-solid fa-copyright"></i>&nbsp;
-          <%= _globals.year %>
+          <%= _globals.name %>&nbsp;<i aria-label="Copyright" class="fa-solid fa-copyright"></i>&nbsp;<%= _globals.year %>
         </li>
         <li>
           <a href="mailto:<%= _globals.email %>" target="_blank">
-            <i class="fa-solid fa-envelope"></i>&nbsp;
-            Email<span class="sr-only"> (opens in a new window)</span>
+            <i class="fa-solid fa-envelope"></i>&nbsp;Email<span class="sr-only"> (opens in a new window)</span>
           </a>
         </li>
         <li>
           <a href="<%= _globals.mastodon %>" target="_blank">
-            <i class="fa-brands fa-mastodon"></i>&nbsp;
-            Mastodon<span class="sr-only"> (opens in a new window)</span>
+            <i class="fa-brands fa-mastodon"></i>&nbsp;Mastodon<span class="sr-only"> (opens in a new window)</span>
           </a>
         </li>
         <li>
           <a href="<%= _globals.linkedIn %>" target="_blank">
-            <i class="fa-brands fa-linkedin"></i>&nbsp;
-            LinkedIn<span class="sr-only"> (opens in a new window)</span>
+            <i class="fa-brands fa-linkedin"></i>&nbsp;LinkedIn<span class="sr-only"> (opens in a new window)</span>
           </a>
         </li>
       </ul>
