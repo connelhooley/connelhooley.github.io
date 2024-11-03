@@ -1,10 +1,10 @@
 <% layout("./layouts/default") %>
 <header class="page-header">
-  <div class="container">
+  <div class="container gutter">
       <h1>Experience</h1>
   </div>
 </header>
-<div class="container">
+<div class="container gutter">
   <div class="section">
     <% it.items.forEach(job => { %>
       <div>

@@ -1,15 +1,35 @@
 <% layout("./layouts/default") %>
 <header class="page-header">
-  <div class="container">
-      <h1>Projects</h1>
+  <div class="container gutter">
+    <h1>Projects</h1>
   </div>
 </header>
-<div class="container">
+<div class="container gutter">
   <div class="section">
-    <% it.items.forEach(project => { %>
-      <div>
-        <%= project.data.title %>
-      </div>
-    <% }); %>
+    <div class="project-items">
+      <% it.items.forEach(project => { %>
+        <div class="project-item">
+          <h2 class="project-item-title"><%= project.data.title %></h2>
+          <p>
+            <i class="<%= project.data.github ? 'fa-brands fa-github' : 'fa-solid fa-globe' %>"></i>&nbsp;<a class="project-item-website" href="<%= project.data.website %>" target="_blank"><%= project.data.website %><span class="sr-only"> (opens in a new window)</span></a>
+          </p>
+          <div class="content">
+            <%~ project.content %>
+          </div>
+          <div>
+            <% project.data?.languages?.forEach(language => { %>
+              <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
+                <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
+              </a>
+            <% }); %>
+            <% project.data?.technologies?.forEach(technology => { %>
+              <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology) %>">
+                <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
+              </a>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
   </div>
 </div>

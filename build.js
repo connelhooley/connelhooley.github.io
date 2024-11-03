@@ -209,7 +209,19 @@ export const renderExperience = async () => {
         .use(remarkFrontmatter)
         .use(remarkGfm)
         .use(remarkRehype)
-        .use(rehypeExternalLinks, { rel: ["nofollow"] })
+        .use(rehypeExternalLinks, {
+          rel: ["external", "nofollow", "noopener", "noreferrer"],
+          target: "_blank",
+          contentProperties: {
+            class: "external-link",
+          },
+          content() {
+            return [
+              h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
+              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+            ];
+          },
+        })
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));
@@ -264,7 +276,19 @@ export const renderProjects = async () => {
         .use(remarkFrontmatter)
         .use(remarkGfm)
         .use(remarkRehype)
-        .use(rehypeExternalLinks, { rel: ["nofollow"] })
+        .use(rehypeExternalLinks, {
+          rel: ["external", "nofollow", "noopener", "noreferrer"],
+          target: "_blank",
+          contentProperties: {
+            class: "external-link",
+          },
+          content() {
+            return [
+              h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
+              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+            ];
+          },
+        })
         .use(rehypeFormat)
         .use(rehypeStringify)
         .process(await readFile(srcFilePath));

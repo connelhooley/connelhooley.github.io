@@ -2,7 +2,7 @@
 <article class="blog-post">
   <header class="page-header">
     <div class="container gutter">
-      <h1 class="blog-post-title"><%= it.data.title %></h1>
+      <h1><%= it.data.title %></h1>
       <div class="blog-post-meta">
         <div>
           <span class="sr-only">Published on</span>
@@ -35,14 +35,16 @@
     </div>
   </header>
   <div class="container gutter">
-    <% if (it.data.toc) { %>
-      <nav class="blog-post-toc">
-        <h1>Contents</h1>
-        <%~ include("./partials/toc", it.data.toc) %>
-      </nav>
-    <% } %>
-    <div class="content">
-      <%~ it.content %>
+    <div class="section">
+      <% if (it.data.toc) { %>
+        <nav class="blog-post-toc">
+          <h1>Contents</h1>
+          <%~ include("./partials/toc", it.data.toc) %>
+        </nav>
+      <% } %>
+      <div class="content">
+        <%~ it.content %>
+      </div>
     </div>
   </div>
 </article>

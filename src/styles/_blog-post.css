@@ -1,6 +1,5 @@
 .blog-post {
   & .page-header {
-    margin-bottom: var(--spacing-4);
     & h1 {
       margin-bottom: 0;
       font-size: var(--text-4xl-font-size);

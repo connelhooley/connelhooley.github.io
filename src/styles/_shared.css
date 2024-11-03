@@ -55,7 +55,7 @@ h6 {
 }
 
 .section {
-  padding: var(--spacing-6) 0;
+  margin: var(--spacing-6) 0;
 }
 
 .button {
