@@ -3,21 +3,8 @@
   <div class="container gutter">
     <h1>
       <%= it.title %>
-      <% if (it.isLanguage) { %>
-        <span class="tag">
-          <span class="sr-only">(</span>
-          <i class="fa-solid fw fa-code"></i>
-          &nbsp;Language
-          <span class="sr-only">)</span>
-        </span>
-      <% } %>
-      <% if (it.isTechnology) { %>
-          <span class="sr-only">(</span>
-          <span class="tag"><i class="fa-solid fw fa-code"></i>
-          &nbsp;Technology
-          <span class="sr-only">)</span>
-        </span>
-      <% } %>
+      <% if (it.isLanguage) { %>&nbsp;<span class="tag"><span class="sr-only">(</span><i class="fa-solid fw fa-code"></i>Language<span class="sr-only">)</span></span><% } %>
+      <% if (it.isTechnology) { %>&nbsp;<span class="tag"><span class="sr-only">(</span><i class="fa-solid fw fa-code"></i>Technology<span class="sr-only">)</span></span><% } %>
     </h1>
   </div>
 </header>
