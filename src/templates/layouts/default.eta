@@ -61,7 +61,7 @@
           </a>
         </li>
         <li>
-          <a href="/feed.xml" target="_blank">
+          <a href="/rss.xml" target="_blank">
             <i class="fa-solid fa-square-rss"></i>&nbsp;RSS<span class="sr-only"> (opens in a new window)</span>
           </a>
         </li>
