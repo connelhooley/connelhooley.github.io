@@ -97,10 +97,4 @@
       }
     }
   }
-  & .external-link {
-    display: inline-block;
-    margin-left: var(--spacing-1);
-    font-size: var(--text-xs-font-size);
-    line-height: var(--text-xs-line-height);
-  }
 }

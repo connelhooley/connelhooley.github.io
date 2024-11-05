@@ -213,7 +213,7 @@ export const renderExperience = async () => {
           rel: ["external", "nofollow", "noopener", "noreferrer"],
           target: "_blank",
           contentProperties: {
-            class: "external-link",
+            class: "external-link-icon-wrapper",
           },
           content() {
             return [
@@ -280,7 +280,7 @@ export const renderProjects = async () => {
           rel: ["external", "nofollow", "noopener", "noreferrer"],
           target: "_blank",
           contentProperties: {
-            class: "external-link",
+            class: "external-link-icon-wrapper",
           },
           content() {
             return [
@@ -375,7 +375,7 @@ export const renderBlog = async () => {
           rel: ["external", "nofollow", "noopener", "noreferrer"],
           target: "_blank",
           contentProperties: {
-            class: "external-link",
+            class: "external-link-icon-wrapper",
           },
           content() {
             return [
