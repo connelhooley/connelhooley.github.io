@@ -9,7 +9,7 @@
   </div>
 </header>
 <div class="container gutter">
-  <div class="section paged-items">
+  <div class="section narrow paged-items">
     <% it.items.forEach(post => { %>
       <div class="blog-post-paged-item">
         <a class="blog-post-paged-item-link" href="<%= post.route %>">
@@ -25,16 +25,10 @@
             </span>
           </div>
           <div class="blog-post-paged-item-meta-tags">
-            <% post.data?.languages?.forEach(language => { %>
-              <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
-                <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
-              </a>
-            <% }); %>
-            <% post.data?.technologies?.forEach(technology => { %>
-              <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology) %>">
-                <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
-              </a>
-            <% }); %>
+            <%~ include("./partials/tags", {
+              languages: post.data?.languages,
+              technologies: post.data?.technologies,
+            }) %>
           </div>
         </div>
       </div>

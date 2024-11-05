@@ -1,0 +1,10 @@
+<% it.languages?.forEach(language => { %>
+  <a class="tag" href="/blog/languages/<%= encodeURIComponent(language) %>">
+    <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
+  </a>
+<% }); %>
+<% it.technologies?.forEach(technology => { %>
+  <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology) %>">
+    <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
+  </a>
+<% }); %>

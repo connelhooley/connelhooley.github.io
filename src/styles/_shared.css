@@ -73,6 +73,10 @@ h6 {
   }
 }
 
+.narrow {
+  max-width: 650px;
+}
+
 .external-link-icon-wrapper {
   display: inline-block;
   margin-left: var(--spacing-1);
