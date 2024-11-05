@@ -10,7 +10,7 @@
       justify-content: initial;
     }
     & a {
-      border-bottom: 1px solid var(--gray-color-500);
+      border-bottom: 1px solid var(--gray-color-300);
       transition: color 300ms ease;
       transition: border 300ms ease;
       &:hover {
