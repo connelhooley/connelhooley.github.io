@@ -60,6 +60,11 @@
             <i class="fa-brands fa-linkedin"></i>&nbsp;LinkedIn<span class="sr-only"> (opens in a new window)</span>
           </a>
         </li>
+        <li>
+          <a href="/feed.xml" target="_blank">
+            <i class="fa-solid fa-square-rss"></i>&nbsp;RSS<span class="sr-only"> (opens in a new window)</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
