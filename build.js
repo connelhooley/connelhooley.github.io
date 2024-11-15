@@ -218,7 +218,7 @@ export const renderExperience = async () => {
           content() {
             return [
               h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
-              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+              h("span.sr-only", "(opens in a new window)"),
             ];
           },
         })
@@ -285,7 +285,7 @@ export const renderProjects = async () => {
           content() {
             return [
               h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
-              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+              h("span.sr-only", "(opens in a new window)"),
             ];
           },
         })
@@ -360,7 +360,7 @@ export const renderBlog = async () => {
             return [
               h("span", [
                 h("i.fa-solid fa-link", { "aria-hidden": "true" }),
-                h("span", { "class": "sr-only" }, `Go to ${toString(node)} section`),
+                h("span.sr-only", `Go to ${toString(node)} section`),
               ]),
             ];
           },
@@ -380,7 +380,7 @@ export const renderBlog = async () => {
           content() {
             return [
               h("i.fa-solid fa-arrow-up-right-from-square", { "aria-hidden": "true" }),
-              h("span", { "class": "sr-only" }, "(opens in a new window)"),
+              h("span.sr-only", "(opens in a new window)"),
             ];
           },
         })
