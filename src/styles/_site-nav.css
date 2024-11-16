@@ -19,6 +19,8 @@
       padding: var(--spacing-6) var(--gutter);  
     }
     & .site-nav-item-home {
+      font-family: var(--logo-font-family);
+      font-weight: bold;
       font-size: var(--text-xl-font-size);
       letter-spacing: 6px;
     }

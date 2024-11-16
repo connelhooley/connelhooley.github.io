@@ -77,6 +77,7 @@ const defaultRehypeDocumentOptions = {
     "/vendor/dayjs/js/dayjs.min.js",
     "/vendor/dayjs/js/relativeTime.min.js",
     "/js/copy-code.js",
+    "/js/dropdown-menu.js",
     "/js/relative-date.js",
     "/js/mobile-menu.js"
   ],

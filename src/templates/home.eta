@@ -25,25 +25,31 @@
           </a>
         </li>
         <li
-          class="home-dropdown"
+          class="home-dropdown-menu"
+          tabindex="-1"
           data-dropdown
-          data-dropdown-button-content-id="cv-dropdown-button-content"
+          data-dropdown-menu-button-content-id="cv-dropdown-menu-button-content"
+          data-dropdown-menu-button-id="cv-dropdown-menu-button"
+          data-dropdown-menu-button-class="home-button"
           data-dropdown-menu-items-id="cv-dropdown-menu-items"
+          data-dropdown-menu-items-expanded-class="home-dropdown-menu-items-open"
         >
-          <span id="cv-dropdown-button-content" class="home-dropdown-label"><i class="fa-solid fa-file-lines"></i></i>&nbsp;CV<span class="sr-only"> (opens in a new window)</span></span>
-          <ul id="cv-dropdown-menu-items" class="home-buttons">
+          <span id="cv-dropdown-menu-button-content" class="home-dropdown-menu-label">
+            <i class="fa-solid fa-file-lines"></i></i>&nbsp;CV
+          </span>
+          <ul id="cv-dropdown-menu-items" class="home-dropdown-menu-items">
             <li>
-              <a class="home-dropdown-item" href="/files/ConnelHooleyCV.pdf" target="_blank">
+              <a class="home-dropdown-menu-item" href="/files/ConnelHooleyCV.pdf" target="_blank">
                 <i class="fa-solid fa-file-pdf"></i>&nbsp;PDF<span class="sr-only"> (opens in a new window)</span>
               </a>
             </li>
             <li>
-              <a class="home-dropdown-item" href="/files/ConnelHooleyCV.docx" target="_blank">
+              <a class="home-dropdown-menu-item" href="/files/ConnelHooleyCV.docx" target="_blank">
                 <i class="fa-solid fa-file-word"></i>&nbsp;Word<span class="sr-only"> (opens in a new window)</span>
               </a>
             </li>
             <li>
-              <a class="home-dropdown-item" href="/files/ConnelHooleyCV-Printer-Friendly.docx" target="_blank">
+              <a class="home-dropdown-menu-item" href="/files/ConnelHooleyCV-Printer-Friendly.docx" target="_blank">
                 <i class="fa-solid fa-print"></i>&nbsp;Word - printer friendly<span class="sr-only"> (opens in a new window)</span>
               </a>
             </li>
