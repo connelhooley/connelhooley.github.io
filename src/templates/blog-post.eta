@@ -12,7 +12,7 @@
         </div>
         <div>
           <i class="fa-solid fa-clock"></i>&nbsp;<%= Math.ceil(it.data.readingTime) %>
-          <% if (it.data.readingTimeMins >= 2) { %>
+          <% if (it.data.readingTime >= 2) { %>
             minutes
           <% } else { %>
             minute

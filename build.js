@@ -607,6 +607,4 @@ await Promise.all([
 
 console.log("Site built successfully");
 
-// TODO finish home page
-
 // TODO Slides
