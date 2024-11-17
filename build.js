@@ -23,20 +23,23 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype";
 
+import remarkRevealSection from "@connelhooley/remark-reveal-sections";
+
 import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
-import rehypeInferTocMeta from "@connelhooley/rehype-infer-toc-meta";
-import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
-import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
-import rehypeNoJs from "@connelhooley/rehype-no-js";
 import rehypeDocument from "rehype-document";
 import rehypeMeta from "rehype-meta"
 import rehypeFormat from "rehype-format";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeInferReadingTimeMeta from "rehype-infer-reading-time-meta";
 import rehypeStringify from "rehype-stringify";
+
+import rehypeInferTocMeta from "@connelhooley/rehype-infer-toc-meta";
+import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
+import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
+import rehypeNoJs from "@connelhooley/rehype-no-js";
 
 const srcDir = "./src";
 const tempDir = "./temp";
@@ -182,6 +185,18 @@ export const copyBlogAssets = async () => {
     await cp(srcFilePath, distFilePath);
   }));
   console.log("Copied blog assets");
+};
+
+export const copySlidesAssets = async () => {
+  console.log("Copying slides assets");
+  const srcImgFilePaths = await glob(srcDir + "/content/slides/**/*.png");
+  await Promise.all(srcImgFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      path.relative(path.join(srcDir, "content"), srcFilePath));
+    await cp(srcFilePath, distFilePath);
+  }));
+  console.log("Copied slides assets");
 };
 
 export const renderHome = async () => {
@@ -594,17 +609,111 @@ export const renderBlog = async () => {
   ]);
 };
 
+export const renderSlides = async () => {
+  const loadSlidesContent = async () => {
+    console.log("Loading slides content");
+    const srcMdFilePaths = await glob(srcDir + "/content/slides/**/*.md");
+    const slides = await Promise.all(srcMdFilePaths.map(async srcFilePath => {
+      const srcFilePathParsed = path.parse(srcFilePath);
+      const parsedFile = await unified()
+        .use(() => (_, file) => matter(file))
+        .use(remarkParse)
+        .use(remarkFrontmatter)
+        .use(remarkRevealSection)
+        .use(remarkRehype)
+        .use(rehypeExternalLinks, {
+          rel: ["external", "nofollow", "noopener", "noreferrer"],
+          target: "_blank",
+        })
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(await readFile(srcFilePath));
+
+      const data = parsedFile.data.matter;
+      if (data.draft) return;
+      const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
+      const tempFilePath = path.join(
+        tempDir,
+        relativePath,
+        "index.html");
+      const distFilePath = path.join(
+        distDir,
+        relativePath,
+        "index.html");
+      const route = path.join(
+        "/",
+        relativePath,
+        "/");
+      await mkdir(path.dirname(tempFilePath), { recursive: true });
+      await writeFile(tempFilePath, parsedFile.toString("utf-8"));
+      return {
+        route,
+        meta: {
+          srcFilePath,
+          tempFilePath,
+          distFilePath,
+        },
+        data,
+      };
+    }));
+    console.log("Loaded slides content");
+    return slides.filter(slidePage => slidePage != undefined);
+  };
+  const renderSlides = async ({ slides }) => {
+    console.log("Rendering slides");
+    await Promise.all(slides.map(async slidePage => {
+      const content = await readFile(slidePage.meta.tempFilePath);
+      const parsedFile = await unified()
+        .use(rehypeParse, { fragment: true })
+        .use(rehypeDocument, {
+          ...defaultRehypeDocumentOptions,
+          css: [
+            "/vendor/reveal.js/css/reset.css",
+            "/vendor/reveal.js/css/reveal.css",
+            "/vendor/reveal.js/css/theme/black.css",
+          ],
+          js: [
+            "/vendor/reveal.js/js/plugins/notes.js",
+            "/vendor/reveal.js/js/plugins/highlight.js",
+            "/vendor/reveal.js/js/reveal.js",
+            "/vendor/reveal.js/js/reveal.js",
+            "/js/slides.js",
+          ],
+        })
+        .use(rehypeMeta, {
+          ...defaultRehypeMetaOptions,
+          type: "article",
+          title: slidePage.data.title,
+          published: slidePage.data.date?.toISOString(),
+          pathname: slidePage.route,
+          tags: [
+            ...(slidePage.data?.languages ?? []),
+            ...(slidePage.data?.technologies ?? []),
+          ],
+        })
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(content);
+      await mkdir(path.dirname(slidePage.meta.distFilePath), { recursive: true });
+      await writeFile(slidePage.meta.distFilePath, parsedFile.toString("utf-8"));
+    }));
+    console.log("Rendered slides");
+  };
+  const slides = await loadSlidesContent();
+  await renderSlides({ slides });
+};
+
 await Promise.all([
   buildCss(),
   buildJs(),
   copyStaticAssets(),
   copyBlogAssets(),
+  copySlidesAssets(),
   renderHome(),
   renderExperience(),
   renderProjects(),
   renderBlog(),
+  renderSlides(),
 ]);
 
 console.log("Site built successfully");
-
-// TODO Slides

@@ -7,10 +7,12 @@ import {
   buildJs,
   copyStaticAssets,
   copyBlogAssets,
+  copySlidesAssets,
   renderHome,
   renderExperience,
   renderProjects,
   renderBlog,
+  renderSlides,
 } from "./build.js";
 
 const watchCss = async () => {
@@ -77,6 +79,16 @@ const watchProjectsContent = async () => {
   }
 };
 
+const watchSlidesContent = async () => {
+  for await (const change of watch("./src/content/slides", { recursive: true })) {
+    if (minimatch(change.filename, "**/*.md")) {
+      await renderSlides().catch(console.error);;
+    } else if (minimatch(change.filename, "**/*.png")) {
+      await copySlidesAssets();
+    }
+  }
+};
+
 watchCss();
 watchJs();
 watchStatic();
@@ -84,6 +96,7 @@ watchTemplates();
 watchBlogContent();
 watchExperienceContent();
 watchProjectsContent();
+watchSlidesContent();
 browserSync({
   server: "dist",
   files: "./dist/**/*",

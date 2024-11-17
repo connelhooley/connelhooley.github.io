@@ -58,6 +58,7 @@
     "packages/rehype-copy-code-button",
     "packages/rehype-infer-toc-meta",
     "packages/rehype-mermaid",
-    "packages/rehype-no-js"
+    "packages/rehype-no-js",
+    "packages/remark-reveal-sections"
   ]
 }
