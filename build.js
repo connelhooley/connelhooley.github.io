@@ -620,13 +620,13 @@ export const renderSlides = async () => {
         .use(remarkParse)
         .use(remarkFrontmatter)
         .use(remarkRevealSection)
-        .use(remarkRehype)
+        .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeExternalLinks, {
           rel: ["external", "nofollow", "noopener", "noreferrer"],
           target: "_blank",
         })
         .use(rehypeFormat)
-        .use(rehypeStringify)
+        .use(rehypeStringify, { allowDangerousHtml: true })
         .process(await readFile(srcFilePath));
 
       const data = parsedFile.data.matter;
