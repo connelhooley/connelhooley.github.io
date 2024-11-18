@@ -189,7 +189,7 @@ export const copyBlogAssets = async () => {
 
 export const copySlidesAssets = async () => {
   console.log("Copying slides assets");
-  const srcImgFilePaths = await glob(srcDir + "/content/slides/**/*.png");
+  const srcImgFilePaths = await glob(srcDir + "/content/slides/**/*.{png,gif}");
   await Promise.all(srcImgFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
       distDir,
@@ -675,7 +675,7 @@ export const renderSlides = async () => {
           js: [
             "/vendor/reveal.js/js/plugins/notes.js",
             "/vendor/reveal.js/js/plugins/highlight.js",
-            "/vendor/reveal.js/js/reveal.js",
+            "/vendor/reveal.js/js/plugins/markdown.js",
             "/vendor/reveal.js/js/reveal.js",
             "/js/slides.js",
           ],
