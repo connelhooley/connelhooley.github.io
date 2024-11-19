@@ -21,9 +21,10 @@ import autoprefixer from "autoprefixer";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm"
+import remarkStringify from "remark-stringify";
 import remarkRehype from "remark-rehype";
 
-import remarkRevealSection from "@connelhooley/remark-reveal-sections";
+import remarkRemoveFrontmatter from "@connelhooley/remark-remove-frontmatter";
 
 import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
@@ -610,60 +611,39 @@ export const renderBlog = async () => {
 };
 
 export const renderSlides = async () => {
-  const loadSlidesContent = async () => {
-    console.log("Loading slides content");
-    const srcMdFilePaths = await glob(srcDir + "/content/slides/**/*.md");
-    const slides = await Promise.all(srcMdFilePaths.map(async srcFilePath => {
-      const srcFilePathParsed = path.parse(srcFilePath);
-      const parsedFile = await unified()
-        .use(() => (_, file) => matter(file))
-        .use(remarkParse)
-        .use(remarkFrontmatter)
-        .use(remarkRevealSection)
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeExternalLinks, {
-          rel: ["external", "nofollow", "noopener", "noreferrer"],
-          target: "_blank",
-        })
-        .use(rehypeFormat)
-        .use(rehypeStringify, { allowDangerousHtml: true })
-        .process(await readFile(srcFilePath));
-
-      const data = parsedFile.data.matter;
-      if (data.draft) return;
-      const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
-      const tempFilePath = path.join(
-        tempDir,
-        relativePath,
-        "index.html");
-      const distFilePath = path.join(
-        distDir,
-        relativePath,
-        "index.html");
-      const route = path.join(
-        "/",
-        relativePath,
-        "/");
-      await mkdir(path.dirname(tempFilePath), { recursive: true });
-      await writeFile(tempFilePath, parsedFile.toString("utf-8"));
-      return {
-        route,
-        meta: {
-          srcFilePath,
-          tempFilePath,
-          distFilePath,
-        },
-        data,
-      };
-    }));
-    console.log("Loaded slides content");
-    return slides.filter(slidePage => slidePage != undefined);
-  };
-  const renderSlides = async ({ slides }) => {
-    console.log("Rendering slides");
-    await Promise.all(slides.map(async slidePage => {
-      const content = await readFile(slidePage.meta.tempFilePath);
-      const parsedFile = await unified()
+  console.log("Rendering slides content");
+  const srcMdFilePaths = await glob(srcDir + "/content/slides/**/index.md");
+  await Promise.all(srcMdFilePaths.map(async srcFilePath => {
+    const srcFilePathParsed = path.parse(srcFilePath);
+    const parsedMdFile = await unified()
+      .use(() => (_, file) => matter(file))
+      .use(remarkParse)
+      .use(remarkFrontmatter)
+      .use(remarkRemoveFrontmatter)
+      .use(remarkStringify, { rule: "-" })
+      .process(await readFile(srcFilePath));
+    if (parsedMdFile.data.draft) return;
+    const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
+    const distMdFilePath = path.join(
+      distDir,
+      relativePath,
+      "index.md");
+    const distFilePath = path.join(
+      distDir,
+      relativePath,
+      "index.html");
+    const route = path.join(
+      "/",
+      relativePath,
+      "/");
+    const mdRoute = path.join(
+      "/",
+      relativePath,
+      "index.md");
+    await mkdir(path.dirname(distMdFilePath), { recursive: true });
+    await writeFile(distMdFilePath, parsedMdFile.toString("utf-8"));
+    const renderedTemplate = await eta.renderAsync("slides", { mdRoute });
+    const parsedHtmlFile = await unified()
         .use(rehypeParse, { fragment: true })
         .use(rehypeDocument, {
           ...defaultRehypeDocumentOptions,
@@ -683,24 +663,20 @@ export const renderSlides = async () => {
         .use(rehypeMeta, {
           ...defaultRehypeMetaOptions,
           type: "article",
-          title: slidePage.data.title,
-          published: slidePage.data.date?.toISOString(),
-          pathname: slidePage.route,
+          title: parsedMdFile.data.title,
+          published: parsedMdFile.data.date?.toISOString(),
+          pathname: route,
           tags: [
-            ...(slidePage.data?.languages ?? []),
-            ...(slidePage.data?.technologies ?? []),
+            ...(parsedMdFile.data?.languages ?? []),
+            ...(parsedMdFile.data?.technologies ?? []),
           ],
         })
         .use(rehypeFormat)
         .use(rehypeStringify)
-        .process(content);
-      await mkdir(path.dirname(slidePage.meta.distFilePath), { recursive: true });
-      await writeFile(slidePage.meta.distFilePath, parsedFile.toString("utf-8"));
-    }));
-    console.log("Rendered slides");
-  };
-  const slides = await loadSlidesContent();
-  await renderSlides({ slides });
+        .process(renderedTemplate);
+    await mkdir(path.dirname(distMdFilePath), { recursive: true });
+    await writeFile(distFilePath, parsedHtmlFile.toString("utf-8"));
+  }));
 };
 
 await Promise.all([

@@ -51,6 +51,7 @@
     "remark-rehype": "^11.1.1",
     "remark-stringify": "^11.0.0",
     "rss": "^1.2.2",
+    "unist-util-remove": "^4.0.0",
     "unist-util-visit-parents": "^6.0.1",
     "vfile-matter": "^5.0.0"
   },
@@ -59,6 +60,6 @@
     "packages/rehype-infer-toc-meta",
     "packages/rehype-mermaid",
     "packages/rehype-no-js",
-    "packages/remark-reveal-sections"
+    "packages/remark-remove-frontmatter"
   ]
 }
