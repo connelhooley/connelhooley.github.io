@@ -42,10 +42,10 @@ export default function rehypeMermaid() {
         mermaidConfig: {
           theme: "base",
           themeVariables: {            
-            primaryColor: "#f8bb15",
+            primaryColor: "var(--primary-color)",
             primaryTextColor: "#000",
             primaryBorderColor: "#000",
-            lineColor: "#f8bb15",
+            lineColor: "var(--primary-color)",
             textColor: "#000",
           },
         },
