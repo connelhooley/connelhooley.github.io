@@ -6,7 +6,7 @@
   "description": "",
   "scripts": {
     "build": "node build.js",
-    "deploy": "exit 1 && npm run build && gh-pages -d dist -b gh-pages",
+    "deploy": "npm run build && gh-pages -d dist -b gh-pages",
     "serve": "http-server ./dist",
     "start": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
