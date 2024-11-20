@@ -1,0 +1,100 @@
+#site-nav {
+  --site-nav-background-color: black;
+  --site-nav-color: white;
+  background-color: var(--site-nav-background-color);
+  color: var(--site-nav-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--text-lg-font-size);
+  line-height: var(--text-lg-line-height);
+  position: relative;
+  & .site-nav-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    & .site-nav-item {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--spacing-6) var(--gutter);  
+    }
+    & .site-nav-item-home {
+      font-family: var(--logo-font-family);
+      font-weight: bold;
+      font-size: var(--text-xl-font-size);
+      letter-spacing: 6px;
+    }
+    & .site-nav-item-active {
+      color: var(--primary-color);
+      @media (--screen-sm-up) {
+        box-shadow: 0px -6px 0px 0px var(--primary-color) inset;
+      }
+    }
+    & button,
+    & a {
+      transition: color 300ms ease;
+      &:hover {
+        color: var(--primary-color)
+      }
+    }
+  }
+  & #site-nav-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  & #site-nav-menu-items {
+    display: none;
+    background-color: var(--site-nav-background-color);
+    color: var(--site-nav-color);
+    @media (--screen-sm-up) {
+      display: flex;
+      flex-direction: row;
+      gap: var(--spacing-4);
+    }
+    &.mobile-open {
+      display: block;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      & .site-nav-item {
+        padding: var(--spacing-2) var(--gutter);
+      }
+    }
+  }
+  & #site-nav-mobile-button-wrapper {
+    @media (--screen-sm-up) {
+      display: none;
+    }
+    & #site-nav-mobile-button {
+      padding: var(--spacing-1);
+      border: 1px var(--gray-color-700) solid;
+    }
+  }
+}
+
+body.no-js #site-nav {
+  & #site-nav-menu-root-items {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+  }
+  & .site-nav-item-wrapper {
+    & .site-nav-item {
+      padding: var(--spacing-2) var(--gutter);
+    }
+    & .site-nav-item-active {
+      box-shadow: none;
+    }
+  }
+  & #site-nav-mobile-button-wrapper {
+    display: none;
+  }
+  & #site-nav-menu-items {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+  }
+}

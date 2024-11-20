@@ -1,3 +1,11 @@
 {
-    "editor.tabSize": 2
+    "debug.javascript.autoAttachFilter": "disabled",
+    "editor.tabSize": 2,
+    "cSpell.words": [
+        "connelhooley",
+        "hastscript",
+        "Rehype",
+        "tailwindcss",
+        "vfile"
+    ]
 }

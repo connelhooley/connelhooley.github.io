@@ -1,54 +1,20 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# connelhooley.github.io
 
-## 🚀 Quick start
+A handwritten static site generator. The `./build.js` file generates the static site into the `./dist` directory. To build the site run:
 
-1.  **Create a Gatsby site.**
+```bash
+npm run build
+```
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
-
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
-
-2.  **Start developing.**
-
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
-
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.js` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+- Files in `./src/static` are copied into `./dist`.
+- The JS files in `./src/scripts` are processed using Babel and written into `./dist/js`.
+- The `./src/styles/main.css` CSS file is processed using Post CSS and written to `./dist/css/main.css`.
+- The `./src/templates/home.eta` Eta template is rendered to `./dist/index.html`.
+- The `./src/templates/experience.eta` Eta template is rendered to `./dist/experience/index.html`. Its data is sourced from Markdown content files in the `./src/content/experience` directory. These content files are processed with Remark & Rehype.
+- The `./src/templates/projects.eta` Eta template is rendered to `./dist/projects/index.html`. Its data is sourced from Markdown content files in the `./src/content/projects` directory. These content files are processed with Remark & Rehype.
+- The `./src/templates/blog-post.eta` Eta template is used to render blog post pages. The blog posts are sourced from the Markdown content files in the `./src/content/blog/` directory. These content files are processed with Remark & Rehype. Files have to be placed in a folder structure that denotes the blog post's created date followed by the blog post's slug: `./src/content/blog/YYYY/MM/DD/SLUG/index.md`. For every blog post, a page is rendered into a file matching the following path: `./dist/blog/YYYY/MM/DD/SLUG/index.html`.
+- The `./src/templates/paged-collection.eta` Eta template is used to render paged collections. Paged collections are pages that list a number of blog posts paginated. The blog posts are sourced from the Markdown content files in the `./src/content/blog/` directory. These content files are processed with Remark & Rehype. A paged collection is rendered into a directory, the first page of a paged collection is rendered to `./index.html` and subsequent pages are rendered to `./page/{pageNumber}/index.html`.
+  - A paged collection is rendered into the `./dist/blog/` directory that lists all blog of the posts on the site.  
+  - For every language given in a blog post's front matter, a paged collection is rendered into the `./dist/blog/{language}/` directory that lists all of the blog posts that have the given language in its front matter.
+  - For every technology given in a blog post's front matter, a paged collection is rendered into the `./dist/blog/{technology}/` directory that lists all of the blog posts that have the given technology in its front matter.
+- Image files in `./src/content/blog` are copied into `./dist/blog`.

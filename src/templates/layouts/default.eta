@@ -1,0 +1,71 @@
+<a href="#content" class="sr-only">
+  Skip to content
+</a>
+<nav
+  id="site-nav"
+  tabindex="-1"
+  data-mobile-menu
+  data-mobile-menu-button-container-id="site-nav-mobile-button-wrapper"
+  data-mobile-menu-items-id="site-nav-menu-items"
+  data-mobile-menu-items-expanded-class="mobile-open"
+>
+  <ul id="site-nav-items" class="container">
+    <li class="site-nav-item-wrapper">
+      <a class="site-nav-item site-nav-item-home" href="/" aria-label="<%= _globals.name %> Home Page">
+        <span aria-hidden="true">{C.H}</span>
+      </a>
+    </li>
+    <li class="site-nav-item-wrapper">
+      <div id="site-nav-mobile-button-wrapper" class="site-nav-item"></div>
+      <ul id="site-nav-menu-items">
+        <% const navLinks = [
+          { label: "Blog", href: "/blog/" },
+          { label: "Projects", href: "/projects/" },
+          { label: "Experience", href: "/experience/" },
+        ]; %>
+        <% navLinks.forEach(({ label, href }) => { %>
+          <li class="site-nav-item-wrapper">
+            <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>
+            <a class="site-nav-item <%= active %>" href="<%= href %>">
+              <%= label %>
+            </a>
+          </lu>
+        <% }); %>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<main id="content">
+  <%~ it.body %>
+</main>
+<footer id="site-footer">
+  <div class="container gutter">
+    <div class="section">
+      <ul class="site-footer-items">
+        <li class="site-footer-name">
+          <%= _globals.name %>&nbsp;<i aria-label="Copyright" class="fa-solid fa-copyright"></i>&nbsp;<%= _globals.year %>
+        </li>
+        <li>
+          <a href="mailto:<%= _globals.email %>" target="_blank">
+            <i class="fa-solid fa-envelope"></i>&nbsp;Email<span class="sr-only"> (opens in a new window)</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%= _globals.mastodon %>" target="_blank">
+            <i class="fa-brands fa-mastodon"></i>&nbsp;Mastodon<span class="sr-only"> (opens in a new window)</span>
+          </a>
+        </li>
+        <li>
+          <a href="<%= _globals.linkedIn %>" target="_blank">
+            <i class="fa-brands fa-linkedin"></i>&nbsp;LinkedIn<span class="sr-only"> (opens in a new window)</span>
+          </a>
+        </li>
+        <li>
+          <a href="/rss.xml" target="_blank">
+            <i class="fa-solid fa-square-rss"></i>&nbsp;RSS<span class="sr-only"> (opens in a new window)</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

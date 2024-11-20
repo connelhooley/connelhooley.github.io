@@ -1,0 +1,45 @@
+<% layout("./layouts/default") %>
+<header class="page-header">
+  <div class="container gutter">
+    <h1>
+      <%= it.title %>
+      <% if (it.isLanguage) { %>&nbsp;<span class="tag"><span class="sr-only">(</span><i class="fa-solid fw fa-code"></i>Language<span class="sr-only">)</span></span><% } %>
+      <% if (it.isTechnology) { %>&nbsp;<span class="tag"><span class="sr-only">(</span><i class="fa-solid fw fa-code"></i>Technology<span class="sr-only">)</span></span><% } %>
+    </h1>
+  </div>
+</header>
+<div class="container gutter">
+  <div class="section narrow paged-items">
+    <% it.items.forEach(post => { %>
+      <div class="blog-post-paged-item">
+        <a class="blog-post-paged-item-link" href="<%= post.route %>">
+          <h2 class="blog-post-paged-item-title">
+            <%= post.data.title %>&nbsp;<i class="fa-solid fa-angles-right"></i>
+          </h2>
+        </a>
+        <p><%= post.data.description %></p>
+        <div class="blog-post-paged-item-meta">
+          <div class="blog-post-paged-item-meta-date">
+            <span data-relative-date="<%= post.data.date.toISOString() %>">
+              <%= new Intl.DateTimeFormat('en-GB').format(post.data.date) %>
+            </span>
+          </div>
+          <div class="blog-post-paged-item-meta-tags">
+            <%~ include("./partials/tags", {
+              languages: post.data?.languages,
+              technologies: post.data?.technologies,
+            }) %>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+    <div class="page-buttons">
+      <% if (it.prevPageRoute) { %>
+        <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Previous</a>
+      <% } %>
+      <% if (it.nextPageRoute) { %>
+        <a class="button" href="<%= it.nextPageRoute %>">Next&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
+      <% } %>
+    </div>
+  </div>
+</div>

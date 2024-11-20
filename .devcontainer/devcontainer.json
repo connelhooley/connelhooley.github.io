@@ -7,18 +7,25 @@
 		// Update 'VARIANT' to pick a Node version: 18, 16, 14.
 		// Append -bullseye or -buster to pin to an OS version.
 		// Use -bullseye variants on local arm64/Apple Silicon.
-		"args": { "VARIANT": "16-bullseye" }
+		"args": { "VARIANT": "22-bookworm" }
 	},
 
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"editor.tabSize": 2
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"editor.tabSize": 2
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"bierner.markdown-mermaid",
+				"csstools.postcss",
+				"dbaeumer.vscode-eslint",
+				"shadowtime2000.eta-vscode",
+				"streetsidesoftware.code-spell-checker"
+			]
+		}
 	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"dbaeumer.vscode-eslint"
-	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

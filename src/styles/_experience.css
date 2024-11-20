@@ -1,0 +1,29 @@
+.experience-items {
+  display: flex;
+  flex-direction: column;
+  max-width: 650px;
+  gap: var(--spacing-8);
+  & .experience-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    & .experience-item-title {
+      font-size: var(--text-3xl-font-size);
+      line-height: var(--text-3xl-line-height);
+    }
+    & .experience-item-sub-title {
+      font-size: var(--text-2xl-font-size);
+      line-height: var(--text-2xl-line-height);
+    }
+    & .experience-item-website {
+      text-decoration: underline;
+      color: var(--primary-color-dark);
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+    & .content *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

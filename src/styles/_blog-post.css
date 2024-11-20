@@ -1,0 +1,51 @@
+.blog-post {
+  & .page-header {
+    & h1 {
+      margin-bottom: 0;
+      font-size: var(--text-4xl-font-size);
+      line-height: var(--text-4xl-line-height);
+    }
+    & .container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+      @media (--screen-sm-up) {
+        gap: var(--spacing-4);
+        
+      }
+    }
+    & .blog-post-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+      @media (--screen-sm-up) {
+        flex-direction: row;
+        gap: var(--spacing-2);
+      }
+    }
+  }
+  & .copy-code-wrapper,
+  & pre,
+  & table,
+  & img {
+    clear: both;
+  }
+  & .content-heading {
+    &:hover {
+      & .content-heading-link {
+        display: inline-block;
+      }
+    }
+    & .content-heading-link {
+      display: none;
+      margin-left: var(--spacing-1);
+      font-size: var(--text-base-font-size);
+      line-height: var(--text-base-line-height);
+      color: var(--primary-color);
+      text-decoration: none;
+      &: hover {
+        color: var(--primary-color-dark);
+      }
+    }
+  }
+}

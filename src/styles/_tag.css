@@ -1,0 +1,17 @@
+.tag {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  font-size: var(--text-xs-font-size);
+  line-height: var(--text-xs-line-height);
+  padding: var(--spacing-1);
+  font-weight: 100;
+  margin-right: var(--spacing-1);
+  &a {
+    transition: color 300ms ease;
+    color: white;
+    &:hover {
+      color: var(--primary-color-dark);
+    }
+  }
+}

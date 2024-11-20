@@ -1,0 +1,100 @@
+.content {
+  color: var(--gray-color-800);
+  & a {
+    color: var(--primary-color-dark);
+    text-decoration: underline;
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+  & .copy-code-wrapper,
+  & table,
+  & img,
+  & p,
+  & ul,
+  & ol {
+    margin-bottom: var(--spacing-4);
+  }
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    margin-bottom: var(--spacing-1);
+  }
+  & h1 {
+    font-size: var(--text-4xl-font-size);
+    line-height: var(--text-4xl-line-height);
+  }
+  & h2 {
+    font-size: var(--text-3xl-font-size);
+    line-height: var(--text-3xl-line-height);
+  }
+  & h3 {
+    font-size: var(--text-2xl-font-size);
+    line-height: var(--text-2xl-line-height);
+  }
+  & h4 {
+    font-size: var(--text-xl-font-size);
+    line-height: var(--text-xl-line-height);
+  }
+  & h5 {
+    font-size: var(--text-lg-font-size);
+    line-height: var(--text-lg-line-height);
+  }
+  & h6 {
+    font-size: var(--text-base-font-size);
+    line-height: var(--text-base-line-height);
+  }
+  & ul,
+  & ol {
+    list-style-type: initial;
+    list-style-position: outside;
+    margin-left: var(--spacing-5);
+    & li::marker {
+      color: var(--gray-color-400);
+    }
+  }
+  & table {
+    text-align: left;
+    & thead,
+    & tbody tr {
+      border-bottom: 1px var(--gray-color-200) solid;
+    }
+    & tbody tr:last-child {
+      border-bottom: none;
+    }
+    & td,
+    & th {
+      vertical-align: top;
+      padding: var(--spacing-2);
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+    & td {
+      color: var(--gray-color-500);
+    }
+  }
+  & .copy-code-wrapper {
+    font-size: var(--text-xs-font-size);
+    line-height: var(--text-xs-line-height);
+    position: relative;
+    & .copy-code-button {
+      font-size: var(--text-xs-font-size);
+      line-height: var(--text-xs-line-height);
+      padding: var(--spacing-2);
+      position: absolute;
+      top: 0;
+      right: 0;
+      & i {
+        display: inline-block;
+        margin-right: var(--spacing-1);
+      }
+    }
+  }
+}
