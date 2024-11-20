@@ -611,7 +611,7 @@ export const renderBlog = async () => {
 };
 
 export const renderSlides = async () => {
-  console.log("Rendering slides content");
+  console.log("Rendering slides");
   const srcMdFilePaths = await glob(srcDir + "/content/slides/**/index.md");
   await Promise.all(srcMdFilePaths.map(async srcFilePath => {
     const srcFilePathParsed = path.parse(srcFilePath);
@@ -676,6 +676,7 @@ export const renderSlides = async () => {
     await mkdir(path.dirname(distMdFilePath), { recursive: true });
     await writeFile(distFilePath, parsedHtmlFile.toString("utf-8"));
   }));
+  console.log("Rendered slides");
 };
 
 await Promise.all([
