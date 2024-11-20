@@ -1,0 +1,17 @@
+@import url("_variables.css");
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --r-main-font-size: 32px;
+  --r-heading-color: var(--primary-color);
+  --r-link-color: var(--primary-color-dark);
+  --r-link-color-hover: var(--primary-color);
+  --r-link-color-dark: var(--primary-color-darker);
+  --r-selection-background-color: var(--primary-color);
+  --r-heading1-size: 2.2em;
+  --r-heading-font: var(--heading-font-family);
+}

@@ -122,25 +122,26 @@ console.log("Cleared dist");
 
 export const buildCss = async () => {
   console.log("Building CSS");
-  const srcFilePath = path.join(
-    srcDir,
-    "styles/main.css");
-  const distFilePath = path.join(
-    distDir,
-    "css/main.css");
-  const content = await readFile(srcFilePath);
-  const plugins = [
-    postcssImport,
-    postcssCustomMedia,
-    postcssNesting,
-    autoprefixer,
-  ];
-  const result = await postcss(plugins).process(content, { from: srcFilePath, to: distFilePath });
-  await mkdir(path.dirname(distFilePath), { recursive: true });
-  await writeFile(distFilePath, result.css);
-  if (result.map) {
-    await writeFile(distFilePath + ".map", result.map);
-  }
+  const srcCssFilePaths = await glob(srcDir + "/styles/**/!(_)*.css");
+  await Promise.all(srcCssFilePaths.map(async srcFilePath => {
+    const distFilePath = path.join(
+      distDir,
+      "css",
+      path.relative(path.join(srcDir, "styles"), srcFilePath));
+    const content = await readFile(srcFilePath);
+    const plugins = [
+      postcssImport,
+      postcssCustomMedia,
+      postcssNesting,
+      autoprefixer,
+    ];
+    const result = await postcss(plugins).process(content, { from: srcFilePath, to: distFilePath });
+    await mkdir(path.dirname(distFilePath), { recursive: true });
+    await writeFile(distFilePath, result.css);
+    if (result.map) {
+      await writeFile(distFilePath + ".map", result.map);
+    }
+  }));
   console.log("Built CSS");
 };
 
@@ -651,6 +652,7 @@ export const renderSlides = async () => {
             "/vendor/reveal.js/css/reset.css",
             "/vendor/reveal.js/css/reveal.css",
             "/vendor/reveal.js/css/theme/black.css",
+            "/css/slides.css",
           ],
           js: [
             "/vendor/reveal.js/js/plugins/notes.js",
