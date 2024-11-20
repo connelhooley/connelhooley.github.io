@@ -662,7 +662,6 @@ export const renderSlides = async () => {
         })
         .use(rehypeMeta, {
           ...defaultRehypeMetaOptions,
-          type: "article",
           title: parsedMdFile.data.title,
           published: parsedMdFile.data.date?.toISOString(),
           pathname: route,
