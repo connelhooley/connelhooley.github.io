@@ -14,8 +14,8 @@ export default function rehypeInferTocMeta() {
   return (tree, file) => {
     file.data ??= {};
     file.data.meta ??= {};
-    if (file.data?.matter?.toc === false) {
-      file.data.meta.toc = false;
+    file.data.matter ??= {};
+    if (file.data.matter.hideToc === true) {
       return;
     }
     const result = [];
