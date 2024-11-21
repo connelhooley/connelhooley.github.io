@@ -190,11 +190,11 @@
               <h1 id="functions" class="content-heading">Functions<a class="content-heading-link" href="#functions"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Functions section</span></span></a></h1>
               <p>Now we know what to put our function inside of, we are now ready to write our own function. Below is a simple add function put inside in a module and a namespace:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">namespace Helpers
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">namespace</span> Helpers
 
-module Maths =
-    let add num1 num2 =
-        num1 + num2
+<span class="hljs-keyword">module</span> Maths <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> add num1 num2 <span class="hljs-operator">=</span>
+        num1 <span class="hljs-operator">+</span> num2
 </code></pre>
               </div>
               <p>Lets go through this one line at a time:</p>
@@ -204,10 +204,10 @@ module Maths =
               <p><code>num1 + num2</code> is the body of the function (notice how it is indented so the compiler knows it is part of the function declaration on the line above). There is no <strong>return</strong> keyword in the function body. This is because all functions in F# are single statement <strong>expressions</strong>. The C# equivalent to this is when you have a single statement lambda (the ones without curly braces). When you do this in C# you do not have to use the return keyword and it is the same here in F#.</p>
               <p>Now we know our way around a function in F# we can take a look at the program file that is created for us by default in F# console projects.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">[&#x3C;EntryPoint>]
-let main argv =
-    printfn "%A" argv
-    0 // return an integer exit code
+                <pre><code class="hljs language-fsharp"><span class="hljs-meta">[&#x3C;EntryPoint>]</span>
+<span class="hljs-keyword">let</span> main argv <span class="hljs-operator">=</span>
+    <span class="hljs-built_in">printfn</span> <span class="hljs-string">"%A"</span> argv
+    <span class="hljs-number">0</span> <span class="hljs-comment">// return an integer exit code</span>
 </code></pre>
               </div>
               <p><code>[&#x3C;EntryPoint>]</code> is an F# attribute. The syntax is slightly different to C# where you only have the square brackets. This attribute is required for the main method in F#. The entry point in F# is important for two reasons:</p>
@@ -220,11 +220,11 @@ let main argv =
               <p><code>0</code> - the last line looks kind of strange but what is does is it returns 0 to the operating system to indicate the system terminated without an error. Much like you do when using the <code>Environment.Exit</code> method.</p>
               <p>Functions can contain their own nested functions. This tends to be how you scope functions in F#, as opposed to making methods public, private or protected like in C#.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let printSignedIn username  =
-    let print m =
-        Console.WriteLine(DateTime.Now.ToShortDateString() + " " + m)
-    print "Welcome"
-    print ("You have successfully as " + username)
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> printSignedIn username  <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> print m <span class="hljs-operator">=</span>
+        Console.WriteLine(DateTime.Now.ToShortDateString() <span class="hljs-operator">+</span> <span class="hljs-string">" "</span> <span class="hljs-operator">+</span> m)
+    print <span class="hljs-string">"Welcome"</span>
+    print (<span class="hljs-string">"You have successfully as "</span> <span class="hljs-operator">+</span> username)
 </code></pre>
               </div>
               <p>In the example above, the inner <code>print</code> function is only available inside the <code>printSignedIn</code> function. Indentation is again used to denote the contents of the inner function.</p>
@@ -233,7 +233,7 @@ let main argv =
               <p>The compiler will take a look at how the values are used in a function and then determine what the parameters and return type of the function should be.</p>
               <p>Sometimes the compiler won't be able to infer the types. When this happens you must use <strong>type annotations</strong>. For example if a function takes in a list and calls the Linq extension method called Any on it, the compiler will not be able to deduce the type. Take the following example:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let anyItems items =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> anyItems items <span class="hljs-operator">=</span>
     items.Any()
 </code></pre>
               </div>
@@ -243,8 +243,8 @@ let main argv =
               </blockquote>
               <p>Type annotations are when you tell the compiler what the type of a parameter or return value is, just like you do in C# already. The following example uses a type annotation:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">open System.Linq
-let anyItems (items: seq&#x3C;string>) =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">open</span> System.Linq
+<span class="hljs-keyword">let</span> anyItems (items<span class="hljs-operator">:</span> <span class="hljs-type">seq</span><span class="hljs-operator">&#x3C;</span><span class="hljs-type">string</span><span class="hljs-operator">></span>) <span class="hljs-operator">=</span>
    items.Any()
 </code></pre>
               </div>
@@ -265,7 +265,7 @@ let anyItems (items: seq&#x3C;string>) =
               <h1 id="generics" class="content-heading">Generics<a class="content-heading-link" href="#generics"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Generics section</span></span></a></h1>
               <p>Sometimes it doesn't actually matter what the types of a function's parameters or return value is. For example take the following F# code:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let returnSecondParameter param1 param2 =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> returnSecondParameter param1 param2 <span class="hljs-operator">=</span>
     param2
 </code></pre>
               </div>
@@ -279,9 +279,9 @@ let anyItems (items: seq&#x3C;string>) =
               <h1 id="equality" class="content-heading">Equality<a class="content-heading-link" href="#equality"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Equality section</span></span></a></h1>
               <p>In F# you only use a single equals sign for a comparison (as opposed to the double equals you will find in C#). Since values are immutable by default in F#, it is much more common to compare two values than to assign a new value to an existing value.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let isSumEven num1 num2 =
-    let sum = num1 + num2
-    sum % 2 = 0
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> isSumEven num1 num2 <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> sum <span class="hljs-operator">=</span> num1 <span class="hljs-operator">+</span> num2
+    sum <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>
 </code></pre>
               </div>
               <p>In the above example:</p>
@@ -322,9 +322,9 @@ let anyItems (items: seq&#x3C;string>) =
               </ul>
               <p>There are scenarios however, where you need an object to be mutable. One of these could be for performance reasons. If you have an array with a million items, you may not want to recreate an array of 999,999 items just remove one. You can make an object mutable in F# by using the <code>mutable</code> keyword:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let mutableValue () =
-    let mutable x = 5
-    x &#x3C;- 10
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> mutableValue () <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mutable</span> x <span class="hljs-operator">=</span> <span class="hljs-number">5</span>
+    x <span class="hljs-operator">&#x3C;-</span> <span class="hljs-number">10</span>
     x
 </code></pre>
               </div>
@@ -335,20 +335,20 @@ let anyItems (items: seq&#x3C;string>) =
               <p>One of the main uses for tuples is that they allow you to return multiple values from a function without having to create a small POCO class to contain them.</p>
               <p>In F# tuples are written using parenthesis with the items inside separated by commas. Below is an example of a function that returns a tuple that contains an integer and then a string:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let addTen num =
-    (num+10, "The original value was " + num)
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> addTen num <span class="hljs-operator">=</span>
+    (num<span class="hljs-operator">+</span><span class="hljs-number">10</span>, <span class="hljs-string">"The original value was "</span> <span class="hljs-operator">+</span> num)
 </code></pre>
               </div>
               <p>The example above returns the value with ten added to it in the tuple's first item, and a string containing the value in the tuple's second item.</p>
               <p>Tuples can also be unpacked or <em>deconstructed</em> when they are assigned to. Below is an example of how tuples are assigned to:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let result, message = addTen 20
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> result, message <span class="hljs-operator">=</span> addTen <span class="hljs-number">20</span>
 </code></pre>
               </div>
               <p>In the above example, <em>result</em> contains the integer in the first item of the tuple and <em>message</em> contains the string in the second item of the tuple. Unpacking tuples is optional. You can always unpack the tuple later. This is demonstrated in the following example:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let resultAndMessage = addTen 20
-let result, message = resultAndMessage
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> resultAndMessage <span class="hljs-operator">=</span> addTen <span class="hljs-number">20</span>
+<span class="hljs-keyword">let</span> result, message <span class="hljs-operator">=</span> resultAndMessage
 </code></pre>
               </div>
               <p>As you can see, using tuples is a very convenient way of returning multiple values from a function without having to create a small type and then extracting the values out of it. They also have another purpose in F# which we will cover <a href="#currying">later</a>.</p>
@@ -369,31 +369,31 @@ let result, message = resultAndMessage
               <p>This is because expressions must have a return type. F# has a special type called <strong>unit</strong>. Unit is an empty value. You cannot do anything with the unit type, but since it is an actual value (unlike void which is the absence of a value) you can use it in expressions. Any methods that return void in C#, such as <code>Thread.Sleep</code> and <code>Console.WriteLine</code>, return unit when used in F#.</p>
               <p>Unit is expressed in F# by using two brackets next to each other like this: <code>()</code>. It could be described as an empty tuple. Below is an example of an entirely pointless function that takes in unit and returns unit.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let returnUnit () =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> returnUnit () <span class="hljs-operator">=</span>
     ()
 </code></pre>
               </div>
               <p>If you want to disregard the returned value of a function and return unit instead, F# has a function called <code>ignore</code> that does this for you. For example <code>Console.ReadLine</code> returns a string but if we want our function to return unit, we can use the ignore function to <em>ignore</em> the string returned from the ReadLine method and return unit instead.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let waitUntilEnter () =
-   ignore (Console.ReadLine())
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> waitUntilEnter () <span class="hljs-operator">=</span>
+   <span class="hljs-built_in">ignore</span> (Console.ReadLine())
 </code></pre>
               </div>
               <p>The waitUntilEnter function above returns the empty unit type rather than the string returned by the ReadLine method.</p>
               <h1 id="records" class="content-heading">Records<a class="content-heading-link" href="#records"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Records section</span></span></a></h1>
               <p>Records are immutable POCO classes that offer value based equality for free (as opposed to the reference based equality you get by default in C#). Below is an example of a record declaration:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type Person = {
-    name: string
-    age: int
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> <span class="hljs-operator">=</span> {
+    name<span class="hljs-operator">:</span> <span class="hljs-type">string</span>
+    age<span class="hljs-operator">:</span> <span class="hljs-type">int</span>
 }
 </code></pre>
               </div>
               <p>To instantiate a record the following syntax is used:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let person = {
-    name = "Connel"
-    age = 26
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> person <span class="hljs-operator">=</span> {
+    name <span class="hljs-operator">=</span> <span class="hljs-string">"Connel"</span>
+    age <span class="hljs-operator">=</span> <span class="hljs-number">26</span>
 }
 </code></pre>
               </div>
@@ -401,25 +401,25 @@ let result, message = resultAndMessage
               <p>If you have two records with the same properties then you can use type annotations to tell the compiler which one to use, although this is very rare. If you have two records with the exact same properties you should probably merge them. Since a record is a class it can be placed inside a namespace or module.</p>
               <p>One of the best features of records is how they are compared. For example take the following F# code:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">open System
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">open</span> System
 
-type Person = {
-    name: string
-    age: int
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> <span class="hljs-operator">=</span> {
+    name<span class="hljs-operator">:</span> <span class="hljs-type">string</span>
+    age<span class="hljs-operator">:</span> <span class="hljs-type">int</span>
 }
 
-[&#x3C;EntryPoint>]
-let main argv =
-    let person1 = { name = "Connel"; age = 26 }
-    let person2 = { name = "Hooley"; age = 26 }
-    let person3 = { name = "Connel"; age = 26 }
-    let isPerson1Person2 = person1 = person2
-    let isPerson1Person3 = person1 = person3
-    Console.WriteLine(isPerson1Person2) // prints false
-    Console.WriteLine(isPerson1Person3) // prints true
-    Console.WriteLine("Press enter to exit")
-    let value = Console.ReadLine()
-    0 // return an integer exit code
+<span class="hljs-meta">[&#x3C;EntryPoint>]</span>
+<span class="hljs-keyword">let</span> main argv <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> person1 <span class="hljs-operator">=</span> { name <span class="hljs-operator">=</span> <span class="hljs-string">"Connel"</span>; age <span class="hljs-operator">=</span> <span class="hljs-number">26</span> }
+    <span class="hljs-keyword">let</span> person2 <span class="hljs-operator">=</span> { name <span class="hljs-operator">=</span> <span class="hljs-string">"Hooley"</span>; age <span class="hljs-operator">=</span> <span class="hljs-number">26</span> }
+    <span class="hljs-keyword">let</span> person3 <span class="hljs-operator">=</span> { name <span class="hljs-operator">=</span> <span class="hljs-string">"Connel"</span>; age <span class="hljs-operator">=</span> <span class="hljs-number">26</span> }
+    <span class="hljs-keyword">let</span> isPerson1Person2 <span class="hljs-operator">=</span> person1 <span class="hljs-operator">=</span> person2
+    <span class="hljs-keyword">let</span> isPerson1Person3 <span class="hljs-operator">=</span> person1 <span class="hljs-operator">=</span> person3
+    Console.WriteLine(isPerson1Person2) <span class="hljs-comment">// prints false</span>
+    Console.WriteLine(isPerson1Person3) <span class="hljs-comment">// prints true</span>
+    Console.WriteLine(<span class="hljs-string">"Press enter to exit"</span>)
+    <span class="hljs-keyword">let</span> value <span class="hljs-operator">=</span> Console.ReadLine()
+    <span class="hljs-number">0</span> <span class="hljs-comment">// return an integer exit code</span>
 </code></pre>
               </div>
               <p>In the example above we have a main method that creates 3 Person records. The first and second Person records have a different name, whereas the first and third records have the same properties. Notice how comparing person1 and person3 results in "True" being printed. This is because records check for equality by comparing <strong>all</strong> of their properties. It does not perform a reference comparison like C# does. This is really useful for <strong>unit testing</strong>. It means we do not have to waste our time writing <code>Equals</code> implementations to actual perform a valid comparison. The majority of the time we only care if the values in an object are equal and not the reference.</p>
@@ -457,9 +457,9 @@ let main argv =
               </div>
               <p>Therefore this F# code:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let a = 5
-let b = a * 2
-let c = a + b
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> a <span class="hljs-operator">=</span> <span class="hljs-number">5</span>
+<span class="hljs-keyword">let</span> b <span class="hljs-operator">=</span> a <span class="hljs-operator">*</span> <span class="hljs-number">2</span>
+<span class="hljs-keyword">let</span> c <span class="hljs-operator">=</span> a <span class="hljs-operator">+</span> b
 Console.WriteLine(c);
 </code></pre>
               </div>
@@ -498,10 +498,10 @@ Console.WriteLine(c);
               </blockquote>
               <p>Take the following F# function:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let doubleWhenTrue num predicate =
-    if(predicate(num)) then
-        num*2
-    else
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> doubleWhenTrue num predicate <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">if</span>(predicate(num)) <span class="hljs-keyword">then</span>
+        num<span class="hljs-operator">*</span><span class="hljs-number">2</span>
+    <span class="hljs-keyword">else</span>
         num
 </code></pre>
               </div>
@@ -511,10 +511,10 @@ Console.WriteLine(c);
               </blockquote>
               <p>Parenthesis are used to indicate the nested function that is a parameter. Parenthesis are also used to indicate a function that is returned. Take the following F# function:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let add num1 num2 =
-    let sum = num1 + num2
-    let returnFunction num =
-        sum + num
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> add num1 num2 <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> sum <span class="hljs-operator">=</span> num1 <span class="hljs-operator">+</span> num2
+    <span class="hljs-keyword">let</span> returnFunction num <span class="hljs-operator">=</span>
+        sum <span class="hljs-operator">+</span> num
     returnFunction
 </code></pre>
               </div>
@@ -535,15 +535,15 @@ Console.WriteLine(c);
               <p>This generic function type is pretty confusing and long, and this is a major reason why F# (and functional programming in general) leans heavily on type inference.</p>
               <p>In F# all functions are curried by default. For example take the following F# function:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let addTwoNumbers num1 num2 =
-    num1 + num2
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> addTwoNumbers num1 num2 <span class="hljs-operator">=</span>
+    num1 <span class="hljs-operator">+</span> num2
 </code></pre>
               </div>
               <p>The above function takes in two parameters and adds them together. In F# you can actually call this function with just one parameter. Since the function is curried it returns a function that takes in a single integer and returns an integer.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let addTen = addTwoNumbers 10
-let twelve = addTen 2
-let fifteen = addTen 5
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> addTen <span class="hljs-operator">=</span> addTwoNumbers <span class="hljs-number">10</span>
+<span class="hljs-keyword">let</span> twelve <span class="hljs-operator">=</span> addTen <span class="hljs-number">2</span>
+<span class="hljs-keyword">let</span> fifteen <span class="hljs-operator">=</span> addTen <span class="hljs-number">5</span>
 </code></pre>
               </div>
               <p>Calling a function without all of its parameters is called a <strong>partial function application</strong>. Due to F#'s built in currying, it is not possible to overload a function in F#. For example the following interface is perfectly valid in C#:</p>
@@ -558,8 +558,8 @@ let fifteen = addTen 5
               <p>In C#, the compiler knows that if you only provide one integer then it should call the first method and if you provide two then it should call the second method. In F# however, the compiler would not know whether you wanted to call the first method or <strong>partially apply</strong> the second method.</p>
               <p>If you want to prevent a function from being partially applied, you can group together the inputs in a tuple. Since a tuple is a single value you must give all of the items inside the tuple at the same time. For example take the following F# method:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let addTwoNumbersTuple (num1, num2)=
-    num1 + num2
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> addTwoNumbersTuple (num1, num2)<span class="hljs-operator">=</span>
+    num1 <span class="hljs-operator">+</span> num2
 </code></pre>
               </div>
               <p>This function takes a single tuple as its only parameter, instead of taking two separate integer values. The signature of this function is:</p>
@@ -615,28 +615,28 @@ let fifteen = addTen 5
               </div>
               <p>The hotel class takes in three dependencies in its constructor. It then takes in another two items in the book room method. In F# this would become one function like this:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Hotel
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Hotel
 
-open System
+<span class="hljs-keyword">open</span> System
 
-let bookRoom
-    (isRoomAvailable: int->DateTime->bool)
-    (getBooking: int->DateTime->string)
-    (emailBooking:string->string->unit)
-    (hotelId: int)
-    (emailAddress: string)
-    (dateTime: DateTime) =
-        if isRoomAvailable hotelId dateTime then
-            let bookingId = getBooking hotelId dateTime
+<span class="hljs-keyword">let</span> bookRoom
+    (isRoomAvailable<span class="hljs-operator">:</span> <span class="hljs-type">int</span><span class="hljs-operator">-></span>DateTime<span class="hljs-operator">-></span><span class="hljs-type">bool</span>)
+    (getBooking<span class="hljs-operator">:</span> <span class="hljs-type">int</span><span class="hljs-operator">-></span>DateTime<span class="hljs-operator">-></span><span class="hljs-type">string</span>)
+    (emailBooking<span class="hljs-operator">:</span><span class="hljs-type">string</span><span class="hljs-operator">-></span><span class="hljs-type">string</span><span class="hljs-operator">-></span><span class="hljs-type">unit</span>)
+    (hotelId<span class="hljs-operator">:</span> <span class="hljs-type">int</span>)
+    (emailAddress<span class="hljs-operator">:</span> <span class="hljs-type">string</span>)
+    (dateTime<span class="hljs-operator">:</span> DateTime) <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">if</span> isRoomAvailable hotelId dateTime <span class="hljs-keyword">then</span>
+            <span class="hljs-keyword">let</span> bookingId <span class="hljs-operator">=</span> getBooking hotelId dateTime
             emailBooking emailAddress bookingId
-            true
-        else
-            false
+            <span class="hljs-literal">true</span>
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-literal">false</span>
 </code></pre>
               </div>
               <p>I've added type annotations to the function's parameters so you can see their types, although they aren't necessary and could be removed to make it easier to read. Instead of injecting interfaces into a class's constructor, you pass in any dependant functions as the function's first parameters. This means you can partially apply the function like so:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let createBooking = Hotel.bookRoom BookingSystem.isRoomAvailable BookingSystem.getBooking Email.emailBooking 5
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> createBooking <span class="hljs-operator">=</span> Hotel.bookRoom BookingSystem.isRoomAvailable BookingSystem.getBooking Email.emailBooking <span class="hljs-number">5</span>
 </code></pre>
               </div>
               <p>In the line above, we call the <code>Hotel.bookRoom</code> function and only provide 4 out of its 6 parameters. This leaves us with a function with the following signature:</p>
@@ -653,12 +653,12 @@ let bookRoom
               <h1 id="lambdas" class="content-heading">Lambdas<a class="content-heading-link" href="#lambdas"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Lambdas section</span></span></a></h1>
               <p>Obviously F# has support for lambdas. If a function takes in another function as a parameter, then you can pass in a lambda, rather than using a let expression to create a function and then passing that in.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let doubleWhenTrue num predicate =
-    if(predicate(num)) then
-        num*2
-    else
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> doubleWhenTrue num predicate <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">if</span>(predicate(num)) <span class="hljs-keyword">then</span>
+        num<span class="hljs-operator">*</span><span class="hljs-number">2</span>
+    <span class="hljs-keyword">else</span>
         num
-let x = doubleWhenTrue 5 (fun i -> i % 2 = 0)
+<span class="hljs-keyword">let</span> x <span class="hljs-operator">=</span> doubleWhenTrue <span class="hljs-number">5</span> (<span class="hljs-keyword">fun</span> i <span class="hljs-operator">-></span> i <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>)
 </code></pre>
               </div>
               <p>The lambda above is <code>(fun i -> i % 2 = 0)</code>. Lambdas:</p>
@@ -670,31 +670,31 @@ let x = doubleWhenTrue 5 (fun i -> i % 2 = 0)
               <h1 id="discriminated-unions" class="content-heading">Discriminated Unions<a class="content-heading-link" href="#discriminated-unions"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Discriminated Unions section</span></span></a></h1>
               <p>In C#, if you want a function to take in one of several types you can use polymorphism or method overloads. As we have just covered, method overloads are not available to F# functions and records and tuples do not support inheritance. In F# discriminated unions tend to be used instead. A discriminated union type is like an enum of types. An instance of a discriminated union can be any <em>one</em> of the types in the enum. Below is an example of a discriminated union:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type State =
-| Error of Exception
-| Info of string
-| Warning of int * string
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">State</span> <span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> <span class="hljs-literal">Error</span> <span class="hljs-keyword">of</span> Exception
+<span class="hljs-operator">|</span> Info <span class="hljs-keyword">of</span> <span class="hljs-type">string</span>
+<span class="hljs-operator">|</span> Warning <span class="hljs-keyword">of</span> <span class="hljs-type">int</span> <span class="hljs-operator">*</span> <span class="hljs-type">string</span>
 </code></pre>
               </div>
               <p>An instance of the State type above can be an Error, Info or Warning. These identifiers are called <strong>union cases</strong>. In the above example the Error union case is an exception, the Info union case is a string, and the Warning union case is a tuple that contains an integer and a string. The following three functions all return the same <code>State</code> type.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let createError () = Error(Exception(""))
-let createInfo () = Info("Example info text here")
-let createWarning () = Warning(9, "Example warning text here")
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> createError () <span class="hljs-operator">=</span> <span class="hljs-literal">Error</span>(Exception(<span class="hljs-string">""</span>))
+<span class="hljs-keyword">let</span> createInfo () <span class="hljs-operator">=</span> Info(<span class="hljs-string">"Example info text here"</span>)
+<span class="hljs-keyword">let</span> createWarning () <span class="hljs-operator">=</span> Warning(<span class="hljs-number">9</span>, <span class="hljs-string">"Example warning text here"</span>)
 </code></pre>
               </div>
               <p>As you can see each union case has its own constructor that you must put the values into for that union case. Union cases can also be empty. When used like this they are much like an enum:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type State =
- | Error
- | Info
- | Warning
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">State</span> <span class="hljs-operator">=</span>
+ <span class="hljs-operator">|</span> <span class="hljs-literal">Error</span>
+ <span class="hljs-operator">|</span> Info
+ <span class="hljs-operator">|</span> Warning
 </code></pre>
               </div>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let createError () = Error
-let createInfo () = Info
-let createWarning () = Warning
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> createError () <span class="hljs-operator">=</span> <span class="hljs-literal">Error</span>
+<span class="hljs-keyword">let</span> createInfo () <span class="hljs-operator">=</span> Info
+<span class="hljs-keyword">let</span> createWarning () <span class="hljs-operator">=</span> Warning
 </code></pre>
               </div>
               <p>Whereas inheritance in C# offers the flexibility of a tree like structure, where objects inherit properties from their parents, discriminated unions offer a more flat structure, where objects do not share properties from their parent.</p>
@@ -702,16 +702,16 @@ let createWarning () = Warning
               <h1 id="match-expression-pattern-matching" class="content-heading">Match Expression (Pattern Matching)<a class="content-heading-link" href="#match-expression-pattern-matching"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Match Expression (Pattern Matching) section</span></span></a></h1>
               <p>The match expression and pattern matching are massive topics in their own right, and I will only be scratching the surface here. The match expression can be thought of as a more powerful switch statement. Below is an example of a match expression:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type State =
-    | Error of Exception
-    | Info of string
-    | Warning of int * string
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">State</span> <span class="hljs-operator">=</span>
+    <span class="hljs-operator">|</span> <span class="hljs-literal">Error</span> <span class="hljs-keyword">of</span> Exception
+    <span class="hljs-operator">|</span> Info <span class="hljs-keyword">of</span> <span class="hljs-type">string</span>
+    <span class="hljs-operator">|</span> Warning <span class="hljs-keyword">of</span> <span class="hljs-type">int</span> <span class="hljs-operator">*</span> <span class="hljs-type">string</span>
 
-let getStateMessage state =
-    match state with
-    | Error(ex) -> "Error message: " + ex.Message
-    | Info(message) -> "Info message: " + message
-    | Warning(num, message) -> "Warning message: " + message
+<span class="hljs-keyword">let</span> getStateMessage state <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> state <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> <span class="hljs-literal">Error</span>(ex) <span class="hljs-operator">-></span> <span class="hljs-string">"Error message: "</span> <span class="hljs-operator">+</span> ex.Message
+    <span class="hljs-operator">|</span> Info(message) <span class="hljs-operator">-></span> <span class="hljs-string">"Info message: "</span> <span class="hljs-operator">+</span> message
+    <span class="hljs-operator">|</span> Warning(num, message) <span class="hljs-operator">-></span> <span class="hljs-string">"Warning message: "</span> <span class="hljs-operator">+</span> message
 </code></pre>
               </div>
               <p>The function above takes in a <code>State</code> discriminated union and then performs pattern matching on it:</p>
@@ -724,9 +724,9 @@ let getStateMessage state =
               <p>A match expression unpacks or <em>deconstructs</em> the union cases it matches on. If you look at the error branch <code>Error(ex) -> "Error message: " + ex.Message</code> you can see that the expression that is ran has access to the exception inside the Error union case.</p>
               <p>Match expressions should be <strong>exhaustive</strong>. This means that no matter what value of a particular type is given to the expression, there should always be a branch that matches on that value. The match statement can perform pattern matching against any type, not just discriminated unions, as shown in the following example:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let matchNumbers x =
-    match x with
-    | 9 -> "I was given 9"
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> matchNumbers x <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> x <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> <span class="hljs-number">9</span> <span class="hljs-operator">-></span> <span class="hljs-string">"I was given 9"</span>
 </code></pre>
               </div>
               <p>The function above takes in an integer and performs pattern matching on it. If x matches the value of 9 then a string is returned. If the integer is not 9 however, a runtime exception will be thrown. This is because the match expression is not <strong>exhaustive</strong>. The above function actually generates a compile time warning:</p>
@@ -735,19 +735,19 @@ let getStateMessage state =
               </blockquote>
               <p>The compiler even gives you an example of a value that does not match! Match expressions have a concept similar to the <code>default</code> statement found in C# <code>switch</code> statements. The underscore wild-card in F# matches against any object. The following example is exhaustive:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let matchNumbers x =
-    match x with
-    | 9 -> "I was given 9"
-    | _ -> "I was not given 9"
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> matchNumbers x <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> x <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> <span class="hljs-number">9</span> <span class="hljs-operator">-></span> <span class="hljs-string">"I was given 9"</span>
+    <span class="hljs-operator">|</span> _ <span class="hljs-operator">-></span> <span class="hljs-string">"I was not given 9"</span>
 </code></pre>
               </div>
               <p>You can also use a conditional expression to match against a certain type when a certain condition is true. The following example demonstrates this:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let processAge age =
-    match age with
-    | age when age &#x3C; 18 -> "Child: " + age
-    | age when age > 65 -> "OAP:" + age
-    | age -> "Adult: " + age
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> processAge age <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> age <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> age <span class="hljs-keyword">when</span> age <span class="hljs-operator">&#x3C;</span> <span class="hljs-number">18</span> <span class="hljs-operator">-></span> <span class="hljs-string">"Child: "</span> <span class="hljs-operator">+</span> age
+    <span class="hljs-operator">|</span> age <span class="hljs-keyword">when</span> age <span class="hljs-operator">></span> <span class="hljs-number">65</span> <span class="hljs-operator">-></span> <span class="hljs-string">"OAP:"</span> <span class="hljs-operator">+</span> age
+    <span class="hljs-operator">|</span> age <span class="hljs-operator">-></span> <span class="hljs-string">"Adult: "</span> <span class="hljs-operator">+</span> age
 </code></pre>
               </div>
               <p>As you can see, the <code>when</code> keyword can be used to add a condition to a branch. For example <code>age when age &#x3C; 18</code> only matches when age is below 18. This example also demonstrates how to have a branch that matches any value, whilst still using that value in the branch's expression. When you match with the underscore wild-card, you cannot access the value that is matched against in the expression to the right of the arrow. To match against any value simply give the value a name. This branch <code>age -> "Adult: " + age</code> matches against any integer and gives it the name <em>age</em>. Age is then available in the expression to the right of the arrow.</p>
@@ -755,58 +755,58 @@ let getStateMessage state =
               <h1 id="exceptions" class="content-heading">Exceptions<a class="content-heading-link" href="#exceptions"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Exceptions section</span></span></a></h1>
               <p>Exceptions in F# are like discriminated unions with a single union case. Below is an example of an F# exception type, whose contents is a tuple that contains a string in its first item, and a record in its second item.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">exception InvalidPerson of string * Person
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">exception</span> InvalidPerson <span class="hljs-keyword">of</span> <span class="hljs-type">string</span> <span class="hljs-operator">*</span> Person
 </code></pre>
               </div>
               <p>To throw an exception the <code>raise</code> keyword is used.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">exception InvalidName of string
-exception InvalidAge of int
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">exception</span> InvalidName <span class="hljs-keyword">of</span> <span class="hljs-type">string</span>
+<span class="hljs-keyword">exception</span> InvalidAge <span class="hljs-keyword">of</span> <span class="hljs-type">int</span>
 
-let validate person =
-    if person.name &#x3C;> "Connel" then
-        raise(InvalidName(person.name))
-    else if person.age &#x3C; 18 then
-        raise(InvalidAge(person.age))
-    else
+<span class="hljs-keyword">let</span> validate person <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">if</span> person.name <span class="hljs-operator">&#x3C;></span> <span class="hljs-string">"Connel"</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">raise</span>(InvalidName(person.name))
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> person.age <span class="hljs-operator">&#x3C;</span> <span class="hljs-number">18</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">raise</span>(InvalidAge(person.age))
+    <span class="hljs-keyword">else</span>
         person
 </code></pre>
               </div>
               <p>The raise keyword can also throw .NET exceptions created outside of F#:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let validate person =
-    if person.name &#x3C;> "Connel" &#x26;&#x26; person.age &#x3C; 18 then
-        raise(InvalidOperationException())
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> validate person <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">if</span> person.name <span class="hljs-operator">&#x3C;></span> <span class="hljs-string">"Connel"</span> <span class="hljs-operator">&#x26;&#x26;</span> person.age <span class="hljs-operator">&#x3C;</span> <span class="hljs-number">18</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">raise</span>(InvalidOperationException())
 </code></pre>
               </div>
               <h1 id="try-expression" class="content-heading">Try Expression<a class="content-heading-link" href="#try-expression"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Try Expression section</span></span></a></h1>
               <p>The try expression is used in F# to catch thrown exceptions. It has a very similar syntax to the match expression:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">exception InvalidName of string
-exception InvalidAge of int
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">exception</span> InvalidName <span class="hljs-keyword">of</span> <span class="hljs-type">string</span>
+<span class="hljs-keyword">exception</span> InvalidAge <span class="hljs-keyword">of</span> <span class="hljs-type">int</span>
 
-let validate person =
-    if person.name &#x3C;> "Connel" then
-        raise(InvalidName(person.name))
-    else if person.age &#x3C; 18 then
-        raise(InvalidAge(person.age))
+<span class="hljs-keyword">let</span> validate person <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">if</span> person.name <span class="hljs-operator">&#x3C;></span> <span class="hljs-string">"Connel"</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">raise</span>(InvalidName(person.name))
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> person.age <span class="hljs-operator">&#x3C;</span> <span class="hljs-number">18</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">raise</span>(InvalidAge(person.age))
 
-let print person =
-    try
+<span class="hljs-keyword">let</span> print person <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">try</span>
         validate person
-        Console.WriteLine("Person is valid")
-    with
-    | InvalidName(name) -> Console.WriteLine("Person is not named connel, person is named" + name)
-    | InvalidAge(age) -> Console.WriteLine("Person is under 18, person is " + age.ToString() + " years old")
+        Console.WriteLine(<span class="hljs-string">"Person is valid"</span>)
+    <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> InvalidName(name) <span class="hljs-operator">-></span> Console.WriteLine(<span class="hljs-string">"Person is not named connel, person is named"</span> <span class="hljs-operator">+</span> name)
+    <span class="hljs-operator">|</span> InvalidAge(age) <span class="hljs-operator">-></span> Console.WriteLine(<span class="hljs-string">"Person is under 18, person is "</span> <span class="hljs-operator">+</span> age.ToString() <span class="hljs-operator">+</span> <span class="hljs-string">" years old"</span>)
 </code></pre>
               </div>
               <p>Pattern matching does not work as nicely with exceptions created outside of F#. To match none F# exceptions you have to use the <code>:?</code> operator, which checks the type of an object. It is the F# equivalent of the <code>is</code> keyword in C#.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let divide num1 num2 =
-    try
-        (num1 / num2)
-    with
-    | :? DivideByZeroException -> 0
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> divide num1 num2 <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">try</span>
+        (num1 <span class="hljs-operator">/</span> num2)
+    <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> <span class="hljs-operator">:?</span> DivideByZeroException <span class="hljs-operator">-></span> <span class="hljs-number">0</span>
 </code></pre>
               </div>
               <h1 id="collection-types" class="content-heading">Collection Types<a class="content-heading-link" href="#collection-types"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Collection Types section</span></span></a></h1>
@@ -824,20 +824,20 @@ let print person =
               </div>
               <p>You can only use the <em>yield</em> keyword when inside the curly braces of a seq expression. When using IEnumerables in C#, you very rarely create them yourselves and instead use helper methods like <code>IEnumerable.Range</code>. In F# this is no different.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let doubleNumber i = i* 2
-let numbersSeq = Seq.init 5 doubleNumber
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> doubleNumber i <span class="hljs-operator">=</span> i<span class="hljs-operator">*</span> <span class="hljs-number">2</span>
+<span class="hljs-keyword">let</span> numbersSeq <span class="hljs-operator">=</span> Seq.init <span class="hljs-number">5</span> doubleNumber
 </code></pre>
               </div>
               <p>The example above creates a sequence that is five numbers long and produces a sequence of numbers where the five numbers are doubled.</p>
               <p><code>List</code> is an eagerly loaded linked list. It is not the same as the C# List type. To create a list use squared brackets:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let numbersList = [1; 2; 3; 4; 5]
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> numbersList <span class="hljs-operator">=</span> [<span class="hljs-number">1</span>; <span class="hljs-number">2</span>; <span class="hljs-number">3</span>; <span class="hljs-number">4</span>; <span class="hljs-number">5</span>]
 </code></pre>
               </div>
               <p>If you want the list to be written over one line then use semi-colons as a delimiter (like above) otherwise you can use a new line instead.</p>
               <p><code>Array</code> is the same as a traditional C# array. It has the exact same syntax as an F# list, just with an extra pipe (|) character:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let numbersArray = [|1; 2; 3; 4; 5|]
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> numbersArray <span class="hljs-operator">=</span> [<span class="hljs-operator">|</span><span class="hljs-number">1</span>; <span class="hljs-number">2</span>; <span class="hljs-number">3</span>; <span class="hljs-number">4</span>; <span class="hljs-number">5</span><span class="hljs-operator">|</span>]
 </code></pre>
               </div>
               <p>All three of these types also have corresponding modules that expose functions that you can use on these types. A lot of these functions offer the same functionality as the Linq extension methods in C#, but some of them have different names. Below is a table comparing some of the names:</p>
@@ -873,9 +873,9 @@ let numbersSeq = Seq.init 5 doubleNumber
               </table>
               <p>The following F# code:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let items = [1;2;3;4;5]
-let doubledItems = List.map (fun i -> i*2) items
-let evenItems = List.filter (fun i -> i%2 = 0) doubledItems
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> items <span class="hljs-operator">=</span> [<span class="hljs-number">1</span>;<span class="hljs-number">2</span>;<span class="hljs-number">3</span>;<span class="hljs-number">4</span>;<span class="hljs-number">5</span>]
+<span class="hljs-keyword">let</span> doubledItems <span class="hljs-operator">=</span> List.map (<span class="hljs-keyword">fun</span> i <span class="hljs-operator">-></span> i<span class="hljs-operator">*</span><span class="hljs-number">2</span>) items
+<span class="hljs-keyword">let</span> evenItems <span class="hljs-operator">=</span> List.filter (<span class="hljs-keyword">fun</span> i <span class="hljs-operator">-></span> i<span class="hljs-operator">%</span><span class="hljs-number">2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>) doubledItems
 </code></pre>
               </div>
               <p>Equates to the following C# code:</p>
@@ -889,30 +889,30 @@ let evenItems = List.filter (fun i -> i%2 = 0) doubledItems
               <p>In C#, fluent APIs are becoming more and more popular. Fluent APIs read really well as you can chain method calls together without needing to declare several local variables. They are also appealing as they read left to right, so they read much more like an actual language. In C# extension methods and the <a href="http://blogs.tedneward.com/patterns/Builder-CSharp" rel="external nofollow noopener noreferrer" target="_blank">builder pattern<span class="external-link-icon-wrapper"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span class="sr-only">(opens in a new window)</span></span></a> have become the ways in which fluent APIs tend to be implemented. The problem with the builder pattern approach is that you have to spend the time to design and write a lot of additional code. This additional code then needs to be tested. Extension methods (like those found in Linq) also require you to write your code in a particular way.</p>
               <p>F# however allows you write fluent APIs with almost no effort at all. All you have to do is make sure the subject of the function is the last parameter, you can then use the pipe operator to chain method calls together. The pipe operator is typed as <code>|></code>. It is very simple in what it does. The pipe operator is simply the following function:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let (|>) x f = f x
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> (<span class="hljs-operator">|></span>) x f <span class="hljs-operator">=</span> f x
 </code></pre>
               </div>
               <p>It takes an item and a function that takes in that item. All it does, is it puts the parameter before the function. So <code>String.IsNullOrEmpty "Connel"</code> becomes <code>"Connel" |> String.IsNullOrEmpty</code>. Just swapping the order of the items immediately makes the function read left to right, more like and actual language. When you use the pipe operator with partially applied functions, the result is a fluent API:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">let filterList items =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">let</span> filterList items <span class="hljs-operator">=</span>
     items
-    |> Seq.map (fun i -> i*2)
-    |> Seq.filter (fun i -> i%2 = 0)
+    <span class="hljs-operator">|></span> Seq.map (<span class="hljs-keyword">fun</span> i <span class="hljs-operator">-></span> i<span class="hljs-operator">*</span><span class="hljs-number">2</span>)
+    <span class="hljs-operator">|></span> Seq.filter (<span class="hljs-keyword">fun</span> i <span class="hljs-operator">-></span> i<span class="hljs-operator">%</span><span class="hljs-number">2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>)
 </code></pre>
               </div>
               <p>The example above takes in a sequence. It then pipes that sequence into the mapping function. <code>Seq.map</code> is the F# equivalent of the <code>Select</code> extension method in Linq. It takes two parameters, the first is a function that should be performed on each item in the sequence, and the second is the sequence itself. When we call <code>Seq.map (fun i -> i*2)</code> we do not supply the sequence as a final parameter. This results in a partially applied function, that only takes in a sequence, which is the exact signature we need for our pipe operator to work. This is why functions in F# take their "main" parameter last, rather than first as it is seen in C#.</p>
               <h1 id="option-type" class="content-heading">Option Type<a class="content-heading-link" href="#option-type"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Option Type section</span></span></a></h1>
               <p>F# types cannot be null. The following example will not compile:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type Person = {
-    name: string
-    age: int
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> <span class="hljs-operator">=</span> {
+    name<span class="hljs-operator">:</span> <span class="hljs-type">string</span>
+    age<span class="hljs-operator">:</span> <span class="hljs-type">int</span>
 }
-let person1: Person = {
-    name = "Connel"
-    age = 26
+<span class="hljs-keyword">let</span> person1<span class="hljs-operator">:</span> Person <span class="hljs-operator">=</span> {
+    name <span class="hljs-operator">=</span> <span class="hljs-string">"Connel"</span>
+    age <span class="hljs-operator">=</span> <span class="hljs-number">26</span>
 }
-let person2: Person = null
+<span class="hljs-keyword">let</span> person2<span class="hljs-operator">:</span> Person <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>
 </code></pre>
               </div>
               <p>The above example uses let expressions with type annotations. This means that we provide the type and it is not inferred by the compiler. I used type annotations, as when assigning null to a value, the compiler will obviously not be able to infer the type. Much like how you cannot do <code>var x = null</code> in C#. The bottom line in the above example results in the following compiler error:</p>
@@ -927,13 +927,13 @@ let person2: Person = null
               </ul>
               <p>F# has a different mechanism for representing an object that may or may not have a value, called the <strong>Option</strong> type. It is simply a discriminated union that represents either <strong>Some</strong> value or the <strong>None</strong> value. The following example matches a regex expression.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module RegexHelpers
-    open System.Text.RegularExpressions
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> RegexHelpers
+    <span class="hljs-keyword">open</span> System.Text.RegularExpressions
 
-    let regexMatch pattern input =
-        match Regex.Match(input, pattern) with
-        | regexMatch when regexMatch.Success -> Some(regexMatch.Value)
-        | _ -> None
+    <span class="hljs-keyword">let</span> regexMatch pattern input <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">match</span> Regex.Match(input, pattern) <span class="hljs-keyword">with</span>
+        <span class="hljs-operator">|</span> regexMatch <span class="hljs-keyword">when</span> regexMatch.Success <span class="hljs-operator">-></span> <span class="hljs-literal">Some</span>(regexMatch.Value)
+        <span class="hljs-operator">|</span> _ <span class="hljs-operator">-></span> <span class="hljs-literal">None</span>
 </code></pre>
               </div>
               <p>The signature of the function above is:</p>
@@ -942,21 +942,21 @@ let person2: Person = null
               </blockquote>
               <p><code>string option</code> is just another way of writing <code>option&#x3C;string></code>. Instead of throwing an exception or null, we return a discriminated union that could be either a value or an empty value. You can then immediately see how to consume this function, purely from its signature. The function that then consumes this value, can use pattern matching to either extract the result from the Some union case, or do something with the None union case.</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">open System
-open System.Text.RegularExpressions
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">open</span> System
+<span class="hljs-keyword">open</span> System.Text.RegularExpressions
 
-let regexMatch pattern input =
-    match Regex.Match(input, pattern) with
-    | regexMatch when regexMatch.Success -> Some(regexMatch.Value)
-    | _ -> None
+<span class="hljs-keyword">let</span> regexMatch pattern input <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> Regex.Match(input, pattern) <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> regexMatch <span class="hljs-keyword">when</span> regexMatch.Success <span class="hljs-operator">-></span> <span class="hljs-literal">Some</span>(regexMatch.Value)
+    <span class="hljs-operator">|</span> _ <span class="hljs-operator">-></span> <span class="hljs-literal">None</span>
 
-let getAge input =
-    match regexMatch @"\d+" input with
-    | Some(value) -> value
-    | None -> "Age is unknown"
+<span class="hljs-keyword">let</span> getAge input <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">match</span> regexMatch <span class="hljs-string">@"\d+"</span> input <span class="hljs-keyword">with</span>
+    <span class="hljs-operator">|</span> <span class="hljs-literal">Some</span>(value) <span class="hljs-operator">-></span> value
+    <span class="hljs-operator">|</span> <span class="hljs-literal">None</span> <span class="hljs-operator">-></span> <span class="hljs-string">"Age is unknown"</span>
 
-let connelAge = getAge "Connel 26"
-let bobAge = getAge "Bob N/A"
+<span class="hljs-keyword">let</span> connelAge <span class="hljs-operator">=</span> getAge <span class="hljs-string">"Connel 26"</span>
+<span class="hljs-keyword">let</span> bobAge <span class="hljs-operator">=</span> getAge <span class="hljs-string">"Bob N/A"</span>
 </code></pre>
               </div>
               <p>In the above example connelAge equals "26" and bob equals "Age is unknown". Consuming the option type forces us to cater for both a successful match and an unsuccessful match. The only way to get the inner value of a discriminated union is to pattern match and if we don't have an exhaustive match expression, the compiler tells us off. It is impossible to access the value inside the option type when it is not there, so it is impossible to get a runtime exception by accessing it accidentally.</p>

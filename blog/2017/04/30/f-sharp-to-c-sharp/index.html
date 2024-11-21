@@ -122,17 +122,17 @@
               <p>F# is a multi-paradigm language. It can be used to write functional or object orientated code. OO code in F# (such as classes or interfaces) can be accessed just fine from C#.</p>
               <p>The following F# code creates a class that inherits from an interface:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">namespace Interoperability.FSharp
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">namespace</span> Interoperability.FSharp
 
-type ILogin =
-   abstract member IsValid: bool
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ILogin</span> <span class="hljs-operator">=</span>
+   <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">member</span> IsValid<span class="hljs-operator">:</span> <span class="hljs-type">bool</span>
 
-type Login(id:int, username:string, password:string) =
-    member this.Id = id
-    member this.Username = username
-    member this.Password = password
-    interface ILogin with
-        member this.IsValid = this.Username = "connel" &#x26;&#x26; this.Password = "password"
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Login</span>(<span class="hljs-built_in">id</span><span class="hljs-operator">:</span><span class="hljs-type">int</span>, username<span class="hljs-operator">:</span><span class="hljs-type">string</span>, password<span class="hljs-operator">:</span><span class="hljs-type">string</span>) <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">member</span> this.Id <span class="hljs-operator">=</span> <span class="hljs-built_in">id</span>
+    <span class="hljs-keyword">member</span> this.Username <span class="hljs-operator">=</span> username
+    <span class="hljs-keyword">member</span> this.Password <span class="hljs-operator">=</span> password
+    <span class="hljs-keyword">interface</span> ILogin <span class="hljs-keyword">with</span>
+        <span class="hljs-keyword">member</span> this.IsValid <span class="hljs-operator">=</span> this.Username <span class="hljs-operator">=</span> <span class="hljs-string">"connel"</span> <span class="hljs-operator">&#x26;&#x26;</span> this.Password <span class="hljs-operator">=</span> <span class="hljs-string">"password"</span>
 </code></pre>
               </div>
               <p>This code is easy to consume from C#:</p>
@@ -172,8 +172,8 @@ type Login(id:int, username:string, password:string) =
               <p>F# projects do not have a <em>default namespace</em> option in their project settings. If you do not put a module in a namespace, then it becomes available globally in any C# projects that reference its project.</p>
               <p>The following F# function:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let add num1 num2 = num1 + num2
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> add num1 num2 <span class="hljs-operator">=</span> num1 <span class="hljs-operator">+</span> num2
 </code></pre>
               </div>
               <p>Can be consumed in C# like so:</p>
@@ -194,10 +194,10 @@ type Login(id:int, username:string, password:string) =
               </div>
               <p>Note that the C# code does not require a <code>using</code> statement to use the F# <code>Example</code> module. If we add a namespace to the module:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">namespace Interoperability.FSharp
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">namespace</span> Interoperability.FSharp
 
-module Example =
-    let add num1 num2 = num1 + num2
+<span class="hljs-keyword">module</span> Example <span class="hljs-operator">=</span>
+    <span class="hljs-keyword">let</span> add num1 num2 <span class="hljs-operator">=</span> num1 <span class="hljs-operator">+</span> num2
 </code></pre>
               </div>
               <p>Then a <code>using</code> statement is required in the C# project:</p>
@@ -238,8 +238,8 @@ module Example =
               <h2 id="values" class="content-heading">Values<a class="content-heading-link" href="#values"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Values section</span></span></a></h2>
               <p>Modules can contain values:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let message = "This is an example getter"
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> message <span class="hljs-operator">=</span> <span class="hljs-string">"This is an example getter"</span>
 </code></pre>
               </div>
               <p>These values are exposed to C# as properties with a getter:</p>
@@ -252,8 +252,8 @@ module Example =
               </div>
               <p>Modules can also contain mutable values:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let mutable message = "This is an example getter"
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mutable</span> message <span class="hljs-operator">=</span> <span class="hljs-string">"This is an example getter"</span>
 </code></pre>
               </div>
               <p>Mutable values are exposed to C# as properties with a getter and setter:</p>
@@ -269,10 +269,10 @@ module Example =
               <h1 id="records" class="content-heading">Records<a class="content-heading-link" href="#records"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Records section</span></span></a></h1>
               <p>F# records are exposed to C# as classes that take in all of their properties in their constructor. The following F# record contains a <code>string</code>, an <code>int</code> and an <code>IEnumerable&#x3C;string></code>:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type Person = {
-    id: int
-    name: string
-    friends: string seq
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Person</span> <span class="hljs-operator">=</span> {
+    <span class="hljs-built_in">id</span><span class="hljs-operator">:</span> <span class="hljs-type">int</span>
+    name<span class="hljs-operator">:</span> <span class="hljs-type">string</span>
+    friends<span class="hljs-operator">:</span> <span class="hljs-type">string</span> <span class="hljs-type">seq</span>
 }
 </code></pre>
               </div>
@@ -354,8 +354,8 @@ module Example =
               <p>Let's see how F# tuples (System.Tuple) can be used in C#.</p>
               <p>The following F# function takes in a tuple and returns a tuple:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let flipFSharpTuple (val1, val2) =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> flipFSharpTuple (val1, val2) <span class="hljs-operator">=</span>
         (val2, val1)
 </code></pre>
               </div>
@@ -371,8 +371,8 @@ module Example =
               </div>
               <p>The following F# function takes in and returns a tuple that contains a tuple:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let flipFSharpInnerTuple (val1, (val2, val3)) =
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> flipFSharpInnerTuple (val1, (val2, val3)) <span class="hljs-operator">=</span>
         (val1, (val3, val2))
 </code></pre>
               </div>
@@ -420,26 +420,26 @@ module Example =
               <p>Let's see how C# tuples (System.ValueTuple) created in F# can be used in C#. To create a C# tuple in F# the <code>struct</code> keyword is used.</p>
               <p>The following F# function takes in a tuple and returns a tuple:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let flipCSharpTuple struct(val1, val2) =
-        struct(val2, val1)
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> flipCSharpTuple <span class="hljs-keyword">struct</span>(val1, val2) <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">struct</span>(val2, val1)
 </code></pre>
               </div>
               <p>It can be consumed in C# like so:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">private static void Main()
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> Main()
 {
-    (string result1, string result2) = Example.flipCSharpTuple(("a", "b"));
-    Console.WriteLine($"{result1} {result2}"); //prints b a
+    (string result1, string result2) <span class="hljs-operator">=</span> Example.flipCSharpTuple((<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>));
+    Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{result1}</span> <span class="hljs-subst">{result2}</span>"</span>); <span class="hljs-comment">//prints b a</span>
     Console.ReadLine();
 }
 </code></pre>
               </div>
               <p>The following F# function takes in and returns a tuple that contains a tuple:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let flipCSharpInnerTuple struct(val1, struct(val2, val3)) =
-        struct(val1, struct(val3, val2))
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> flipCSharpInnerTuple <span class="hljs-keyword">struct</span>(val1, <span class="hljs-keyword">struct</span>(val2, val3)) <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">struct</span>(val1, <span class="hljs-keyword">struct</span>(val3, val2))
 </code></pre>
               </div>
               <p>It can be consumed in C# like so:</p>
@@ -476,10 +476,10 @@ module Example =
               <p>Discriminated unions that contain values are compiled down to enums and are therefore easy to consume in C#.</p>
               <p>The following F# type:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type LogLevels =
-| Error = 1
-| Warning = 2
-| Info = 3
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">LogLevels</span> <span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> <span class="hljs-literal">Error</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>
+<span class="hljs-operator">|</span> Warning <span class="hljs-operator">=</span> <span class="hljs-number">2</span>
+<span class="hljs-operator">|</span> Info <span class="hljs-operator">=</span> <span class="hljs-number">3</span>
 </code></pre>
               </div>
               <p>Is compiled down to the following enum:</p>
@@ -494,10 +494,10 @@ module Example =
               </div>
               <p>F# has support for using <code>char</code>s as values but these types cannot be used in C#. The following F# type:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type LogLevels =
-| Error = 'a'
-| Warning = 'b'
-| Info = 'c'
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">LogLevels</span> <span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> <span class="hljs-literal">Error</span> <span class="hljs-operator">=</span> <span class="hljs-string">'a'</span>
+<span class="hljs-operator">|</span> Warning <span class="hljs-operator">=</span> <span class="hljs-string">'b'</span>
+<span class="hljs-operator">|</span> Info <span class="hljs-operator">=</span> <span class="hljs-string">'c'</span>
 </code></pre>
               </div>
               <p>Gives the following error in C#:</p>
@@ -508,10 +508,10 @@ module Example =
               <p>The most common form of discriminated unions however, have cases that are either empty or contain types.</p>
               <p>The following F# discriminated union type:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type LogLevels =
-| Error
-| Warning
-| Info
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">LogLevels</span> <span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> <span class="hljs-literal">Error</span>
+<span class="hljs-operator">|</span> Warning
+<span class="hljs-operator">|</span> Info
 </code></pre>
               </div>
               <p>Is exposed to C# as a class with the following signature:</p>
@@ -571,10 +571,10 @@ module Example =
               </div>
               <p>Now let's look at the following F# type:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">type LogLevels =
-| Error of int
-| Warning of struct(int * string)
-| Info of string
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">type</span> <span class="hljs-title class_">LogLevels</span> <span class="hljs-operator">=</span>
+<span class="hljs-operator">|</span> <span class="hljs-literal">Error</span> <span class="hljs-keyword">of</span> <span class="hljs-type">int</span>
+<span class="hljs-operator">|</span> Warning <span class="hljs-keyword">of</span> <span class="hljs-keyword">struct</span>(<span class="hljs-type">int</span> <span class="hljs-operator">*</span> <span class="hljs-type">string</span>)
+<span class="hljs-operator">|</span> Info <span class="hljs-keyword">of</span> <span class="hljs-type">string</span>
 </code></pre>
               </div>
               <p>This type is exposed to C# as a class with the following signature:</p>
@@ -650,8 +650,8 @@ module Example =
               <h1 id="unit" class="content-heading">Unit<a class="content-heading-link" href="#unit"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Unit section</span></span></a></h1>
               <p>Functions that return unit, return void in C#. The following pointless F# code takes in unit and returns unit:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let run () = ()
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> run () <span class="hljs-operator">=</span> ()
 </code></pre>
               </div>
               <p>This function is exposed to C# as a method that has no parameters and returns void:</p>
@@ -664,9 +664,9 @@ module Example =
               </div>
               <p>So far so good. But what happens if we write a really (really) pointless function that takes in a tuple (that contains a value and unit) and then returns the same tuple flipped:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let flipUnitTuple (val1, ()) =
-        struct((), val1)
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> flipUnitTuple (val1, ()) <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">struct</span>((), val1)
 </code></pre>
               </div>
               <p>To consume this function, we are asked to reference FSharp.Core:</p>
@@ -715,12 +715,12 @@ module Example =
               <h1 id="option" class="content-heading">Option<a class="content-heading-link" href="#option"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Option section</span></span></a></h1>
               <p>The following F# module contains a function that returns an option type:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    open System
-    let parseInt x =
-        match Int32.TryParse(x) with
-        | success, result when success -> Some(result)
-        | _ -> None
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">open</span> System
+    <span class="hljs-keyword">let</span> parseInt x <span class="hljs-operator">=</span>
+        <span class="hljs-keyword">match</span> Int32.TryParse(x) <span class="hljs-keyword">with</span>
+        <span class="hljs-operator">|</span> success, result <span class="hljs-keyword">when</span> success <span class="hljs-operator">-></span> <span class="hljs-literal">Some</span>(result)
+        <span class="hljs-operator">|</span> _ <span class="hljs-operator">-></span> <span class="hljs-literal">None</span>
 </code></pre>
               </div>
               <p>It is exposed to C# as a class with the following signature:</p>
@@ -793,9 +793,9 @@ module Example =
               <h2 id="seq" class="content-heading">Seq<a class="content-heading-link" href="#seq"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Seq section</span></span></a></h2>
               <p>The following F# module contains a function that returns <code>seq</code>:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let getSeq = seq {
-        yield "a"
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> getSeq <span class="hljs-operator">=</span> <span class="hljs-keyword">seq</span> {
+        <span class="hljs-keyword">yield</span> <span class="hljs-string">"a"</span>
     }
 </code></pre>
               </div>
@@ -811,8 +811,8 @@ module Example =
               <h2 id="list" class="content-heading">List<a class="content-heading-link" href="#list"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to List section</span></span></a></h2>
               <p>The following F# module contains a function that returns an F# <code>list</code>:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let getList = ["a"]
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> getList <span class="hljs-operator">=</span> [<span class="hljs-string">"a"</span>]
 </code></pre>
               </div>
               <p>It is exposed to C# as a class with the following signature:</p>
@@ -861,8 +861,8 @@ module Example =
               <h2 id="array" class="content-heading">Array<a class="content-heading-link" href="#array"><span><i class="fa-solid fa-link" aria-hidden="true"></i><span class="sr-only">Go to Array section</span></span></a></h2>
               <p>The following F# module contains a function that returns an F# <code>array</code>:</p>
               <div class="copy-code-wrapper" data-copy-code="">
-                <pre><code class="hljs language-fsharp">module Example
-    let getList = [|"a"|]
+                <pre><code class="hljs language-fsharp"><span class="hljs-keyword">module</span> Example
+    <span class="hljs-keyword">let</span> getList <span class="hljs-operator">=</span> [<span class="hljs-operator">|</span><span class="hljs-string">"a"</span><span class="hljs-operator">|</span>]
 </code></pre>
               </div>
               <p>It is exposed to C# as a class with the following signature:</p>
