@@ -26,6 +26,9 @@ import remarkRehype from "remark-rehype";
 
 import remarkRemoveFrontmatter from "@connelhooley/remark-remove-frontmatter";
 
+import fsharp from "highlight.js/lib/languages/fsharp";
+import { common } from "lowlight";
+
 import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -386,6 +389,7 @@ export const renderBlog = async () => {
         .use(rehypeInferTocMeta)
         .use(rehypeHighlight, {
           plainText: ["mermaid"],
+          languages: { ...common, fsharp },
         })
         .use(rehypeCopyCodeButton)
         .use(rehypeMermaid)
