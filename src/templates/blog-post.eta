@@ -37,13 +37,6 @@
     </div>
   </header>
   <div class="container gutter">
-    <% if (it.data.presentation) { %>
-      <div class="section">
-        <a class="button" href="<%= it.data.presentation %>" target="_blank">
-          <i class="fa-solid fw fa-play"></i>&nbsp;Open Presentation<span class="sr-only"> (opens in a new window)</span>
-        </a>
-      </div>
-    <% } %>
     <div class="section">
       <% if (it.data.hideToc !== true) { %>
         <nav class="blog-post-toc">
@@ -55,5 +48,12 @@
         <%~ it.content %>
       </div>
     </div>
+    <% if (it.data.presentation) { %>
+      <div class="section">
+        <a class="button" href="<%= it.data.presentation %>" target="_blank">
+          <i class="fa-solid fw fa-play"></i>&nbsp;Open Presentation<span class="sr-only"> (opens in a new window)</span>
+        </a>
+      </div>
+    <% } %>
   </div>
 </article>
