@@ -6,7 +6,6 @@
   "description": "",
   "scripts": {
     "build": "node build.js",
-    "deploy": "npm run build && gh-pages -d dist -b gh-pages",
     "serve": "http-server ./dist",
     "start": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,7 +20,6 @@
     "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.3",
     "eta": "^3.5.0",
-    "gh-pages": "^6.2.0",
     "glob": "^11.0.0",
     "hast-util-from-html": "^2.0.3",
     "hast-util-heading-rank": "^3.0.0",
