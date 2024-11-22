@@ -48,4 +48,11 @@
       }
     }
   }
+  & .blog-post-presentation-button {
+    display: block;
+    text-align: center;
+    @media (--screen-sm-up) {
+      display: inline-block;
+    }
+  }
 }

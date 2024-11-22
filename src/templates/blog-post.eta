@@ -50,7 +50,7 @@
     </div>
     <% if (it.data.presentation) { %>
       <div class="section">
-        <a class="button" href="<%= it.data.presentation %>" target="_blank">
+        <a class="button blog-post-presentation-button" href="<%= it.data.presentation %>" target="_blank">
           <i class="fa-solid fw fa-play"></i>&nbsp;Open Presentation<span class="sr-only"> (opens in a new window)</span>
         </a>
       </div>
