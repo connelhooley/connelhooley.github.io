@@ -35,10 +35,10 @@
     <% }); %>
     <div class="page-buttons">
       <% if (it.prevPageRoute) { %>
-        <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Previous</a>
+        <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Newer</a>
       <% } %>
       <% if (it.nextPageRoute) { %>
-        <a class="button" href="<%= it.nextPageRoute %>">Next&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
+        <a class="button" href="<%= it.nextPageRoute %>">Older&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
       <% } %>
     </div>
   </div>
