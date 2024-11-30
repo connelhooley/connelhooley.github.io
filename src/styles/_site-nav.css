@@ -21,8 +21,11 @@
     & .site-nav-item-home {
       font-family: var(--logo-font-family);
       font-weight: bold;
-      font-size: var(--text-xl-font-size);
       letter-spacing: 6px;
+      font-size: var(--text-xl-font-size);
+      @media (--screen-sm-up) {
+        font-size: var(--text-2xl-font-size);
+      }
     }
     & .site-nav-item-active {
       color: var(--primary-color);
