@@ -594,8 +594,8 @@ export const renderBlog = async () => {
     ...Array.from(languages).map(language => {
       return renderPagedCollection({
         items: posts.filter(post => post.data?.languages?.includes(language)),
-        basePath: path.join("blog", "languages", language),
-        baseRoute: `/blog/languages/${encodeURIComponent(language)}/`,
+        basePath: path.join("blog", "languages", language.replace("#", "Sharp")),
+        baseRoute: `/blog/languages/${encodeURIComponent(language.replace("#", "Sharp"))}/`,
         title: language,
         isLanguage: true,
         pageSize: 5,
@@ -604,8 +604,8 @@ export const renderBlog = async () => {
     ...Array.from(technologies).map(technology => {
       return renderPagedCollection({
         items: posts.filter(post => post.data?.technologies?.includes(technology)),
-        basePath: path.join("blog", "technologies", technology),
-        baseRoute: `/blog/technologies/${encodeURIComponent(technology)}/`,
+        basePath: path.join("blog", "technologies", technology.replace("#", "Sharp")),
+        baseRoute: `/blog/technologies/${encodeURIComponent(technology.replace("#", "Sharp"))}/`,
         title: technology,
         isTechnology: true,
         pageSize: 5,
