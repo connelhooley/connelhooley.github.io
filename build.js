@@ -182,7 +182,7 @@ export const copyStaticAssets = async () => {
 
 export const copyBlogAssets = async () => {
   console.log("Copying blog assets");
-  const srcImgFilePaths = await glob(srcDir + "/content/blog/**/*.png");
+  const srcImgFilePaths = await glob(srcDir + "/content/blog/**/*.{png,svg}");
   await Promise.all(srcImgFilePaths.map(async srcFilePath => {
     const distFilePath = path.join(
       distDir,

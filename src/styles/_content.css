@@ -15,6 +15,10 @@
   & ol {
     margin-bottom: var(--spacing-4);
   }
+  & ul ul,
+  & ol ol, {
+    margin-bottom: 0;
+  }
   & h1,
   & h2,
   & h3,
@@ -49,12 +53,17 @@
   }
   & ul,
   & ol {
-    list-style-type: initial;
     list-style-position: outside;
     margin-left: var(--spacing-5);
     & li::marker {
       color: var(--gray-color-400);
     }
+  }
+  & ol {
+    list-style-type: decimal;
+  }  
+  & ul {
+    list-style-type: disc;
   }
   & table {
     text-align: left;
@@ -95,6 +104,11 @@
         display: inline-block;
         margin-right: var(--spacing-1);
       }
+    }
+  }
+  section.footnotes {
+    & ol li p:last-child {
+      margin-bottom: 0;
     }
   }
 }

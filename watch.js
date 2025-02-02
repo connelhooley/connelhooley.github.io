@@ -63,7 +63,7 @@ const watchBlogContent = async () => {
   for await (const change of watch("./src/content/blog", { recursive: true })) {
     if (minimatch(change.filename, "*/*/*/*/index.md")) {
       await renderBlog().catch(console.error);
-    } else if (minimatch(change.filename, "**/*.png")) {
+    } else if (minimatch(change.filename, "**/*.{png,svg}")) {
       await copyBlogAssets();
     }
   }
