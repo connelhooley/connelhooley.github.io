@@ -106,72 +106,100 @@ We'll start with unit tests. Each pure component at the centre of our architectu
 
 # Test Names
 
-Having a naming convention for you tests helps a lot. It is common practice to think of and write BDD[^bdd] tests as GWTs[^gwt].
+Having descriptive and consistent test names helps ensure tests are [specific](#specificity) (one of the previously mentioned principles). It's not important what convention you use, it's just important you have one to ensure consistency across the code base.
 
-It is also possible to do this with unit tests. All tests fall into the following 3 categories:
+It is common practice to think of and write BDD[^bdd] tests as GWTs[^gwt]. Almost all unit tests fall into the following 3 categories and we can map each of them into the same GWT structure to gain specific and consistent test names.
 
-Non static methods:
-1. Calls a constructor on the class being tested (*given*)
-2. Invokes something on the previously instantiated instance (*when*)
-3. Verifies the previous invocation did what it should have (*then*)
+## Non-Static Methods/Properties
+1. The type being tested and any descriptions of relevant constructor params or states the class needs to be in (*given*)
+2. The method/property being tested and any relevant arguments (*when*)
+3. The expected result (*then*)
 
-Static methods:
-1. Invokes something on a static class (*when*)
-2. Verifies the previous invocation did what it should have (*then*)
+Some examples:
+- `UriWithValidUriString_AbsolutePathGetter_ShouldReturnEntirePathWithOutQueryStringParams`
+- `ListWithNoItems_Single_ShouldThrow`
+- `ListWithItems_SingleWithPredicateThatDoesNotMatchAnItem_ShouldThrow`
+- `ListWithItems_SingleWithPredicateThatDoesMatchAnItem_ShouldReturnMatchedItem`
+- `UserManager_GetUser_ShouldReturnUserFromUserRepository`
+- `UserManager_GetUser_ShouldLogAnInfoMessage`
+- `UserManager_ModeSetter_ShouldLogInfoMessage`
+- `NetworkCredentialWithNoValues_UserNameGetter_ShouldReturnNull`
+- `NetworkCredentialWithNoValues_UserNameSetterWithValidValue_ShouldNotThrow`
+- `NetworkCredentialWithUserNamePopulatedViaSetter_UserNameGetter_ShouldReturnPreviouslySetValue`
 
-Constructor tests:
-1. Invokes a constructor (*when*)
-2. Verifies the previous invocation did not throw (*then*)
+**Note:** The only thing you can test for in a setter is whether it throws or whether there was a side-effect. Setter tests should be paired with getter tests that ensure the correct value is returned after setting. The last method or property you invoke on a class is the thing you are testing. It is up to you to decide whether to test getters and setters, if they are auto generated you can make a case for not testing them.
 
-Using this a convention I like to use is this:
+## Static Methods/Properties
+1. The type being tested (*given*)
+2. The method/property being tested and any relevant arguments (*when*)
+3. The expected result (*then*)
 
-When_Given_Then or When_Then.
+Some examples:
+- `String_JoinWithSeparatorAndMultipleParams_ShouldReturnStringWithTheSeparatorBetweenEachItem`
+- `String_JoinWithSeparatorAndEmptyParams_ShouldReturnEmptyString`
+- `String_JoinWithSeparatorAndEmptyParams_ShouldReturnEmptyString`
 
-Given the following class:
+## Constructor Tests
+1. The type being tested (*given*)
+2. The constructor being tested and any relevant arguments (*when*)
+3. The expected result (*then*)
 
-```csharp
-public class User
-{
-  private readonly string firstName;
-  private readonly string lastName;
+Some examples:
+- `UriConstructorWithMissingProtocol_ShouldThrow`
+- `UriConstructorWithValidUri_ShouldNotThrow`
+- `UserManagerConstructorWithNullUserRepository_ShouldThrow`
+- `UserManagerConstructorWithNonNullUserRepository_ShouldNotThrow`
+- `UserManagerConstructor_ShouldLogInfoMessage`
 
-  public User(string firstName, string lastName)
-  {
-    this.firstName = firstName ?? throw new ArgumentException(nameof(firstName));
-    this.lastName = lastName ?? throw new ArgumentException(nameof(lastName));
-  }
-
-  public string GetGreeting(DateTime now)
-  {
-    var greeting = DateTime.Now switch
-    {
-        { Hour: var hour } when hour > 20 => "Good night",
-        { Hour: var hour } when hour > 17 => "Good evening",
-        { Hour: var hour } when hour > 12 => "Good afternoon",
-        _ => "Good morning",
-    };
-    return $"{greeting} {this.firstName} {this.lastName}";
-  }
-}
-```
-
-We can write the following test names:
-
-- User_ConstructorWithANullFirstName_ShouldThrow
-- User_ConstructorWithANullLastName_ShouldThrow
-- User_GetGreetingWithAnEveningDateTime_ShouldReturnAnEveningGreeting
-
-The given part of the test always starts with the name of class being tested. 
+**Note:** The only thing you can test for in a constructor is whether it throws or whether there was a side-effect.
 
 # Test Structure
 
+Once you have your test names we can start writing the tests. It is common practice to write unit tests in the AAA format:
 
+1. Arrange (*given*)
+2. Act (*when*)
+3. Assert (*then*)
 
-AAA
+I always find it useful to add code comments documenting these areas. When testing an instance of a class I also always name the variable that is being tested "sut" - System Under Test. I always call the variable that is being validated "result".
 
-SUT
+The examples below use [XUnit](https://xunit.net/), [NSubstitute](https://nsubstitute.github.io/) and [Shouldly](https://docs.shouldly.org/)
 
-Test naming conventions
+```csharp
+[Fact]
+public void UserManager_GetUser_ShouldReturnUserFromUserRepository()
+{
+  // Arrange
+  var userRepo = Substitute.For<IUserRepository>();
+  userRepo
+    .GetUserById("some-user-id")
+    .Returns(new User("some-user-id", "Some first name", "Some last name"));
+  var sut = new UserManager(userRepo, Substitute.For<ILogger>());
+
+  // Act
+  var result = sut.GetUser("some-user-id");
+
+  // Assert
+  result.ShouldSatisfyAllConditions(
+    () => result.Id.ShouldBe("some-user-id"),
+    () => result.FirstName.ShouldBe("Some first name"),
+    () => result.LastName.ShouldBe("Some last name"));
+}
+```
+
+Not all tests need an arrange. For tests that assert exceptions, I create an `Action` or `Func<T>` variable called "act", I then assert the delegate. This ensures the code still follows the AAA structure:
+
+```csharp
+[Fact]
+public void UserManagerConstructorWithNullUserRepository_ShouldThrow()
+{
+  // Act
+  Action act = () => new UserManager(null, Substitute.For<ILogger>());
+
+  // Assert
+  act.ShouldThrow<ArgumentNullException>();
+}
+```
 
 Error messages
 
@@ -193,8 +221,6 @@ Assert that mock is given correct inputs.
 
 Use callbacks to determine the order that calls are made.
 
-
-
 ## TDD
 
 I'm a big advocate TDD[^tdd]. When "doing" TDD you write the test first. Writing the test first results in simple and easy to read tests. You are documenting *what* you want to happen, and not *how*. As you start passing the tests you tweak the *implementation* that is looking to pass the test.
@@ -205,9 +231,11 @@ The most common pitfall I see with non-TDD tests is the growth of complexity ove
 
 **TDD is a design tool**, which is it biggest benefit. Yes you can write tests after the fact (or get AI to do it 😒) but you lose the benefit of the tests telling you the code is getting too complex. With TDD you start to write the test based on the requirements and if you start to find the test is getting complex, that means your implementation is even more complex, you just don't see it yet. **Tests show signs of being complex earlier than implementations.**
 
-## Fake It Till You Make
+When doing TDD I like to start off by writing all of my test names out using a naming convention (as discussed previously [here](#test-names)). I then write the code for a test, see it fail, then pass it, then clean up the code if required (known the as red-green-refactor workflow). Repeat the process for all tests and until everything is covered.
 
-Faking it till you make it in TDD is when you aim to mock requirements in dependencies. You then pass that test, repeat the process for the implementations for each mocked dependency. This ensures your tests are simple and your implemenations are easy to read and easy to extend. It is an art not a science as it can result in "combinatorial explosion" which is when your code base contains lots of small classes which increases complexity.
+## Fake It Till You Make It
+
+Faking it till you make it is TDD workflow where you aim to mock requirements in dependencies. You then pass that test, repeat the process for the implementations for each mocked dependency. This ensures your tests are simple and your implemenations are easy to read and easy to extend. It is an art not a science as it can result in "combinatorial explosion" which is when your code base contains lots of small classes which increases complexity.
 
 Lets demonstrate this with an example. The example below documents some technical requirements for an endpoint that is hit when a purchase form is submitted:
 
