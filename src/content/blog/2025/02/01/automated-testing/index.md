@@ -1,6 +1,6 @@
 ---
 title: Automated Testing
-draft: false
+draft: true
 time: 00:00:00
 description: Automated testing is an art not a science, but following some principles will help you fall into a pit of success.
 languages:

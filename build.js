@@ -414,7 +414,7 @@ export const renderBlog = async () => {
       data.date = new Date(`${year}-${month}-${day}T${data.time}Z`);
       data.readingTime = parsedFile.data.meta.readingTime;
       data.toc = parsedFile.data.meta.toc;
-      if (data.draft) return;
+      if (process.env.NODE_ENV !== "development" && data.draft) return;
       const tempFilePath = path.join(
         tempDir,
         relativePath,
@@ -627,7 +627,7 @@ export const renderSlides = async () => {
       .use(remarkRemoveFrontmatter)
       .use(remarkStringify, { rule: "-" })
       .process(await readFile(srcFilePath));
-    if (parsedMdFile.data.draft) return;
+    if (process.env.NODE_ENV !== "development" && parsedMdFile.data.draft) return;
     const relativePath = path.relative(path.join(srcDir, "content"), srcFilePathParsed.dir);
     const distMdFilePath = path.join(
       distDir,
@@ -649,36 +649,36 @@ export const renderSlides = async () => {
     await writeFile(distMdFilePath, parsedMdFile.toString("utf-8"));
     const renderedTemplate = await eta.renderAsync("slides", { mdRoute });
     const parsedHtmlFile = await unified()
-        .use(rehypeParse, { fragment: true })
-        .use(rehypeDocument, {
-          ...defaultRehypeDocumentOptions,
-          css: [
-            "/vendor/reveal.js/css/reset.css",
-            "/vendor/reveal.js/css/reveal.css",
-            "/vendor/reveal.js/css/theme/black.css",
-            "/css/slides.css",
-          ],
-          js: [
-            "/vendor/reveal.js/js/plugins/notes.js",
-            "/vendor/reveal.js/js/plugins/highlight.js",
-            "/vendor/reveal.js/js/plugins/markdown.js",
-            "/vendor/reveal.js/js/reveal.js",
-            "/js/slides.js",
-          ],
-        })
-        .use(rehypeMeta, {
-          ...defaultRehypeMetaOptions,
-          title: parsedMdFile.data.title,
-          published: parsedMdFile.data.date?.toISOString(),
-          pathname: route,
-          tags: [
-            ...(parsedMdFile.data?.languages ?? []),
-            ...(parsedMdFile.data?.technologies ?? []),
-          ],
-        })
-        .use(rehypeFormat)
-        .use(rehypeStringify)
-        .process(renderedTemplate);
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeDocument, {
+        ...defaultRehypeDocumentOptions,
+        css: [
+          "/vendor/reveal.js/css/reset.css",
+          "/vendor/reveal.js/css/reveal.css",
+          "/vendor/reveal.js/css/theme/black.css",
+          "/css/slides.css",
+        ],
+        js: [
+          "/vendor/reveal.js/js/plugins/notes.js",
+          "/vendor/reveal.js/js/plugins/highlight.js",
+          "/vendor/reveal.js/js/plugins/markdown.js",
+          "/vendor/reveal.js/js/reveal.js",
+          "/js/slides.js",
+        ],
+      })
+      .use(rehypeMeta, {
+        ...defaultRehypeMetaOptions,
+        title: parsedMdFile.data.title,
+        published: parsedMdFile.data.date?.toISOString(),
+        pathname: route,
+        tags: [
+          ...(parsedMdFile.data?.languages ?? []),
+          ...(parsedMdFile.data?.technologies ?? []),
+        ],
+      })
+      .use(rehypeFormat)
+      .use(rehypeStringify)
+      .process(renderedTemplate);
     await mkdir(path.dirname(distMdFilePath), { recursive: true });
     await writeFile(distFilePath, parsedHtmlFile.toString("utf-8"));
   }));
