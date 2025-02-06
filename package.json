@@ -55,6 +55,7 @@
   },
   "workspaces": [
     "packages/rehype-copy-code-button",
+    "packages/rehype-footnotes-heading",
     "packages/rehype-infer-toc-meta",
     "packages/rehype-mermaid",
     "packages/rehype-no-js",

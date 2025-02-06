@@ -41,6 +41,7 @@ import rehypeInferReadingTimeMeta from "rehype-infer-reading-time-meta";
 import rehypeStringify from "rehype-stringify";
 
 import rehypeInferTocMeta from "@connelhooley/rehype-infer-toc-meta";
+import rehypeFootnotesHeading from "@connelhooley/rehype-footnotes-heading";
 import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
 import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
 import rehypeNoJs from "@connelhooley/rehype-no-js";
@@ -386,6 +387,7 @@ export const renderBlog = async () => {
             ];
           },
         })
+        .use(rehypeFootnotesHeading)
         .use(rehypeInferTocMeta)
         .use(rehypeHighlight, {
           plainText: ["mermaid"],
