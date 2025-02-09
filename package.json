@@ -59,6 +59,7 @@
     "packages/rehype-infer-toc-meta",
     "packages/rehype-mermaid",
     "packages/rehype-no-js",
-    "packages/remark-remove-frontmatter"
+    "packages/remark-remove-frontmatter",
+    "packages/unified-static-site-generator"
   ]
 }
