@@ -1,3 +1,6 @@
+import path from "path";
+import { readFile } from "fs/promises";
+
 import RSS from "rss";
 
 import { unified } from "unified";
@@ -109,38 +112,25 @@ export async function renderRoute({ route, contentStore, templateRenderer, srcDi
       managingEditor: defaultRehypeMetaOptions.author,
       webMaster: defaultRehypeMetaOptions.author,
     });
-    Object
-      .entries(contentStore.blog)
-      .toSorted(([aBlogFilePath], [bBlogFilePath]) => {
-        if (aBlogFilePath < bBlogFilePath) return 1;
-        if (aBlogFilePath > bBlogFilePath) return -1;
-        return 0;
-      })
+      contentStore["blog"]
       .slice(0, 500)
-      .forEach(([blogFilePath, data]) => {
+      .forEach(post => {
         rss.item({
-          title: data.title,
-          description: data.description,
-          url: path.join(defaultRehypeMetaOptions.origin, route.path), // Need to decide where to calc route for a page
-          date: data.date, // Need to decide where to calc date
+          title: post.title,
+          description: post.description,
+          url: path.join(defaultRehypeMetaOptions.origin, post.route.path),
+          date: post.date,
           categories: [
-            ...(data?.languages ?? []),
-            ...(data?.technologies ?? []),
+            ...(post.languages ?? []),
+            ...(post.technologies ?? []),
           ],
         });
       });
     const xml = rss.xml({ indent: true });
     return xml;
   } else if (route.path === "/experience/") {
-    const experiences = await Promise.all(Object.entries(contentStore.experience)
-      .toSorted(([_, aData], [__, bData]) => {
-        const startA = aData.start;
-        const startB = bData.start;
-        if (startA < startB) return 1;
-        if (startA > startB) return -1;
-        return 0;
-      })
-      .map(async ([experienceFilePath, data]) => {
+    const experiences = await Promise.all(contentStore["experience"]
+      .map(async experience => {
         const parsedFile = await unified()
           .use(remarkParse)
           .use(remarkFrontmatter)
@@ -161,10 +151,10 @@ export async function renderRoute({ route, contentStore, templateRenderer, srcDi
           })
           .use(rehypeFormat)
           .use(rehypeStringify)
-          .process(await readFile(path.join(srcDir, "content", "experience", experienceFilePath)));
+          .process(await readFile(path.join(srcDir, "content", experience.srcContentFilePath)));
         return {
           content: parsedFile.toString("utf-8"),
-          data,
+          data: experience,
         };
       }));
     const renderedTemplate = await templateRenderer("experience", {
@@ -185,15 +175,8 @@ export async function renderRoute({ route, contentStore, templateRenderer, srcDi
       .process(renderedTemplate);
     return parsedFile.toString("utf-8");
   } else if (route.path === "/projects/") {
-    const projects = await Promise.all(Object.entries(contentStore.projects)
-      .toSorted(([_, aData], [__, bData]) => {
-        const startA = aData.start;
-        const startB = bData.start;
-        if (startA < startB) return 1;
-        if (startA > startB) return -1;
-        return 0;
-      })
-      .map(async ([projectFilePath, data]) => {
+    const projects = await Promise.all(contentStore["projects"]
+      .map(async project => {
         const parsedFile = await unified()
           .use(remarkParse)
           .use(remarkFrontmatter)
@@ -214,10 +197,10 @@ export async function renderRoute({ route, contentStore, templateRenderer, srcDi
           })
           .use(rehypeFormat)
           .use(rehypeStringify)
-          .process(await readFile(path.join(srcDir, "content", "projects", projectFilePath)));
+          .process(await readFile(path.join(srcDir, "content", project.srcContentFilePath)));
         return {
           content: parsedFile.toString("utf-8"),
-          data,
+          data: project,
         };
       }));
     const renderedTemplate = await templateRenderer("projects", {
@@ -245,6 +228,7 @@ export async function renderRoute({ route, contentStore, templateRenderer, srcDi
   } else if (route.path.match(/^\/blog\/languages\/[^\/]+\/page\/\d+\/$/)) {
   } else if (route.path.match(/^\/blog\/\d+\/\d+\/\d+\/[^\/]+\/$/)) {
   } else if (route.path.match(/^\/slides\/[^\/]+\/$/)) {
+    // Need to figure out how to write 2 files
   } else {
   }
 }
