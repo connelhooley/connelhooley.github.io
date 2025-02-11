@@ -5,6 +5,10 @@ import { renderRoute } from "./routeRenderer.js";
 
 const escapeRouteValue = value => encodeURIComponent(value.replace("#", "Sharp"));
 
+export function generatePageNumbers(items, pageSize = 5) {
+  return Array.from({ length: Math.ceil(items.length / pageSize) }, (_, index) => index + 1);
+}
+
 export function generateStaticRoute({ path }) {
   return { path, params: {} };
 }
@@ -54,8 +58,6 @@ export function generateTechnologyPagedRoute({ technology, pageNumber = 1 }) {
 
 export async function generateRoutes({ contentStore }) {
   const pageSize = 5;
-
-  const generatePageNumbers = items => Array.from({ length: Math.ceil(items.length / pageSize) }, (_, index) => index + 1);
 
   return [
     generateStaticRoute({ path: "/" }),
