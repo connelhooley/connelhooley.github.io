@@ -12,12 +12,13 @@ export async function generateSite({ srcDir, distDir }) {
   const { refreshContentStore, getContent } = createContentStore({ srcDir });
   const { getHomePage, getContentPages } = createPager({ getContent });
   const { renderPages, stopRenderer } = await createRenderer({ srcDir, distDir });
-
+  
   const contentFilePaths = [];
   for await (const fileDirent of glob(`${srcDir}/content/{blog,experience,projects,slides}/**/*.md`, { withFileTypes: true })) {
     if (fileDirent.isFile()) {
       const filePath = path.join(fileDirent.parentPath, fileDirent.name);
       contentFilePaths.push(filePath);
+      // Handle file deletions
     }
   }
 
@@ -27,10 +28,13 @@ export async function generateSite({ srcDir, distDir }) {
   await renderPages({ pages: [homePage, ...contentPages] });
 
   console.log("Finished building site");
+
   const ac = new AbortController();
+
   return {
     async watch() {
       try {
+        // const { getImpactedPages } = createTemplateTracker({ getContent, getHomePage, getContentPages });
         const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });
         for await (const event of watcher) {
           if (fileDirent.isFile()) {
@@ -42,8 +46,9 @@ export async function generateSite({ srcDir, distDir }) {
               await renderPages({ pages: contentPages });
             }
             if (minimatch(srcFilePath, "templates/**/*")) {
-              const pages = []; // TODO: Render pages impacted by template changes
-              await renderPages({ pages });
+              // TODO: Render pages impacted by template changes
+              // const { impactedPages } = getImpactedPages({ templateFilePaths: [filePath] });
+              // await renderPages({ pages: impactedPages });
             }
           }
         }
