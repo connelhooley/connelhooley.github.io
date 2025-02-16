@@ -10,34 +10,34 @@
 </header>
 <div class="container gutter">
   <div class="section narrow paged-items">
-    <% it.items.forEach(post => { %>
+    <% it.posts.forEach(post => { %>
       <div class="blog-post-paged-item">
-        <a class="blog-post-paged-item-link" href="<%= post.route %>">
+        <a class="blog-post-paged-item-link" href="<%= post.routePath %>">
           <h2 class="blog-post-paged-item-title">
-            <%= post.data.title %>&nbsp;<i class="fa-solid fa-angles-right"></i>
+            <%= post.title %>&nbsp;<i class="fa-solid fa-angles-right"></i>
           </h2>
         </a>
-        <p><%= post.data.description %></p>
+        <p><%= post.description %></p>
         <div class="blog-post-paged-item-meta">
           <div class="blog-post-paged-item-meta-date">
-            <span data-relative-date="<%= post.data.date.toISOString() %>">
-              <%= new Intl.DateTimeFormat('en-GB').format(post.data.date) %>
+            <span data-relative-date="<%= post.date.toISOString() %>">
+              <%= new Intl.DateTimeFormat('en-GB').format(post.date) %>
             </span>
           </div>
           <div class="blog-post-paged-item-meta-tags">
             <%~ include("./partials/tags", {
-              languages: post.data?.languages,
-              technologies: post.data?.technologies,
+              languages: post?.languages,
+              technologies: post?.technologies,
             }) %>
           </div>
         </div>
       </div>
     <% }); %>
     <div class="page-buttons">
-      <% if (it.prevPageRoute) { %>
+      <% if (it.pagedNumber > 1) { %>
         <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Newer</a>
       <% } %>
-      <% if (it.nextPageRoute) { %>
+      <% if (it.pagedNumber === it.pagedCount) { %>
         <a class="button" href="<%= it.nextPageRoute %>">Older&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
       <% } %>
     </div>

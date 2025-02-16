@@ -1,9 +1,8 @@
-// Create up data store
+import { generateSite } from "@connelhooley/unified-static-site-generator"
 
-// Create site map
+const srcDir = "./src";
+const distDir = "./dist";
 
-// Start watching files
-
-// Start dev server
-
-// Reload server if a file for the current page changes
+const { stop, watch } = await generateSite({ srcDir, distDir });
+await watch();
+stop();

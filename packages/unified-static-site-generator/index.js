@@ -1,29 +1,60 @@
 import path from "path";
-import { rm, mkdir, glob } from "fs/promises";
-import { ContentStore, createContentStore } from "./contentStore.js";
-import { generateRoutes, writeRoutes } from "./routes.js";
-import { createTemplateRenderer } from "./templateRenderer.js";
+import { glob, watch } from "fs/promises";
 
-export async function buildSite({ srcDir, distDir }) {
+import { minimatch } from "minimatch";
+
+import { createContentStore } from "./content-store.js";
+import { createPager } from "./pager.js";
+import { createRenderer } from "./renderer.js";
+
+export async function generateSite({ srcDir, distDir }) {
   console.log("Started building site");
-  
-  await rm(distDir, { recursive: true, force: true });
-  await mkdir(distDir);
+  const { refreshContentStore, getContent } = createContentStore({ srcDir });
+  const { getHomePage, getContentPages } = createPager({ getContent });
+  const { renderPages, stopRenderer } = await createRenderer({ srcDir, distDir });
 
-  const srcFilePaths = [];
-  for await (const srcFileDirent of glob(`${srcDir}/content/{blog,experience,projects,slides}/**/*.md`, { withFileTypes: true })) {
-    if (srcFileDirent.isFile()) {
-      const srcFilePath = path.join(srcFileDirent.parentPath, srcFileDirent.name);
-      srcFilePaths.push(srcFilePath);
+  const contentFilePaths = [];
+  for await (const fileDirent of glob(`${srcDir}/content/{blog,experience,projects,slides}/**/*.md`, { withFileTypes: true })) {
+    if (fileDirent.isFile()) {
+      const filePath = path.join(fileDirent.parentPath, fileDirent.name);
+      contentFilePaths.push(filePath);
     }
   }
-  const contentStore = new ContentStore({ srcDir });
-  const routes = await contentStore.loadSourceFiles({ srcFilePaths });
-  
-  // const contentStore = await createContentStore({ srcDir });
-  // const routes = await generateRoutes({ contentStore });
-  // const templateRenderer = createTemplateRenderer({ srcDir });
-  // await writeRoutes({ routes, contentStore, templateRenderer, srcDir, distDir });
-  
+
+  const { homePage } = getHomePage();
+  const { changedPageIds } = await refreshContentStore({ contentFilePaths });
+  const { contentPages } = getContentPages({ pageIds: changedPageIds });
+  await renderPages({ pages: [homePage, ...contentPages] });
+
   console.log("Finished building site");
+  const ac = new AbortController();
+  return {
+    async watch() {
+      try {
+        const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });
+        for await (const event of watcher) {
+          if (fileDirent.isFile()) {
+            const filePath = path.join(fileDirent.parentPath, fileDirent.name);
+            const srcFilePath = path.relative(filePath, srcDir);
+            if (minimatch(srcFilePath, "content/**/*")) {
+              const { changedPageIds } = await refreshContentStore({ contentFilePaths: [filePath] });
+              const { contentPages } = getContentPages({ pageIds: changedPageIds });
+              await renderPages({ pages: contentPages });
+            }
+            if (minimatch(srcFilePath, "templates/**/*")) {
+              const pages = []; // TODO: Render pages impacted by template changes
+              await renderPages({ pages });
+            }
+          }
+        }
+      } catch (err) {
+        if (err.name === "AbortError") return;
+        throw err;
+      }
+    },
+    stop() {
+      stopRenderer();
+      ac.abort();
+    }
+  }
 }

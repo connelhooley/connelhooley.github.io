@@ -6,20 +6,20 @@
 </header>
 <div class="container gutter">
   <div class="section narrow experience-items">
-    <% it.items.forEach(job => { %>
+    <% it.experiences.forEach(experience => { %>
       <div class="experience-item">
-        <h2 class="experience-item-title"><%= job.data.title %> <small><%= job.data.start %> - <%= job.data.end || "Now" %></small></h2>
-        <h3 class="experience-item-sub-title"><%= job.data.role %></h3>
+        <h2 class="experience-item-title"><%= experience.title %> <small><%= experience.start %> - <%= experience.end || "Now" %></small></h2>
+        <h3 class="experience-item-sub-title"><%= experience.role %></h3>
         <p>
-          <i class="fa-solid fa-globe"></i>&nbsp;<a class="experience-item-website" href="<%= job.data.website %>" target="_blank"><%= job.data.website %><span class="external-link-icon-wrapper"><i class="fa-solid fa-arrow-up-right-from-square"></i><span class="sr-only"> (opens in a new window)</span></span></a>
+          <i class="fa-solid fa-globe"></i>&nbsp;<a class="experience-item-website" href="<%= experience.website %>" target="_blank"><%= experience.website %><span class="external-link-icon-wrapper"><i class="fa-solid fa-arrow-up-right-from-square"></i><span class="sr-only"> (opens in a new window)</span></span></a>
         </p>
         <div class="content">
-          <%~ job.content %>
+          <%~ experience.content %>
         </div>
         <div>
           <%~ include("./partials/tags", {
-            languages: job.data?.languages,
-            technologies: job.data?.technologies,
+            languages: experience?.languages,
+            technologies: experience?.technologies,
           }) %>
         </div>
       </div>

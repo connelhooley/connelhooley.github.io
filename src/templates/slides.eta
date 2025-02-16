@@ -1,6 +1,6 @@
 <div class="reveal">
   <div class="slides">
-    <section data-markdown="<%= it.mdRoute %>">
+    <section data-markdown="<%= it.mdRoutePath %>">
     </section>
   </div>
 </div>

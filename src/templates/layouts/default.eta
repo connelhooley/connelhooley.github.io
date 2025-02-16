@@ -25,7 +25,7 @@
         ]; %>
         <% navLinks.forEach(({ label, href }) => { %>
           <li class="site-nav-item-wrapper">
-            <% const active = it.route.startsWith(href) ? "site-nav-item-active" : "" %>
+            <% const active = it.routePath.startsWith(href) ? "site-nav-item-active" : "" %>
             <a class="site-nav-item <%= active %>" href="<%= href %>">
               <%= label %>
             </a>
