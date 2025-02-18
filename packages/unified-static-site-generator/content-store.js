@@ -114,10 +114,8 @@ export function createContentStore({ srcDir }) {
         pagesRemoved.add(removedTechnology);
       });
       return {
-        changedPageIds: [
-          ...pagesRemoved.values().map(pageId => ({ pageId, change: "removed" })),
-          ...pagesUpdated.values().map(pageId => ({ pageId, change: "updated" })),
-        ],
+        pagesIdsUpdated: [...pagesUpdated],
+        pagesIdsRemoved: [...pagesRemoved],
       };
     },
     getContent() {

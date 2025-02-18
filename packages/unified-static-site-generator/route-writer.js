@@ -36,7 +36,7 @@ import rehypeCopyCodeButton from "@connelhooley/rehype-copy-code-button";
 import rehypeMermaid, { mermaidStart, mermaidStop } from "@connelhooley/rehype-mermaid";
 import rehypeNoJs from "@connelhooley/rehype-no-js";
 
-export async function createRenderer({ srcDir, distDir }) {
+export async function createRouteWriter({ srcDir, distDir }) {
   const eta = new Eta({
     views: path.join(srcDir, "templates"),
     functionHeader: `const _globals = ${JSON.stringify({
@@ -392,14 +392,16 @@ export async function createRenderer({ srcDir, distDir }) {
   };
 
   return {
-    async renderPages({ pages }) {
-      await Promise.all(pages.flatMap(page => page.clearPaths).map(async clearPath => {
-        const distClearPath = path.join(distDir, clearPath);
-        const isDir = distClearPath.endsWith("/");
-        await rm(distClearPath, { recursive: isDir, force: true });
-        console.info("Cleared file path '%s'", distClearPath);
+    async writeRoutes({ routesUpdated, routesRemoved = [] }) {
+      await Promise.all(routesRemoved.map(async ({ routePath }) => {
+        const isDir = routePath.endsWith("/");
+        const distFilePath = isDir
+            ? path.join(distDir, routePath, "index.html")
+            : path.join(distDir, routePath);
+          await rm(distFilePath, { recursive: isDir, force: true });
+        console.info("Route '%s' removed, deleted '%s'", routePath, distFilePath);
       }));
-      await Promise.all(pages.flatMap(page => page.routes).map(async ({ type, routePath, data }) => {
+      await Promise.all(routesUpdated.map(async ({ type, routePath, data }) => {
         const rendered =
           await renderBlogPostRoute({ type, routePath, data }) ||
           await renderBlogCollectionRoute({ type, routePath, data }) ||
@@ -422,7 +424,7 @@ export async function createRenderer({ srcDir, distDir }) {
         }
       }));
     },
-    stopRenderer() {
+    stopWriter() {
       mermaidStop();
     }
   }
