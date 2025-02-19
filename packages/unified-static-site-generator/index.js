@@ -1,71 +1,86 @@
 import path from "path";
-import { glob, watch, rm, mkdir } from "fs/promises";
+import { watch, rm, mkdir } from "fs/promises";
 
-import { minimatch } from "minimatch";
+import browserSync from "browser-sync";
 
-import { createContentStore } from "./content-store.js";
-import { createPageStore } from "./page-store.js";
-import { createRouteWriter } from "./route-writer.js";
-import { createTemplateTracker } from "./template-tracker.js";
+import { createContentBuilder } from "./content";
+import { createScriptBuilder } from "./scripts";
+import { createStaticBuilder } from "./static";
+import { createStyleBuilder } from "./styles";
 
-export async function generateSite({ srcDir, distDir }) {
-  console.log("Started building site");
-  const { refreshContentStore, getContent } = createContentStore({ srcDir });
-  const { refreshPageStore, getRoutes } = createPageStore({ getContent });
-  const { writeRoutes, stopWriter } = await createRouteWriter({ srcDir, distDir });
-
-  console.log("Clearing dist");
-  await rm(distDir, { recursive: true, force: true });
-  await mkdir(distDir);
-  console.log("Cleared dist");
-
-  const contentFilePaths = [];
-  for await (const fileDirent of glob(`${srcDir}/content/{blog,experience,projects,slides}/**/*.md`, { withFileTypes: true })) {
-    if (fileDirent.isFile()) {
-      const filePath = path.join(fileDirent.parentPath, fileDirent.name);
-      contentFilePaths.push(filePath);
-    }
-  }
-
-  const { pagesIdsUpdated, pagesIdsRemoved } = await refreshContentStore({ contentFilePaths });
-  const { routesUpdated, routesRemoved } = refreshPageStore({ pagesIdsUpdated: ["home", ...pagesIdsUpdated], pagesIdsRemoved });
-  await writeRoutes({ routesUpdated, routesRemoved });
-
-  console.log("Finished building site");
-
-  const ac = new AbortController();
-
+export async function createStaticSiteGenerator({ srcDir, distDir }) {
+  const {
+    buildContent,
+    copyContentAssets,
+    contentChange,
+    contentAssetChange,
+    templateChange,
+    stopContentBuilder } = await createContentBuilder({ srcDir, distDir });
+    const { buildScripts, scriptChange } = await createScriptBuilder({ srcDir, distDir });
+    const { copyStaticAssets, staticAssetChange } = await createStaticBuilder({ srcDir, distDir });
+    const { buildStyles, styleChange } = await createStyleBuilder({ srcDir, distDir });
+    const ac = new AbortController();
+    let browser;
   return {
+    async start() {    
+      console.log("Clearing dist");
+      await rm(distDir, { recursive: true, force: true });
+      await mkdir(distDir);
+      console.log("Cleared dist");
+      
+      console.log("Building site");
+      await Promise.all(
+        buildContent(),
+        copyContentAssets(),
+        copyStaticAssets(),
+        buildScripts(),
+        buildStyles(),
+      );
+      console.log("Built site");
+    },
     async watch() {
       try {
         console.log("Watching site");
-        const { getImpactedRouteTypes } = createTemplateTracker();
         const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });
         for await (const event of watcher) {
-          if (fileDirent.isFile()) {
-            const filePath = path.join(fileDirent.parentPath, fileDirent.name);
-            const srcFilePath = path.relative(filePath, srcDir);
-            if (minimatch(srcFilePath, "content/**/*")) {
-              const { pagesIdsUpdated, pagesIdsRemoved } = await refreshContentStore({ contentFilePaths: [filePath] });
-              const { routesUpdated, routesRemoved } = refreshPageStore({ pagesIdsUpdated, pagesIdsRemoved });
-              await writeRoutes({ routesUpdated, routesRemoved });
-            } else if (minimatch(srcFilePath, "templates/**/*")) {
-              const { impactedRouteTypes } = getImpactedRouteTypes({ templateFilePaths: [filePath] });
-              const { routes } = getRoutes({types: impactedRouteTypes});
-              await writeRoutes({ routesUpdated: routes });
+          try {
+            if (fileDirent.isFile()) {
+              const filePath = path.join(fileDirent.parentPath, fileDirent.name);
+              await contentChange(filePath) ||
+              await contentAssetChange(filePath) ||
+              await templateChange(filePath) ||
+              await staticAssetChange(filePath) ||
+              await styleChange(filePath) ||
+              await scriptChange(filePath);
             }
+            // Handle file deletions
+          } catch (err) {
+            console.error(err);
           }
-          // Handle file deletions
         }
       } catch (err) {
-        if (err.name === "AbortError") return;
-        throw err;
+        if (err.name === "AbortError") {
+          return;
+        } else {
+          throw err;
+        }
       }
+    },
+    serve() {
+      browser = browserSync({
+        server: "dist",
+        files: `${distDir}/**/*`,
+        port: 3000,
+        open: "local",
+        notify: false,
+      });
     },
     stop() {
       console.log("Stopping...");
-      stopWriter();
+      stopContentBuilder();
       ac.abort();
+      browser?.exit();
+      console.log("Stopped...");
     }
   }
 }

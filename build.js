@@ -1,7 +1,8 @@
-import { generateSite } from "@connelhooley/unified-static-site-generator"
+import { createStaticSiteGenerator } from "@connelhooley/unified-static-site-generator"
 
 const srcDir = "./src";
 const distDir = "./dist";
 
-const { stop } = await generateSite({ srcDir, distDir });
+const { start, stop } = await createStaticSiteGenerator({ srcDir, distDir });
+await start();
 stop();
