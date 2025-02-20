@@ -1,8 +1,12 @@
 export function createPageStore({ getContent }) {
   const store = {};
 
+  // TODO rename to escapeRoutePathValue
   const escapeRouteValue = value => encodeURIComponent(value.replace("#", "Sharp"));
-
+  
+  // TODO Use this method
+  const escapeFilePathValue = value => value.replace("#", "Sharp");
+  
   const generatePagedNumbers = (items, pageSize = 5) => {
     return Array.from({ length: Math.ceil((items.length || 1) / pageSize) }, (_, index) => index + 1);
   };
