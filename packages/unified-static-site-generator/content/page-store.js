@@ -6,7 +6,7 @@ export function createPageStore({ getContent }) {
   const escapeRoutePathValue = value => encodeURIComponent(escapeFilePathValue(value));
 
   const escapeFilePathValue = value => value.replace("#", "Sharp");
-  
+
   const generatePagedNumbers = (items, pageSize = 5) => {
     return Array.from({ length: Math.ceil((items.length || 1) / pageSize) }, (_, index) => index + 1);
   };
@@ -29,7 +29,7 @@ export function createPageStore({ getContent }) {
     }
   }
 
-  const mapPost = ({languages, technologies, ...post}) => {
+  const mapPost = ({ languages, technologies, ...post }) => {
     const [year, month, day, name] = post.pageId.match(/^post:(\d{4}):(\d{2}):(\d{2}):(.+)$/)?.slice(1);
     return {
       ...post,
@@ -140,7 +140,7 @@ export function createPageStore({ getContent }) {
       const pagedNumbers = generatePagedNumbers(technologyPosts);
       const pagedCount = pagedNumbers.at(-1);
       const baseRoutePath = `/blog/technologies/${escapeRoutePathValue(technology)}/`;
-      const x = {
+      return {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
           routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
@@ -156,11 +156,6 @@ export function createPageStore({ getContent }) {
           },
         })),
       };
-      if (technology === "styled-components")
-      {
-        return x;
-      }
-      return x;
     }
   };
 
