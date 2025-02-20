@@ -12,7 +12,7 @@ export async function createStaticBuilder({ srcDir, distDir }) {
   };
   return {
     async copyStaticAssets() {
-      for await (const fileDirent of glob(`${srcDir}/static/**/.*`, { withFileTypes: true })) {
+      for await (const fileDirent of glob(`${srcDir}/static/**/*`, { withFileTypes: true })) {
         if (fileDirent.isFile()) {
           const filePath = path.join(fileDirent.parentPath, fileDirent.name);
           await copyStaticAsset(filePath);
