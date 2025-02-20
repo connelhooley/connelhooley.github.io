@@ -49,7 +49,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
         notify: false,
       });
     },
-    async watch() {
+    watch() {
       console.log("Watching site");
       process.on("SIGINT", () => {
         this.stop();

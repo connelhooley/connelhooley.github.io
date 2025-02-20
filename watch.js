@@ -6,4 +6,4 @@ const distDir = "./dist";
 const { start, watch, serve } = await createStaticSiteGenerator({ srcDir, distDir });
 await start();
 serve();
-await watch();
+watch();
