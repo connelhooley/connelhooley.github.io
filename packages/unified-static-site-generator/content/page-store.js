@@ -45,6 +45,34 @@ export function createPageStore({ getContent }) {
     };
   };
 
+  const mapExperience = ({ languages, technologies, ...experience }) => {
+    return {
+      ...experience,
+      languages: languages?.map(language => ({
+        name: language,
+        routePath: `/blog/languages/${escapeRoutePathValue(language)}/`
+      })),
+      technologies: technologies?.map(technology => ({
+        name: technology,
+        routePath: `/blog/technologies/${escapeRoutePathValue(technology)}/`
+      })),
+    };
+  };
+
+  const mapProject = ({ languages, technologies, ...project }) => {
+    return {
+      ...project,
+      languages: languages?.map(language => ({
+        name: language,
+        routePath: `/blog/languages/${escapeRoutePathValue(language)}/`
+      })),
+      technologies: technologies?.map(technology => ({
+        name: technology,
+        routePath: `/blog/technologies/${escapeRoutePathValue(technology)}/`
+      })),
+    };
+  };
+
   const createHomePage = ({ pageId }) => {
     if (pageId === "home") {
       return {
@@ -166,7 +194,9 @@ export function createPageStore({ getContent }) {
           {
             type: "experience",
             routePath: "/experience/",
-            data: { experiences },
+            data: {
+              experiences: experiences.map(mapExperience),
+            },
           },
         ],
       };
@@ -180,7 +210,9 @@ export function createPageStore({ getContent }) {
           {
             type: "projects",
             routePath: "/projects/",
-            data: { projects },
+            data: {
+              projects: projects.map(mapProject),
+            },
           },
         ],
       };

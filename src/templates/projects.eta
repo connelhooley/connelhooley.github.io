@@ -17,8 +17,8 @@
         </div>
         <div>
           <%~ include("./partials/tags", {
-            languages: project?.languages,
-            technologies: project?.technologies,
+            languages: project.languages,
+            technologies: project.technologies,
           }) %>
         </div>
       </div>
