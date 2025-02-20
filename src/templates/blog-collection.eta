@@ -10,6 +10,11 @@
 </header>
 <div class="container gutter">
   <div class="section narrow paged-items">
+  <% if (!it.posts.length) { %>
+    <div>
+      No posts to display
+    </div>
+  <% } %>
     <% it.posts.forEach(post => { %>
       <div class="blog-post-paged-item">
         <a class="blog-post-paged-item-link" href="<%= post.routePath %>">
@@ -34,11 +39,11 @@
       </div>
     <% }); %>
     <div class="page-buttons">
-      <% if (it.pagedNumber > 1) { %>
-        <a class="button" href="<%= it.prevPageRoute %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Newer</a>
+      <% if (it.prevRoutePath) { %>
+        <a class="button" href="<%= it.prevRoutePath %>"><i class="fa-solid fw fa-angles-left"></i>&nbsp;Newer</a>
       <% } %>
-      <% if (it.pagedNumber === it.pagedCount) { %>
-        <a class="button" href="<%= it.nextPageRoute %>">Older&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
+      <% if (it.nextRoutePath) { %>
+        <a class="button" href="<%= it.nextRoutePath %>">Older&nbsp;<i class="fa-solid fw fa-angles-right"></i></a>
       <% } %>
     </div>
   </div>

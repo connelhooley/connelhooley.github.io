@@ -1,3 +1,5 @@
+import path from "path";
+
 export function createPageStore({ getContent }) {
   const store = {};
 
@@ -10,10 +12,22 @@ export function createPageStore({ getContent }) {
   };
 
   const getPagedItems = (items, pagedNumber, pageSize = 5) => {
-    const start = ((pagedNumber - 1) * pageSize) + 1;
+    const start = (pagedNumber - 1) * pageSize;
     const end = start + pageSize;
     return items.slice(start, end);
   };
+
+  const getPagedRoutePath = (baseRoutePath, pagedNumber = 1, pagedCount) => {
+    if (pagedNumber < 1) {
+      return null;
+    } else if (pagedNumber === 1) {
+      return path.join(baseRoutePath, "/");
+    } else if (pagedNumber <= pagedCount) {
+      return path.join(baseRoutePath, "page", pagedNumber.toString(), "/")
+    } else {
+      return null;
+    }
+  }
 
   const mapPost = ({languages, technologies, ...post}) => {
     const [year, month, day, name] = post.pageId.match(/^post:(\d{4}):(\d{2}):(\d{2}):(.+)$/)?.slice(1);
@@ -66,23 +80,22 @@ export function createPageStore({ getContent }) {
     if (pageId === "blog") {
       const pagedNumbers = generatePagedNumbers(posts);
       const pagedCount = pagedNumbers.at(-1);
+      const baseRoutePath = "/blog/";
       return {
         routes: [
           ...pagedNumbers.map(pagedNumber => ({
             type: "blog-collection",
-            routePath: pagedNumber === 1
-              ? "/blog/"
-              : `/blog/page/${pagedNumber}/`,
+            routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
             data: {
               title: "Blog",
-              pagedNumber,
-              pagedCount,
               posts: getPagedItems(posts, pagedNumber).map(mapPost),
+              prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
+              nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
             },
           })),
           {
             type: "rss",
-            routePath: "/feed.xml",
+            routePath: "/rss.xml",
             data: {
               posts: posts.map(mapPost),
             },
@@ -99,21 +112,20 @@ export function createPageStore({ getContent }) {
       const languagePosts = posts.filter(post => post.languages?.includes(language));
       const pagedNumbers = generatePagedNumbers(languagePosts);
       const pagedCount = pagedNumbers.at(-1);
+      const baseRoutePath = `/blog/languages/${escapeRoutePathValue(language)}/`;
       return {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
-          routePath: pagedNumber === 1
-            ? `/blog/languages/${escapeRoutePathValue(language)}/`
-            : `/blog/languages/${escapeRoutePathValue(language)}/page/${pagedNumber}/`,
+          routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
           filePath: pagedNumber === 1
             ? `/blog/languages/${escapeFilePathValue(language)}/`
             : `/blog/languages/${escapeFilePathValue(language)}/page/${pagedNumber}/`,
           data: {
             title: language,
             isLanguage: true,
-            pagedNumber,
-            pagedCount,
             posts: getPagedItems(languagePosts, pagedNumber).map(mapPost),
+            prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
+            nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
           },
         })),
       };
@@ -127,25 +139,28 @@ export function createPageStore({ getContent }) {
       const technologyPosts = posts.filter(post => post.technologies?.includes(technology));
       const pagedNumbers = generatePagedNumbers(technologyPosts);
       const pagedCount = pagedNumbers.at(-1);
-      return {
+      const baseRoutePath = `/blog/technologies/${escapeRoutePathValue(technology)}/`;
+      const x = {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
-          routePath: pagedNumber === 1
-            ? `/blog/technologies/${escapeRoutePathValue(technology)}/`
-            : `/blog/technologies/${escapeRoutePathValue(technology)}/page/${pagedNumber}/`,
+          routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
           filePath: pagedNumber === 1
-            ? `/blog/languages/${escapeFilePathValue(technology)}/`
-            : `/blog/languages/${escapeFilePathValue(technology)}/page/${pagedNumber}/`,
+            ? `/blog/technologies/${escapeFilePathValue(technology)}/`
+            : `/blog/technologies/${escapeFilePathValue(technology)}/page/${pagedNumber}/`,
           data: {
             title: technology,
             isTechnology: true,
-            pagedNumber,
-            pagedCount,
-            technology,
             posts: getPagedItems(technologyPosts, pagedNumber).map(mapPost),
+            prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
+            nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
           },
         })),
       };
+      if (technology === "styled-components")
+      {
+        return x;
+      }
+      return x;
     }
   };
 

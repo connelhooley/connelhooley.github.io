@@ -54,8 +54,9 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       process.on("SIGINT", () => {
         this.stop();
       });
-      watcher = chokidar.watch(distDir, { awaitWriteFinish: true, persistent: true });
+      watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
       const onChange = async filePath => {
+        console.log("File change detected '%s'", filePath);
         await contentChange(filePath) ||
           await contentAssetChange(filePath) ||
           await templateChange(filePath) ||
@@ -64,6 +65,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
           await scriptChange(filePath);
       };
       const onDelete = async filePath => {
+        console.log("File deletion detected '%s'", filePath);
         // TODO
       };
       watcher.on("add", filePath => onChange(filePath).catch(console.error));
