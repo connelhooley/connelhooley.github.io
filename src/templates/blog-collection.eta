@@ -26,8 +26,8 @@
           </div>
           <div class="blog-post-paged-item-meta-tags">
             <%~ include("./partials/tags", {
-              languages: post?.languages,
-              technologies: post?.technologies,
+              languages: post.languages,
+              technologies: post.technologies,
             }) %>
           </div>
         </div>

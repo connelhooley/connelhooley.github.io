@@ -1,3 +1,8 @@
+import { glob, readFile, mkdir, writeFile } from "fs/promises";
+import path from "path";
+
+import { minimatch } from "minimatch";
+
 import postcss from "postcss";
 import postcssNesting from "postcss-nesting";
 import postcssImport from "postcss-import";
@@ -35,7 +40,7 @@ export async function createStyleBuilder({ srcDir, distDir }) {
     },
     async styleChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "styles/**/!(_)*.css")) {
-        await buildStyle(filePath);
+        await buildStyle(filePath); // TODO fix watching partial CSS files
         return true;
       }
     },

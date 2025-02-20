@@ -4,10 +4,10 @@ import { rm, mkdir } from "fs/promises";
 import chokidar from "chokidar";
 import browserSync from "browser-sync";
 
-import { createContentBuilder } from "./content";
-import { createScriptBuilder } from "./scripts";
-import { createStaticBuilder } from "./static";
-import { createStyleBuilder } from "./styles";
+import { createContentBuilder } from "./content/index.js";
+import { createScriptBuilder } from "./scripts/index.js";
+import { createStaticBuilder } from "./static/index.js";
+import { createStyleBuilder } from "./styles/index.js";
 
 export async function createStaticSiteGenerator({ srcDir, distDir }) {
   const {
@@ -30,13 +30,13 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       console.log("Cleared dist");
 
       console.log("Building site");
-      await Promise.all(
+      await Promise.all([
         buildContent(),
         copyContentAssets(),
         copyStaticAssets(),
         buildScripts(),
         buildStyles(),
-      );
+      ]);
       console.log("Built site");
     },
     serve() {

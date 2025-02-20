@@ -1,4 +1,4 @@
-<% it.languages?.forEach(({ name, routePath }) => { %>
+<% it.languages?.forEach(({ name, routePath }) => { // TODO fix partial %>
   <a class="tag" href="/blog/languages/<%= routePath %>">
     <i class="fa-solid fw fa-code"></i>&nbsp;<%= name %>
   </a>

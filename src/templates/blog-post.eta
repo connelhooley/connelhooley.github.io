@@ -24,8 +24,8 @@
       </div>
       <div class="blog-post-tags">
         <%~ include("./partials/tags", {
-          languages: post?.languages,
-          technologies: post?.technologies,
+          languages: it.languages,
+          technologies: it.technologies,
         }) %>
       </div>
     </div>
