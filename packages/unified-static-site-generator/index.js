@@ -67,12 +67,17 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       }
     },
     serve() {
+      // Use new v2 syntax
       browser = browserSync({
         server: "dist",
         files: `${distDir}/**/*`,
         port: 3000,
         open: "local",
         notify: false,
+      });
+      process.on("SIGINT", () => {
+        this.stop();
+        process.exit();
       });
     },
     stop() {
