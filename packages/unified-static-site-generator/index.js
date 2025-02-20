@@ -1,4 +1,5 @@
 import path from "path";
+import process from "process";
 import { watch, rm, mkdir } from "fs/promises";
 
 import browserSync from "browser-sync";
@@ -53,7 +54,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
               await styleChange(filePath) ||
               await scriptChange(filePath);
             }
-            // Handle file deletions
+            // TODO Handle file deletions
           } catch (err) {
             console.error(err);
           }
@@ -67,7 +68,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       }
     },
     serve() {
-      // Use new v2 syntax
+      // TODO Use new v2 syntax
       browser = browserSync({
         server: "dist",
         files: `${distDir}/**/*`,
