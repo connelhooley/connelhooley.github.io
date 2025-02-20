@@ -39,8 +39,8 @@ export async function createStyleBuilder({ srcDir, distDir }) {
       }
     },
     async styleChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "styles/**/!(_)*.css")) {
-        await buildStyle(filePath); // TODO fix watching partial CSS files
+      if (minimatch(path.relative(filePath, srcDir), "styles/**/*.css")) {
+        await buildStyles();
         return true;
       }
     },
