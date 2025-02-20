@@ -54,7 +54,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
               await styleChange(filePath) ||
               await scriptChange(filePath);
             }
-            // TODO Handle file deletions
+            // TODO Handle file deletions with Chokidar
           } catch (err) {
             console.error(err);
           }
