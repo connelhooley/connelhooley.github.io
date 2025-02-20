@@ -39,10 +39,23 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       );
       console.log("Built site");
     },
+    serve() {
+      browser = browserSync.create();
+      browser.init({
+        server: "dist",
+        files: `${distDir}/**/*`,
+        port: 3000,
+        open: "local",
+        notify: false,
+      });
+    },
     async watch() {
       try {
         console.log("Watching site");
-        const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });
+        process.on("SIGINT", () => {
+          this.stop();
+        });
+        const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });  
         for await (const event of watcher) {
           try {
             if (fileDirent.isFile()) {
@@ -54,7 +67,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
               await styleChange(filePath) ||
               await scriptChange(filePath);
             }
-            // TODO Handle file deletions with Chokidar
+            // TODO Handle file deletions with Chokidar or browser sync
           } catch (err) {
             console.error(err);
           }
@@ -67,26 +80,13 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
         }
       }
     },
-    serve() {
-      // TODO Use new v2 syntax
-      browser = browserSync({
-        server: "dist",
-        files: `${distDir}/**/*`,
-        port: 3000,
-        open: "local",
-        notify: false,
-      });
-      process.on("SIGINT", () => {
-        this.stop();
-        process.exit();
-      });
-    },
     stop() {
       console.log("Stopping...");
       stopContentBuilder();
       ac.abort();
       browser?.exit();
       console.log("Stopped...");
+      process.exit();
     }
   }
 }
