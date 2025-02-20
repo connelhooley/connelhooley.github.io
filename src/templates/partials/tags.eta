@@ -1,10 +1,10 @@
-<% it.languages?.forEach(language => { %>
-  <a class="tag" href="/blog/languages/<%= encodeURIComponent(language.replace('#', 'Sharp')) %>">
-    <i class="fa-solid fw fa-code"></i>&nbsp;<%= language %>
+<% it.languages?.forEach(({ name, routePath }) => { %>
+  <a class="tag" href="/blog/languages/<%= routePath %>">
+    <i class="fa-solid fw fa-code"></i>&nbsp;<%= name %>
   </a>
 <% }); %>
-<% it.technologies?.forEach(technology => { // TODO put this is page store %>
-  <a class="tag" href="/blog/technologies/<%= encodeURIComponent(technology.replace('#', 'Sharp')) %>">
-    <i class="fa-solid fw fa-tag"></i>&nbsp;<%= technology %>
+<% it.technologies?.forEach(({ name, routePath }) => { %>
+  <a class="tag" href="<%= routePath %>">
+    <i class="fa-solid fw fa-tag"></i>&nbsp;<%= name %>
   </a>
 <% }); %>
