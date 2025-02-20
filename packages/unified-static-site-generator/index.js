@@ -1,7 +1,7 @@
-import path from "path";
 import process from "process";
-import { watch, rm, mkdir } from "fs/promises";
+import { rm, mkdir } from "fs/promises";
 
+import chokidar from "chokidar";
 import browserSync from "browser-sync";
 
 import { createContentBuilder } from "./content";
@@ -17,18 +17,18 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     contentAssetChange,
     templateChange,
     stopContentBuilder } = await createContentBuilder({ srcDir, distDir });
-    const { buildScripts, scriptChange } = await createScriptBuilder({ srcDir, distDir });
-    const { copyStaticAssets, staticAssetChange } = await createStaticBuilder({ srcDir, distDir });
-    const { buildStyles, styleChange } = await createStyleBuilder({ srcDir, distDir });
-    const ac = new AbortController();
-    let browser;
+  const { buildScripts, scriptChange } = await createScriptBuilder({ srcDir, distDir });
+  const { copyStaticAssets, staticAssetChange } = await createStaticBuilder({ srcDir, distDir });
+  const { buildStyles, styleChange } = await createStyleBuilder({ srcDir, distDir });
+  let browser;
+  let watcher;
   return {
-    async start() {    
+    async start() {
       console.log("Clearing dist");
       await rm(distDir, { recursive: true, force: true });
       await mkdir(distDir);
       console.log("Cleared dist");
-      
+
       console.log("Building site");
       await Promise.all(
         buildContent(),
@@ -50,41 +50,35 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       });
     },
     async watch() {
-      try {
-        console.log("Watching site");
-        process.on("SIGINT", () => {
-          this.stop();
-        });
-        const watcher = watch(srcDir, { signal: ac.signal, recursive: true, withFileTypes: true });  
-        for await (const event of watcher) {
-          try {
-            if (fileDirent.isFile()) {
-              const filePath = path.join(fileDirent.parentPath, fileDirent.name);
-              await contentChange(filePath) ||
-              await contentAssetChange(filePath) ||
-              await templateChange(filePath) ||
-              await staticAssetChange(filePath) ||
-              await styleChange(filePath) ||
-              await scriptChange(filePath);
-            }
-            // TODO Handle file deletions with Chokidar or browser sync
-          } catch (err) {
-            console.error(err);
-          }
-        }
-      } catch (err) {
-        if (err.name === "AbortError") {
-          return;
-        } else {
-          throw err;
-        }
-      }
+      console.log("Watching site");
+      process.on("SIGINT", () => {
+        this.stop();
+      });
+      watcher = chokidar.watch(distDir, { awaitWriteFinish: true, persistent: true });
+      const onChange = async filePath => {
+        await contentChange(filePath) ||
+          await contentAssetChange(filePath) ||
+          await templateChange(filePath) ||
+          await staticAssetChange(filePath) ||
+          await styleChange(filePath) ||
+          await scriptChange(filePath);
+      };
+      const onDelete = async filePath => {
+        // TODO
+      };
+      watcher.on("add", filePath => onChange(filePath).catch(console.error));
+      watcher.on("change", filePath => onChange(filePath).catch(console.error));
+      watcher.on("unlink", filePath => onDelete(filePath).catch(console.error));
     },
-    stop() {
+    async stop() {
       console.log("Stopping...");
       stopContentBuilder();
-      ac.abort();
-      browser?.exit();
+      if (watcher) {
+        await watcher.close();
+      }
+      if (browser) {
+        browser.exit();
+      }
       console.log("Stopped...");
       process.exit();
     }

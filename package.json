@@ -19,6 +19,7 @@
     "@mermaid-js/mermaid-cli": "^11.4.0",
     "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.3",
+    "chokidar": "^4.0.3",
     "eta": "^3.5.0",
     "glob": "^11.0.0",
     "hast-util-from-html": "^2.0.3",
