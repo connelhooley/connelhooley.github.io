@@ -15,10 +15,18 @@ export function createPageStore({ getContent }) {
     return items.slice(start, end);
   };
 
-  const mapPostCollectionItem = (post) => {
+  const mapPost = ({languages, technologies, ...post}) => {
     const [year, month, day, name] = post.pageId.match(/^post:(\d{4}):(\d{2}):(\d{2}):(.+)$/)?.slice(1);
     return {
       ...post,
+      languages: languages?.map(language => ({
+        name: language,
+        routePath: `/blog/languages/${escapeRoutePathValue(language)}/`
+      })),
+      technologies: technologies?.map(technology => ({
+        name: technology,
+        routePath: `/blog/technologies/${escapeRoutePathValue(technology)}/`
+      })),
       routePath: `/blog/${year}/${month}/${day}/${name}/`,
     };
   };
@@ -47,7 +55,7 @@ export function createPageStore({ getContent }) {
           {
             type: "post",
             routePath,
-            data: posts.find(post => post.pageId === pageId),
+            data: mapPost(posts.find(post => post.pageId === pageId)),
           }
         ],
       };
@@ -69,14 +77,14 @@ export function createPageStore({ getContent }) {
               title: "Blog",
               pagedNumber,
               pagedCount,
-              posts: getPagedItems(posts, pagedNumber).map(mapPostCollectionItem),
+              posts: getPagedItems(posts, pagedNumber).map(mapPost),
             },
           })),
           {
             type: "rss",
             routePath: "/feed.xml",
             data: {
-              posts: posts.map(mapPostCollectionItem),
+              posts: posts.map(mapPost),
             },
           },
         ],
@@ -105,7 +113,7 @@ export function createPageStore({ getContent }) {
             isLanguage: true,
             pagedNumber,
             pagedCount,
-            posts: getPagedItems(languagePosts, pagedNumber).map(mapPostCollectionItem),
+            posts: getPagedItems(languagePosts, pagedNumber).map(mapPost),
           },
         })),
       };
@@ -134,7 +142,7 @@ export function createPageStore({ getContent }) {
             pagedNumber,
             pagedCount,
             technology,
-            posts: getPagedItems(technologyPosts, pagedNumber).map(mapPostCollectionItem),
+            posts: getPagedItems(technologyPosts, pagedNumber).map(mapPost),
           },
         })),
       };
