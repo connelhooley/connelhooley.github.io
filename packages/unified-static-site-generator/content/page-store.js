@@ -1,10 +1,8 @@
 export function createPageStore({ getContent }) {
   const store = {};
 
-  // TODO rename to escapeRoutePathValue
-  const escapeRouteValue = value => encodeURIComponent(value.replace("#", "Sharp"));
-  
-  // TODO Use this method
+  const escapeRoutePathValue = value => encodeURIComponent(escapeFilePathValue(value));
+
   const escapeFilePathValue = value => value.replace("#", "Sharp");
   
   const generatePagedNumbers = (items, pageSize = 5) => {
@@ -97,8 +95,11 @@ export function createPageStore({ getContent }) {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
           routePath: pagedNumber === 1
-            ? `/blog/languages/${escapeRouteValue(language)}/`
-            : `/blog/languages/${escapeRouteValue(language)}/page/${pagedNumber}/`,
+            ? `/blog/languages/${escapeRoutePathValue(language)}/`
+            : `/blog/languages/${escapeRoutePathValue(language)}/page/${pagedNumber}/`,
+          filePath: pagedNumber === 1
+            ? `/blog/languages/${escapeFilePathValue(language)}/`
+            : `/blog/languages/${escapeFilePathValue(language)}/page/${pagedNumber}/`,
           data: {
             title: language,
             isLanguage: true,
@@ -122,8 +123,11 @@ export function createPageStore({ getContent }) {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
           routePath: pagedNumber === 1
-            ? `/blog/technologies/${escapeRouteValue(technology)}/`
-            : `/blog/technologies/${escapeRouteValue(technology)}/page/${pagedNumber}/`,
+            ? `/blog/technologies/${escapeRoutePathValue(technology)}/`
+            : `/blog/technologies/${escapeRoutePathValue(technology)}/page/${pagedNumber}/`,
+          filePath: pagedNumber === 1
+            ? `/blog/languages/${escapeFilePathValue(technology)}/`
+            : `/blog/languages/${escapeFilePathValue(technology)}/page/${pagedNumber}/`,
           data: {
             title: technology,
             isTechnology: true,

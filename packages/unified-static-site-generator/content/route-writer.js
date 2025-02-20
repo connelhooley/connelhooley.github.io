@@ -393,15 +393,15 @@ export async function createRouteWriter({ srcDir, distDir }) {
 
   return {
     async writeRoutes({ routesUpdated, routesRemoved = [] }) {
-      await Promise.all(routesRemoved.map(async ({ routePath }) => {
+      await Promise.all(routesRemoved.map(async ({ filePath, routePath }) => {
         const isDir = routePath.endsWith("/");
         const distFilePath = isDir
-            ? path.join(distDir, routePath, "index.html")
-            : path.join(distDir, routePath);
+            ? path.join(distDir, filePath || routePath, "index.html")
+            : path.join(distDir, filePath || routePath);
           await rm(distFilePath, { recursive: isDir, force: true });
         console.info("Route '%s' removed, deleted '%s'", routePath, distFilePath);
       }));
-      await Promise.all(routesUpdated.map(async ({ type, routePath, data }) => {
+      await Promise.all(routesUpdated.map(async ({ type, filePath, routePath, data }) => {
         const rendered =
           await renderBlogPostRoute({ type, routePath, data }) ||
           await renderBlogCollectionRoute({ type, routePath, data }) ||
@@ -414,8 +414,8 @@ export async function createRouteWriter({ srcDir, distDir }) {
         if (rendered) {
           const isDir = routePath.endsWith("/");
           const distFilePath = isDir
-            ? path.join(distDir, routePath, "index.html")
-            : path.join(distDir, routePath);
+            ? path.join(distDir, filePath || routePath, "index.html")
+            : path.join(distDir, filePath || routePath);
           await mkdir(path.dirname(distFilePath), { recursive: true });
           await writeFile(distFilePath, rendered);
           console.info("Route '%s' rendered to '%s'", routePath, distFilePath);
