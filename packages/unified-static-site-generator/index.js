@@ -52,6 +52,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     watch() {
       console.log("Watching site");
       process.on("SIGINT", () => {
+        console.log("CTRL+C pressed");
         this.stop();
       });
       watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
