@@ -39,7 +39,7 @@ export function createContentStore({ srcDir }) {
     const experiences = Object.values(store["experience"]);
     const projects = Object.values(store["projects"]);
     const languages = [...posts, ...experiences, ...projects].flatMap(item => item.languages);
-    return [...new Set(languages),];
+    return [...new Set(languages)];
   };
 
   const getTechnologies = () => {
@@ -94,8 +94,12 @@ export function createContentStore({ srcDir }) {
             data?.languages?.forEach(language => pagesUpdated.add(`language:${language}`));
             data?.technologies?.forEach(technology => pagesUpdated.add(`technology:${technology}`));
           } else {
-            const changedLanguages = [...new Set(data.languages ?? []).symmetricDifference(existing.languages ?? [])];
-            const changedTechnologies = [...new Set(data.technologies ?? []).symmetricDifference(existing.technologies ?? [])];
+            const existingLanguages = existing?.languages ?? [];
+            const existingTechnologies = existing?.technologies ?? [];
+            const newLanguages = (data.languages ?? []);
+            const newTechnologies = (data.technologies ?? []);
+            const changedLanguages = newLanguages.filter(modifiedLanguage => !existingLanguages.includes(modifiedLanguage));
+            const changedTechnologies = newTechnologies.filter(modifiedTechnology => !existingTechnologies.includes(modifiedTechnology));
             changedLanguages.forEach(language => pagesUpdated.add(`language:${language}`));
             changedTechnologies.forEach(technology => pagesUpdated.add(`technology:${technology}`));
           }
@@ -103,8 +107,8 @@ export function createContentStore({ srcDir }) {
       }));
       const newLanguages = getLanguages();
       const newTechnologies = getTechnologies();
-      const removedLanguages = [...new Set(existingLanguages).difference(new Set(newLanguages))];
-      const removedTechnologies = [...new Set(existingTechnologies).difference(new Set(newTechnologies))];
+      const removedLanguages = existingLanguages.filter(existingLanguage => !newLanguages.includes(existingLanguage));
+      const removedTechnologies = existingTechnologies.filter(existingTechnology => !newTechnologies.includes(existingTechnology));
       removedLanguages.forEach(removedLanguage => {
         pagesUpdated.delete(removedLanguage);
         pagesRemoved.add(removedLanguage);

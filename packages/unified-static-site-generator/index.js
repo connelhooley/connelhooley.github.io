@@ -43,8 +43,8 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     serve() {
       browser = browserSync.create();
       browser.init({
-        server: "dist",
-        files: `${distDir}/**/*`,
+        server: distDir,
+        watch: true,
         port: 3000,
         open: "local",
         notify: false,
