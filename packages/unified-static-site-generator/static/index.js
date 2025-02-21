@@ -22,7 +22,6 @@ export async function createStaticBuilder({ srcDir, distDir }) {
     async staticAssetChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "static/**/*")) {
         await copyStaticAsset(filePath);
-        return true;
       }
     },
   }

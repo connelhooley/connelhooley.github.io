@@ -57,19 +57,16 @@ export async function createContentBuilder({ srcDir, distDir }) {
     async contentChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "content/**/*.md")) {
         await buildContentPages([filePath]);
-        return true;
       }
     },
     async templateChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "templates/**/*")) {
         await buildTemplates([filePath]);
-        return true;
       }
     },
     async contentAssetChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "content/**/*.!(md)")) {
         await copyContentAsset(filePath);
-        return true;
       }
     },
     stopContentBuilder() {

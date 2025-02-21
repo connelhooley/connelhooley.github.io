@@ -58,12 +58,14 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
       const onChange = async filePath => {
         console.log("File change detected '%s'", filePath);
-        await contentChange(filePath) ||
-          await contentAssetChange(filePath) ||
-          await templateChange(filePath) ||
-          await staticAssetChange(filePath) ||
-          await styleChange(filePath) ||
-          await scriptChange(filePath);
+        await Promise.all([
+          contentChange(filePath),
+          contentAssetChange(filePath),
+          templateChange(filePath),
+          staticAssetChange(filePath),
+          styleChange(filePath),
+          scriptChange(filePath),
+        ]);
       };
       const onDelete = async filePath => {
         console.log("File deletion detected '%s'", filePath);

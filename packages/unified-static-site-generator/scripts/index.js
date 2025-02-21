@@ -32,7 +32,6 @@ export async function createScriptBuilder({ srcDir, distDir }) {
     async scriptChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "scripts/**/*.js")) {
         await buildScript(filePath);
-        return true;
       }
     },
   }
