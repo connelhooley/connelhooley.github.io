@@ -40,7 +40,7 @@ export async function createStyleBuilder({ srcDir, distDir }) {
     },
     async styleChange(filePath) {
       if (minimatch(path.relative(filePath, srcDir), "styles/**/*.css")) {
-        await buildStyles();
+        await this.buildStyles();
         return true;
       }
     },
