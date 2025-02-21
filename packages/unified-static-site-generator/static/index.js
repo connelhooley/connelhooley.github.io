@@ -1,8 +1,6 @@
 import { glob, cp } from "fs/promises";
 import path from "path";
 
-import { minimatch } from "minimatch";
-
 export async function createStaticBuilder({ srcDir, distDir }) {  
   const copyStaticAsset = async (staticFilePath) => {
     const distFilePath = path.join(
@@ -20,9 +18,10 @@ export async function createStaticBuilder({ srcDir, distDir }) {
       }
     },
     async staticAssetChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "static/**/*")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "static/**/*")) {
         await copyStaticAsset(filePath);
       }
     },
-  }
+  };
 }

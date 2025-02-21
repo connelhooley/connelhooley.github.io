@@ -1,8 +1,6 @@
 import { glob, mkdir, writeFile } from "fs/promises";
 import path from "path";
 
-import { minimatch } from "minimatch";
-
 import babel from "@babel/core";
 
 export async function createScriptBuilder({ srcDir, distDir }) {
@@ -30,9 +28,10 @@ export async function createScriptBuilder({ srcDir, distDir }) {
       }
     },
     async scriptChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "scripts/**/*.js")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "scripts/**/*.js")) {
         await buildScript(filePath);
       }
     },
-  }
+  };
 }

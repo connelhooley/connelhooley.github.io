@@ -1,4 +1,5 @@
 import process from "process";
+import path from "path";
 import { rm, mkdir } from "fs/promises";
 
 import chokidar from "chokidar";
@@ -56,7 +57,8 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
         this.stop();
       });
       watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
-      const onChange = async filePath => {
+      const onChange = async relativeFilePath => {
+        const filePath = path.resolve(relativeFilePath);
         console.log("File change detected '%s'", filePath);
         await Promise.all([
           contentChange(filePath),

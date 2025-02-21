@@ -1,8 +1,6 @@
 import { glob, readFile, mkdir, writeFile } from "fs/promises";
 import path from "path";
 
-import { minimatch } from "minimatch";
-
 import postcss from "postcss";
 import postcssNesting from "postcss-nesting";
 import postcssImport from "postcss-import";
@@ -39,7 +37,8 @@ export async function createStyleBuilder({ srcDir, distDir }) {
       }
     },
     async styleChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "styles/**/*.css")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "styles/**/*.css")) {
         await this.buildStyles();
       }
     },

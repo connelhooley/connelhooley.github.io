@@ -1,8 +1,6 @@
 import { glob, cp } from "fs/promises";
 import path from "path";
 
-import { minimatch } from "minimatch";
-
 import { createContentStore } from "./content-store.js";
 import { createPageStore } from "./page-store.js";
 import { createRouteWriter } from "./route-writer.js";
@@ -55,22 +53,25 @@ export async function createContentBuilder({ srcDir, distDir }) {
       }
     },
     async contentChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "content/**/*.md")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "content/**/*.md")) {
         await buildContentPages([filePath]);
       }
     },
     async templateChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "templates/**/*")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "templates/**/*")) {
         await buildTemplates([filePath]);
       }
     },
     async contentAssetChange(filePath) {
-      if (minimatch(path.relative(filePath, srcDir), "content/**/*.!(md)")) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "content/**/*.!(md)")) {
         await copyContentAsset(filePath);
       }
     },
     stopContentBuilder() {
       stopWriter();
     }
-  }
+  };
 }
