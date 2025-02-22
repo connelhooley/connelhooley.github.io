@@ -4,7 +4,7 @@ website: https://github.com/connelhooley/AkkaTestingHelpers
 languages:
 - C#
 technologies:
-- Akka
+- Akka.NET
 order: 2
 github: true
 ---

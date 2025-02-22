@@ -3,10 +3,7 @@ import path from "path";
 export function createPageStore({ getContent }) {
   const store = {};
 
-  const escapeRoutePathValue = value => encodeURIComponent(escapeFilePathValue(value));
-
-  // TODO Investigate using https://nodejs.org/api/url.html#urlpathtofileurlpath-options
-  const escapeFilePathValue = value => value.replace("#", "Sharp");
+  const escapeRoutePathValue = value => encodeURIComponent(value);
 
   const generatePagedNumbers = (items, pageSize = 5) => {
     return Array.from({ length: Math.ceil((items.length || 1) / pageSize) }, (_, index) => index + 1);
@@ -18,7 +15,7 @@ export function createPageStore({ getContent }) {
     return items.slice(start, end);
   };
 
-  const getPagedRoutePath = (baseRoutePath, pagedNumber = 1, pagedCount) => {
+  const getPagedPath = (baseRoutePath, pagedNumber = 1, pagedCount) => {
     if (pagedNumber < 1) {
       return null;
     } else if (pagedNumber === 1) {
@@ -114,12 +111,12 @@ export function createPageStore({ getContent }) {
         routes: [
           ...pagedNumbers.map(pagedNumber => ({
             type: "blog-collection",
-            routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
+            routePath: getPagedPath(baseRoutePath, pagedNumber, pagedCount),
             data: {
               title: "Blog",
               posts: getPagedItems(posts, pagedNumber).map(mapPost),
-              prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
-              nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
+              prevRoutePath: getPagedPath(baseRoutePath, pagedNumber - 1, pagedCount),
+              nextRoutePath: getPagedPath(baseRoutePath, pagedNumber + 1, pagedCount),
             },
           })),
           {
@@ -145,16 +142,14 @@ export function createPageStore({ getContent }) {
       return {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
-          routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
-          filePath: pagedNumber === 1
-            ? `/blog/languages/${escapeFilePathValue(language)}/`
-            : `/blog/languages/${escapeFilePathValue(language)}/page/${pagedNumber}/`,
+          routePath: getPagedPath(baseRoutePath, pagedNumber, pagedCount),
+          filePath: getPagedPath(`/blog/languages/${language}/`, pagedNumber, pagedCount),
           data: {
             title: language,
             isLanguage: true,
             posts: getPagedItems(languagePosts, pagedNumber).map(mapPost),
-            prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
-            nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
+            prevRoutePath: getPagedPath(baseRoutePath, pagedNumber - 1, pagedCount),
+            nextRoutePath: getPagedPath(baseRoutePath, pagedNumber + 1, pagedCount),
           },
         })),
       };
@@ -172,16 +167,14 @@ export function createPageStore({ getContent }) {
       return {
         routes: pagedNumbers.map(pagedNumber => ({
           type: "blog-collection",
-          routePath: getPagedRoutePath(baseRoutePath, pagedNumber, pagedCount),
-          filePath: pagedNumber === 1
-            ? `/blog/technologies/${escapeFilePathValue(technology)}/`
-            : `/blog/technologies/${escapeFilePathValue(technology)}/page/${pagedNumber}/`,
+          routePath: getPagedPath(baseRoutePath, pagedNumber, pagedCount),
+          filePath: getPagedPath(`/blog/technologies/${technology}/`, pagedNumber, pagedCount),
           data: {
             title: technology,
             isTechnology: true,
             posts: getPagedItems(technologyPosts, pagedNumber).map(mapPost),
-            prevRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber - 1, pagedCount),
-            nextRoutePath: getPagedRoutePath(baseRoutePath, pagedNumber + 1, pagedCount),
+            prevRoutePath: getPagedPath(baseRoutePath, pagedNumber - 1, pagedCount),
+            nextRoutePath: getPagedPath(baseRoutePath, pagedNumber + 1, pagedCount),
           },
         })),
       };
