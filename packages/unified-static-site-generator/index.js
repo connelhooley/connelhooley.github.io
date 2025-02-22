@@ -42,18 +42,22 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     },
     serve() {
       browser = browserSync.create();
+      browser.watch("*", () => {
+        browser.reload();
+        browser.notify("Reloaded");
+      });
       browser.init({
         server: distDir,
         port: 3000,
         open: "local",
         notify: false,
       });
-      browser.watch("*", () => browser.reload());
     },
     watch() {
       console.log("Watching site");
       process.on("SIGINT", () => {
         console.log("CTRL+C pressed");
+        // TODO Fix
         this.stop();
       });
       watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
