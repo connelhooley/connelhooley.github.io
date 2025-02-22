@@ -51,12 +51,12 @@ export function createContentStore({ srcDir }) {
   };
 
   return {
-    async refreshContentStore({ contentFilePaths }) {
+    async refreshContentStore({ contentFilePathsUpdated }) {
       const existingLanguages = getLanguages();
       const existingTechnologies = getTechnologies();
       const pagesUpdated = new Set([]);
       const pagesRemoved = new Set([]);
-      await Promise.all(contentFilePaths.map(async filePath => {
+      await Promise.all(contentFilePathsUpdated.map(async filePath => {
         const fileContents = await readFile(filePath, { encoding: "utf-8" });
         const vFile = new VFile(fileContents);
         matter(vFile);

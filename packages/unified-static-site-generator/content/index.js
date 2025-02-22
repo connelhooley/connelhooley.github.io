@@ -16,9 +16,9 @@ export async function createContentBuilder({ srcDir, distDir }) {
     const { routesUpdated } = refreshPageStore({ pagesIdsUpdated: ["home"] });
     await writeRoutes({ routesUpdated });
   };
-  const buildContentPages = async (contentFilePaths) => {
-    const { pagesIdsUpdated, pagesIdsRemoved } = await refreshContentStore({ contentFilePaths });
-    const { routesUpdated, routesRemoved } = refreshPageStore({ pagesIdsUpdated: ["home", ...pagesIdsUpdated], pagesIdsRemoved });
+  const buildContentPages = async (contentFilePathsUpdated, contentFilePathsRemoved) => {
+    const { pagesIdsUpdated, pagesIdsRemoved } = await refreshContentStore({ contentFilePathsUpdated, contentFilePathsRemoved });
+    const { routesUpdated, routesRemoved } = refreshPageStore({ pagesIdsUpdated, pagesIdsRemoved });
     await writeRoutes({ routesUpdated, routesRemoved });
   };
   const buildTemplates = async (templateFilePaths) => {
@@ -42,7 +42,7 @@ export async function createContentBuilder({ srcDir, distDir }) {
           contentFilePaths.push(filePath);
         }
       }
-      await buildContentPages(contentFilePaths);
+      await buildContentPages(contentFilePaths, []);
     },
     async copyContentAssets() {
       for await (const fileDirent of glob(`${srcDir}/content/**/*.!(md)`, { withFileTypes: true })) {
@@ -55,7 +55,7 @@ export async function createContentBuilder({ srcDir, distDir }) {
     async contentChange(filePath) {
       const srcFilePath = path.relative(srcDir, filePath);
       if (path.matchesGlob(srcFilePath, "content/**/*.md")) {
-        await buildContentPages([filePath]);
+        await buildContentPages([filePath], []);
       }
     },
     async templateChange(filePath) {
