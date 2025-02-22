@@ -9,6 +9,7 @@ let generator;
 
 death(() => {
   // Death module only works before first await
+  console.log("");
   generator?.stop();
 });
 
