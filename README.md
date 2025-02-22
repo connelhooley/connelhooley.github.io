@@ -1,6 +1,6 @@
 # connelhooley.github.io
 
-A handwritten static site generator.
+My personal site built using a handwritten static site generator.
 
 To build the site run:
 
