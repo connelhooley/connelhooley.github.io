@@ -51,11 +51,30 @@ export function createContentStore({ srcDir }) {
   };
 
   return {
-    async refreshContentStore({ contentFilePathsUpdated }) {
+    async refreshContentStore({ contentFilePathsUpdated, contentFilePathsRemoved }) {
       const existingLanguages = getLanguages();
       const existingTechnologies = getTechnologies();
       const pagesUpdated = new Set([]);
       const pagesRemoved = new Set([]);
+      contentFilePathsRemoved.forEach(filePath => {
+        const contentType = path
+          .relative(path.join(srcDir, "content"), filePath)
+          .split(path.sep)[0];
+        const removedItem = store[contentType][filePath];
+        if (removedItem) {
+          delete store[contentType][filePath];
+          if (contentType === "blog") {
+            pagesUpdated.add("blog");
+            pagesRemoved.add(removedItem.pageId);
+          } else if (contentType == "experience" || contentType == "projects") {
+            pagesUpdated.add(contentType);
+          } else if (contentType == "slides") {
+            pagesRemoved.add(removedItem.pageId);
+          }
+          removedItem.languages?.forEach(language => pagesUpdated.add(`language:${language}`));
+          removedItem.technologies?.forEach(technology => pagesUpdated.add(`technology:${technology}`));
+        }
+      });
       await Promise.all(contentFilePathsUpdated.map(async filePath => {
         const fileContents = await readFile(filePath, { encoding: "utf-8" });
         const vFile = new VFile(fileContents);

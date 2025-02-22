@@ -11,16 +11,10 @@ import { createStaticBuilder } from "./static/index.js";
 import { createStyleBuilder } from "./styles/index.js";
 
 export async function createStaticSiteGenerator({ srcDir, distDir }) {
-  const {
-    buildContent,
-    copyContentAssets,
-    contentChange,
-    contentAssetChange,
-    templateChange,
-    stopContentBuilder } = await createContentBuilder({ srcDir, distDir });
-  const { buildScripts, scriptChange } = await createScriptBuilder({ srcDir, distDir });
-  const { copyStaticAssets, staticAssetChange } = await createStaticBuilder({ srcDir, distDir });
-  const { buildStyles, styleChange } = await createStyleBuilder({ srcDir, distDir });
+  const contentBuilder = await createContentBuilder({ srcDir, distDir });
+  const scriptBuilder = createScriptBuilder({ srcDir, distDir });
+  const staticBuilder = createStaticBuilder({ srcDir, distDir });
+  const styleBuilder = createStyleBuilder({ srcDir, distDir });
   let browser;
   let watcher;
   return {
@@ -32,11 +26,11 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
 
       console.log("Building site");
       await Promise.all([
-        buildContent(),
-        copyContentAssets(),
-        copyStaticAssets(),
-        buildScripts(),
-        buildStyles(),
+        contentBuilder.buildContent(),
+        contentBuilder.copyContentAssets(),
+        staticBuilder.copyStaticAssets(),
+        scriptBuilder.buildScripts(),
+        styleBuilder.buildStyles(),
       ]);
       console.log("Built site");
     },
@@ -49,9 +43,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       });
       browser = browserSync.create();      
       browser.init({
-        server: {
-          baseDir: distDir, 
-        },
+        server: distDir,
         port: 3000,
         open: "local",
         notify: false,
@@ -61,26 +53,33 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
         const filePath = path.resolve(relativeFilePath);
         console.log("File change detected '%s'", filePath);
         await Promise.all([
-          contentChange(filePath),
-          contentAssetChange(filePath),
-          templateChange(filePath),
-          staticAssetChange(filePath),
-          styleChange(filePath),
-          scriptChange(filePath),
+          contentBuilder.contentChanged(filePath),
+          contentBuilder.contentAssetChanged(filePath),
+          contentBuilder.templateChanged(filePath),
+          staticBuilder.staticAssetChanged(filePath),
+          styleBuilder.styleChanged(filePath),
+          scriptBuilder.scriptChanged(filePath),
         ]);
         browser.reload();
       };
-      const onDelete = async filePath => {
+      const onRemove = async filePath => {
         console.log("File deletion detected '%s'", filePath);
-        // TODO
+        await Promise.all([
+          contentBuilder.contentRemoved(filePath),
+          contentBuilder.contentAssetRemoved(filePath),
+          staticBuilder.staticAssetRemoved(filePath),
+          scriptBuilder.scriptRemoved(filePath),
+          styleBuilder.styleRemoved(filePath),
+        ]);
+        browser.reload();
       };
       watcher.on("add", filePath => onChange(filePath).catch(console.error));
       watcher.on("change", filePath => onChange(filePath).catch(console.error));
-      watcher.on("unlink", filePath => onDelete(filePath).catch(console.error));
+      watcher.on("unlink", filePath => onRemove(filePath).catch(console.error));
     },
     async stop() {
       console.log("Stopping...");
-      stopContentBuilder();
+      contentBuilder.stopContentBuilder();
       if (watcher) {
         await watcher.close();
       }

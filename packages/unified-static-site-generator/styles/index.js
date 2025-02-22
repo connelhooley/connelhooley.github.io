@@ -7,7 +7,7 @@ import postcssImport from "postcss-import";
 import postcssCustomMedia from "postcss-custom-media";
 import autoprefixer from "autoprefixer";
 
-export async function createStyleBuilder({ srcDir, distDir }) {  
+export function createStyleBuilder({ srcDir, distDir }) {  
   const cssProcessor = postcss([
     postcssImport,
     postcssCustomMedia,
@@ -36,9 +36,21 @@ export async function createStyleBuilder({ srcDir, distDir }) {
         }
       }
     },
-    async styleChange(filePath) {
+    async styleChanged(filePath) {
       const srcFilePath = path.relative(srcDir, filePath);
       if (path.matchesGlob(srcFilePath, "styles/**/*.css")) {
+        await this.buildStyles();
+      }
+    },
+    async styleRemoved(filePath) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "styles/**/*.css")) {
+        for await (const fileDirent of glob(`${distDir}/css/**/*.css`, { withFileTypes: true })) {
+          if (fileDirent.isFile()) {
+            const filePath = path.join(fileDirent.parentPath, fileDirent.name);
+            await rm(filePath);
+          }
+        }
         await this.buildStyles();
       }
     },

@@ -1,4 +1,4 @@
-import { glob, cp } from "fs/promises";
+import { glob, cp, rm } from "fs/promises";
 import path from "path";
 
 import { createContentStore } from "./content-store.js";
@@ -16,13 +16,13 @@ export async function createContentBuilder({ srcDir, distDir }) {
     const { routesUpdated } = refreshPageStore({ pagesIdsUpdated: ["home"] });
     await writeRoutes({ routesUpdated });
   };
-  const buildContentPages = async (contentFilePathsUpdated, contentFilePathsRemoved) => {
+  const buildContentPages = async (contentFilePathsUpdated, contentFilePathsRemoved = []) => {
     const { pagesIdsUpdated, pagesIdsRemoved } = await refreshContentStore({ contentFilePathsUpdated, contentFilePathsRemoved });
     const { routesUpdated, routesRemoved } = refreshPageStore({ pagesIdsUpdated, pagesIdsRemoved });
     await writeRoutes({ routesUpdated, routesRemoved });
   };
-  const buildTemplates = async (templateFilePaths) => {
-    const { impactedRouteTypes } = getImpactedRouteTypes({ templateFilePaths });
+  const buildTemplate = async (templateFilePath) => {
+    const { impactedRouteTypes } = getImpactedRouteTypes({ templateFilePaths: [templateFilePath] });
     const { routes } = getRoutes({ types: impactedRouteTypes });
     await writeRoutes({ routesUpdated: routes });
   };
@@ -31,6 +31,12 @@ export async function createContentBuilder({ srcDir, distDir }) {
       distDir,
       path.relative(path.join(srcDir, "content"), contentAssetFilePath));
     await cp(contentAssetFilePath, distFilePath);
+  };
+  const removeContentAsset = async (contentAssetFilePath) => {
+    const distFilePath = path.join(
+      distDir,
+      path.relative(path.join(srcDir, "content"), contentAssetFilePath));
+    await rm(distFilePath);
   };
   return {
     async buildContent() {
@@ -42,7 +48,7 @@ export async function createContentBuilder({ srcDir, distDir }) {
           contentFilePaths.push(filePath);
         }
       }
-      await buildContentPages(contentFilePaths, []);
+      await buildContentPages(contentFilePaths);
     },
     async copyContentAssets() {
       for await (const fileDirent of glob(`${srcDir}/content/**/*.!(md)`, { withFileTypes: true })) {
@@ -52,26 +58,38 @@ export async function createContentBuilder({ srcDir, distDir }) {
         }
       }
     },
-    async contentChange(filePath) {
+    async contentChanged(filePath) {
       const srcFilePath = path.relative(srcDir, filePath);
       if (path.matchesGlob(srcFilePath, "content/**/*.md")) {
-        await buildContentPages([filePath], []);
+        await buildContentPages([filePath]);
       }
     },
-    async templateChange(filePath) {
+    async contentRemoved(filePath) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "content/**/*.md")) {
+        await buildContentPages([], [filePath]);
+      }
+    },
+    async templateChanged(filePath) {
       const srcFilePath = path.relative(srcDir, filePath);
       if (path.matchesGlob(srcFilePath, "templates/**/*")) {
-        await buildTemplates([filePath]);
+        await buildTemplate(filePath);
       }
     },
-    async contentAssetChange(filePath) {
+    async contentAssetChanged(filePath) {
       const srcFilePath = path.relative(srcDir, filePath);
       if (path.matchesGlob(srcFilePath, "content/**/*.!(md)")) {
         await copyContentAsset(filePath);
       }
     },
+    async contentAssetRemoved(filePath) {
+      const srcFilePath = path.relative(srcDir, filePath);
+      if (path.matchesGlob(srcFilePath, "content/**/*.!(md)")) {
+        await removeContentAsset(filePath);
+      }
+    },
     stopContentBuilder() {
       stopWriter();
-    }
+    },
   };
 }
