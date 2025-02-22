@@ -44,11 +44,11 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       browser = browserSync.create();
       browser.init({
         server: distDir,
-        watch: true,
         port: 3000,
         open: "local",
         notify: false,
       });
+      browser.watch("*", () => browser.reload());
     },
     watch() {
       console.log("Watching site");
