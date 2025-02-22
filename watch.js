@@ -3,7 +3,6 @@ import { createStaticSiteGenerator } from "@connelhooley/unified-static-site-gen
 const srcDir = "./src";
 const distDir = "./dist";
 
-const { start, watch, serve } = await createStaticSiteGenerator({ srcDir, distDir });
+const { start, dev } = await createStaticSiteGenerator({ srcDir, distDir });
 await start();
-serve();
-watch();
+dev();

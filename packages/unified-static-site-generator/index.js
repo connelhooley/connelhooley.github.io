@@ -40,25 +40,21 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
       ]);
       console.log("Built site");
     },
-    serve() {
-      browser = browserSync.create();
-      browser.watch("*", () => {
-        browser.reload();
-        browser.notify("Reloaded");
-      });
-      browser.init({
-        server: distDir,
-        port: 3000,
-        open: "local",
-        notify: false,
-      });
-    },
-    watch() {
+    dev() {
       console.log("Watching site");
       process.on("SIGINT", () => {
         console.log("CTRL+C pressed");
         // TODO Fix
         this.stop();
+      });
+      browser = browserSync.create();      
+      browser.init({
+        server: {
+          baseDir: distDir, 
+        },
+        port: 3000,
+        open: "local",
+        notify: false,
       });
       watcher = chokidar.watch(srcDir, { awaitWriteFinish: true, ignoreInitial: true, persistent: true });
       const onChange = async relativeFilePath => {
@@ -72,6 +68,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
           styleChange(filePath),
           scriptChange(filePath),
         ]);
+        browser.reload();
       };
       const onDelete = async filePath => {
         console.log("File deletion detected '%s'", filePath);

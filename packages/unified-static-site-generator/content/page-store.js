@@ -5,6 +5,7 @@ export function createPageStore({ getContent }) {
 
   const escapeRoutePathValue = value => encodeURIComponent(escapeFilePathValue(value));
 
+  // TODO Investigate using https://nodejs.org/api/url.html#urlpathtofileurlpath-options
   const escapeFilePathValue = value => value.replace("#", "Sharp");
 
   const generatePagedNumbers = (items, pageSize = 5) => {
