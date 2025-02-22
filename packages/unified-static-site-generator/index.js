@@ -36,12 +36,7 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     },
     dev() {
       console.log("Watching site");
-      process.on("SIGINT", () => {
-        console.log("CTRL+C pressed");
-        // TODO Fix
-        this.stop();
-      });
-      browser = browserSync.create();      
+      browser = browserSync.create();
       browser.init({
         server: distDir,
         port: 3000,
@@ -80,14 +75,9 @@ export async function createStaticSiteGenerator({ srcDir, distDir }) {
     async stop() {
       console.log("Stopping...");
       contentBuilder.stopContentBuilder();
-      if (watcher) {
-        await watcher.close();
-      }
-      if (browser) {
-        browser.exit();
-      }
-      console.log("Stopped...");
-      process.exit();
+      watcher?.close();
+      browser?.exit();
+      console.log("Stopped");
     }
   }
 }
