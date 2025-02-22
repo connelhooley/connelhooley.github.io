@@ -8,6 +8,5 @@
         "tailwindcss",
         "vfile"
     ],
-    // "explorer.excludeGitIgnore": true
-    "explorer.excludeGitIgnore": false
+    "explorer.excludeGitIgnore": true
 }
