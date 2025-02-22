@@ -9,6 +9,7 @@
     "serve": "http-server ./dist",
     "start": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "upgrade": "ncu --upgrade",
     "watch": "NODE_ENV=development node watch.js"
   },
   "author": "",
