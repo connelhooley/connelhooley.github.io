@@ -5,6 +5,7 @@ import { Eta } from "eta";
 import RSS from "rss";
 
 import { unified } from "unified";
+import { reporter } from "vfile-reporter";
 import { h } from "hastscript";
 import { toString } from "hast-util-to-string";
 
@@ -13,11 +14,26 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm"
 import remarkStringify from "remark-stringify";
 import remarkRehype from "remark-rehype";
+import remarkRetext from "remark-retext";
 
 import remarkRemoveFrontmatter from "@connelhooley/remark-remove-frontmatter";
 
 import fsharp from "highlight.js/lib/languages/fsharp";
 import { common } from "lowlight";
+
+import enGb from "dictionary-en-gb";
+import retextContractions from "retext-contractions";
+import retextEnglish from "retext-english";
+import retextEquality from "retext-equality";
+import retextIndefiniteArticle from "retext-indefinite-article";
+import retextIntensify from "retext-intensify";
+import retextPassive from "retext-passive";
+import retextQuotes from "retext-quotes";
+import retextReadability from "retext-readability";
+import retextRedundantAcronyms from "retext-redundant-acronyms";
+import retextRepeatedWords from "retext-repeated-words";
+import retextSimplify from "retext-simplify";
+import retextSpell from "retext-spell";
 
 import rehypeParse from "rehype-parse";
 import rehypeSlug from "rehype-slug";
@@ -123,6 +139,19 @@ export async function createRouteWriter({ srcDir, distDir }) {
     const parsedFile = await unified()
       .use(remarkParse)
       .use(remarkFrontmatter)
+      .use(remarkRetext, data.date.getFullYear() < 2025 ? unified() : unified()
+        .use(retextEnglish)
+        .use(retextSpell, { dictionary: enGb })
+        .use(retextContractions)
+        .use(retextIndefiniteArticle)
+        .use(retextIntensify)
+        .use(retextPassive)
+        .use(retextReadability)
+        .use(retextRedundantAcronyms)
+        .use(retextRepeatedWords)
+        .use(retextSimplify)
+        .use(retextEquality)
+        .use(retextQuotes))
       .use(remarkGfm)
       .use(remarkRehype)
       .use(rehypeInferReadingTimeMeta, { age: 21 })
@@ -163,6 +192,8 @@ export async function createRouteWriter({ srcDir, distDir }) {
       })
       .use(rehypeStringify)
       .process(await readFile(data.filePath));
+
+    console.warn(reporter(parsedFile));
 
     const renderedTemplate = await eta.renderAsync("blog-post", {
       ...data,

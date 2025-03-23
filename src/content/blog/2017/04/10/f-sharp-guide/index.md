@@ -375,7 +375,7 @@ Other things to note:
 
 F# does not have a ternary operator, since everything is already an expression in F#. The F# equivalent to the C# ternary operator is the if expression. When using an if expression, all the branches of the expression must return the same type. For example:
 
-```ocaml
+```fsharp
 module Helpers =
     let isConnel x =
         if x = "Connel" then
@@ -811,7 +811,7 @@ F# has three main collection types.
 
 `Seq` is an alias of IEnumerable. Therefore they are lazy loaded. To create a seq you must use a syntax we haven't seen before. You must type _seq_, followed by curly braces, then inside the curly braces write an expression that returns a sequence.
 
-```ocaml
+```fsharp
 let numbersSeq = seq {
     yield 1
     yield 2
