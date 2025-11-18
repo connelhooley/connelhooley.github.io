@@ -24,7 +24,7 @@
     "death": "^1.1.0",
     "dictionary-en-gb": "^3.0.0",
     "eta": "^3.5.0",
-    "glob": "^11.0.1",
+    "glob": "^11.1.0",
     "hast-util-from-html": "^2.0.3",
     "hast-util-heading-rank": "^3.0.0",
     "hast-util-select": "^6.0.4",
