@@ -33,7 +33,7 @@
     "hastscript": "^9.0.1",
     "http-server": "^14.1.1",
     "install": "^0.13.0",
-    "npm": "^11.2.0",
+    "npm": "^11.7.0",
     "npm-check-updates": "^17.1.16",
     "postcss": "^8.5.3",
     "postcss-custom-media": "^11.0.5",
